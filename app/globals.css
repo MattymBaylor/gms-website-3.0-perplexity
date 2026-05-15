@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 212, 255, 0.08), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 30%, rgba(0, 212, 255, 0.04), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 255, 0.25);
+    color: #fff;
+  }
+
+  /* Focus rings */
+  *:focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-prose {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+  }
+
+  /* Section: every section is its own "room" — generous vertical breathing room */
+  .section {
+    @apply py-24 md:py-32;
+  }
+
+  .card {
+    @apply rounded-card border border-border bg-bg-card/60 backdrop-blur-sm;
+    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .card:hover {
+    @apply border-border-strong;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.06);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-cta px-5 py-3 text-sm font-semibold text-white;
+    transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    box-shadow: 0 6px 24px rgba(249, 115, 22, 0.25);
+  }
+  .btn-primary:hover {
+    @apply bg-cta-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border border-border-strong px-5 py-3 text-sm font-medium text-ink;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .btn-ghost:hover {
+    @apply border-accent/60 bg-white/5;
+  }
+
+  .link-accent {
+    @apply text-accent;
+    transition: opacity 150ms ease;
+  }
+  .link-accent:hover {
+    opacity: 0.8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-accent;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-btn border border-border-strong bg-bg-elevated/70 px-4 py-3 text-sm text-ink placeholder:text-ink-dim;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .input:focus {
+    @apply border-accent outline-none;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+  }
+
+  /* Blueprint pulse animations */
+  @keyframes dashFlow {
+    to { stroke-dashoffset: -100; }
+  }
+  .blueprint-path {
+    stroke-dasharray: 6 8;
+    animation: dashFlow 4s linear infinite;
+  }
+
+  /* Subtle dot grid background for the blueprint */
+  .bp-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
