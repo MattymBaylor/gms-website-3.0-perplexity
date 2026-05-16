@@ -36,7 +36,7 @@ const CASES: CaseStudy[] = [
       <div className="space-y-4 text-ink-muted">
         <p>
           <span className="font-semibold text-ink">The challenge.</span> Growth
-          Mindset's voice agents need more than a single LLM to feel real. They
+          Mindset&apos;s voice agents need more than a single LLM to feel real. They
           have to handle objections, route to humans, log to CRMs, run business
           research mid-call, and learn from every conversation — all in under
           400ms of latency.
@@ -53,30 +53,30 @@ const CASES: CaseStudy[] = [
           <span className="font-semibold text-ink">The interactive piece.</span>{' '}
           Built as a Seinfeld-themed pixel-art command center, you can click
           each character to chat with the underlying agent, discover trivia
-          hotspots, use the whiteboard, and trigger Kramer's door-burst. It's a
+          hotspots, use the whiteboard, and trigger Kramer&apos;s door-burst. It&apos;s a
           working demo of the architecture that runs Growth Mindset internally.
         </p>
       </div>
     ),
   },
   {
-    slug: 'coming-soon-1',
-    title: 'HVAC contractor case study',
+    slug: 'hvac-emergency-dispatch',
+    title: 'HVAC emergency dispatch',
     teaser:
-      'Real metrics from a customer running the voice agent across emergency dispatch and maintenance scheduling.',
+      'Real metrics from a contractor running the voice agent across emergency dispatch and maintenance scheduling.',
     metric: 'Soon',
     metricLabel: 'publishing Q3',
     posterClass:
       'bg-[radial-gradient(ellipse_at_20%_30%,rgba(0,212,255,0.18),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
       <p className="text-ink-muted">
-        Case study is being prepared with the customer's approval. Check back
+        Case study is being prepared with the customer&apos;s approval. Check back
         soon — or join the email list below to get notified when it publishes.
       </p>
     ),
   },
   {
-    slug: 'coming-soon-2',
+    slug: 'roofing-storm-response',
     title: 'Roofing storm response',
     teaser:
       'How a storm-chasing roofer handled a 6× spike in inbound calls without hiring a single dispatcher.',
@@ -86,13 +86,13 @@ const CASES: CaseStudy[] = [
       'bg-[radial-gradient(ellipse_at_70%_30%,rgba(249,115,22,0.18),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
       <p className="text-ink-muted">
-        Case study is being prepared with the customer's approval. Check back
+        Case study is being prepared with the customer&apos;s approval. Check back
         soon — or join the email list below to get notified when it publishes.
       </p>
     ),
   },
   {
-    slug: 'coming-soon-3',
+    slug: 'locksmith-after-hours',
     title: 'Locksmith after-hours capture',
     teaser:
       'Converting 2am lockout calls into booked jobs while every competitor in the market sends them to voicemail.',
@@ -102,7 +102,71 @@ const CASES: CaseStudy[] = [
       'bg-[radial-gradient(ellipse_at_50%_70%,rgba(16,185,129,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
       <p className="text-ink-muted">
-        Case study is being prepared with the customer's approval. Check back
+        Case study is being prepared with the customer&apos;s approval. Check back
+        soon — or join the email list below to get notified when it publishes.
+      </p>
+    ),
+  },
+  {
+    slug: 'plumbing-overflow',
+    title: 'Plumbing overflow management',
+    teaser:
+      'How a 3-truck plumbing company stopped losing weekend emergency calls to competitors with faster pickup.',
+    metric: 'Soon',
+    metricLabel: 'publishing Q4',
+    posterClass:
+      'bg-[radial-gradient(ellipse_at_30%_60%,rgba(59,130,246,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
+    body: (
+      <p className="text-ink-muted">
+        Case study is being prepared with the customer&apos;s approval. Check back
+        soon — or join the email list below to get notified when it publishes.
+      </p>
+    ),
+  },
+  {
+    slug: 'property-mgmt-scale',
+    title: 'Property management at scale',
+    teaser:
+      'Managing tenant maintenance requests across 200+ units with AI triage — no additional staff.',
+    metric: 'Soon',
+    metricLabel: 'publishing Q4',
+    posterClass:
+      'bg-[radial-gradient(ellipse_at_60%_40%,rgba(168,85,247,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
+    body: (
+      <p className="text-ink-muted">
+        Case study is being prepared with the customer&apos;s approval. Check back
+        soon — or join the email list below to get notified when it publishes.
+      </p>
+    ),
+  },
+  {
+    slug: 'electrical-commercial',
+    title: 'Electrical contractor lead capture',
+    teaser:
+      'Separating residential service calls from commercial bid requests automatically — routing each to the right team.',
+    metric: 'Soon',
+    metricLabel: 'publishing Q4',
+    posterClass:
+      'bg-[radial-gradient(ellipse_at_40%_30%,rgba(234,179,8,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
+    body: (
+      <p className="text-ink-muted">
+        Case study is being prepared with the customer&apos;s approval. Check back
+        soon — or join the email list below to get notified when it publishes.
+      </p>
+    ),
+  },
+  {
+    slug: 'insurance-intake',
+    title: 'Insurance agency intake automation',
+    teaser:
+      'Turning after-hours quote requests into next-morning appointments with full intake already completed.',
+    metric: 'Soon',
+    metricLabel: 'publishing Q4',
+    posterClass:
+      'bg-[radial-gradient(ellipse_at_50%_50%,rgba(236,72,153,0.14),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
+    body: (
+      <p className="text-ink-muted">
+        Case study is being prepared with the customer&apos;s approval. Check back
         soon — or join the email list below to get notified when it publishes.
       </p>
     ),
