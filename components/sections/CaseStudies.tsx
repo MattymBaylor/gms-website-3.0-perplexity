@@ -229,62 +229,72 @@ export function CaseStudies() {
           className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 md:-mx-10 md:px-10"
           style={{ scrollbarWidth: 'thin' }}
         >
-          {CASES.map((c, idx) => (
-            <motion.button
-              key={c.slug}
-              type="button"
-              onClick={() => setOpenSlug(c.slug)}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: idx * 0.06, duration: 0.4 }}
-              className={[
-                'group card flex shrink-0 snap-start flex-col text-left',
-                c.featured ? 'w-[340px] md:w-[420px]' : 'w-[300px] md:w-[340px]',
-              ].join(' ')}
-              aria-label={`Open case study: ${c.title}`}
-            >
-              {/* Poster */}
-              <div
+          {CASES.map((c, idx) => {
+            const hasImage = !!c.posterImage;
+            return (
+              <motion.button
+                key={c.slug}
+                type="button"
+                onClick={() => setOpenSlug(c.slug)}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: idx * 0.06, duration: 0.4 }}
                 className={[
-                  'relative h-44 w-full overflow-hidden rounded-t-card',
-                  c.posterClass || 'bg-bg-elevated',
+                  'group card flex shrink-0 snap-start flex-col text-left',
+                  c.featured ? 'w-[340px] md:w-[420px]' : 'w-[300px] md:w-[340px]',
                 ].join(' ')}
-                aria-hidden="true"
+                aria-label={`Open case study: ${c.title}`}
               >
-                {/* Real poster image if available */}
-                {c.posterImage && (
-                  <Image
-                    src={c.posterImage}
-                    alt=""
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 340px, 420px"
-                  />
-                )}
-                {c.featured && (
-                  <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
-                    <Sparkles size={12} /> Featured
-                  </span>
-                )}
-                <div className="absolute bottom-3 right-3 z-10 text-right">
-                  <div className="text-2xl font-bold text-ink">{c.metric}</div>
-                  <div className="text-[10px] uppercase tracking-wider text-ink-muted">
-                    {c.metricLabel}
+                {/* Poster — full height for cards with images, compact strip for "coming soon" cards */}
+                <div
+                  className={[
+                    'relative w-full overflow-hidden rounded-t-card',
+                    hasImage ? 'h-44' : 'h-20',
+                    c.posterClass || 'bg-bg-elevated',
+                  ].join(' ')}
+                  aria-hidden="true"
+                >
+                  {/* Real poster image if available */}
+                  {c.posterImage && (
+                    <Image
+                      src={c.posterImage}
+                      alt=""
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 340px, 420px"
+                    />
+                  )}
+                  {c.featured && (
+                    <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
+                      <Sparkles size={12} /> Featured
+                    </span>
+                  )}
+                  <div className={[
+                    'absolute right-3 z-10 text-right',
+                    hasImage ? 'bottom-3' : 'bottom-2',
+                  ].join(' ')}>
+                    <div className={[
+                      'font-bold text-ink',
+                      hasImage ? 'text-2xl' : 'text-lg',
+                    ].join(' ')}>{c.metric}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-ink-muted">
+                      {c.metricLabel}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Body */}
-              <div className="flex flex-1 flex-col gap-2 p-5">
-                <h3 className="text-h3 font-semibold text-ink">{c.title}</h3>
-                <p className="text-sm text-ink-muted">{c.teaser}</p>
-                <span className="mt-auto inline-flex items-center gap-1 text-xs text-accent">
-                  Read case study <ArrowRight size={12} />
-                </span>
-              </div>
-            </motion.button>
-          ))}
+                {/* Body */}
+                <div className="flex flex-1 flex-col gap-2 p-5">
+                  <h3 className="text-h3 font-semibold text-ink">{c.title}</h3>
+                  <p className="text-sm text-ink-muted">{c.teaser}</p>
+                  <span className="mt-auto inline-flex items-center gap-1 text-xs text-accent">
+                    {hasImage ? 'Read case study' : 'Coming soon'} <ArrowRight size={12} />
+                  </span>
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
 
@@ -309,7 +319,7 @@ export function CaseStudies() {
             ) : (
               <div
                 className={[
-                  'h-40 w-full rounded-card',
+                  'h-24 w-full rounded-card',
                   active.posterClass || 'bg-bg-elevated',
                 ].join(' ')}
                 aria-hidden="true"
