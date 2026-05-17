@@ -17,6 +17,8 @@ import {
  * voice agent lifecycle. Steps flow left→right (top row) then right→left
  * (bottom row). A fixed stat card on the right glows in sync with the
  * active node. Click any node to jump to it; auto-cycle resumes from there.
+ *
+ * V3: Taller layout to match the height of the left-column headline.
  */
 
 interface NodeDef {
@@ -76,27 +78,28 @@ export function HeroBlueprint() {
 
   const visibleIdx = hoverIdx ?? activeIdx;
 
-  /* ── Desktop layout positions (viewBox 0 0 640 320) ── */
+  /* ── Desktop layout positions (viewBox 0 0 520 440) ── */
+  /* Taller viewBox so the diagram fills the vertical space */
   const topRow = [
-    { x: 60,  y: 70 },
-    { x: 220, y: 70 },
-    { x: 380, y: 70 },
-    { x: 540, y: 70 },
+    { x: 60,  y: 80 },
+    { x: 195, y: 80 },
+    { x: 330, y: 80 },
+    { x: 465, y: 80 },
   ];
   const botRow = [
-    { x: 480, y: 230 },
-    { x: 310, y: 230 },
-    { x: 140, y: 230 },
+    { x: 400, y: 320 },
+    { x: 245, y: 320 },
+    { x: 90,  y: 320 },
   ];
   const positions = [...topRow, ...botRow];
 
-  /* The flow path: top row L→R, curve down-right, bottom row R→L */
+  /* The flow path: top row L→R, curve down, bottom row R→L */
   const FLOW_PATH = [
     `M ${topRow[0].x} ${topRow[0].y}`,
     `L ${topRow[1].x} ${topRow[1].y}`,
     `L ${topRow[2].x} ${topRow[2].y}`,
     `L ${topRow[3].x} ${topRow[3].y}`,
-    `C ${topRow[3].x + 50} ${topRow[3].y}, ${botRow[0].x + 50} ${botRow[0].y}, ${botRow[0].x} ${botRow[0].y}`,
+    `C ${topRow[3].x + 60} ${topRow[3].y}, ${botRow[0].x + 60} ${botRow[0].y}, ${botRow[0].x} ${botRow[0].y}`,
     `L ${botRow[1].x} ${botRow[1].y}`,
     `L ${botRow[2].x} ${botRow[2].y}`,
   ].join(' ');
@@ -104,14 +107,14 @@ export function HeroBlueprint() {
   return (
     <div className="relative w-full">
       {/* ── Desktop / tablet ── */}
-      <div className="relative hidden sm:block">
-        {/* Two-part layout: diagram left, stat card right */}
-        <div className="flex items-center gap-6">
-          {/* Diagram */}
+      <div className="relative hidden sm:flex flex-col gap-5">
+        {/* Two-part layout: diagram on top-left area, stat card integrated */}
+        <div className="flex items-stretch gap-5">
+          {/* Diagram — takes up the left portion */}
           <div className="flex-1 min-w-0">
             <svg
-              viewBox="0 0 640 320"
-              className="relative w-full"
+              viewBox="0 0 520 440"
+              className="relative w-full h-full"
               role="img"
               aria-label="Voice agent lifecycle: 7 steps from phone ring to review."
             >
@@ -180,7 +183,7 @@ export function HeroBlueprint() {
                     <circle
                       cx={pos.x}
                       cy={pos.y}
-                      r="24"
+                      r="26"
                       fill="#141417"
                       stroke={isActive ? '#00d4ff' : 'rgba(255,255,255,0.12)'}
                       strokeWidth={isActive ? 1.5 : 1}
@@ -189,9 +192,9 @@ export function HeroBlueprint() {
 
                     {/* Step number (small, top-left of circle) */}
                     <text
-                      x={pos.x - 16}
-                      y={pos.y - 28}
-                      fontSize="11"
+                      x={pos.x - 18}
+                      y={pos.y - 32}
+                      fontSize="12"
                       fontWeight="600"
                       fill={isActive ? '#00d4ff' : 'rgba(255,255,255,0.25)'}
                       style={{ transition: 'fill 250ms ease', fontVariantNumeric: 'tabular-nums' }}
@@ -219,9 +222,9 @@ export function HeroBlueprint() {
                     {/* Label below */}
                     <text
                       x={pos.x}
-                      y={pos.y + 42}
+                      y={pos.y + 46}
                       textAnchor="middle"
-                      fontSize="12"
+                      fontSize="13"
                       fontWeight="500"
                       fill={isActive ? '#f5f5f5' : '#6b7280'}
                       style={{ transition: 'fill 250ms ease' }}
@@ -235,39 +238,40 @@ export function HeroBlueprint() {
           </div>
 
           {/* ── Fixed stat card on the right ── */}
-          <div className="w-[220px] flex-shrink-0 self-center">
+          <div className="w-[260px] flex-shrink-0 flex items-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={visibleIdx}
-                initial={{ opacity: 0, y: 6 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
+                exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-xl border bg-bg-elevated/95 px-5 py-4 shadow-lg backdrop-blur"
+                className="w-full rounded-xl border px-6 py-6 shadow-lg backdrop-blur"
                 style={{
                   borderColor: 'rgba(0, 212, 255, 0.3)',
-                  boxShadow: '0 0 20px rgba(0, 212, 255, 0.08), 0 4px 12px rgba(0,0,0,0.3)',
+                  boxShadow: '0 0 24px rgba(0, 212, 255, 0.1), 0 4px 16px rgba(0,0,0,0.3)',
+                  background: 'rgba(20, 20, 23, 0.95)',
                 }}
               >
                 {/* Step label */}
-                <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00d4ff' }}>
                   Step {visibleIdx + 1}
                 </p>
-                <p className="mt-0.5 text-sm font-medium text-ink">
+                <p className="mt-1 text-base font-medium" style={{ color: '#f5f5f5' }}>
                   {NODES[visibleIdx].label}
                 </p>
 
                 {/* Divider */}
                 <div
-                  className="my-3 h-px w-full"
+                  className="my-4 h-px w-full"
                   style={{ background: 'rgba(0, 212, 255, 0.15)' }}
                 />
 
                 {/* Stat */}
-                <p className="text-[13px] leading-snug text-ink-muted">
+                <p className="text-sm leading-relaxed" style={{ color: '#a1a1aa' }}>
                   {NODES[visibleIdx].stat}
                 </p>
-                <p className="mt-2 text-[10px] text-ink-dim">
+                <p className="mt-3 text-xs" style={{ color: '#6b7280' }}>
                   Source: {NODES[visibleIdx].source}
                 </p>
               </motion.div>
@@ -323,7 +327,7 @@ export function HeroBlueprint() {
       </div>
 
       {/* Stat bar */}
-      <p className="mt-8 text-center text-xs uppercase tracking-[0.18em] text-ink-muted">
+      <p className="mt-6 text-center text-xs uppercase tracking-[0.18em]" style={{ color: '#6b7280' }}>
         20 simultaneous calls · 24/7/365 · Zero missed opportunities
       </p>
     </div>
