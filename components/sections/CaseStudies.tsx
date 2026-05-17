@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { Modal } from '../Modal';
@@ -15,6 +16,8 @@ interface CaseStudy {
   featured?: boolean;
   /** Custom poster gradient when no real image is supplied. */
   posterClass?: string;
+  /** Path to a poster image — takes priority over posterClass. */
+  posterImage?: string;
   body: React.ReactNode;
   /** If set, modal includes a deep-link to a dedicated interactive page. */
   interactiveHref?: string;
@@ -29,8 +32,9 @@ const CASES: CaseStudy[] = [
     metric: '8',
     metricLabel: 'specialized agents',
     featured: true,
+    posterImage: '/seinfeld-hq/banner.png',
     posterClass:
-      'bg-[radial-gradient(ellipse_at_30%_30%,rgba(232,168,50,0.28),transparent_60%),radial-gradient(ellipse_at_70%_70%,rgba(0,212,170,0.22),transparent_60%),linear-gradient(135deg,#1a1308,#0d0a06)]',
+      'bg-[#14120c]',
     interactiveHref: '/seinfeld-hq',
     body: (
       <div className="space-y-4 text-ink-muted">
@@ -248,12 +252,22 @@ export function CaseStudies() {
                 ].join(' ')}
                 aria-hidden="true"
               >
+                {/* Real poster image if available */}
+                {c.posterImage && (
+                  <Image
+                    src={c.posterImage}
+                    alt=""
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 340px, 420px"
+                  />
+                )}
                 {c.featured && (
-                  <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
+                  <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
                     <Sparkles size={12} /> Featured
                   </span>
                 )}
-                <div className="absolute bottom-3 right-3 text-right">
+                <div className="absolute bottom-3 right-3 z-10 text-right">
                   <div className="text-2xl font-bold text-ink">{c.metric}</div>
                   <div className="text-[10px] uppercase tracking-wider text-ink-muted">
                     {c.metricLabel}
@@ -282,13 +296,25 @@ export function CaseStudies() {
       >
         {active && (
           <div className="space-y-6">
-            <div
-              className={[
-                'h-40 w-full rounded-card',
-                active.posterClass || 'bg-bg-elevated',
-              ].join(' ')}
-              aria-hidden="true"
-            />
+            {active.posterImage ? (
+              <div className="relative h-40 w-full overflow-hidden rounded-card">
+                <Image
+                  src={active.posterImage}
+                  alt=""
+                  fill
+                  className="object-cover object-center"
+                  sizes="780px"
+                />
+              </div>
+            ) : (
+              <div
+                className={[
+                  'h-40 w-full rounded-card',
+                  active.posterClass || 'bg-bg-elevated',
+                ].join(' ')}
+                aria-hidden="true"
+              />
+            )}
             {active.body}
             {active.interactiveHref && (
               <Link
