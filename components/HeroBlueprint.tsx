@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {
   Phone,
   Bot,
@@ -14,9 +14,9 @@ import {
 
 /**
  * Hero "blueprint" — a clean horizontal timeline showing the 7-step
- * voice agent lifecycle. Steps flow left→right with clear numbering.
- * Desktop: two rows (4 + 3) connected by a smooth path.
- * Mobile: vertical numbered list.
+ * voice agent lifecycle. Steps flow left→right (top row) then right→left
+ * (bottom row). A fixed stat card on the right glows in sync with the
+ * active node. Click any node to jump to it; auto-cycle resumes from there.
  */
 
 interface NodeDef {
@@ -28,30 +28,51 @@ interface NodeDef {
 }
 
 const NODES: NodeDef[] = [
-  { id: 1, label: 'Phone Rings',         stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',             icon: <Phone size={22} /> },
-  { id: 2, label: 'AI Answers',          stat: '78% of buyers choose the first business to respond',              source: 'Scorpion / CallRail',       icon: <Bot size={22} /> },
-  { id: 3, label: 'Qualifies Lead',      stat: '62% of customers call before making a purchase',                  source: 'Invoca',                     icon: <ListChecks size={22} /> },
-  { id: 4, label: 'Books the Job',       stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                     icon: <CalendarCheck size={22} /> },
-  { id: 5, label: 'Texts Details',       stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                     icon: <MessageSquare size={22} /> },
-  { id: 6, label: 'Confirms Appt',       stat: 'Without reminders, up to 30% of appointments are no-shows',       source: 'AAFP / industry data',       icon: <BellRing size={22} /> },
-  { id: 7, label: 'Gets Review',         stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={22} /> },
+  { id: 1, label: 'Phone Rings',    stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',             icon: <Phone size={22} /> },
+  { id: 2, label: 'AI Answers',     stat: '78% of buyers choose the first business to respond',              source: 'Scorpion / CallRail',       icon: <Bot size={22} /> },
+  { id: 3, label: 'Qualifies Lead', stat: '62% of customers call before making a purchase',                  source: 'Invoca',                     icon: <ListChecks size={22} /> },
+  { id: 4, label: 'Books the Job',  stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                     icon: <CalendarCheck size={22} /> },
+  { id: 5, label: 'Texts Details',  stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                     icon: <MessageSquare size={22} /> },
+  { id: 6, label: 'Confirms Appt',  stat: 'Without reminders, up to 30% of appointments are no-shows',       source: 'AAFP / industry data',       icon: <BellRing size={22} /> },
+  { id: 7, label: 'Gets Review',    stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={22} /> },
 ];
 
-const CYCLE_S = 12;
+/* ~3.5 seconds per step — slow enough to read each fact */
+const CYCLE_S = 25;
 
 export function HeroBlueprint() {
   const prefersReduced = useReducedMotion();
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
+  /* Start / restart the auto-cycle from the current activeIdx */
+  const startCycle = useCallback(() => {
     if (prefersReduced) return;
+    if (intervalRef.current) clearInterval(intervalRef.current);
     const slice = (CYCLE_S / NODES.length) * 1000;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % NODES.length);
     }, slice);
-    return () => clearInterval(interval);
   }, [prefersReduced]);
+
+  /* Boot the cycle on mount */
+  useEffect(() => {
+    startCycle();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [startCycle]);
+
+  /* Click handler — jump to node and restart the timer */
+  const handleNodeClick = useCallback(
+    (idx: number) => {
+      setActiveIdx(idx);
+      setHoverIdx(null);
+      startCycle();
+    },
+    [startCycle],
+  );
 
   const visibleIdx = hoverIdx ?? activeIdx;
 
@@ -84,157 +105,175 @@ export function HeroBlueprint() {
     <div className="relative w-full">
       {/* ── Desktop / tablet ── */}
       <div className="relative hidden sm:block">
-        <svg
-          viewBox="0 0 640 320"
-          className="relative w-full"
-          role="img"
-          aria-label="Voice agent lifecycle: 7 steps from phone ring to review."
-        >
-          <defs>
-            <radialGradient id="nodeGlow2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#00d4ff" stopOpacity="0" />
-            </radialGradient>
-          </defs>
+        {/* Two-part layout: diagram left, stat card right */}
+        <div className="flex items-center gap-6">
+          {/* Diagram */}
+          <div className="flex-1 min-w-0">
+            <svg
+              viewBox="0 0 640 320"
+              className="relative w-full"
+              role="img"
+              aria-label="Voice agent lifecycle: 7 steps from phone ring to review."
+            >
+              <defs>
+                <radialGradient id="nodeGlow2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#00d4ff" stopOpacity="0" />
+                </radialGradient>
+              </defs>
 
-          {/* Flow line — muted base */}
-          <path
-            d={FLOW_PATH}
-            fill="none"
-            stroke="rgba(255,255,255,0.06)"
-            strokeWidth="2"
-            strokeDasharray="6 4"
-          />
-
-          {/* Animated pulse path */}
-          {!prefersReduced && (
-            <path
-              d={FLOW_PATH}
-              fill="none"
-              stroke="#00d4ff"
-              strokeWidth="2"
-              strokeOpacity="0.3"
-              strokeDasharray="6 4"
-            />
-          )}
-
-          {/* Traveling dot */}
-          {!prefersReduced && (
-            <circle r="5" fill="#00d4ff" opacity="0.9">
-              <animateMotion
-                dur={`${CYCLE_S}s`}
-                repeatCount="indefinite"
-                path={FLOW_PATH}
+              {/* Flow line — muted base */}
+              <path
+                d={FLOW_PATH}
+                fill="none"
+                stroke="rgba(255,255,255,0.06)"
+                strokeWidth="2"
+                strokeDasharray="6 4"
               />
-            </circle>
-          )}
 
-          {/* Step numbers along the path — small "1" "2" etc above each node */}
-          {NODES.map((n, idx) => {
-            const pos = positions[idx];
-            const isActive = visibleIdx === idx;
-            return (
-              <g
-                key={n.id}
-                onMouseEnter={() => setHoverIdx(idx)}
-                onMouseLeave={() => setHoverIdx(null)}
-                style={{ cursor: 'pointer' }}
-              >
-                {/* Glow behind active node */}
-                {isActive && (
-                  <circle
-                    cx={pos.x}
-                    cy={pos.y}
-                    r="38"
-                    fill="url(#nodeGlow2)"
+              {/* Animated pulse path */}
+              {!prefersReduced && (
+                <path
+                  d={FLOW_PATH}
+                  fill="none"
+                  stroke="#00d4ff"
+                  strokeWidth="2"
+                  strokeOpacity="0.3"
+                  strokeDasharray="6 4"
+                />
+              )}
+
+              {/* Traveling dot */}
+              {!prefersReduced && (
+                <circle r="5" fill="#00d4ff" opacity="0.9">
+                  <animateMotion
+                    dur={`${CYCLE_S}s`}
+                    repeatCount="indefinite"
+                    path={FLOW_PATH}
                   />
-                )}
+                </circle>
+              )}
 
-                {/* Circle bg */}
-                <circle
-                  cx={pos.x}
-                  cy={pos.y}
-                  r="24"
-                  fill="#141417"
-                  stroke={isActive ? '#00d4ff' : 'rgba(255,255,255,0.12)'}
-                  strokeWidth={isActive ? 1.5 : 1}
-                  style={{ transition: 'stroke 250ms ease, stroke-width 250ms ease' }}
+              {/* Nodes */}
+              {NODES.map((n, idx) => {
+                const pos = positions[idx];
+                const isActive = visibleIdx === idx;
+                return (
+                  <g
+                    key={n.id}
+                    onMouseEnter={() => setHoverIdx(idx)}
+                    onMouseLeave={() => setHoverIdx(null)}
+                    onClick={() => handleNodeClick(idx)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {/* Glow behind active node */}
+                    {isActive && (
+                      <circle
+                        cx={pos.x}
+                        cy={pos.y}
+                        r="38"
+                        fill="url(#nodeGlow2)"
+                      />
+                    )}
+
+                    {/* Circle bg */}
+                    <circle
+                      cx={pos.x}
+                      cy={pos.y}
+                      r="24"
+                      fill="#141417"
+                      stroke={isActive ? '#00d4ff' : 'rgba(255,255,255,0.12)'}
+                      strokeWidth={isActive ? 1.5 : 1}
+                      style={{ transition: 'stroke 250ms ease, stroke-width 250ms ease' }}
+                    />
+
+                    {/* Step number (small, top-left of circle) */}
+                    <text
+                      x={pos.x - 16}
+                      y={pos.y - 28}
+                      fontSize="11"
+                      fontWeight="600"
+                      fill={isActive ? '#00d4ff' : 'rgba(255,255,255,0.25)'}
+                      style={{ transition: 'fill 250ms ease', fontVariantNumeric: 'tabular-nums' }}
+                    >
+                      {String(idx + 1).padStart(2, '0')}
+                    </text>
+
+                    {/* Icon */}
+                    <foreignObject x={pos.x - 11} y={pos.y - 11} width="22" height="22">
+                      <div
+                        style={{
+                          color: isActive ? '#00d4ff' : '#6b7280',
+                          transition: 'color 250ms ease',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '100%',
+                          height: '100%',
+                        }}
+                      >
+                        {n.icon}
+                      </div>
+                    </foreignObject>
+
+                    {/* Label below */}
+                    <text
+                      x={pos.x}
+                      y={pos.y + 42}
+                      textAnchor="middle"
+                      fontSize="12"
+                      fontWeight="500"
+                      fill={isActive ? '#f5f5f5' : '#6b7280'}
+                      style={{ transition: 'fill 250ms ease' }}
+                    >
+                      {n.label}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
+
+          {/* ── Fixed stat card on the right ── */}
+          <div className="w-[220px] flex-shrink-0 self-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={visibleIdx}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-xl border bg-bg-elevated/95 px-5 py-4 shadow-lg backdrop-blur"
+                style={{
+                  borderColor: 'rgba(0, 212, 255, 0.3)',
+                  boxShadow: '0 0 20px rgba(0, 212, 255, 0.08), 0 4px 12px rgba(0,0,0,0.3)',
+                }}
+              >
+                {/* Step label */}
+                <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Step {visibleIdx + 1}
+                </p>
+                <p className="mt-0.5 text-sm font-medium text-ink">
+                  {NODES[visibleIdx].label}
+                </p>
+
+                {/* Divider */}
+                <div
+                  className="my-3 h-px w-full"
+                  style={{ background: 'rgba(0, 212, 255, 0.15)' }}
                 />
 
-                {/* Step number (small, top-left of circle) */}
-                <text
-                  x={pos.x - 16}
-                  y={pos.y - 28}
-                  fontSize="11"
-                  fontWeight="600"
-                  fill={isActive ? '#00d4ff' : 'rgba(255,255,255,0.25)'}
-                  style={{ transition: 'fill 250ms ease', fontVariantNumeric: 'tabular-nums' }}
-                >
-                  {String(idx + 1).padStart(2, '0')}
-                </text>
-
-                {/* Icon */}
-                <foreignObject x={pos.x - 11} y={pos.y - 11} width="22" height="22">
-                  <div
-                    style={{
-                      color: isActive ? '#00d4ff' : '#6b7280',
-                      transition: 'color 250ms ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '100%',
-                      height: '100%',
-                    }}
-                  >
-                    {n.icon}
-                  </div>
-                </foreignObject>
-
-                {/* Label below */}
-                <text
-                  x={pos.x}
-                  y={pos.y + 42}
-                  textAnchor="middle"
-                  fontSize="12"
-                  fontWeight="500"
-                  fill={isActive ? '#f5f5f5' : '#6b7280'}
-                  style={{ transition: 'fill 250ms ease' }}
-                >
-                  {n.label}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-
-        {/* Stat tooltip */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={visibleIdx}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="pointer-events-none absolute z-10 -translate-x-1/2 rounded-lg border border-accent/20 bg-bg-elevated/95 px-3 py-2 shadow-lg backdrop-blur"
-            style={{
-              left: `${(positions[visibleIdx].x / 640) * 100}%`,
-              top: positions[visibleIdx].y > 150
-                ? `${((positions[visibleIdx].y - 50) / 320) * 100}%`
-                : `${((positions[visibleIdx].y + 55) / 320) * 100}%`,
-              maxWidth: '220px',
-            }}
-          >
-            <p className="text-[11px] font-medium text-accent">
-              Step {visibleIdx + 1}: {NODES[visibleIdx].label}
-            </p>
-            <p className="mt-1 text-xs leading-snug text-ink">
-              {NODES[visibleIdx].stat}
-            </p>
-            <p className="mt-0.5 text-[10px] text-ink-dim">
-              {NODES[visibleIdx].source}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+                {/* Stat */}
+                <p className="text-[13px] leading-snug text-ink-muted">
+                  {NODES[visibleIdx].stat}
+                </p>
+                <p className="mt-2 text-[10px] text-ink-dim">
+                  Source: {NODES[visibleIdx].source}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
 
       {/* ── Mobile: numbered vertical flow ── */}
@@ -250,6 +289,7 @@ export function HeroBlueprint() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.06, duration: 0.35 }}
                 className="relative"
+                onClick={() => handleNodeClick(idx)}
               >
                 {/* Connecting line */}
                 {idx < NODES.length - 1 && (
