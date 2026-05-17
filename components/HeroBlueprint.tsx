@@ -13,10 +13,11 @@ import {
 } from 'lucide-react';
 
 /**
- * Hero "blueprint" — a circuit-board / molecular-diagram visualization of
- * the voice agent lifecycle. 7 nodes arranged on a cyclical (oval) path,
- * with a pulse continuously looping through them. As the pulse hits each
- * node, a stat tooltip fades in.
+ * Hero "blueprint" — a clean two-row linear flow visualization of
+ * the voice agent lifecycle. 7 nodes: 4 across the top (left→right),
+ * then 3 across the bottom (right→left), connected by straight lines
+ * with a curved connector on the right side. A pulse dot continuously
+ * travels the path. Stat tooltips appear on hover / auto-cycle.
  *
  * On mobile (<640px) we collapse to a vertical flow.
  */
@@ -27,39 +28,33 @@ interface NodeDef {
   stat: string;
   source: string;
   icon: React.ReactNode;
-  /** Position on the SVG canvas (viewBox 0 0 700 500) */
+  /** Position on the SVG canvas (viewBox 0 0 700 350) */
   x: number;
   y: number;
 }
 
 const NODES: NodeDef[] = [
-  { id: 1, label: 'Phone Rings',         stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',         icon: <Phone size={20} />,         x: 100, y: 250 },
-  { id: 2, label: 'AI Answers Instantly', stat: '78% of buyers choose the first business to respond',              source: 'Scorpion/CallRail',     icon: <Bot size={20} />,           x: 220, y: 110 },
-  { id: 3, label: 'Qualifies the Lead',   stat: '62% of customers call before making a purchase',                  source: 'Invoca',                 icon: <ListChecks size={20} />,    x: 410, y: 90  },
-  { id: 4, label: 'Books the Job',        stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                 icon: <CalendarCheck size={20} />, x: 590, y: 200 },
-  { id: 5, label: 'Texts You Details',    stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                 icon: <MessageSquare size={20} />, x: 580, y: 380 },
-  { id: 6, label: 'Confirmation Calls',   stat: 'Without confirmation reminders, up to 30% of appointments end in no-shows', source: 'AAFP / industry data', icon: <BellRing size={20} />,      x: 380, y: 420 },
-  { id: 7, label: 'Asks for Review',      stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={20} />,         x: 190, y: 390 },
+  { id: 1, label: 'Phone Rings',         stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',         icon: <Phone size={20} />,         x: 80,  y: 100 },
+  { id: 2, label: 'AI Answers Instantly', stat: '78% of buyers choose the first business to respond',              source: 'Scorpion/CallRail',     icon: <Bot size={20} />,           x: 260, y: 100 },
+  { id: 3, label: 'Qualifies the Lead',   stat: '62% of customers call before making a purchase',                  source: 'Invoca',                 icon: <ListChecks size={20} />,    x: 440, y: 100 },
+  { id: 4, label: 'Books the Job',        stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                 icon: <CalendarCheck size={20} />, x: 620, y: 100 },
+  { id: 5, label: 'Texts You Details',    stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                 icon: <MessageSquare size={20} />, x: 540, y: 260 },
+  { id: 6, label: 'Confirmation Calls',   stat: 'Without confirmation reminders, up to 30% of appointments end in no-shows', source: 'AAFP / industry data', icon: <BellRing size={20} />,      x: 340, y: 260 },
+  { id: 7, label: 'Asks for Review',      stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={20} />,         x: 140, y: 260 },
 ];
 
 /**
- * Smooth cyclic path connecting all 7 nodes back to node 1.
- * Built as one continuous "M ... C ... Z" so we can use a single SVG path
- * for the animated dash overlay (the pulse).
+ * Clean two-row flow path:
+ *   Top row (left→right): node 1 → 2 → 3 → 4
+ *   Right-side curve: node 4 → node 5 (drops down)
+ *   Bottom row (right→left): node 5 → 6 → 7
+ *
+ * Single continuous open path (no Z/close) so the pulse travels
+ * from start to end, then loops via repeatCount.
  */
-const FLOW_PATH = `
-  M 100 250
-  C 100 150, 150 90, 220 110
-  C 280 130, 350 80, 410 90
-  C 490 100, 570 120, 590 200
-  C 610 290, 620 350, 580 380
-  C 530 410, 460 410, 380 420
-  C 300 430, 220 430, 190 390
-  C 150 350, 100 320, 100 250
-  Z
-`.replace(/\s+/g, ' ').trim();
+const FLOW_PATH = `M 80 100 L 260 100 L 440 100 L 620 100 C 670 100, 670 260, 540 260 L 340 260 L 140 260`.replace(/\s+/g, ' ').trim();
 
-/** Total cycle duration (seconds) — pulse traverses the loop once. */
+/** Total cycle duration (seconds) — pulse traverses the path once. */
 const CYCLE_S = 12;
 
 export function HeroBlueprint() {
@@ -93,7 +88,7 @@ export function HeroBlueprint() {
         <div className="bp-grid absolute inset-0 rounded-card opacity-60" aria-hidden="true" />
 
         <svg
-          viewBox="0 0 700 500"
+          viewBox="0 0 700 350"
           className="relative w-full"
           role="img"
           aria-label="Voice agent lifecycle: 7 connected nodes showing how AI answers, qualifies, books, follows up, and reviews."
@@ -200,7 +195,7 @@ export function HeroBlueprint() {
                 {/* Label */}
                 <text
                   x={n.x}
-                  y={n.y + 44}
+                  y={n.y + 38}
                   textAnchor="middle"
                   fontSize="11"
                   fontWeight="500"
@@ -261,9 +256,9 @@ export function HeroBlueprint() {
 function ActiveStat({ node }: { node: NodeDef }) {
   // Position the tooltip relative to the SVG container — anchor by node coords as %.
   const leftPct = (node.x / 700) * 100;
-  const topPct = (node.y / 500) * 100;
-  // Slight offset to avoid covering the node itself
-  const isLowerHalf = node.y > 250;
+  const topPct = (node.y / 350) * 100;
+  // Top-row nodes (y=100): show tooltip below. Bottom-row nodes (y=260): show above.
+  const isBottomRow = node.y > 180;
   return (
     <motion.div
       key={node.id}
@@ -274,7 +269,7 @@ function ActiveStat({ node }: { node: NodeDef }) {
       className="pointer-events-none absolute z-10 w-56 -translate-x-1/2 rounded-card border border-accent/30 bg-bg-elevated/95 px-3 py-2.5 shadow-[0_8px_32px_rgba(0,212,255,0.12)] backdrop-blur"
       style={{
         left: `${leftPct}%`,
-        top: `calc(${topPct}% + ${isLowerHalf ? '-130px' : '70px'})`,
+        top: `calc(${topPct}% + ${isBottomRow ? '-110px' : '60px'})`,
       }}
     >
       <p className="text-[11px] uppercase tracking-wider text-accent">{node.label}</p>
