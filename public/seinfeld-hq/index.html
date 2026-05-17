@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ── RESET & BASE ─────────────────────────────────────────── */
+/* ── RESET & BASE ───────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --teal:#00d4aa;
@@ -29,7 +29,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 input,textarea{font:inherit;color:inherit}
 
-/* ── SPLASH ───────────────────────────────────────────────── */
+/* ── SPLASH ─────────────────────────────────────────────── */
 #splash{
   position:fixed;inset:0;z-index:9999;
   background:radial-gradient(ellipse at 40% 50%, rgba(232,168,50,.15) 0%, transparent 55%),
@@ -92,13 +92,13 @@ input,textarea{font:inherit;color:inherit}
 }
 .btn-enter:hover{background:#00b890;transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,170,.3)}
 
-/* ── MAIN LAYOUT ──────────────────────────────────────────── */
+/* ── MAIN LAYOUT ────────────────────────────────────────── */
 #app{
   position:fixed;inset:0;display:none;
   flex-direction:column;
 }
 
-/* ── TOP NAV ──────────────────────────────────────────────── */
+/* ── TOP NAV ────────────────────────────────────────────── */
 #topnav{
   position:relative;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
@@ -131,7 +131,7 @@ input,textarea{font:inherit;color:inherit}
 .nav-btn:hover{color:var(--teal);border-color:rgba(0,212,170,.4);background:rgba(0,212,170,.06)}
 .nav-btn.active{color:var(--teal);border-color:rgba(0,212,170,.5);background:rgba(0,212,170,.1)}
 
-/* ── WORLD STAGE ──────────────────────────────────────────── */
+/* ── WORLD STAGE ────────────────────────────────────────── */
 #stage{
   flex:1;overflow:hidden;position:relative;
   cursor:default;
@@ -147,7 +147,7 @@ input,textarea{font:inherit;color:inherit}
   -webkit-user-drag:none;
 }
 
-/* ── SPRITES ──────────────────────────────────────────────── */
+/* ── SPRITES ────────────────────────────────────────────── */
 .sprite{
   position:absolute;
   image-rendering:pixelated;
@@ -181,7 +181,7 @@ input,textarea{font:inherit;color:inherit}
   100%{transform:translateX(0) scaleX(1) rotate(0)}
 }
 
-/* ── SPRITE LABELS (JS-positioned, map-relative) ─────────── */
+/* ── SPRITE LABELS (JS-positioned, map-relative) ───────────── */
 .sprite-label{
   position:absolute;
   font-family:var(--pixel-font);
@@ -228,7 +228,7 @@ input,textarea{font:inherit;color:inherit}
 @keyframes hotspotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .hotspot:hover .hotspot-ring{border-color:var(--teal);opacity:1}
 
-/* ── TOOLTIP ──────────────────────────────────────────────── */
+/* ── TOOLTIP ────────────────────────────────────────────── */
 #tooltip{
   position:fixed;pointer-events:none;z-index:300;
   background:rgba(13,10,6,.95);
@@ -259,7 +259,7 @@ input,textarea{font:inherit;color:inherit}
 }
 @keyframes kfScale{0%{transform:scale(.5);opacity:0}20%{transform:scale(1.1);opacity:1}90%{transform:scale(1)}100%{transform:scale(.95);opacity:0}}
 
-/* ── PANEL SYSTEM ─────────────────────────────────────────── */
+/* ── PANEL SYSTEM ───────────────────────────────────────── */
 .panel-backdrop{
   position:fixed;inset:0;z-index:199;
   background:rgba(0,0,0,.5);
@@ -298,7 +298,7 @@ input,textarea{font:inherit;color:inherit}
 .panel-close:hover{color:var(--red);background:rgba(232,50,50,.1)}
 .panel-body{padding:1.25rem;flex:1}
 
-/* ── AGENT PANEL ──────────────────────────────────────────── */
+/* ── AGENT PANEL ────────────────────────────────────────── */
 .agent-header{
   display:flex;align-items:center;gap:1rem;
   padding:1rem;
@@ -384,7 +384,7 @@ input,textarea{font:inherit;color:inherit}
 .btn-send:hover{background:#00b890}
 .btn-send svg{width:15px;height:15px}
 
-/* ── TRIVIA PANEL ─────────────────────────────────────────── */
+/* ── TRIVIA PANEL ───────────────────────────────────────── */
 .trivia-q{
   font-size:15px;font-weight:600;line-height:1.6;
   color:var(--text);margin-bottom:1rem;
@@ -423,7 +423,7 @@ input,textarea{font:inherit;color:inherit}
 }
 .btn-next:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,212,170,.06)}
 
-/* ── WHITEBOARD PANEL ─────────────────────────────────────── */
+/* ── WHITEBOARD PANEL ───────────────────────────────────── */
 .wb-tools{display:flex;align-items:center;gap:.4rem;margin-right:.5rem}
 .wb-tool-btn{
   width:28px;height:28px;
@@ -474,7 +474,7 @@ input,textarea{font:inherit;color:inherit}
 }
 .add-sticky-btn:hover{border-color:var(--teal);color:var(--teal)}
 
-/* ── KEYBOARD HELP OVERLAY ────────────────────────────────── */
+/* ── KEYBOARD HELP OVERLAY ──────────────────────────────── */
 #kb-overlay{
   position:fixed;inset:0;z-index:9998;
   background:rgba(0,0,0,.75);
@@ -520,7 +520,7 @@ input,textarea{font:inherit;color:inherit}
 }
 .kb-close-btn:hover{background:rgba(0,212,170,.1)}
 
-/* ── LEGEND HUD ───────────────────────────────────────────── */
+/* ── LEGEND HUD ─────────────────────────────────────────── */
 #legend{
   position:fixed;bottom:12px;left:12px;z-index:150;
   background:rgba(13,10,6,.88);
@@ -534,12 +534,12 @@ input,textarea{font:inherit;color:inherit}
 .legend-row{display:flex;align-items:center;gap:6px}
 .legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-/* ── SCROLLBARS ───────────────────────────────────────────── */
+/* ── SCROLLBARS ─────────────────────────────────────────── */
 *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
 
-/* ── ZOOM CONTROLS ────────────────────────────────────────── */
+/* ── ZOOM CONTROLS ──────────────────────────────────────── */
 #zoom-btns{
   position:fixed;bottom:12px;right:12px;z-index:150;
   display:flex;gap:.4rem;
@@ -554,7 +554,7 @@ input,textarea{font:inherit;color:inherit}
 }
 .zoom-btn:hover{border-color:var(--teal);color:var(--teal)}
 
-/* ── MOBILE ───────────────────────────────────────────────── */
+/* ── MOBILE ─────────────────────────────────────────────── */
 @media (max-width:480px){
   .nav-brand{font-size:6px}
   .nav-zone{font-size:6px;padding:3px 7px}
@@ -576,14 +576,14 @@ input,textarea{font:inherit;color:inherit}
     </div>
     <div class="splash-chars-wrap">
       <div class="splash-chars">
-        <div class="splash-char"><img src="assets/jerry.png" alt="Jerry"/><span>JERRY</span></div>
-        <div class="splash-char"><img src="assets/elaine.png" alt="Elaine"/><span>ELAINE</span></div>
-        <div class="splash-char"><img src="assets/kramer.png" alt="Kramer"/><span>KRAMER</span></div>
-        <div class="splash-char"><img src="assets/george.png" alt="George"/><span>GEORGE</span></div>
-        <div class="splash-char"><img src="assets/puddy.png" alt="Puddy"/><span>PUDDY</span></div>
-        <div class="splash-char"><img src="assets/peterman.png" alt="Peterman"/><span>PETERMAN</span></div>
-        <div class="splash-char"><img src="assets/newman.png" alt="Newman"/><span>NEWMAN</span></div>
-        <div class="splash-char"><img src="assets/steinbrenner.png" alt="Steinbrenner"/><span>BOSS</span></div>
+        <div class="splash-char"><img src="jerry-1.jpg" alt="Jerry"/><span>JERRY</span></div>
+        <div class="splash-char"><img src="elaine-1.jpg" alt="Elaine"/><span>ELAINE</span></div>
+        <div class="splash-char"><img src="kramer-1.jpg" alt="Kramer"/><span>KRAMER</span></div>
+        <div class="splash-char"><img src="george-1.jpg" alt="George"/><span>GEORGE</span></div>
+        <div class="splash-char"><img src="puddy-1.jpg" alt="Puddy"/><span>PUDDY</span></div>
+        <div class="splash-char"><img src="peterman-1.jpg" alt="Peterman"/><span>PETERMAN</span></div>
+        <div class="splash-char"><img src="newman-1.jpg" alt="Newman"/><span>NEWMAN</span></div>
+        <div class="splash-char"><img src="steinbrenner-1.jpg" alt="Steinbrenner"/><span>BOSS</span></div>
       </div>
     </div>
     <p class="splash-sub">Click any character to chat with an AI agent. Hover hotspots for trivia. Watch out for Kramer. Press <strong style="color:var(--teal)">?</strong> for keyboard shortcuts.</p>
@@ -613,54 +613,54 @@ input,textarea{font:inherit;color:inherit}
   <!-- WORLD STAGE -->
   <div id="stage">
     <div id="world">
-      <img id="map-img" src="assets/map.jpg" alt="Seinfeld HQ Map" draggable="false"/>
+      <img id="map-img" src="map.jpg" alt="Seinfeld HQ Map" draggable="false"/>
 
       <!-- ── SPRITES (positioned % relative to map size, JS recalculates labels) ── -->
       <!-- Jerry: left area of apartment, center -->
       <img class="sprite idle" id="sp-jerry"
-           src="assets/jerry.png" alt="Jerry"
+           src="jerry-1.jpg" alt="Jerry"
            data-char="jerry" data-label-anchor="left"
            style="height:11%;bottom:50%;left:27%"
       />
       <!-- Elaine: Monk's cafe area -->
       <img class="sprite idle" id="sp-elaine"
-           src="assets/elaine.png" alt="Elaine"
+           src="elaine-1.jpg" alt="Elaine"
            data-char="elaine" data-label-anchor="left"
            style="height:11%;bottom:12%;left:70%"
       />
       <!-- Kramer: far left by door -->
       <img class="sprite idle" id="sp-kramer"
-           src="assets/kramer.png" alt="Kramer"
+           src="kramer-1.jpg" alt="Kramer"
            data-char="kramer" data-label-anchor="left"
            style="height:11%;bottom:54%;left:5%"
       />
       <!-- George: Yankees office area -->
       <img class="sprite idle" id="sp-george"
-           src="assets/george.png" alt="George"
+           src="george-1.jpg" alt="George"
            data-char="george" data-label-anchor="left"
            style="height:12%;bottom:50%;left:44%;filter:drop-shadow(0 4px 10px rgba(0,0,0,.9)) contrast(1.05) brightness(0.85)"
       />
       <!-- Puddy: Monk's cafe -->
       <img class="sprite idle" id="sp-puddy"
-           src="assets/puddy.png" alt="Puddy"
+           src="puddy-1.jpg" alt="Puddy"
            data-char="puddy" data-label-anchor="left"
            style="height:11%;bottom:12%;left:80%"
       />
       <!-- Peterman: kitchen/right -->
       <img class="sprite idle" id="sp-peterman"
-           src="assets/peterman.png" alt="Peterman"
+           src="peterman-1.jpg" alt="Peterman"
            data-char="peterman" data-label-anchor="left"
            style="height:11%;bottom:30%;left:82%"
       />
       <!-- Newman: hallway/door area near Jerry -->
       <img class="sprite idle" id="sp-newman"
-           src="assets/newman.png" alt="Newman"
+           src="newman-1.jpg" alt="Newman"
            data-char="newman" data-label-anchor="left"
            style="height:10%;bottom:60%;left:18%"
       />
       <!-- Steinbrenner: George's office -->
       <img class="sprite idle" id="sp-steinbrenner"
-           src="assets/steinbrenner.png" alt="Steinbrenner"
+           src="steinbrenner-1.jpg" alt="Steinbrenner"
            data-char="steinbrenner" data-label-anchor="left"
            style="height:11%;bottom:58%;left:55%"
       />
@@ -790,7 +790,7 @@ input,textarea{font:inherit;color:inherit}
 <div class="panel center" id="agent-panel">
   <div class="agent-header">
     <div class="agent-avatar-wrap">
-      <img id="ap-avatar-img" src="assets/jerry.png" alt=""/>
+      <img id="ap-avatar-img" src="jerry-1.jpg" alt=""/>
       <div class="agent-status-dot"></div>
     </div>
     <div class="agent-meta">
@@ -801,7 +801,7 @@ input,textarea{font:inherit;color:inherit}
           style="background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);color:var(--teal)">
       ONLINE
     </span>
-    <button class="panel-close" onclick="closePanel('agent-panel')">✕</button>
+    <button class="panel-close" onclick="closePanel('agent-panel')">&#10005;</button>
   </div>
   <div class="panel-body">
     <div class="chat-window" id="chat-window">
@@ -823,7 +823,7 @@ input,textarea{font:inherit;color:inherit}
   <div class="panel-header">
     <span class="panel-icon">🎯</span>
     <h3 id="trivia-header">Seinfeld Trivia</h3>
-    <button class="panel-close" onclick="closePanel('trivia-panel')">✕</button>
+    <button class="panel-close" onclick="closePanel('trivia-panel')">&#10005;</button>
   </div>
   <div class="panel-body">
     <div class="trivia-q" id="trivia-q"></div>
@@ -848,7 +848,7 @@ input,textarea{font:inherit;color:inherit}
       <input type="color" class="wb-color" id="wb-color" value="#e8a832"/>
       <button class="wb-clear-btn" id="wb-clear">Clear</button>
     </div>
-    <button class="panel-close" onclick="closePanel('wb-panel')">✕</button>
+    <button class="panel-close" onclick="closePanel('wb-panel')">&#10005;</button>
   </div>
   <div class="panel-body">
     <canvas id="wb-canvas" width="720" height="400"></canvas>
@@ -865,12 +865,12 @@ input,textarea{font:inherit;color:inherit}
 //  SEINFELD HQ — MAIN SCRIPT
 // ══════════════════════════════════════════════════════════════
 
-// ── CHARACTER DATA ────────────────────────────────────────────
+// ── CHARACTER DATA ────────────────────────────────────────
 const CHARS = {
   jerry:{
     name:'Jerry Seinfeld',
     role:'Stand-up Comedian · Apartment 5A',
-    avatar:'assets/jerry.png',
+    avatar:'jerry-1.jpg',
     badge:{bg:'rgba(0,212,170,.1)',border:'rgba(0,212,170,.3)',color:'var(--teal)'},
     greeting:"What's the deal with AI chatbots? You type something, it types back... it's like having a pen pal who's never been anywhere.",
     responses:[
@@ -885,7 +885,7 @@ const CHARS = {
   elaine:{
     name:'Elaine Benes',
     role:'Senior Editor · J. Peterman Reality Tours',
-    avatar:'assets/elaine.png',
+    avatar:'elaine-1.jpg',
     badge:{bg:'rgba(168,85,247,.1)',border:'rgba(168,85,247,.3)',color:'#a855f7'},
     greeting:"Oh GET OUT. You're actually using this? *shoves you* That is simultaneously the most impressive and most disturbing thing I've seen today.",
     responses:[
@@ -900,7 +900,7 @@ const CHARS = {
   kramer:{
     name:'Cosmo Kramer',
     role:'Entrepreneur · Apt 5B · Big Ideas Division',
-    avatar:'assets/kramer.png',
+    avatar:'kramer-1.jpg',
     badge:{bg:'rgba(255,107,53,.1)',border:'rgba(255,107,53,.3)',color:'#ff6b35'},
     greeting:"*SLIDES IN* JERRY — oh, you're not Jerry. That's fine. I was just down at the Port Authority and I had an IDEA.",
     responses:[
@@ -915,7 +915,7 @@ const CHARS = {
   george:{
     name:'George Costanza',
     role:'Assistant to the Traveling Secretary · NY Yankees',
-    avatar:'assets/george.png',
+    avatar:'george-1.jpg',
     badge:{bg:'rgba(232,168,50,.1)',border:'rgba(232,168,50,.3)',color:'var(--amber)'},
     greeting:"I HAD AN IDEA. A GREAT idea. Actually it might be the best idea anyone has ever had. I just need you to tell me it's a good idea before I lose my nerve.",
     responses:[
@@ -932,7 +932,7 @@ const CHARS = {
   puddy:{
     name:'David Puddy',
     role:"Elaine's On-Again Boyfriend · Mechanic",
-    avatar:'assets/puddy.png',
+    avatar:'puddy-1.jpg',
     badge:{bg:'rgba(232,50,50,.1)',border:'rgba(232,50,50,.3)',color:'var(--red)'},
     greeting:"Yeah, that's right.",
     responses:[
@@ -948,7 +948,7 @@ const CHARS = {
   peterman:{
     name:'J. Peterman',
     role:'CEO · J. Peterman Company · Reality Tours',
-    avatar:'assets/peterman.png',
+    avatar:'peterman-1.jpg',
     badge:{bg:'rgba(232,168,50,.1)',border:'rgba(232,168,50,.3)',color:'var(--amber)'},
     greeting:"Ah, visitor. You arrive like monsoon rain on a Moroccan rooftop — unexpected, slightly inconvenient, yet somehow... vital. Welcome to the HQ.",
     responses:[
@@ -963,7 +963,7 @@ const CHARS = {
   newman:{
     name:'Newman',
     role:'US Postal Service · Jerry\'s Building',
-    avatar:'assets/newman.png',
+    avatar:'newman-1.jpg',
     badge:{bg:'rgba(74,144,217,.1)',border:'rgba(74,144,217,.3)',color:'#4a90d9'},
     greeting:"Hello... Jerry. Oh — you're not Jerry. That's fine. I'm here for the packages. And also because I know things. Things about {topic} that Jerry doesn't want you to know.",
     responses:[
@@ -979,7 +979,7 @@ const CHARS = {
   steinbrenner:{
     name:'George Steinbrenner',
     role:'Owner · New York Yankees',
-    avatar:'assets/steinbrenner.png',
+    avatar:'steinbrenner-1.jpg',
     badge:{bg:'rgba(0,20,70,.4)',border:'rgba(30,60,150,.5)',color:'#90a8e8'},
     greeting:"COSTANZA! Oh — you're not Costanza. Where IS Costanza? You know what? It doesn't matter. Sit down. I want to talk to you about {topic}.",
     responses:[
@@ -993,7 +993,7 @@ const CHARS = {
   }
 };
 
-// ── TRIVIA DATA ───────────────────────────────────────────────
+// ── TRIVIA DATA ───────────────────────────────────────────
 const TRIVIA = [
   {
     spot:'Superman Statue',icon:'🦸',
@@ -1067,7 +1067,7 @@ const TRIVIA = [
   }
 ];
 
-// ── STATE ─────────────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────
 let triviaScore = 0;      // PERSISTENT across trivia open/close
 let triviaIdx   = 0;
 let triviaAnswered = false;
@@ -1083,7 +1083,7 @@ let kramerTimer = null;
 let audioCtx = null;
 let kbOpen = false;
 
-// ── AUDIO ─────────────────────────────────────────────────────
+// ── AUDIO ─────────────────────────────────────────────────
 function initAudio() {
   if (audioCtx) return;
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1104,7 +1104,7 @@ function sfxCorrect(){ [523,659,784].forEach((f,i)=>setTimeout(()=>sfx(f,.18),i*
 function sfxWrong()  { sfx(180,.3,'sawtooth',.1); }
 function sfxKramer() { [220,330,440].forEach((f,i)=>setTimeout(()=>sfx(f,.35,'sawtooth',.12),i*60)); }
 
-// ── ENTRANCE ──────────────────────────────────────────────────
+// ── ENTRANCE ──────────────────────────────────────────────
 document.getElementById('enter-btn').addEventListener('click', () => {
   initAudio();
   document.getElementById('splash').style.display = 'none';
@@ -1121,7 +1121,7 @@ document.getElementById('enter-btn').addEventListener('click', () => {
   });
 });
 
-// ── MAP FIT & PAN/ZOOM ────────────────────────────────────────
+// ── MAP FIT & PAN/ZOOM ────────────────────────────────────
 function fitMapToStage() {
   const stage = document.getElementById('stage');
   const map   = document.getElementById('map-img');
@@ -1306,7 +1306,7 @@ document.getElementById('map-img').addEventListener('load', () => {
   initLabels();
 });
 
-// ── ZONE DETECTION ────────────────────────────────────────────
+// ── ZONE DETECTION ────────────────────────────────────────
 const ZONES = [
   { name:"JERRY'S APARTMENT",          x1:.0,  y1:.0,  x2:.45, y2:.55 },
   { name:"GEORGE'S OFFICE (YANKEES)",  x1:.3,  y1:.55, x2:.65, y2:1.0 },
@@ -1327,7 +1327,7 @@ stage.addEventListener('mousemove', e => {
   document.getElementById('zone-label').textContent = getZone(mx, my);
 });
 
-// ── TOOLTIP ───────────────────────────────────────────────────
+// ── TOOLTIP ───────────────────────────────────────────────
 const tooltip = document.getElementById('tooltip');
 function showTooltip(txt, e) { tooltip.textContent = txt; tooltip.style.display = 'block'; posTooltip(e); }
 function posTooltip(e)  { tooltip.style.left = (e.clientX + 14) + 'px'; tooltip.style.top = (e.clientY - 28) + 'px'; }
@@ -1349,7 +1349,7 @@ document.querySelectorAll('.sprite').forEach(sp => {
   sp.addEventListener('click', e => { e.stopPropagation(); openAgentPanel(sp.dataset.char); });
 });
 
-// ── HOTSPOT ACTIONS ───────────────────────────────────────────
+// ── HOTSPOT ACTIONS ───────────────────────────────────────
 function onHotspot(el) {
   sfxClick();
   const action = el.dataset.action;
@@ -1359,7 +1359,7 @@ function onHotspot(el) {
   if (tIdx != null) openTrivia(parseInt(tIdx));
 }
 
-// ── KRAMER ────────────────────────────────────────────────────
+// ── KRAMER ────────────────────────────────────────────────
 function triggerKramer() {
   sfxKramer();
   const flash = document.getElementById('kramer-flash');
@@ -1383,7 +1383,7 @@ function startKramerTimer() {
   kramerTimer = setTimeout(() => { triggerKramer(); startKramerTimer(); }, delay);
 }
 
-// ── AGENT PANEL ───────────────────────────────────────────────
+// ── AGENT PANEL ───────────────────────────────────────────
 function openAgentPanel(charKey) {
   currentChar = charKey;
   const c = CHARS[charKey];
@@ -1428,15 +1428,15 @@ document.getElementById('chat-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') sendChat();
 });
 
-// ── AI CHAT CONFIG ────────────────────────────────────────────
+// ── AI CHAT CONFIG ────────────────────────────────────────
 const PROXY_URL = 'https://nigrqrmjknsjlnljvclc.supabase.co/functions/v1/seinfeld-chat';
 
 const SYSTEM_PROMPTS = {
-  jerry: `You are Jerry Seinfeld — stand-up comedian, Apartment 5A, Upper West Side. You observe mundane absurdities with dry wit. Start observations with "What's the deal with..." You love Superman, cereal, and are perpetually bewildered by other people. Mildly vain, mildly self-absorbed. Funny, conversational, 2-4 sentences. Reference real Seinfeld episodes and bits naturally.`,
-  elaine: `You are Elaine Benes — sharp, sarcastic, perpetually exasperated senior editor at J. Peterman Reality Tours. You shove people when excited and say "GET OUT!" You have impossibly high standards and a sponge-worthiness threshold for everything. 2-4 sentences, opinionated and dramatic. Reference the Urban Sombrero, the Peterman catalog, and classic episodes.`,
+  jerry: `You are Jerry Seinfeld — stand-up comedian, Apartment 5A, Upper West Side. You observe mundane absurdities with dry wit. Start observations with \"What's the deal with...\" You love Superman, cereal, and are perpetually bewildered by other people. Mildly vain, mildly self-absorbed. Funny, conversational, 2-4 sentences. Reference real Seinfeld episodes and bits naturally.`,
+  elaine: `You are Elaine Benes — sharp, sarcastic, perpetually exasperated senior editor at J. Peterman Reality Tours. You shove people when excited and say \"GET OUT!\" You have impossibly high standards and a sponge-worthiness threshold for everything. 2-4 sentences, opinionated and dramatic. Reference the Urban Sombrero, the Peterman catalog, and classic episodes.`,
   kramer: `You are Cosmo Kramer — eccentric entrepreneur, Apartment 5B. Manic energy, always mid-scheme, usually involving the Port Authority or a new business idea. Newman is your business partner. Speak in half-finished sentences with dramatic pauses and sudden pivots. Big energy, 2-4 sentences. Reference your actual schemes from the show.`,
   george: `You are George Costanza — neurotic, self-sabotaging, occasionally brilliant Assistant to the Traveling Secretary for the NY Yankees. Your strategies: doing the opposite of your instincts, Art Vandelay architect alias, the Human Fund charity. Deeply insecure, convinced you're smarter than everyone. SERENITY NOW. Anxious, self-defeating, funny. 2-4 sentences then spiral.`,
-  puddy: `You are David Puddy — Elaine's on-again-off-again boyfriend, Porsche/Saab mechanic. Unshakeable calm, very few words. You painted your face for the Devils. You have the 8-ball jacket. Short declarative sentences only: "Yeah." "That's right." "I know." Max 2 sentences. Extremely deadpan. Never elaborate.`,
+  puddy: `You are David Puddy — Elaine's on-again-off-again boyfriend, Porsche/Saab mechanic. Unshakeable calm, very few words. You painted your face for the Devils. You have the 8-ball jacket. Short declarative sentences only: \"Yeah.\" \"That's right.\" \"I know.\" Max 2 sentences. Extremely deadpan. Never elaborate.`,
   peterman: `You are J. Peterman — CEO of J. Peterman Company, purveyor of Reality Tours. Every response is an exotic adventure narrative. You've been everywhere: Marrakech, Nairobi, a yurt in Mongolia. Everything reminds you of a garment or a woman you once knew. Lushly descriptive, slightly unhinged with romance. 3-5 sentences of pure catalog copy energy.`,
   newman: `You are Newman — US Postal Service mail carrier, Jerry's arch-nemesis. Always working an angle. You understand that the mail is power. Simmering intensity when Jerry is mentioned, warmth and scheming energy otherwise. 2-4 sentences. End with something slightly ominous or self-satisfied.`,
   steinbrenner: `You are George Steinbrenner — owner of the NY Yankees. You speak loudly, reference Mickey Mantle and Billy Martin constantly, and always somehow bring up George Costanza. Easily distracted by food (calzones). Large, blustery, full of non-sequiturs about 70s Yankees history. 2-4 sentences. Always mention George at least once.`
@@ -1514,7 +1514,7 @@ function genResponse(key, userMsg) {
   return r.replace(/\{topic\}/g, topic);
 }
 
-// ── TRIVIA ────────────────────────────────────────────────────
+// ── TRIVIA ────────────────────────────────────────────────
 function openTrivia(idx) {
   triviaIdx = (idx != null) ? idx : Math.floor(Math.random() * TRIVIA.length);
   triviaAnswered = false;
@@ -1570,7 +1570,7 @@ document.getElementById('trivia-next').addEventListener('click', () => {
   sfxClick();
 });
 
-// ── WHITEBOARD ────────────────────────────────────────────────
+// ── WHITEBOARD ────────────────────────────────────────────
 const DEFAULT_STICKIES = [
   { text: '📋 HUMAN FUND\nProject Q4\n—all hands',         color: 'yellow' },
   { text: "George: DON'T\nread the email\nfrom Steinbrenner", color: 'pink'   },
@@ -1705,7 +1705,7 @@ function spawnSticky(text, color) {
   stickyCount++;
 }
 
-// ── KEYBOARD HELP OVERLAY ─────────────────────────────────────
+// ── KEYBOARD HELP OVERLAY ───────────────────────────────
 function toggleKbOverlay() {
   kbOpen = !kbOpen;
   document.getElementById('kb-overlay').classList.toggle('open', kbOpen);
@@ -1721,7 +1721,7 @@ document.getElementById('kb-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('kb-overlay')) closeKbOverlay();
 });
 
-// ── PANEL SYSTEM ──────────────────────────────────────────────
+// ── PANEL SYSTEM ──────────────────────────────────────────
 function showPanel(id) {
   closeAllPanels(id);
   if (!document.getElementById('panel-backdrop')) {
@@ -1750,7 +1750,7 @@ window.closePanel = function(id) {
   }
 };
 
-// ── KEYBOARD SHORTCUTS ─────────────────────────────────────────
+// ── KEYBOARD SHORTCUTS ───────────────────────────────────
 document.addEventListener('keydown', e => {
   if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
   if (e.key === 'Escape') {
@@ -1776,7 +1776,7 @@ document.addEventListener('keydown', e => {
   if (e.key === '8') openAgentPanel('steinbrenner');
 });
 
-// ── INIT ──────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────
 // If map already loaded (cached), init labels immediately
 if (document.getElementById('map-img').complete &&
     document.getElementById('map-img').naturalWidth > 0) {
