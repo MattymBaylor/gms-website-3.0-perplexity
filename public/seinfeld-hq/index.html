@@ -576,14 +576,14 @@ input,textarea{font:inherit;color:inherit}
     </div>
     <div class="splash-chars-wrap">
       <div class="splash-chars">
-        <div class="splash-char"><img src="/seinfeld-hq/jerry-1.jpg" alt="Jerry"/><span>JERRY</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/elaine-1.jpg" alt="Elaine"/><span>ELAINE</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/kramer-1.jpg" alt="Kramer"/><span>KRAMER</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/george-1.jpg" alt="George"/><span>GEORGE</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/puddy-1.jpg" alt="Puddy"/><span>PUDDY</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/peterman-1.jpg" alt="Peterman"/><span>PETERMAN</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/newman-1.jpg" alt="Newman"/><span>NEWMAN</span></div>
-        <div class="splash-char"><img src="/seinfeld-hq/steinbrenner-1.jpg" alt="Steinbrenner"/><span>BOSS</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/jerry-1.png" alt="Jerry"/><span>JERRY</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/elaine-1.png" alt="Elaine"/><span>ELAINE</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/kramer-1.png" alt="Kramer"/><span>KRAMER</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/george-1.png" alt="George"/><span>GEORGE</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/puddy-1.png" alt="Puddy"/><span>PUDDY</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/peterman-1.png" alt="Peterman"/><span>PETERMAN</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/newman-1.png" alt="Newman"/><span>NEWMAN</span></div>
+        <div class="splash-char"><img src="/seinfeld-hq/steinbrenner-1.png" alt="Steinbrenner"/><span>BOSS</span></div>
       </div>
     </div>
     <p class="splash-sub">Click any character to chat with an AI agent. Hover hotspots for trivia. Watch out for Kramer. Press <strong style="color:var(--teal)">?</strong> for keyboard shortcuts.</p>
@@ -618,49 +618,49 @@ input,textarea{font:inherit;color:inherit}
       <!-- ── SPRITES (positioned % relative to map size, JS recalculates labels) ── -->
       <!-- Jerry: left area of apartment, center -->
       <img class="sprite idle" id="sp-jerry"
-           src="/seinfeld-hq/jerry-1.jpg" alt="Jerry"
+           src="/seinfeld-hq/jerry-1.png" alt="Jerry"
            data-char="jerry" data-label-anchor="left"
            style="height:11%;bottom:50%;left:27%"
       />
       <!-- Elaine: Monk's cafe area -->
       <img class="sprite idle" id="sp-elaine"
-           src="/seinfeld-hq/elaine-1.jpg" alt="Elaine"
+           src="/seinfeld-hq/elaine-1.png" alt="Elaine"
            data-char="elaine" data-label-anchor="left"
            style="height:11%;bottom:12%;left:70%"
       />
       <!-- Kramer: far left by door -->
       <img class="sprite idle" id="sp-kramer"
-           src="/seinfeld-hq/kramer-1.jpg" alt="Kramer"
+           src="/seinfeld-hq/kramer-1.png" alt="Kramer"
            data-char="kramer" data-label-anchor="left"
            style="height:11%;bottom:54%;left:5%"
       />
       <!-- George: Yankees office area -->
       <img class="sprite idle" id="sp-george"
-           src="/seinfeld-hq/george-1.jpg" alt="George"
+           src="/seinfeld-hq/george-1.png" alt="George"
            data-char="george" data-label-anchor="left"
            style="height:12%;bottom:50%;left:44%;filter:drop-shadow(0 4px 10px rgba(0,0,0,.9)) contrast(1.05) brightness(0.85)"
       />
       <!-- Puddy: Monk's cafe -->
       <img class="sprite idle" id="sp-puddy"
-           src="/seinfeld-hq/puddy-1.jpg" alt="Puddy"
+           src="/seinfeld-hq/puddy-1.png" alt="Puddy"
            data-char="puddy" data-label-anchor="left"
            style="height:11%;bottom:12%;left:80%"
       />
       <!-- Peterman: kitchen/right -->
       <img class="sprite idle" id="sp-peterman"
-           src="/seinfeld-hq/peterman-1.jpg" alt="Peterman"
+           src="/seinfeld-hq/peterman-1.png" alt="Peterman"
            data-char="peterman" data-label-anchor="left"
            style="height:11%;bottom:30%;left:82%"
       />
       <!-- Newman: hallway/door area near Jerry -->
       <img class="sprite idle" id="sp-newman"
-           src="/seinfeld-hq/newman-1.jpg" alt="Newman"
+           src="/seinfeld-hq/newman-1.png" alt="Newman"
            data-char="newman" data-label-anchor="left"
            style="height:10%;bottom:60%;left:18%"
       />
       <!-- Steinbrenner: George's office -->
       <img class="sprite idle" id="sp-steinbrenner"
-           src="/seinfeld-hq/steinbrenner-1.jpg" alt="Steinbrenner"
+           src="/seinfeld-hq/steinbrenner-1.png" alt="Steinbrenner"
            data-char="steinbrenner" data-label-anchor="left"
            style="height:11%;bottom:58%;left:55%"
       />
@@ -790,7 +790,7 @@ input,textarea{font:inherit;color:inherit}
 <div class="panel center" id="agent-panel">
   <div class="agent-header">
     <div class="agent-avatar-wrap">
-      <img id="ap-avatar-img" src="/seinfeld-hq/jerry-1.jpg" alt=""/>
+      <img id="ap-avatar-img" src="/seinfeld-hq/jerry-1.png" alt=""/>
       <div class="agent-status-dot"></div>
     </div>
     <div class="agent-meta">
@@ -870,7 +870,7 @@ const CHARS = {
   jerry:{
     name:'Jerry Seinfeld',
     role:'Stand-up Comedian · Apartment 5A',
-    avatar:'/seinfeld-hq/jerry-1.jpg',
+    avatar:'/seinfeld-hq/jerry-1.png',
     badge:{bg:'rgba(0,212,170,.1)',border:'rgba(0,212,170,.3)',color:'var(--teal)'},
     greeting:"What's the deal with AI chatbots? You type something, it types back... it's like having a pen pal who's never been anywhere.",
     responses:[
@@ -885,7 +885,7 @@ const CHARS = {
   elaine:{
     name:'Elaine Benes',
     role:'Senior Editor · J. Peterman Reality Tours',
-    avatar:'/seinfeld-hq/elaine-1.jpg',
+    avatar:'/seinfeld-hq/elaine-1.png',
     badge:{bg:'rgba(168,85,247,.1)',border:'rgba(168,85,247,.3)',color:'#a855f7'},
     greeting:"Oh GET OUT. You're actually using this? *shoves you* That is simultaneously the most impressive and most disturbing thing I've seen today.",
     responses:[
@@ -900,7 +900,7 @@ const CHARS = {
   kramer:{
     name:'Cosmo Kramer',
     role:'Entrepreneur · Apt 5B · Big Ideas Division',
-    avatar:'/seinfeld-hq/kramer-1.jpg',
+    avatar:'/seinfeld-hq/kramer-1.png',
     badge:{bg:'rgba(255,107,53,.1)',border:'rgba(255,107,53,.3)',color:'#ff6b35'},
     greeting:"*SLIDES IN* JERRY — oh, you're not Jerry. That's fine. I was just down at the Port Authority and I had an IDEA.",
     responses:[
@@ -915,7 +915,7 @@ const CHARS = {
   george:{
     name:'George Costanza',
     role:'Assistant to the Traveling Secretary · NY Yankees',
-    avatar:'/seinfeld-hq/george-1.jpg',
+    avatar:'/seinfeld-hq/george-1.png',
     badge:{bg:'rgba(232,168,50,.1)',border:'rgba(232,168,50,.3)',color:'var(--amber)'},
     greeting:"I HAD AN IDEA. A GREAT idea. Actually it might be the best idea anyone has ever had. I just need you to tell me it's a good idea before I lose my nerve.",
     responses:[
@@ -932,7 +932,7 @@ const CHARS = {
   puddy:{
     name:'David Puddy',
     role:"Elaine's On-Again Boyfriend · Mechanic",
-    avatar:'/seinfeld-hq/puddy-1.jpg',
+    avatar:'/seinfeld-hq/puddy-1.png',
     badge:{bg:'rgba(232,50,50,.1)',border:'rgba(232,50,50,.3)',color:'var(--red)'},
     greeting:"Yeah, that's right.",
     responses:[
@@ -948,7 +948,7 @@ const CHARS = {
   peterman:{
     name:'J. Peterman',
     role:'CEO · J. Peterman Company · Reality Tours',
-    avatar:'/seinfeld-hq/peterman-1.jpg',
+    avatar:'/seinfeld-hq/peterman-1.png',
     badge:{bg:'rgba(232,168,50,.1)',border:'rgba(232,168,50,.3)',color:'var(--amber)'},
     greeting:"Ah, visitor. You arrive like monsoon rain on a Moroccan rooftop — unexpected, slightly inconvenient, yet somehow... vital. Welcome to the HQ.",
     responses:[
@@ -963,7 +963,7 @@ const CHARS = {
   newman:{
     name:'Newman',
     role:'US Postal Service · Jerry\'s Building',
-    avatar:'/seinfeld-hq/newman-1.jpg',
+    avatar:'/seinfeld-hq/newman-1.png',
     badge:{bg:'rgba(74,144,217,.1)',border:'rgba(74,144,217,.3)',color:'#4a90d9'},
     greeting:"Hello... Jerry. Oh — you're not Jerry. That's fine. I'm here for the packages. And also because I know things. Things about {topic} that Jerry doesn't want you to know.",
     responses:[
@@ -979,7 +979,7 @@ const CHARS = {
   steinbrenner:{
     name:'George Steinbrenner',
     role:'Owner · New York Yankees',
-    avatar:'/seinfeld-hq/steinbrenner-1.jpg',
+    avatar:'/seinfeld-hq/steinbrenner-1.png',
     badge:{bg:'rgba(0,20,70,.4)',border:'rgba(30,60,150,.5)',color:'#90a8e8'},
     greeting:"COSTANZA! Oh — you're not Costanza. Where IS Costanza? You know what? It doesn't matter. Sit down. I want to talk to you about {topic}.",
     responses:[
