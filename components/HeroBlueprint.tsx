@@ -28,13 +28,13 @@ interface NodeDef {
 }
 
 const NODES: NodeDef[] = [
-  { id: 1, label: 'Phone Rings',         stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',             icon: <Phone size={18} /> },
-  { id: 2, label: 'AI Answers',          stat: '78% of buyers choose the first business to respond',              source: 'Scorpion / CallRail',       icon: <Bot size={18} /> },
-  { id: 3, label: 'Qualifies Lead',      stat: '62% of customers call before making a purchase',                  source: 'Invoca',                     icon: <ListChecks size={18} /> },
-  { id: 4, label: 'Books the Job',       stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                     icon: <CalendarCheck size={18} /> },
-  { id: 5, label: 'Texts Details',       stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                     icon: <MessageSquare size={18} /> },
-  { id: 6, label: 'Confirms Appt',       stat: 'Without reminders, up to 30% of appointments are no-shows',       source: 'AAFP / industry data',       icon: <BellRing size={18} /> },
-  { id: 7, label: 'Gets Review',         stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={18} /> },
+  { id: 1, label: 'Phone Rings',         stat: '97% of homeowners say response speed influences who they hire', source: 'CallRail 2026',             icon: <Phone size={22} /> },
+  { id: 2, label: 'AI Answers',          stat: '78% of buyers choose the first business to respond',              source: 'Scorpion / CallRail',       icon: <Bot size={22} /> },
+  { id: 3, label: 'Qualifies Lead',      stat: '62% of customers call before making a purchase',                  source: 'Invoca',                     icon: <ListChecks size={22} /> },
+  { id: 4, label: 'Books the Job',       stat: 'Each missed call costs $300–$1,200',                              source: 'Invoca',                     icon: <CalendarCheck size={22} /> },
+  { id: 5, label: 'Texts Details',       stat: 'Less than 3% of voicemail callers leave a message',               source: 'Invoca',                     icon: <MessageSquare size={22} /> },
+  { id: 6, label: 'Confirms Appt',       stat: 'Without reminders, up to 30% of appointments are no-shows',       source: 'AAFP / industry data',       icon: <BellRing size={22} /> },
+  { id: 7, label: 'Gets Review',         stat: "85% of callers who can't reach you never call back",              source: 'Phone2 / industry research', icon: <Star size={22} /> },
 ];
 
 const CYCLE_S = 12;
@@ -120,7 +120,7 @@ export function HeroBlueprint() {
 
           {/* Traveling dot */}
           {!prefersReduced && (
-            <circle r="4" fill="#00d4ff" opacity="0.9">
+            <circle r="5" fill="#00d4ff" opacity="0.9">
               <animateMotion
                 dur={`${CYCLE_S}s`}
                 repeatCount="indefinite"
@@ -145,7 +145,7 @@ export function HeroBlueprint() {
                   <circle
                     cx={pos.x}
                     cy={pos.y}
-                    r="32"
+                    r="38"
                     fill="url(#nodeGlow2)"
                   />
                 )}
@@ -154,7 +154,7 @@ export function HeroBlueprint() {
                 <circle
                   cx={pos.x}
                   cy={pos.y}
-                  r="20"
+                  r="24"
                   fill="#141417"
                   stroke={isActive ? '#00d4ff' : 'rgba(255,255,255,0.12)'}
                   strokeWidth={isActive ? 1.5 : 1}
@@ -163,9 +163,9 @@ export function HeroBlueprint() {
 
                 {/* Step number (small, top-left of circle) */}
                 <text
-                  x={pos.x - 14}
-                  y={pos.y - 24}
-                  fontSize="9"
+                  x={pos.x - 16}
+                  y={pos.y - 28}
+                  fontSize="11"
                   fontWeight="600"
                   fill={isActive ? '#00d4ff' : 'rgba(255,255,255,0.25)'}
                   style={{ transition: 'fill 250ms ease', fontVariantNumeric: 'tabular-nums' }}
@@ -174,7 +174,7 @@ export function HeroBlueprint() {
                 </text>
 
                 {/* Icon */}
-                <foreignObject x={pos.x - 9} y={pos.y - 9} width="18" height="18">
+                <foreignObject x={pos.x - 11} y={pos.y - 11} width="22" height="22">
                   <div
                     style={{
                       color: isActive ? '#00d4ff' : '#6b7280',
@@ -193,9 +193,9 @@ export function HeroBlueprint() {
                 {/* Label below */}
                 <text
                   x={pos.x}
-                  y={pos.y + 36}
+                  y={pos.y + 42}
                   textAnchor="middle"
-                  fontSize="10"
+                  fontSize="12"
                   fontWeight="500"
                   fill={isActive ? '#f5f5f5' : '#6b7280'}
                   style={{ transition: 'fill 250ms ease' }}
