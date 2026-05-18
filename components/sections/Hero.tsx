@@ -20,9 +20,9 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="container-wide grid items-center gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+      <div className="container-wide grid items-start gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-10">
         {/* Left column: copy */}
-        <div className="text-left">
+        <div className="text-left lg:pt-4">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          className="relative lg:pt-2"
         >
           <HeroBlueprint />
         </motion.div>
