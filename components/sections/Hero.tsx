@@ -20,7 +20,7 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="container-wide grid items-center gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
+      <div className="container-wide grid items-center gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
         {/* Left column: copy */}
         <div className="text-left">
           <motion.p
@@ -39,9 +39,17 @@ export function Hero() {
             transition={{ delay: 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="mt-4 text-hero font-semibold tracking-tight text-ink"
           >
-            Every Missed Call Is a Job{' '}
-            <span className="text-ink-muted">You'll Never Know You Lost</span>
+            Every Missed Call Is a Job
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-1 text-xl md:text-2xl font-medium text-ink-muted tracking-tight"
+          >
+            You&apos;ll Never Know You Lost
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
