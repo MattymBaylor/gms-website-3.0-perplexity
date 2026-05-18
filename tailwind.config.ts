@@ -42,7 +42,7 @@ const config: Config = {
       },
       fontSize: {
         // Slightly tightened scale for a premium feel
-        'hero': ['clamp(2.5rem, 6vw, 4.75rem)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+        'hero': ['clamp(2.25rem, 5vw, 3.75rem)', { lineHeight: '1.02', letterSpacing: '-0.025em' }],
         'h1':   ['clamp(2rem, 4.5vw, 3.25rem)', { lineHeight: '1.1',  letterSpacing: '-0.02em' }],
         'h2':   ['clamp(1.5rem, 3vw, 2.25rem)', { lineHeight: '1.15', letterSpacing: '-0.015em' }],
         'h3':   ['1.25rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
