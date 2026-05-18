@@ -70,6 +70,7 @@ const CASES: CaseStudy[] = [
       'Real metrics from a contractor running the voice agent across emergency dispatch and maintenance scheduling.',
     metric: 'Soon',
     metricLabel: 'publishing Q3',
+    posterImage: '/case-studies/hvac-emergency-dispatch.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_20%_30%,rgba(0,212,255,0.18),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -86,6 +87,7 @@ const CASES: CaseStudy[] = [
       'How a storm-chasing roofer handled a 6× spike in inbound calls without hiring a single dispatcher.',
     metric: 'Soon',
     metricLabel: 'publishing Q3',
+    posterImage: '/case-studies/roofing-storm-response.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_70%_30%,rgba(249,115,22,0.18),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -102,6 +104,7 @@ const CASES: CaseStudy[] = [
       'Converting 2am lockout calls into booked jobs while every competitor in the market sends them to voicemail.',
     metric: 'Soon',
     metricLabel: 'publishing Q3',
+    posterImage: '/case-studies/locksmith-after-hours.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_50%_70%,rgba(16,185,129,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -118,6 +121,7 @@ const CASES: CaseStudy[] = [
       'How a 3-truck plumbing company stopped losing weekend emergency calls to competitors with faster pickup.',
     metric: 'Soon',
     metricLabel: 'publishing Q4',
+    posterImage: '/case-studies/plumbing-overflow.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_30%_60%,rgba(59,130,246,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -134,6 +138,7 @@ const CASES: CaseStudy[] = [
       'Managing tenant maintenance requests across 200+ units with AI triage — no additional staff.',
     metric: 'Soon',
     metricLabel: 'publishing Q4',
+    posterImage: '/case-studies/property-mgmt-scale.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_60%_40%,rgba(168,85,247,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -150,6 +155,7 @@ const CASES: CaseStudy[] = [
       'Separating residential service calls from commercial bid requests automatically — routing each to the right team.',
     metric: 'Soon',
     metricLabel: 'publishing Q4',
+    posterImage: '/case-studies/electrical-commercial.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_40%_30%,rgba(234,179,8,0.16),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -166,6 +172,7 @@ const CASES: CaseStudy[] = [
       'Turning after-hours quote requests into next-morning appointments with full intake already completed.',
     metric: 'Soon',
     metricLabel: 'publishing Q4',
+    posterImage: '/case-studies/insurance-intake.png',
     posterClass:
       'bg-[radial-gradient(ellipse_at_50%_50%,rgba(236,72,153,0.14),transparent_60%),linear-gradient(135deg,#0a0a0a,#111113)]',
     body: (
@@ -230,7 +237,6 @@ export function CaseStudies() {
           style={{ scrollbarWidth: 'thin' }}
         >
           {CASES.map((c, idx) => {
-            const hasImage = !!c.posterImage;
             return (
               <motion.button
                 key={c.slug}
@@ -246,16 +252,14 @@ export function CaseStudies() {
                 ].join(' ')}
                 aria-label={`Open case study: ${c.title}`}
               >
-                {/* Poster — full height for cards with images, compact strip for "coming soon" cards */}
+                {/* Poster — all cards now have banner images */}
                 <div
                   className={[
-                    'relative w-full overflow-hidden rounded-t-card',
-                    hasImage ? 'h-44' : 'h-20',
+                    'relative h-44 w-full overflow-hidden rounded-t-card',
                     c.posterClass || 'bg-bg-elevated',
                   ].join(' ')}
                   aria-hidden="true"
                 >
-                  {/* Real poster image if available */}
                   {c.posterImage && (
                     <Image
                       src={c.posterImage}
@@ -270,14 +274,8 @@ export function CaseStudies() {
                       <Sparkles size={12} /> Featured
                     </span>
                   )}
-                  <div className={[
-                    'absolute right-3 z-10 text-right',
-                    hasImage ? 'bottom-3' : 'bottom-2',
-                  ].join(' ')}>
-                    <div className={[
-                      'font-bold text-ink',
-                      hasImage ? 'text-2xl' : 'text-lg',
-                    ].join(' ')}>{c.metric}</div>
+                  <div className="absolute right-3 bottom-3 z-10 text-right">
+                    <div className="text-2xl font-bold text-ink">{c.metric}</div>
                     <div className="text-[10px] uppercase tracking-wider text-ink-muted">
                       {c.metricLabel}
                     </div>
@@ -289,7 +287,7 @@ export function CaseStudies() {
                   <h3 className="text-h3 font-semibold text-ink">{c.title}</h3>
                   <p className="text-sm text-ink-muted">{c.teaser}</p>
                   <span className="mt-auto inline-flex items-center gap-1 text-xs text-accent">
-                    {hasImage ? 'Read case study' : 'Coming soon'} <ArrowRight size={12} />
+                    {c.featured ? 'Read case study' : 'Coming soon'} <ArrowRight size={12} />
                   </span>
                 </div>
               </motion.button>
@@ -306,7 +304,7 @@ export function CaseStudies() {
       >
         {active && (
           <div className="space-y-6">
-            {active.posterImage ? (
+            {active.posterImage && (
               <div className="relative h-40 w-full overflow-hidden rounded-card">
                 <Image
                   src={active.posterImage}
@@ -316,14 +314,6 @@ export function CaseStudies() {
                   sizes="780px"
                 />
               </div>
-            ) : (
-              <div
-                className={[
-                  'h-24 w-full rounded-card',
-                  active.posterClass || 'bg-bg-elevated',
-                ].join(' ')}
-                aria-hidden="true"
-              />
             )}
             {active.body}
             {active.interactiveHref && (
