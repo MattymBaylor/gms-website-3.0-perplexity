@@ -1,59 +1,60 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import {
-  Wind,
-  Home,
-  Wrench,
-  Zap,
-  Shield,
-  Building2,
-  Scale,
-  Stethoscope,
-  KeyRound,
-  Building,
-  HardHat,
-  Sparkles,
-  ArrowRight,
-} from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Modal } from '../Modal';
+import { ArrowRight } from 'lucide-react';
 
 interface Industry {
   slug: string;
   name: string;
-  icon: React.ReactNode;
+  /** Crawlable description for SEO + screen readers. */
   blurb: string;
-  /** Industry-specific video. Falls back to the generic explainer. */
-  videoId: string;
-  /** Whether the dedicated landing page exists. */
-  pageBuilt: boolean;
-  /** Accent color for the card glow */
+  /** "r, g, b" accent used for the card glow + Learn more link. */
   accent: string;
 }
 
+/**
+ * Order + slugs match the existing app/ routes exactly.
+ * Each card is a real <Link> anchor (no JS required to navigate) so the grid
+ * is fully crawlable and works before hydration on mobile.
+ *
+ * Icon art lives at /public/industries-cropped/<slug>.webp (3D glow icons with
+ * the baked-in label cropped off). next/image derives responsive webp/avif and
+ * a sized fallback automatically.
+ */
 const INDUSTRIES: Industry[] = [
-  { slug: 'hvac',                name: 'HVAC',                icon: <Wind size={28} />,         blurb: 'Capture every emergency call. The AI qualifies the no-heat panic vs. the maintenance question, then books the right tech.',          videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '0, 180, 220' },
-  { slug: 'roofing',             name: 'Roofing',             icon: <Home size={28} />,         blurb: 'Storm chasers, insurance jobs, repairs. Every call asked the right questions, every lead routed to the right crew.',                videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '220, 140, 50' },
-  { slug: 'plumbing',            name: 'Plumbing',            icon: <Wrench size={28} />,        blurb: 'Burst pipes don\'t wait for business hours. Neither does the AI. Books emergencies after 5pm without paying a night dispatcher.', videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '60, 130, 220' },
-  { slug: 'electrical',          name: 'Electrical',          icon: <Zap size={28} />,           blurb: 'Service calls, panel upgrades, EV chargers — qualified and scheduled before your competitor returns a voicemail.',             videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '240, 210, 50' },
-  { slug: 'insurance',           name: 'Insurance',           icon: <Shield size={28} />,        blurb: 'Quote intake without the wait. The AI captures the basics, qualifies coverage type, and books the agent for the close.',     videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '80, 180, 100' },
-  { slug: 'real-estate',         name: 'Real Estate',         icon: <Building2 size={28} />,     blurb: 'Sign-call follow-up in 30 seconds. Qualifies buyer vs. seller, timeline, and price band — books the showing on your calendar.', videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '180, 100, 220' },
-  { slug: 'legal',               name: 'Legal',               icon: <Scale size={28} />,         blurb: 'After-hours intake that respects compliance. Pre-screens conflicts, captures matter details, schedules the consultation.',     videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '160, 160, 180' },
-  { slug: 'medical',             name: 'Medical / Dental',    icon: <Stethoscope size={28} />,   blurb: 'Patient calls, appointment requests, prescription refills — triaged 24/7 with HIPAA-ready guardrails.',                          videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '220, 70, 90' },
-  { slug: 'locksmith',           name: 'Locksmith',           icon: <KeyRound size={28} />,      blurb: 'Lockout emergencies converted before they call the next number. AI qualifies vehicle vs. home and dispatches the nearest tech.',  videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '220, 180, 60' },
-  { slug: 'property-management', name: 'Property Mgmt',       icon: <Building size={28} />,      blurb: 'Tenant maintenance requests captured with unit number, issue category, and severity — routed to the right vendor automatically.', videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '140, 100, 220' },
-  { slug: 'home-services',       name: 'Home Services',       icon: <HardHat size={28} />,       blurb: 'Painters, landscapers, handymen, cleaners. Any service business that answers the phone for jobs.',                              videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '60, 200, 160' },
-  { slug: 'custom',              name: 'Custom',              icon: <Sparkles size={28} />,      blurb: 'Industry not listed? The agent is trained on your specific workflow, scripts, and qualifying questions.',                       videoId: '6rEDK6LX_AA', pageBuilt: true, accent: '0, 212, 255' },
+  { slug: 'hvac',                name: 'HVAC',             accent: '0, 180, 220',   blurb: 'Capture every no-heat emergency call, qualify the panic vs. the maintenance question, and book the right tech 24/7.' },
+  { slug: 'roofing',            name: 'Roofing',          accent: '220, 140, 50',  blurb: 'Storm jobs, insurance claims, and repairs — every roofing call asked the right questions and routed to the right crew.' },
+  { slug: 'plumbing',           name: 'Plumbing',         accent: '60, 130, 220',  blurb: 'Burst pipes don’t wait for business hours. The AI books after-hours plumbing emergencies without a night dispatcher.' },
+  { slug: 'electrical',         name: 'Electrical',       accent: '240, 210, 50',  blurb: 'Service calls, panel upgrades, and EV chargers qualified and scheduled before your competitor returns a voicemail.' },
+  { slug: 'insurance',          name: 'Insurance',        accent: '80, 180, 100',  blurb: 'Quote intake without the wait. The AI captures the basics, qualifies coverage type, and books the agent for the close.' },
+  { slug: 'real-estate',        name: 'Real Estate',      accent: '180, 100, 220', blurb: 'Sign-call follow-up in 30 seconds. Qualifies buyer vs. seller, timeline, and price band, then books the showing.' },
+  { slug: 'legal',              name: 'Legal',            accent: '160, 160, 180', blurb: 'After-hours legal intake that respects compliance. Pre-screens conflicts and schedules the consultation.' },
+  { slug: 'medical',            name: 'Medical / Dental', accent: '220, 70, 90',   blurb: 'Patient calls, appointment requests, and refills triaged 24/7 with HIPAA-ready guardrails for medical and dental offices.' },
+  { slug: 'locksmith',          name: 'Locksmith',        accent: '220, 180, 60',  blurb: 'Lockout emergencies converted before the caller dials the next number. AI dispatches the nearest locksmith.' },
+  { slug: 'property-management', name: 'Property Mgmt',   accent: '140, 100, 220', blurb: 'Tenant maintenance requests captured with unit number, issue category, and severity, then routed to the right vendor.' },
+  { slug: 'home-services',      name: 'Home Services',    accent: '60, 200, 160',  blurb: 'Painters, landscapers, handymen, and cleaners — any home services business that answers the phone for jobs.' },
+  { slug: 'custom',             name: 'Custom',           accent: '0, 212, 255',   blurb: 'Industry not listed? The voice agent is trained on your specific workflow, scripts, and qualifying questions.' },
 ];
 
 export function Industries() {
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
-  const active = INDUSTRIES.find((i) => i.slug === openSlug) || null;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Industries served by GrowthMindset.ai AI Voice Agents',
+    itemListElement: INDUSTRIES.map((i, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: `AI Voice Agent for ${i.name}`,
+      url: `https://growthmindset.ai/${i.slug}`,
+    })),
+  };
 
   return (
     <section id="industries" className="section" aria-labelledby="industries-heading">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="container-wide">
         <div className="mb-14 max-w-2xl">
           <p className="eyebrow">Built for your industry</p>
@@ -67,118 +68,66 @@ export function Industries() {
           </p>
         </div>
 
-        <ul
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
-          role="list"
-        >
-          {INDUSTRIES.map((i, idx) => (
-            <motion.li
-              key={i.slug}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: (idx % 4) * 0.05, duration: 0.4 }}
-            >
-              <button
-                type="button"
-                onClick={() => setOpenSlug(i.slug)}
-                className="group relative flex h-full w-full flex-col items-start gap-3 overflow-hidden rounded-xl border border-white/[0.06] p-6 text-left transition-all duration-300 hover:border-white/[0.12]"
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4" role="list">
+          {INDUSTRIES.map((i) => (
+            <li key={i.slug}>
+              <Link
+                href={`/${i.slug}`}
+                aria-label={`Learn more about AI voice agents for ${i.name}`}
+                className="group relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/[0.06] pb-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                 style={{
                   background: `
-                    radial-gradient(ellipse at 70% 20%, rgba(${i.accent}, 0.06), transparent 70%),
+                    radial-gradient(ellipse at 70% 15%, rgba(${i.accent}, 0.07), transparent 70%),
                     linear-gradient(180deg, rgba(20,20,23,1) 0%, rgba(12,12,15,1) 100%)
                   `,
                 }}
-                aria-label={`Learn more about ${i.name}`}
               >
-                {/* Hover glow overlay */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background: `
-                      radial-gradient(ellipse at 70% 20%, rgba(${i.accent}, 0.15), transparent 60%),
-                      radial-gradient(ellipse at 30% 80%, rgba(${i.accent}, 0.06), transparent 60%)
-                    `,
-                  }}
-                />
-
-                {/* Subtle grid pattern overlay */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '24px 24px',
-                  }}
-                />
-
                 {/* Top accent line */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-60 transition-opacity duration-300"
+                  className="absolute left-0 right-0 top-0 z-20 h-px opacity-40 transition-opacity duration-300 group-hover:opacity-80"
                   style={{
-                    background: `linear-gradient(90deg, transparent 0%, rgba(${i.accent}, 0.6) 50%, transparent 100%)`,
+                    background: `linear-gradient(90deg, transparent 0%, rgba(${i.accent}, 0.7) 50%, transparent 100%)`,
                   }}
                 />
 
-                {/* Icon */}
-                <span
-                  className="relative z-10 rounded-lg p-3 transition-all duration-300"
-                  style={{
-                    background: `rgba(${i.accent}, 0.08)`,
-                    color: `rgba(${i.accent}, 0.7)`,
-                    boxShadow: `0 0 0 1px rgba(${i.accent}, 0.12)`,
-                  }}
-                >
-                  <span className="block transition-colors duration-300 group-hover:text-white" style={{ color: 'inherit' }}>
-                    {i.icon}
-                  </span>
-                </span>
+                {/* 3D icon art (label cropped off; rendered as live text below) */}
+                <div className="relative aspect-[560/216] w-full overflow-hidden">
+                  <Image
+                    src={`/industries-cropped/${i.slug}.webp`}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  {/* Fade into the card body so the seam disappears */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
+                    style={{ background: 'linear-gradient(180deg, transparent, rgba(14,14,17,1))' }}
+                  />
+                </div>
 
                 {/* Name */}
-                <span className="relative z-10 text-base font-semibold text-white/90 group-hover:text-white transition-colors duration-300">
+                <span className="relative z-10 px-5 pt-3 text-base font-semibold text-white/90 transition-colors duration-300 group-hover:text-white">
                   {i.name}
                 </span>
 
-                {/* CTA */}
-                <span className="relative z-10 mt-auto inline-flex items-center gap-1.5 text-xs transition-all duration-300 group-hover:gap-2"
-                  style={{ color: `rgba(${i.accent}, 0.5)` }}
+                {/* SEO / a11y description (present in DOM, visually hidden) */}
+                <span className="sr-only">{i.blurb}</span>
+
+                {/* Learn more */}
+                <span
+                  className="relative z-10 mt-auto inline-flex items-center gap-1.5 px-5 pt-3 text-xs transition-all duration-300 group-hover:gap-2"
+                  style={{ color: `rgba(${i.accent}, 0.78)` }}
                 >
-                  <span className="group-hover:text-white/70 transition-colors duration-300">Learn more</span>
-                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                  <span className="transition-colors duration-300 group-hover:text-white/80">Learn more</span>
+                  <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
-              </button>
-            </motion.li>
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
-
-      <Modal open={!!active} onClose={() => setOpenSlug(null)} title={active?.name}>
-        {active && (
-          <div className="space-y-5">
-            <div className="aspect-video overflow-hidden rounded-card border border-border bg-bg">
-              <iframe
-                className="h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${active.videoId}?rel=0`}
-                title={`${active.name} explainer`}
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <p className="text-ink-muted">{active.blurb}</p>
-            {active.pageBuilt ? (
-              <Link href={`/${active.slug}`} className="btn-ghost">
-                See full {active.name} details →
-              </Link>
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-btn border border-border bg-bg-card/40 px-4 py-2.5 text-sm text-ink-dim">
-                Dedicated page coming soon
-              </span>
-            )}
-          </div>
-        )}
-      </Modal>
     </section>
   );
 }
