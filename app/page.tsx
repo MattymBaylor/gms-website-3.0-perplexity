@@ -25,8 +25,8 @@ export default function HomePage() {
         <EmailCapture />
         {/* §6 Primary CTA */}
         <PrimaryCTA />
-        {/* §7 FAQ */}
-        <FAQ />
+        {/* §7 FAQ (canonical FAQPage schema lives here) */}
+        <FAQ emitSchema />
       </main>
       {/* §8 Footer */}
       <Footer />

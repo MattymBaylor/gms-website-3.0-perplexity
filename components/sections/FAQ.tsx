@@ -36,8 +36,23 @@ const FAQS: QA[] = [
   },
 ];
 
-export function FAQ() {
+interface FAQProps {
+  /** Emit FAQPage JSON-LD. Set on exactly one page (homepage) to avoid duplicate rich-result signals. */
+  emitSchema?: boolean;
+}
+
+export function FAQ({ emitSchema = false }: FAQProps = {}) {
   const [open, setOpen] = useState<number | null>(0);
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
 
   return (
     <section className="section" aria-labelledby="faq-heading">
@@ -90,6 +105,12 @@ export function FAQ() {
           })}
         </div>
       </div>
+      {emitSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
     </section>
   );
 }

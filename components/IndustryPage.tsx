@@ -12,7 +12,6 @@ import { EmailCapture } from './sections/EmailCapture';
 import { PrimaryCTA } from './sections/PrimaryCTA';
 import { FAQ } from './sections/FAQ';
 import { ArrowRight, CheckCircle2, Users } from 'lucide-react';
-import Link from 'next/link';
 
 export interface IndustryPageProps {
   /** Display name, e.g. "HVAC" */
@@ -71,9 +70,9 @@ export function IndustryPage({
                 <a href="#cta" className="btn-primary">
                   Get Your Free Demo <ArrowRight size={16} />
                 </a>
-                <Link href="/#case-studies" className="btn-ghost">
+                <a href="#case-studies" className="btn-ghost">
                   See the results
-                </Link>
+                </a>
               </div>
 
               <p className="mt-6 inline-flex items-center gap-2 text-sm text-ink-dim">
