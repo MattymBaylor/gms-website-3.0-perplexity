@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   description:
     'The story behind GrowthMindset.ai — AI voice agents for home service contractors.',
   alternates: { canonical: '/about' },
+  openGraph: {
+    type: 'profile',
+    url: '/about',
+    title: 'About GrowthMindset.ai · Matt Martelli',
+    description:
+      'How GrowthMindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
+    images: [{ url: '/about/matt.webp', width: 800, height: 1000, alt: 'Matt Martelli, founder of GrowthMindset.ai' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About GrowthMindset.ai · Matt Martelli',
+    description:
+      'How GrowthMindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
+    images: ['/about/matt.webp'],
+  },
 };
 
 export default function AboutPage() {
