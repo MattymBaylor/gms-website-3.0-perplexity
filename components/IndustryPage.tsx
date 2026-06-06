@@ -75,7 +75,7 @@ export function IndustryPage({
                   Get Your Free Demo <ArrowRight size={16} />
                 </a>
                 <a href="#case-studies" className="btn-ghost">
-                  See the results
+                  Read the breakdown
                 </a>
               </div>
 
