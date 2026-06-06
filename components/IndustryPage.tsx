@@ -31,7 +31,7 @@ export interface IndustryPageProps {
   bullets: string[];
   /** Optional industry-specific YouTube id (defaults to generic explainer) */
   videoId?: string;
-  /** Optional content slotted between the hero and the video explainer. */
+  /** Optional content slotted between the video explainer and the case studies. */
   children?: ReactNode;
 }
 
@@ -102,9 +102,10 @@ export function IndustryPage({
           </div>
         </section>
 
+        <VideoExplainer />
+
         {children}
 
-        <VideoExplainer />
         <CaseStudies />
         <EmailCapture />
         <PrimaryCTA />
