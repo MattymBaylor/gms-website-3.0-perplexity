@@ -21,12 +21,12 @@ export function CaseStudies() {
     >
       <div className="container-wide">
         <div className="mb-14 max-w-2xl">
-          <p className="eyebrow">See the results</p>
+          <p className="eyebrow">Field notes</p>
           <h2 id="case-studies-heading" className="mt-3 text-h1 font-semibold text-ink">
             See It In Action
           </h2>
           <p className="mt-4 text-lead text-ink-muted">
-            A working demo and the thinking behind it — real systems, real numbers.
+            How the system actually works — straight from the team building it.
           </p>
         </div>
 
