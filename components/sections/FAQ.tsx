@@ -57,14 +57,14 @@ export function FAQ({ emitSchema = false }: FAQProps = {}) {
   return (
     <section className="section" aria-labelledby="faq-heading">
       <div className="container-prose">
-        <div className="mb-10 text-center">
+        <div className="mb-10 max-w-2xl">
           <p className="eyebrow">Questions</p>
           <h2 id="faq-heading" className="mt-3 text-h1 font-semibold text-ink">
             Common Objections, Answered
           </h2>
         </div>
 
-        <div className="mx-auto max-w-3xl divide-y divide-border border-y border-border">
+        <div className="max-w-3xl divide-y divide-border border-y border-border">
           {FAQS.map((f, idx) => {
             const isOpen = open === idx;
             return (
