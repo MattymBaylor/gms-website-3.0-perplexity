@@ -11,23 +11,25 @@ function TikTokIcon({ size = 18 }: { size?: number }) {
   );
 }
 
+const SOLUTIONS = [
+  { href: '/hvac', label: 'HVAC' },
+  { href: '/roofing', label: 'Roofing' },
+  { href: '/plumbing', label: 'Plumbing' },
+  { href: '/electrical', label: 'Electrical' },
+  { href: '/locksmith', label: 'Locksmith' },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-border bg-bg-elevated/40">
       <div className="container-wide py-14">
-        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
+        {/* Top row: logo + social */}
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <Link href="/" aria-label="GrowthMindset.ai home">
             <Logo />
           </Link>
-
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3 text-sm text-ink-muted">
-            <Link href="/about" className="hover:text-ink">About</Link>
-            <Link href="/blog" className="hover:text-ink">Blog</Link>
-            <Link href="/privacy" className="hover:text-ink">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-ink">Terms</Link>
-          </nav>
 
           <div className="flex items-center gap-4 text-ink-muted">
             <a
@@ -60,7 +62,76 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-10 text-xs text-ink-dim">
+        {/* Link columns */}
+        <nav aria-label="Footer" className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
+              Solutions
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
+              {SOLUTIONS.map((s) => (
+                <li key={s.href}>
+                  <Link href={s.href} className="hover:text-ink">
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/#industries" className="text-accent hover:text-ink">
+                  All industries →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
+              Resources
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
+              <li>
+                <Link href="/blog" className="hover:text-ink">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/seinfeld-hq"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-ink"
+                >
+                  Seinfeld HQ ↗
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
+              Company
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
+              <li>
+                <Link href="/about" className="hover:text-ink">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-ink">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-ink">
+                  Terms
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <p className="mt-12 text-xs text-ink-dim">
           © {year} GrowthMindset.ai. All rights reserved.
         </p>
       </div>
