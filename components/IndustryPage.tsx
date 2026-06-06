@@ -12,6 +12,7 @@ import { EmailCapture } from './sections/EmailCapture';
 import { PrimaryCTA } from './sections/PrimaryCTA';
 import { FAQ } from './sections/FAQ';
 import { ArrowRight, CheckCircle2, Users } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 export interface IndustryPageProps {
   /** Display name, e.g. "HVAC" */
@@ -30,6 +31,8 @@ export interface IndustryPageProps {
   bullets: string[];
   /** Optional industry-specific YouTube id (defaults to generic explainer) */
   videoId?: string;
+  /** Optional content slotted between the hero and the video explainer. */
+  children?: ReactNode;
 }
 
 export function IndustryPage({
@@ -39,6 +42,7 @@ export function IndustryPage({
   sub,
   trust,
   bullets,
+  children,
 }: IndustryPageProps) {
   return (
     <>
@@ -97,6 +101,8 @@ export function IndustryPage({
             </div>
           </div>
         </section>
+
+        {children}
 
         <VideoExplainer />
         <CaseStudies />
