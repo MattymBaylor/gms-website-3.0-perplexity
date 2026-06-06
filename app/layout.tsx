@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     title: 'Every Missed Call Is a Job You\'ll Never Know You Lost',
     description:
       'AI that answers your phone, qualifies the lead, and books the job — before they hang up.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'GrowthMindset.ai' }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'GrowthMindset.ai — AI Voice Agents for Home Service Contractors' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'GrowthMindset.ai',
     description: 'AI voice agents for home service contractors.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
   },
   alternates: {
     canonical: SITE_URL,
