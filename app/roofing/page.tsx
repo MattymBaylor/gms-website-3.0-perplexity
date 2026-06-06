@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { IndustryPage } from '@/components/IndustryPage';
+import { RoofingPipeline } from '@/components/sections/RoofingPipeline';
 
 export const metadata: Metadata = {
   title: 'AI Voice Agent for Roofers',
@@ -31,6 +32,8 @@ export default function RoofingPage() {
         "Filters tire-kickers from genuine leads by asking the right qualifying questions.",
         "Works 24/7 — because storm damage doesn't wait for Monday morning.",
       ]}
-    />
+    >
+      <RoofingPipeline />
+    </IndustryPage>
   );
 }
