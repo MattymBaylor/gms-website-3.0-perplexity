@@ -3,20 +3,22 @@ import Link from 'next/link';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { getAllPosts } from '@/lib/blog';
 
-const SEINFELD = {
-  href: '/seinfeld-hq',
-  title: 'Seinfeld HQ: a multi-agent command center',
-  description:
-    "A pixel-art interactive case study demonstrating the multi-agent architecture that powers Growth Mindset's voice agents — 8 specialized AI characters, each with their own role.",
-  image: '/seinfeld-hq/banner.png',
-  imageAlt: 'Seinfeld HQ — pixel-art apartment scene',
-};
-
 export function CaseStudies() {
   const posts = getAllPosts();
+  const [featured, ...rest] = posts;
+
+  // If there are no posts at all, render nothing — the section disappears
+  // gracefully rather than showing an empty grid.
+  if (!featured) {
+    return null;
+  }
 
   return (
-    <section id="case-studies" className="section" aria-labelledby="case-studies-heading">
+    <section
+      id="case-studies"
+      className="section"
+      aria-labelledby="case-studies-heading"
+    >
       <div className="container-wide">
         <div className="mb-14 max-w-2xl">
           <p className="eyebrow">See the results</p>
@@ -28,43 +30,43 @@ export function CaseStudies() {
           </p>
         </div>
 
-        {/* Featured: Seinfeld HQ */}
+        {/* Featured: most recent article */}
         <Link
-          href={SEINFELD.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/blog/${featured.slug}`}
           className="group card mb-6 block overflow-hidden p-0 ring-1 ring-accent/20 transition-all hover:ring-accent/50"
-          aria-label={`${SEINFELD.title} (opens in new tab)`}
+          aria-label={`Read featured article: ${featured.title}`}
         >
           <div className="grid md:grid-cols-[1.4fr_1fr]">
-            <div className="relative aspect-[16/9] overflow-hidden bg-[#14120c] md:aspect-auto md:min-h-[260px]">
-              <Image
-                src={SEINFELD.image}
-                alt={SEINFELD.imageAlt}
-                fill
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
-              />
+            <div className="relative aspect-[16/9] overflow-hidden bg-bg-elevated md:aspect-auto md:min-h-[260px]">
+              {featured.hero && (
+                <Image
+                  src={featured.hero}
+                  alt={featured.heroAlt || ''}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              )}
               <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
-                <Sparkles size={12} /> Featured · Interactive
+                <Sparkles size={12} /> Featured
               </span>
             </div>
             <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
               <h3 className="text-h3 font-semibold text-ink transition-colors group-hover:text-accent">
-                {SEINFELD.title}
+                {featured.title}
               </h3>
-              <p className="text-sm text-ink-muted">{SEINFELD.description}</p>
+              <p className="text-sm text-ink-muted">{featured.description}</p>
               <span className="mt-2 inline-flex items-center gap-1.5 text-sm text-accent">
-                Explore the interactive HQ <ArrowRight size={14} />
+                Read the article <ArrowRight size={14} />
               </span>
             </div>
           </div>
         </Link>
 
         {/* Article grid */}
-        {posts.length > 0 && (
+        {rest.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
+            {rest.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -96,7 +98,7 @@ export function CaseStudies() {
         )}
 
         {/* Read all articles */}
-        <div className="mt-10 text-center">
+        <div className="mt-10">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-accent"
