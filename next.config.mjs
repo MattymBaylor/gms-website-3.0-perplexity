@@ -1,4 +1,5 @@
 import createMDX from '@next/mdx';
+import remarkFrontmatter from 'remark-frontmatter';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,12 +18,14 @@ const nextConfig = {
   },
 };
 
-// Full Next app on Vercel (no static export), so the faster Rust MDX
-// compiler is safe to use.
+// We use the default JS-based MDX compiler (mdxRs disabled) so that
+// custom remark/rehype plugins can run. remark-frontmatter is what
+// recognizes the YAML block at the top of each blog post as metadata
+// instead of rendering it as page content. (gray-matter still does the
+// parallel metadata parsing in lib/blog.ts for the sitemap/route data.)
 const withMDX = createMDX({
   options: {
-    mdxRs: true,
-    remarkPlugins: [],
+    remarkPlugins: [remarkFrontmatter],
     rehypePlugins: [],
   },
 });
