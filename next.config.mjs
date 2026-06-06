@@ -1,3 +1,5 @@
+import createMDX from '@next/mdx';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -9,6 +11,8 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   trailingSlash: process.env.NEXT_EXPORT ? true : false,
+  // Allow .md / .mdx files to be treated as pages and content.
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   // The Seinfeld HQ ships as a static HTML file in /public/seinfeld-hq.
   // Rewrites only run in the Node server; in `export` mode the file is
   // served directly at /seinfeld-hq/index.html (which is fine).
@@ -20,4 +24,13 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// Use the stable JS-based MDX compiler (not mdxRs) so the static-export
+// build path keeps working. (Removed in the follow-up dual-mode cleanup.)
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);
