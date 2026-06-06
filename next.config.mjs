@@ -21,6 +21,7 @@ const nextConfig = {
 // compiler is safe to use.
 const withMDX = createMDX({
   options: {
+    mdxRs: true,
     remarkPlugins: [],
     rehypePlugins: [],
   },
