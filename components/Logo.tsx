@@ -1,28 +1,19 @@
 /**
- * Compact, scalable SVG mark for the nav and footer.
- * Designed to be legible at 24px and elegant at 200px.
- * Uses `currentColor` so it adapts to text color.
- *
- * Concept: stylized "GM" monogram inside a rounded square — the square
- * suggests a contained system; the cyan accent dot signals a live signal.
+ * Official GrowthMindset.ai brand mark.
+ * Uses `currentColor` so the SVG adapts to the surrounding text color
+ * (white on the dark site, dark when used on light surfaces).
  */
-export function LogoMark({ className = 'h-7 w-7' }: { className?: string }) {
+export function LogoMark({ className = 'h-7 w-auto' }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 32 32"
+      viewBox="0 0 366.32 387.8"
       className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
       aria-hidden="true"
     >
-      <rect x="2.5" y="2.5" width="27" height="27" rx="7" />
-      <path d="M11 21V13a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" />
-      <path d="M15 17a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" />
-      <path d="M19 17a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" />
-      <circle cx="24.5" cy="8" r="1.6" fill="#00d4ff" stroke="none" />
+      <polygon points="255.19 280.02 196.93 387.8 308.06 387.8 366.32 280.02 255.19 280.02" />
+      <path d="M173.18,172.25l-116.51,215.55h111.13l63.66-117.78c23.86-44.15-8.11-97.76-58.29-97.76" />
+      <path d="M174.18,116.51h58.84L183.78,0,0,116.51h63.04L10.65,213.44c-23.86,44.15,8.11,97.76,58.29,97.76l105.24-194.7Z" />
     </svg>
   );
 }
@@ -30,9 +21,9 @@ export function LogoMark({ className = 'h-7 w-7' }: { className?: string }) {
 export function Logo({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      <LogoMark className="h-7 w-7 text-ink" />
+      <LogoMark className="h-7 w-auto text-ink" />
       <span className="text-[15px] font-semibold tracking-tight">
-        GrowthMindset<span className="text-accent">.ai</span>
+        growthmindset<span className="text-accent">.ai</span>
       </span>
     </div>
   );
