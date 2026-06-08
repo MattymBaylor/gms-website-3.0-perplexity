@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ArrowRight, ChevronDown, Lock } from 'lucide-react';
+import { BrandName } from '@/components/BrandName';
 
 type Track = 'sales' | 'ops' | 'care';
 
@@ -186,7 +187,7 @@ export function RoofingPipeline() {
       <div className="container-prose">
         <div className="mx-auto max-w-3xl">
           {/* Header */}
-          <p className="eyebrow">growthmindset.ai · Live Workflow</p>
+          <p className="eyebrow"><BrandName /> · Live Workflow</p>
           <h2
             id="roofing-pipeline-heading"
             className="mt-3 text-h2 font-semibold text-ink"

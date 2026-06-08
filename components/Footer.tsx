@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Linkedin, Youtube } from 'lucide-react';
 import { Logo } from './Logo';
+import { BrandName } from './BrandName';
 
 // TikTok icon (lucide doesn't ship one — small inline)
 function TikTokIcon({ size = 18 }: { size?: number }) {
@@ -65,7 +66,7 @@ export function Footer() {
         </div>
 
         <p className="mt-8 text-center text-xs text-ink-dim md:text-left">
-          © {year} growthmindset.ai. All rights reserved.
+          © {year} <BrandName />. All rights reserved.
         </p>
       </div>
     </footer>

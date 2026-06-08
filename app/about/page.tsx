@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { BrandName } from '@/components/BrandName';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -50,10 +51,10 @@ export default function AboutPage() {
 
               {/* Bio */}
               <div>
-                <h1 className="text-h2 font-semibold text-ink">About growthmindset.ai</h1>
+                <h1 className="text-h2 font-semibold text-ink">About <BrandName /></h1>
 
                 <div className="mt-6 space-y-5 leading-relaxed text-ink-muted">
-                  <p>I&apos;m Matt Martelli, founder of growthmindset.ai.</p>
+                  <p>I&apos;m Matt Martelli, founder of <BrandName />.</p>
                   <p>
                     My background spans operations, business building,
                     automation, and applied AI.
@@ -72,7 +73,7 @@ export default function AboutPage() {
                     The best systems are reliable, practical, and solve real
                     problems for real people.
                   </p>
-                  <p>That&apos;s the standard we build toward at growthmindset.ai.</p>
+                  <p>That&apos;s the standard we build toward at <BrandName />.</p>
                   <p>
                     Because at the end of the day, businesses don&apos;t buy
                     AI.
