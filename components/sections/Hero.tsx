@@ -27,7 +27,7 @@ export function Hero() {
       />
 
       <div className="container-wide">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,7 +72,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
+            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
           >
             {CAPABILITIES.map((c) => (
               <li
@@ -89,7 +89,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center"
           >
             <a href="#cta" className="btn-primary">
               Get Your Free Demo <ArrowRight size={16} />

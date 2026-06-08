@@ -20,7 +20,7 @@ export function CaseStudies() {
       aria-labelledby="case-studies-heading"
     >
       <div className="container-wide">
-        <div className="mb-14 max-w-2xl">
+        <div className="mb-14 max-w-2xl mx-auto text-center">
           <p className="eyebrow">Field notes</p>
           <h2 id="case-studies-heading" className="mt-3 text-h1 font-semibold text-ink">
             See It In Action
@@ -33,7 +33,7 @@ export function CaseStudies() {
         {/* Featured: most recent article */}
         <Link
           href={`/blog/${featured.slug}`}
-          className="group card mb-6 block overflow-hidden p-0 ring-1 ring-accent/20 transition-all hover:ring-accent/50"
+          className="group card mb-6 block overflow-hidden border-0 p-0 ring-1 ring-accent/20 transition-all hover:ring-accent/50"
           aria-label={`Read featured article: ${featured.title}`}
         >
           <div className="grid md:grid-cols-[1.4fr_1fr]">
@@ -70,7 +70,7 @@ export function CaseStudies() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group card block overflow-hidden p-0"
+                className="group card block overflow-hidden border-0 p-0"
               >
                 {post.hero && (
                   <div className="relative aspect-[16/9] w-full overflow-hidden">
