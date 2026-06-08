@@ -11,29 +11,31 @@ function TikTokIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-const SOLUTIONS = [
-  { href: '/hvac', label: 'HVAC' },
-  { href: '/roofing', label: 'Roofing' },
-  { href: '/plumbing', label: 'Plumbing' },
-  { href: '/electrical', label: 'Electrical' },
-  { href: '/locksmith', label: 'Locksmith' },
-];
-
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-border bg-bg-elevated/40">
-      <div className="container-wide py-14">
-        {/* Top row: logo + social */}
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div className="container-wide py-12">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           <Link href="/" aria-label="GrowthMindset.ai home">
             <Logo />
           </Link>
 
-          <div className="flex items-center gap-4 text-ink-muted">
+          <nav
+            aria-label="Footer"
+            className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-ink-muted"
+          >
+            <Link href="/#industries" className="hover:text-ink">Industries</Link>
+            <Link href="/blog" className="hover:text-ink">Blog</Link>
+            <Link href="/about" className="hover:text-ink">About</Link>
+            <Link href="/privacy" className="hover:text-ink">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-ink">Terms</Link>
+          </nav>
+
+          <div className="flex items-center gap-3 text-ink-muted">
             <a
-              href="https://linkedin.com/company/growthmindset-ai"
+              href="https://www.linkedin.com/in/mattmartelli"
               aria-label="LinkedIn"
               className="rounded-full p-2 transition-colors hover:bg-white/5 hover:text-ink"
               target="_blank"
@@ -42,7 +44,7 @@ export function Footer() {
               <Linkedin size={18} />
             </a>
             <a
-              href="https://youtube.com/@growthmindset-ai"
+              href="https://www.youtube.com/@matt_martelli"
               aria-label="YouTube"
               className="rounded-full p-2 transition-colors hover:bg-white/5 hover:text-ink"
               target="_blank"
@@ -62,76 +64,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Link columns */}
-        <nav aria-label="Footer" className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
-              Solutions
-            </h3>
-            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
-              {SOLUTIONS.map((s) => (
-                <li key={s.href}>
-                  <Link href={s.href} className="hover:text-ink">
-                    {s.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link href="/#industries" className="text-accent hover:text-ink">
-                  All industries →
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
-              Resources
-            </h3>
-            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
-              <li>
-                <Link href="/blog" className="hover:text-ink">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/seinfeld-hq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-ink"
-                >
-                  Seinfeld HQ ↗
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-dim">
-              Company
-            </h3>
-            <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
-              <li>
-                <Link href="/about" className="hover:text-ink">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-ink">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-ink">
-                  Terms
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <p className="mt-12 text-xs text-ink-dim">
+        <p className="mt-8 text-center text-xs text-ink-dim md:text-left">
           © {year} GrowthMindset.ai. All rights reserved.
         </p>
       </div>

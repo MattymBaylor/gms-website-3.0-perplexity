@@ -61,8 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
     sameAs: [
-      'https://linkedin.com/company/growthmindset-ai',
-      'https://youtube.com/@growthmindset-ai',
+      'https://www.linkedin.com/in/mattmartelli',
+      'https://www.youtube.com/@matt_martelli',
     ],
     description: 'AI voice agents for home service contractors.',
   };
