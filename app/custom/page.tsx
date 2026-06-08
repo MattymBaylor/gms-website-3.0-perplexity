@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'AI voice agent trained on your specific workflow, scripts, and qualifying questions. Built for any business that answers the phone for revenue.',
   alternates: { canonical: '/custom' },
   openGraph: {
-    title: 'Custom AI Voice Agent · GrowthMindset.ai',
+    title: 'Custom AI Voice Agent · growthmindset.ai',
     description:
       'AI voice agent trained on your specific workflow, scripts, and qualifying questions.',
     url: '/custom',

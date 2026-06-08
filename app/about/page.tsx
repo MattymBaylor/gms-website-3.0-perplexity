@@ -8,21 +8,21 @@ import { Footer } from '@/components/Footer';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'The story behind GrowthMindset.ai — AI voice agents for home service contractors.',
+    'The story behind growthmindset.ai — AI voice agents for home service contractors.',
   alternates: { canonical: '/about' },
   openGraph: {
     type: 'profile',
     url: '/about',
-    title: 'About GrowthMindset.ai · Matt Martelli',
+    title: 'About growthmindset.ai · Matt Martelli',
     description:
-      'How GrowthMindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
-    images: [{ url: '/about/matt.webp', width: 800, height: 1000, alt: 'Matt Martelli, founder of GrowthMindset.ai' }],
+      'How growthmindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
+    images: [{ url: '/about/matt.webp', width: 800, height: 1000, alt: 'Matt Martelli, founder of growthmindset.ai' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About GrowthMindset.ai · Matt Martelli',
+    title: 'About growthmindset.ai · Matt Martelli',
     description:
-      'How GrowthMindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
+      'How growthmindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
     images: ['/about/matt.webp'],
   },
 };
@@ -40,7 +40,7 @@ export default function AboutPage() {
               <div className="mx-auto w-full max-w-[400px] md:mx-0">
                 <Image
                   src="/about/matt.webp"
-                  alt="Matt Martelli, founder of GrowthMindset.ai"
+                  alt="Matt Martelli, founder of growthmindset.ai"
                   width={800}
                   height={1000}
                   sizes="(max-width: 768px) 100vw, 400px"
@@ -50,10 +50,10 @@ export default function AboutPage() {
 
               {/* Bio */}
               <div>
-                <h1 className="text-h2 font-semibold text-ink">About GrowthMindset.ai</h1>
+                <h1 className="text-h2 font-semibold text-ink">About growthmindset.ai</h1>
 
                 <div className="mt-6 space-y-5 leading-relaxed text-ink-muted">
-                  <p>I&apos;m Matt Martelli, founder of GrowthMindset.ai.</p>
+                  <p>I&apos;m Matt Martelli, founder of growthmindset.ai.</p>
                   <p>
                     My background spans operations, business building,
                     automation, and applied AI.
@@ -72,7 +72,7 @@ export default function AboutPage() {
                     The best systems are reliable, practical, and solve real
                     problems for real people.
                   </p>
-                  <p>That&apos;s the standard we build toward at GrowthMindset.ai.</p>
+                  <p>That&apos;s the standard we build toward at growthmindset.ai.</p>
                   <p>
                     Because at the end of the day, businesses don&apos;t buy
                     AI.

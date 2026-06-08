@@ -186,7 +186,7 @@ export function RoofingPipeline() {
       <div className="container-prose">
         <div className="mx-auto max-w-3xl">
           {/* Header */}
-          <p className="eyebrow">Growth Mindset AI · Live Workflow</p>
+          <p className="eyebrow">growthmindset.ai · Live Workflow</p>
           <h2
             id="roofing-pipeline-heading"
             className="mt-3 text-h2 font-semibold text-ink"

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Handle patient calls, appointment requests, and after-hours triage — 24/7. AI receptionist built for medical and dental practices.',
   alternates: { canonical: '/medical' },
   openGraph: {
-    title: 'AI Voice Agent for Medical & Dental Practices · GrowthMindset.ai',
+    title: 'AI Voice Agent for Medical & Dental Practices · growthmindset.ai',
     description:
       'Handle patient calls, appointment requests, and after-hours triage — 24/7.',
     url: '/medical',

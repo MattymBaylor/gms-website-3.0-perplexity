@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture every no-heat panic call, qualify maintenance vs. emergency, and book the right tech — 24/7. AI receptionist built for HVAC businesses.',
   alternates: { canonical: '/hvac' },
   openGraph: {
-    title: 'AI Voice Agent for HVAC Contractors · GrowthMindset.ai',
+    title: 'AI Voice Agent for HVAC Contractors · growthmindset.ai',
     description:
       'Capture every no-heat panic call, qualify maintenance vs. emergency, and book the right tech — 24/7.',
     url: '/hvac',

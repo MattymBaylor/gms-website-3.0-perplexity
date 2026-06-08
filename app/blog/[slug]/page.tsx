@@ -60,7 +60,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     author: { '@type': 'Person', name: meta.author ?? 'Matt Martelli' },
     publisher: {
       '@type': 'Organization',
-      name: 'GrowthMindset.ai',
+      name: 'growthmindset.ai',
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.svg` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${meta.slug}` },

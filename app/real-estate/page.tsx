@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture sign calls, qualify buyers and sellers, and book showings — 24/7. AI receptionist built for real estate agents and brokerages.',
   alternates: { canonical: '/real-estate' },
   openGraph: {
-    title: 'AI Voice Agent for Real Estate · GrowthMindset.ai',
+    title: 'AI Voice Agent for Real Estate · growthmindset.ai',
     description:
       'Capture sign calls, qualify buyers and sellers, and book showings — 24/7.',
     url: '/real-estate',

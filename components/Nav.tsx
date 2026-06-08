@@ -65,7 +65,7 @@ export function Nav() {
       ].join(' ')}
     >
       <div className="container-wide flex h-16 items-center justify-between">
-        <Link href="/" aria-label="GrowthMindset.ai home" className="shrink-0">
+        <Link href="/" aria-label="growthmindset.ai home" className="shrink-0">
           <Logo />
         </Link>
 

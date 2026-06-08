@@ -13,8 +13,8 @@ const SITE_URL = 'https://growthmindset.ai';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'GrowthMindset.ai — AI Voice Agents for Home Service Contractors',
-    template: '%s · GrowthMindset.ai',
+    default: 'growthmindset.ai — AI Voice Agents for Home Service Contractors',
+    template: '%s · growthmindset.ai',
   },
   description:
     'AI that answers your phone, qualifies the lead, and books the job — before they hang up. 24/7 voice agents built for HVAC, roofing, plumbing, and home services.',
@@ -29,15 +29,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: SITE_URL,
-    siteName: 'GrowthMindset.ai',
+    siteName: 'growthmindset.ai',
     title: 'Every Missed Call Is a Job You\'ll Never Know You Lost',
     description:
       'AI that answers your phone, qualifies the lead, and books the job — before they hang up.',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'GrowthMindset.ai — AI Voice Agents for Home Service Contractors' }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'growthmindset.ai — AI Voice Agents for Home Service Contractors' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GrowthMindset.ai',
+    title: 'growthmindset.ai',
     description: 'AI voice agents for home service contractors.',
     images: ['/opengraph-image'],
   },
@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const orgJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'GrowthMindset.ai',
+    name: 'growthmindset.ai',
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
     sameAs: [

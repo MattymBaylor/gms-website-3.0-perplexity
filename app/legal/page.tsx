@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture intake calls, pre-screen matters, and book consultations — 24/7. AI receptionist built for law firms and legal practices.',
   alternates: { canonical: '/legal' },
   openGraph: {
-    title: 'AI Voice Agent for Law Firms · GrowthMindset.ai',
+    title: 'AI Voice Agent for Law Firms · growthmindset.ai',
     description:
       'Capture intake calls, pre-screen matters, and book consultations — 24/7.',
     url: '/legal',

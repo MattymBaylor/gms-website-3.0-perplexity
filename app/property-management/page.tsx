@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture tenant maintenance requests, qualify urgency, and route to vendors — 24/7. AI receptionist built for property managers.',
   alternates: { canonical: '/property-management' },
   openGraph: {
-    title: 'AI Voice Agent for Property Management · GrowthMindset.ai',
+    title: 'AI Voice Agent for Property Management · growthmindset.ai',
     description:
       'Capture tenant maintenance requests, qualify urgency, and route to vendors — 24/7.',
     url: '/property-management',

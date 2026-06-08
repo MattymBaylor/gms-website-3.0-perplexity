@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture quote requests, qualify coverage type, and book consultations — 24/7. AI receptionist built for insurance agencies.',
   alternates: { canonical: '/insurance' },
   openGraph: {
-    title: 'AI Voice Agent for Insurance Agencies · GrowthMindset.ai',
+    title: 'AI Voice Agent for Insurance Agencies · growthmindset.ai',
     description:
       'Capture quote requests, qualify coverage type, and book consultations — 24/7.',
     url: '/insurance',

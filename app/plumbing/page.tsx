@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture every burst-pipe emergency and routine service call — 24/7. AI receptionist built for plumbing businesses.',
   alternates: { canonical: '/plumbing' },
   openGraph: {
-    title: 'AI Voice Agent for Plumbers · GrowthMindset.ai',
+    title: 'AI Voice Agent for Plumbers · growthmindset.ai',
     description:
       'Capture every burst-pipe emergency and routine service call — 24/7.',
     url: '/plumbing',

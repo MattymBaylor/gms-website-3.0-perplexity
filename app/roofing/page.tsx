@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Capture storm-surge calls, qualify insurance vs. cash jobs, and book inspections — 24/7. AI receptionist built for roofing companies.',
   alternates: { canonical: '/roofing' },
   openGraph: {
-    title: 'AI Voice Agent for Roofers · GrowthMindset.ai',
+    title: 'AI Voice Agent for Roofers · growthmindset.ai',
     description:
       'Capture storm-surge calls, qualify insurance vs. cash jobs, and book inspections — 24/7.',
     url: '/roofing',

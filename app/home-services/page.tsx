@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture every inbound call, qualify leads, and book jobs — 24/7. AI receptionist built for painters, landscapers, handymen, and cleaners.',
   alternates: { canonical: '/home-services' },
   openGraph: {
-    title: 'AI Voice Agent for Home Services · GrowthMindset.ai',
+    title: 'AI Voice Agent for Home Services · growthmindset.ai',
     description:
       'Capture every inbound call, qualify leads, and book jobs — 24/7.',
     url: '/home-services',

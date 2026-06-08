@@ -63,7 +63,7 @@ export function Hero() {
             className="mt-6 text-lead text-ink-muted"
           >
             Every homeowner calls multiple contractors. The one who answers first
-            usually gets the job. GrowthMindset AI answers instantly, asks the
+            usually gets the job. growthmindset.ai answers instantly, asks the
             right questions, captures the details, and books the appointment —
             even when your team is busy serving customers.
           </motion.p>

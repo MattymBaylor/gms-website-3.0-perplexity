@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Capture service calls, panel upgrades, and EV charger installs — 24/7. AI receptionist built for electrical contractors.',
   alternates: { canonical: '/electrical' },
   openGraph: {
-    title: 'AI Voice Agent for Electricians · GrowthMindset.ai',
+    title: 'AI Voice Agent for Electricians · growthmindset.ai',
     description:
       'Capture service calls, panel upgrades, and EV charger installs — 24/7.',
     url: '/electrical',

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Convert lockout emergencies into booked jobs — 24/7. AI receptionist built for locksmith businesses.',
   alternates: { canonical: '/locksmith' },
   openGraph: {
-    title: 'AI Voice Agent for Locksmiths · GrowthMindset.ai',
+    title: 'AI Voice Agent for Locksmiths · growthmindset.ai',
     description:
       'Convert lockout emergencies into booked jobs — 24/7.',
     url: '/locksmith',

@@ -3,7 +3,7 @@ import { StubPage } from '@/components/StubPage';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'How GrowthMindset.ai collects, uses, and protects your information.',
+  description: 'How growthmindset.ai collects, uses, and protects your information.',
   alternates: { canonical: '/privacy' },
   robots: { index: true, follow: true },
 };
@@ -37,8 +37,8 @@ export default function PrivacyPage() {
             <span className="text-ink-dim">Last updated: {updated}</span>
           </P>
           <P>
-            This Privacy Policy explains how GrowthMindset.ai (&ldquo;GrowthMindset,&rdquo;
-            &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and
+            This Privacy Policy explains how growthmindset.ai (&ldquo;we,&rdquo;
+            &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and
             shares information when you visit our website, request a demo, or use our
             AI voice-agent services (the &ldquo;Services&rdquo;). By using the
             Services, you agree to the practices described here.
@@ -79,7 +79,7 @@ export default function PrivacyPage() {
           <List
             items={[
               <>With <strong className="text-ink">service providers</strong> (e.g., telephony, voice/AI model, hosting, and payment processors) who process data on our behalf under appropriate safeguards.</>,
-              'To comply with law, enforce our agreements, or protect the rights, safety, and property of GrowthMindset, our customers, or others.',
+              'To comply with law, enforce our agreements, or protect the rights, safety, and property of growthmindset.ai, our customers, or others.',
               'In connection with a merger, acquisition, or sale of assets, subject to this Policy.',
             ]}
           />

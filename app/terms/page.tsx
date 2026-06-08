@@ -3,7 +3,7 @@ import { StubPage } from '@/components/StubPage';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'The terms governing your use of GrowthMindset.ai services.',
+  description: 'The terms governing your use of growthmindset.ai services.',
   alternates: { canonical: '/terms' },
   robots: { index: true, follow: true },
 };
@@ -39,7 +39,7 @@ export default function TermsPage() {
           <P>
             These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and
             use of the websites, AI voice-agent services, and related software
-            provided by GrowthMindset.ai (&ldquo;GrowthMindset,&rdquo; &ldquo;we,&rdquo;
+            provided by growthmindset.ai (&ldquo;we,&rdquo;
             &ldquo;us,&rdquo; or &ldquo;our&rdquo;) (collectively, the
             &ldquo;Services&rdquo;). By accessing or using the Services, you agree to
             these Terms. If you do not agree, do not use the Services.
@@ -47,7 +47,7 @@ export default function TermsPage() {
 
           <H>The Services</H>
           <P>
-            GrowthMindset provides AI voice agents and automation that answer calls,
+            growthmindset.ai provides AI voice agents and automation that answer calls,
             qualify leads, schedule appointments, and connect customer interactions
             into your workflows. We may update, improve, or modify the Services from
             time to time.
@@ -111,7 +111,7 @@ export default function TermsPage() {
 
           <H>Limitation of Liability</H>
           <P>
-            To the maximum extent permitted by law, GrowthMindset will not be liable
+            To the maximum extent permitted by law, growthmindset.ai will not be liable
             for any indirect, incidental, special, consequential, or punitive
             damages, or for lost profits, revenue, or data. Our total liability for
             any claim relating to the Services will not exceed the amount you paid us
@@ -120,7 +120,7 @@ export default function TermsPage() {
 
           <H>Indemnification</H>
           <P>
-            You agree to indemnify and hold GrowthMindset harmless from claims,
+            You agree to indemnify and hold growthmindset.ai harmless from claims,
             losses, and expenses arising out of your use of the Services or your
             violation of these Terms or applicable law, including call-consent and
             recording requirements.

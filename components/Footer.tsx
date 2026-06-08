@@ -18,7 +18,7 @@ export function Footer() {
     <footer className="border-t border-border bg-bg-elevated/40">
       <div className="container-wide py-12">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-          <Link href="/" aria-label="GrowthMindset.ai home">
+          <Link href="/" aria-label="growthmindset.ai home">
             <Logo />
           </Link>
 
@@ -65,7 +65,7 @@ export function Footer() {
         </div>
 
         <p className="mt-8 text-center text-xs text-ink-dim md:text-left">
-          © {year} GrowthMindset.ai. All rights reserved.
+          © {year} growthmindset.ai. All rights reserved.
         </p>
       </div>
     </footer>

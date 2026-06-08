@@ -1,5 +1,5 @@
 /**
- * Official GrowthMindset.ai brand mark.
+ * Official growthmindset.ai brand mark.
  * Uses `currentColor` so the SVG adapts to the surrounding text color
  * (white on the dark site, dark when used on light surfaces).
  */
