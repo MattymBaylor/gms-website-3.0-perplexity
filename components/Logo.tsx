@@ -27,10 +27,16 @@ export function LogoMark({ className = 'h-7 w-7' }: { className?: string }) {
   );
 }
 
-export function Logo({ className = '' }: { className?: string }) {
+export function Logo({
+  className = '',
+  showMark = true,
+}: {
+  className?: string;
+  showMark?: boolean;
+}) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      <LogoMark className="h-7 w-7 text-ink" />
+      {showMark && <LogoMark className="h-[18px] w-[18px] text-ink" />}
       <span className="text-[15px] font-semibold tracking-tight">
         GrowthMindset<span className="text-accent">.ai</span>
       </span>

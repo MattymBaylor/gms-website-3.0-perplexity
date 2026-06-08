@@ -12,7 +12,7 @@ interface QA {
 const FAQS: QA[] = [
   {
     q: 'Does it really sound human?',
-    a: "Yes. The voice is powered by ElevenLabs with the latest conversational model — indistinguishable from a real receptionist for the vast majority of callers. We'll show you live in the demo.",
+    a: "Yes. The voice is designed to feel natural, calm, and useful on real service calls. We'll show you live in the demo so you can judge it against your own callers and scripts.",
   },
   {
     q: 'I already have a receptionist. Do I still need this?',
@@ -20,7 +20,7 @@ const FAQS: QA[] = [
   },
   {
     q: 'How fast is setup?',
-    a: 'Twenty-four hour turnaround. We research your business, customize the agent to your service area and scripts, and have it live the next day.',
+    a: 'Most demos can be prepared quickly because we start with your business details, service area, and call scripts. If you move forward, we confirm the workflow before anything goes live.',
   },
   {
     q: 'What if a caller wants to speak to a real person?',
@@ -45,7 +45,7 @@ export function FAQ() {
         <div className="mb-10 text-center">
           <p className="eyebrow">Questions</p>
           <h2 id="faq-heading" className="mt-3 text-h1 font-semibold text-ink">
-            Common Objections, Answered
+            FAQs
           </h2>
         </div>
 

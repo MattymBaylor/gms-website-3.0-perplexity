@@ -41,7 +41,7 @@ export function Nav() {
     >
       <div className="container-wide flex h-16 items-center justify-between">
         <Link href="/" aria-label="GrowthMindset.ai home" className="shrink-0">
-          <Logo />
+          <Logo showMark={false} />
         </Link>
 
         {/* Desktop links */}

@@ -53,7 +53,7 @@ export function Industries() {
   return (
     <section id="industries" className="section" aria-labelledby="industries-heading">
       <div className="container-wide">
-        <div className="mb-14 max-w-2xl">
+        <div className="mb-14 max-w-3xl">
           <p className="eyebrow">Built for your industry</p>
           <h2 id="industries-heading" className="mt-3 text-h1 font-semibold text-ink">
             Industries We Serve

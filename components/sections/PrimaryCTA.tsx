@@ -13,13 +13,13 @@ export function PrimaryCTA() {
       />
       <div className="container-prose">
         <div className="mb-10 text-center">
-          <p className="eyebrow">The Demo IS the Product</p>
+          <p className="eyebrow">Demo first</p>
           <h2 id="cta-heading" className="mt-3 text-h1 font-semibold text-ink">
             Get Your Free AI Demo
           </h2>
           <p className="mt-4 text-lead text-ink-muted">
-            14-day free trial → <span className="text-ink">$397/mo</span> after.
-            No contracts.
+            See your call flow before you pay. 14-day trial, then{' '}
+            <span className="text-ink">$397/mo</span>. No contracts.
           </p>
         </div>
 

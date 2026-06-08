@@ -28,7 +28,7 @@ const CASES: CaseStudy[] = [
     slug: 'seinfeld-hq',
     title: 'Seinfeld HQ: A multi-agent command center',
     teaser:
-      "A pixel-art interactive case study demonstrating the internal architecture that powers Growth Mindset's voice agents — 8 specialized AI characters, each with their own role.",
+      "A pixel-art interactive demo of the internal architecture that powers Growth Mindset's voice agents — 8 specialized AI characters, each with their own role.",
     metric: '8',
     metricLabel: 'specialized agents',
     featured: true,
@@ -193,13 +193,14 @@ export function CaseStudies() {
     <section id="case-studies" className="section" aria-labelledby="case-studies-heading">
       <div className="container-wide">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-xl">
-            <p className="eyebrow">See the results</p>
+          <div className="max-w-2xl">
+            <p className="eyebrow">Architecture and outcomes</p>
             <h2 id="case-studies-heading" className="mt-3 text-h1 font-semibold text-ink">
-              Case Studies
+              Proof & Case Studies
             </h2>
             <p className="mt-4 text-lead text-ink-muted">
-              Real businesses. Real numbers. Real architecture.
+              Explore the working architecture now. Customer outcomes will publish
+              as approvals land.
             </p>
           </div>
 
@@ -249,7 +250,7 @@ export function CaseStudies() {
                 {/* Poster — full height for cards with images, compact strip for "coming soon" cards */}
                 <div
                   className={[
-                    'relative w-full overflow-hidden rounded-t-card',
+                    'relative -mx-px -mt-px w-[calc(100%+2px)] overflow-hidden rounded-t-card',
                     hasImage ? 'h-44' : 'h-20',
                     c.posterClass || 'bg-bg-elevated',
                   ].join(' ')}

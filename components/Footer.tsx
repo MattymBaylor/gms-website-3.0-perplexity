@@ -40,7 +40,7 @@ export function Footer() {
               <Linkedin size={18} />
             </a>
             <a
-              href="https://youtube.com/@growthmindset-ai"
+              href="https://www.youtube.com/@matt_martelli"
               aria-label="YouTube"
               className="rounded-full p-2 transition-colors hover:bg-white/5 hover:text-ink"
               target="_blank"

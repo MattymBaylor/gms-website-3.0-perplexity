@@ -26,7 +26,7 @@ export function CTAForm() {
   const setField = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setData((d) => ({ ...d, [k]: e.target.value }));
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -43,32 +43,18 @@ export function CTAForm() {
       return;
     }
 
-    setStatus('submitting');
-    try {
-      // Primary path: server route that proxies to N8N (preferred on Vercel).
-      let res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      // Fallback: in a fully static deploy the API route doesn't exist (404).
-      // Post straight to N8N — same payload, same outcome.
-      if (res.status === 404 || res.status === 405) {
-        res = await fetch(
-          'https://n8n.growthmindsetai.tech/webhook/44956247-3835-4500-87b4-dafc40c6b0a9',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          },
-        );
-      }
-      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-      setStatus('ok');
-    } catch (err) {
-      setStatus('error');
-      setError(err instanceof Error ? err.message : 'Something went wrong.');
-    }
+    // Send the request straight to Matt's inbox via the visitor's mail client.
+    const subject = `Demo request — ${data.business_name}`;
+    const body = [
+      `First Name: ${data.first_name}`,
+      `Business Name: ${data.business_name}`,
+      `Business Address: ${data.business_address}`,
+      `Phone: ${data.phone}`,
+    ].join('\n');
+    window.location.href = `mailto:matt@growthmindset.ai?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+    setStatus('ok');
   };
 
   if (status === 'ok') {
@@ -89,11 +75,11 @@ export function CTAForm() {
           <CheckCircle2 size={36} />
         </motion.div>
         <div>
-          <h3 className="text-h2 font-semibold text-ink">You're in.</h3>
+          <h3 className="text-h2 font-semibold text-ink">Almost there.</h3>
           <p className="mt-2 max-w-md text-ink-muted">
-            Expect a call within 15 minutes. Our AI will research your business and
-            walk you through a tailored demo — same way it would treat one of your
-            customers.
+            Your email app just opened with your demo request — hit send and it
+            lands in Matt&apos;s inbox. We&apos;ll reach out shortly to set up your
+            tailored demo.
           </p>
         </div>
       </motion.div>
@@ -186,7 +172,7 @@ export function CTAForm() {
               <Loader2 size={16} className="animate-spin" /> Sending…
             </>
           ) : (
-            'Start My Demo'
+            'Request a Demo'
           )}
         </button>
         <p className="text-xs text-ink-dim">

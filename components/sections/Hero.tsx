@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Users } from 'lucide-react';
+import { ArrowRight, ClipboardCheck } from 'lucide-react';
 import { HeroBlueprint } from '../HeroBlueprint';
 
 export function Hero() {
@@ -63,7 +63,7 @@ export function Hero() {
               Get Your Free Demo <ArrowRight size={16} />
             </a>
             <a href="#case-studies" className="btn-ghost">
-              See the results
+              Explore the build
             </a>
           </motion.div>
 
@@ -73,8 +73,8 @@ export function Hero() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-6 inline-flex items-center gap-2 text-sm text-ink-dim"
           >
-            <Users size={14} className="text-accent" />
-            <span>Trusted by 50+ home service businesses</span>
+            <ClipboardCheck size={14} className="text-accent" />
+            <span>Demo first: tailored to your scripts, service area, and booking flow</span>
           </motion.div>
         </div>
 

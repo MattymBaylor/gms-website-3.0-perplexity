@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s · GrowthMindset.ai',
   },
   description:
-    'AI that answers your phone, qualifies the lead, and books the job — before they hang up. 24/7 voice agents built for HVAC, roofing, plumbing, and home services.',
+    'AI that answers your phone, qualifies the lead, and books the job — before they hang up. 24/7 voice agents built around your scripts, service area, and booking workflow.',
   keywords: [
     'AI voice agent',
     'home service AI',
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     logo: `${SITE_URL}/logo.svg`,
     sameAs: [
       'https://linkedin.com/company/growthmindset-ai',
-      'https://youtube.com/@growthmindset-ai',
+      'https://www.youtube.com/@matt_martelli',
     ],
     description: 'AI voice agents for home service contractors.',
   };
