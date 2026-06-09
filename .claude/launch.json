@@ -1,0 +1,18 @@
+{
+  "servers": {
+    "gms-seinfeld": {
+      "command": "npm",
+      "args": ["run", "dev"],
+      "url": "http://localhost:3000/seinfeld-hq/",
+      "readyPattern": "Ready in|started server on|Local:",
+      "workingDirectory": "/Users/matthewmartelli/dev/gms-website-3.0-perplexity"
+    },
+    "gms-validation-panel": {
+      "command": "npm",
+      "args": ["run", "dev"],
+      "url": "http://localhost:3000/saas/ai-validation-panel",
+      "readyPattern": "Ready in|started server on|Local:",
+      "workingDirectory": "/Users/matthewmartelli/dev/gms-website-3.0-perplexity"
+    }
+  }
+}
