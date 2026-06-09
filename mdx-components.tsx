@@ -12,35 +12,39 @@ import { ROICalculator } from '@/components/blog/ROICalculator';
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h2: ({ children }) => (
-      <h2 className="text-h2 font-semibold text-ink mt-12 mb-4">{children}</h2>
+      <h2 className="relative mt-20 mb-6 text-h2 font-semibold text-ink scroll-mt-24 pl-5 border-l-2 border-accent/70">
+        {children}
+      </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-h3 font-semibold text-ink mt-8 mb-3">{children}</h3>
+      <h3 className="text-h3 font-semibold text-ink mt-12 mb-4 scroll-mt-24">{children}</h3>
     ),
     p: ({ children }) => (
-      <p className="text-ink-muted leading-relaxed mb-5">{children}</p>
+      <p className="text-ink/85 leading-[1.8] mb-6 text-[1.0625rem]">{children}</p>
     ),
     a: ({ href, children }) => (
-      <Link href={href ?? '#'} className="link-accent">
+      <Link href={href ?? '#'} className="link-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">
         {children}
       </Link>
     ),
     ul: ({ children }) => (
-      <ul className="mb-5 list-disc space-y-2 pl-6 text-ink-muted">{children}</ul>
+      <ul className="mb-6 list-disc space-y-3 pl-6 text-ink/85 leading-[1.75] marker:text-accent/60">{children}</ul>
     ),
     ol: ({ children }) => (
-      <ol className="mb-5 list-decimal space-y-2 pl-6 text-ink-muted">{children}</ol>
+      <ol className="mb-6 list-decimal space-y-3 pl-6 text-ink/85 leading-[1.75] marker:text-accent/80 marker:font-semibold">{children}</ol>
     ),
-    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    li: ({ children }) => <li className="leading-[1.75] pl-1">{children}</li>,
     strong: ({ children }) => (
       <strong className="font-semibold text-ink">{children}</strong>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-6 border-l-2 border-accent/60 pl-5 text-lead text-ink-muted italic">
+      <blockquote className="my-8 rounded-card border-l-4 border-accent bg-bg-card/40 px-6 py-5 text-lead text-ink italic">
         {children}
       </blockquote>
     ),
-    hr: () => <hr className="my-10 border-border" />,
+    hr: () => (
+      <hr className="my-16 border-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
+    ),
     img: (props) => (
       <Image
         {...(props as ImageProps)}
