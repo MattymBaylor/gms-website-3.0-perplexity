@@ -1,16 +1,7 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
-import Link from 'next/link';
-import {
-  Loader2,
-  Trophy,
-  AlertTriangle,
-  Lightbulb,
-  Sparkles,
-  Lock,
-  CheckCircle2,
-} from 'lucide-react';
+import { useState, FormEvent } from 'react';
+import { Loader2, Trophy, AlertTriangle, Lightbulb, Sparkles } from 'lucide-react';
 
 interface ValidateResponse {
   winnerMessage: string;
@@ -18,8 +9,6 @@ interface ValidateResponse {
   objections: string[];
   improvedOptions: string[];
 }
-
-const UNLOCK_KEY = 'gms-validation-panel-unlocked';
 
 const SAMPLE = {
   audience:
@@ -32,19 +21,7 @@ const SAMPLE = {
   ].join('\n'),
 };
 
-const BLUE_BUTTON =
-  'inline-flex items-center justify-center gap-2 rounded-btn bg-accent px-5 py-3 text-sm font-semibold text-bg shadow-[0_6px_24px_rgba(0,212,255,0.25)] transition hover:bg-accent-dim hover:shadow-[0_10px_30px_rgba(0,212,255,0.35)] hover:-translate-y-px disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0';
-
 export function ValidationPanel() {
-  const [hydrated, setHydrated] = useState(false);
-  const [unlocked, setUnlocked] = useState(false);
-
-  // Email gate
-  const [email, setEmail] = useState('');
-  const [subscribing, setSubscribing] = useState(false);
-  const [subscribeError, setSubscribeError] = useState<string | null>(null);
-
-  // Form
   const [audience, setAudience] = useState('');
   const [goal, setGoal] = useState('');
   const [messagesText, setMessagesText] = useState('');
@@ -52,62 +29,12 @@ export function ValidationPanel() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ValidateResponse | null>(null);
 
-  useEffect(() => {
-    try {
-      setUnlocked(localStorage.getItem(UNLOCK_KEY) === '1');
-    } catch {
-      // localStorage may be unavailable (private mode, etc.) — fail safe to gated
-    }
-    setHydrated(true);
-  }, []);
-
   function loadSample() {
     setAudience(SAMPLE.audience);
     setGoal(SAMPLE.goal);
     setMessagesText(SAMPLE.messages);
     setError(null);
     setResult(null);
-  }
-
-  async function onSubscribe(e: FormEvent) {
-    e.preventDefault();
-    setSubscribeError(null);
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setSubscribeError('Please enter a valid email address.');
-      return;
-    }
-
-    setSubscribing(true);
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          email: email.trim(),
-          source: 'ai-validation-panel',
-        }),
-      });
-      // Even if the subscribe call fails server-side, don't punish the user —
-      // they gave us their email in good faith. Log a console warning only.
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        console.warn('Subscribe non-OK:', res.status, data);
-      }
-      try {
-        localStorage.setItem(UNLOCK_KEY, '1');
-      } catch {
-        // ignore
-      }
-      setUnlocked(true);
-    } catch (err: any) {
-      // Network failure on the subscribe POST — show a real error so they can retry
-      setSubscribeError(
-        err?.message || 'Could not reach the server. Please try again.',
-      );
-    } finally {
-      setSubscribing(false);
-    }
   }
 
   async function onSubmit(e: FormEvent) {
@@ -121,9 +48,7 @@ export function ValidationPanel() {
       .filter(Boolean);
 
     if (!audience.trim() || !goal.trim() || messages.length < 2) {
-      setError(
-        'Please fill all three fields, with at least 2 messages (one per line).',
-      );
+      setError('Please fill all three fields, with at least 2 messages (one per line).');
       return;
     }
 
@@ -143,6 +68,7 @@ export function ValidationPanel() {
         throw new Error(data?.error || 'Something went wrong.');
       }
       setResult(data as ValidateResponse);
+      // Scroll the result into view
       requestAnimationFrame(() => {
         document
           .getElementById('panel-result')
@@ -155,88 +81,15 @@ export function ValidationPanel() {
     }
   }
 
-  // Avoid hydration flash: render a stable placeholder until we know the unlock state
-  if (!hydrated) {
-    return (
-      <div
-        className="card p-6 md:p-8"
-        style={{ minHeight: 280 }}
-        aria-hidden="true"
-      />
-    );
-  }
-
-  // ─── Email gate ──────────────────────────────────────────────────────────
-  if (!unlocked) {
-    return (
-      <form onSubmit={onSubscribe} className="card p-6 md:p-8 space-y-5">
-        <div className="flex items-center gap-2">
-          <Lock size={16} className="text-accent" />
-          <p className="eyebrow !text-accent">Unlock the panel</p>
-        </div>
-        <p className="text-ink-muted leading-relaxed">
-          Drop your email to unlock the AI Validation Panel. One-time — you
-          won't see this again on this browser.
-        </p>
-        <div>
-          <label htmlFor="email-gate" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="email-gate"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@yourbusiness.com"
-            className="input"
-            required
-            autoComplete="email"
-            inputMode="email"
-          />
-        </div>
-        <button type="submit" disabled={subscribing} className={BLUE_BUTTON}>
-          {subscribing ? (
-            <>
-              <Loader2 size={16} className="animate-spin" />
-              Unlocking…
-            </>
-          ) : (
-            <>
-              <Lock size={16} />
-              Unlock the panel
-            </>
-          )}
-        </button>
-        {subscribeError && (
-          <div
-            role="alert"
-            className="rounded-btn border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300"
-          >
-            {subscribeError}
-          </div>
-        )}
-        <p className="text-xs text-ink-dim leading-relaxed pt-1">
-          We'll email you about future free tools and the occasional sharp
-          marketing tactic. We never sell, share, or hand off your address to
-          third parties. Unsubscribe in one click. See our{' '}
-          <Link href="/privacy" className="text-accent hover:opacity-80">
-            Privacy Policy
-          </Link>
-          .
-        </p>
-      </form>
-    );
-  }
-
-  // ─── Panel form (post-unlock) ─────────────────────────────────────────────
   return (
     <div className="space-y-12">
+      {/* Form */}
       <form onSubmit={onSubmit} className="card p-6 md:p-8 space-y-6">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-ink-dim">
-            <CheckCircle2 size={14} className="text-success" />
-            <span>Unlocked</span>
-          </div>
+          <p className="text-sm text-ink-muted">
+            Paste your audience, goal, and a few message variants. The panel runs in
+            ~15 seconds.
+          </p>
           <button
             type="button"
             onClick={loadSample}
@@ -245,11 +98,6 @@ export function ValidationPanel() {
             Load sample →
           </button>
         </div>
-
-        <p className="text-sm text-ink-muted">
-          Paste your audience, goal, and a few message variants. The panel runs
-          in ~15 seconds.
-        </p>
 
         <div>
           <label
@@ -309,7 +157,11 @@ export function ValidationPanel() {
         </div>
 
         <div className="flex items-center gap-4 pt-2">
-          <button type="submit" disabled={loading} className={BLUE_BUTTON}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="inline-flex items-center justify-center gap-2 rounded-btn bg-accent px-5 py-3 text-sm font-semibold text-bg shadow-[0_6px_24px_rgba(0,212,255,0.25)] transition hover:bg-accent-dim hover:shadow-[0_10px_30px_rgba(0,212,255,0.35)] hover:-translate-y-px disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          >
             {loading ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
@@ -339,6 +191,7 @@ export function ValidationPanel() {
         )}
       </form>
 
+      {/* Result */}
       {result && (
         <div id="panel-result" className="space-y-6 animate-fade-in">
           <div className="card p-6 md:p-8">
