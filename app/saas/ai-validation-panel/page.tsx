@@ -112,7 +112,7 @@ export default function AIValidationPanelPage() {
             </div>
 
             <p className="mt-12 text-xs text-ink-dim">
-              Runs on Claude. Your inputs are sent server-side to Anthropic and are
+              Runs on Grok (xAI). Your inputs are sent server-side to xAI and are
               not stored. Nothing is saved on growthmindset.ai.
             </p>
           </div>

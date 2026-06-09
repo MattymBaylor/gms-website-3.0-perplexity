@@ -3,18 +3,18 @@ import { NextRequest, NextResponse } from 'next/server';
 /**
  * POST /api/validate — AI Validation Panel
  *
- * Sends audience / goal / messages to Claude and returns a JSON verdict:
+ * Sends audience / goal / messages to Grok (xAI) and returns a JSON verdict:
  * winner, why-it-won, objections, improved options.
  *
- * Edge-incompatible (uses Node fetch with a long timeout); runs on the
- * default Node runtime so we can comfortably wait on Anthropic.
+ * Runs on the default Node runtime so we can comfortably wait on xAI's API
+ * (OpenAI-compatible Chat Completions endpoint).
  */
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-6';
+const XAI_API_URL = 'https://api.x.ai/v1/chat/completions';
+const MODEL = process.env.XAI_MODEL || 'grok-4';
 
 const SYSTEM_PROMPT = `You are an AI marketing research moderator running an AI Validation Panel.
 Your job is to act as a neutral, critical evaluator of marketing messages for a specific audience and goal.
@@ -100,10 +100,10 @@ function asStringArray(v: unknown): string[] {
 }
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.XAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'Server is not configured (missing ANTHROPIC_API_KEY).' },
+      { error: 'Server is not configured (missing XAI_API_KEY).' },
       { status: 500 },
     );
   }
@@ -138,18 +138,20 @@ export async function POST(req: NextRequest) {
   const timer = setTimeout(() => controller.abort(), 55_000);
 
   try {
-    const upstream = await fetch(ANTHROPIC_API_URL, {
+    const upstream = await fetch(XAI_API_URL, {
       method: 'POST',
       headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 2048,
-        system: SYSTEM_PROMPT,
+        // xAI/OpenAI-compatible: ask for JSON output. If unsupported on a given
+        // model the server ignores this and our extractor catches any wrapping.
+        response_format: { type: 'json_object' },
         messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
           {
             role: 'user',
             content: buildUserMessage(audience, goal, messages),
@@ -162,7 +164,7 @@ export async function POST(req: NextRequest) {
 
     if (!upstream.ok) {
       const detail = await upstream.text().catch(() => '');
-      console.error('Anthropic upstream error:', upstream.status, detail);
+      console.error('xAI upstream error:', upstream.status, detail);
       return NextResponse.json(
         { error: 'The validation panel could not run. Please try again.' },
         { status: 502 },
@@ -170,10 +172,10 @@ export async function POST(req: NextRequest) {
     }
 
     const data: any = await upstream.json();
-    const textBlock = Array.isArray(data?.content)
-      ? data.content.find((c: any) => c?.type === 'text')
-      : null;
-    const text: string = typeof textBlock?.text === 'string' ? textBlock.text : '';
+    const text: string =
+      typeof data?.choices?.[0]?.message?.content === 'string'
+        ? data.choices[0].message.content
+        : '';
 
     let parsed: any;
     try {
