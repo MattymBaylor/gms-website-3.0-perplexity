@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const updated = 'June 7, 2026';
+const updated = 'June 14, 2026';
 
 function H({ children }: { children: React.ReactNode }) {
   return <h2 className="mt-10 text-lg font-semibold text-ink">{children}</h2>;
@@ -64,6 +64,26 @@ export default function PrivacyPage() {
               'To analyze usage, maintain security, prevent fraud, and comply with legal obligations.',
             ]}
           />
+
+          <H>SMS Communications</H>
+          <P>
+            If you provide your mobile phone number and consent to receive text
+            messages, <BrandName /> may send SMS communications regarding
+            appointments, consultations, project updates, customer support, and
+            requested information.
+          </P>
+          <List
+            items={[
+              'Message frequency varies.',
+              'Message and data rates may apply.',
+              'You may opt out at any time by replying STOP to any SMS message.',
+              'For assistance, reply HELP or contact us through our website.',
+            ]}
+          />
+          <P>
+            SMS consent is not shared with third parties or affiliates for
+            marketing purposes.
+          </P>
 
           <H>Call Recording &amp; AI Processing</H>
           <P>
