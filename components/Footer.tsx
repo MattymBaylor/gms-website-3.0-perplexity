@@ -31,7 +31,7 @@ export function Footer() {
             <Link href="/blog" className="hover:text-ink">Blog</Link>
             <Link href="/about" className="hover:text-ink">About</Link>
             <Link href="/privacy" className="hover:text-ink">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-ink">Terms</Link>
+            <Link href="/terms" className="hover:text-ink">Terms &amp; Conditions</Link>
           </nav>
 
           <div className="flex items-center gap-3 text-ink-muted">
