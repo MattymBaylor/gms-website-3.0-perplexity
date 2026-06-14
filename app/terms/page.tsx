@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const updated = 'June 7, 2026';
+const updated = 'June 14, 2026';
 
 function H({ children }: { children: React.ReactNode }) {
   return <h2 className="mt-10 text-lg font-semibold text-ink">{children}</h2>;
@@ -67,6 +67,24 @@ export default function TermsPage() {
               'Paid plans are billed on a recurring monthly basis at the rates presented at sign-up. Any free-trial period is described at the time of the offer; if you do not cancel before it ends, the plan converts to a paid subscription.',
               'Subscriptions are month-to-month and may be cancelled at any time, effective at the end of the current billing period. Fees already paid are non-refundable except where required by law.',
               'We may change pricing on a prospective basis with reasonable notice.',
+            ]}
+          />
+
+          <H>SMS Terms of Service</H>
+          <P>
+            By providing your mobile phone number and opting into SMS
+            communications, you agree to receive text messages from <BrandName />{' '}
+            related to your inquiry, appointments, customer support, project
+            updates, and requested services.
+          </P>
+          <List
+            items={[
+              'Message frequency varies.',
+              'Message and data rates may apply.',
+              'You may opt out at any time by replying STOP.',
+              'For assistance, reply HELP.',
+              'Consent to receive SMS messages is not a condition of purchase.',
+              'Wireless carriers are not liable for delayed or undelivered messages.',
             ]}
           />
 

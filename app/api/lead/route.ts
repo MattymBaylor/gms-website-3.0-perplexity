@@ -11,6 +11,10 @@ import { NextRequest, NextResponse } from 'next/server';
  *   • hide the webhook URL from the client bundle (env var)
  *   • validate and shape the payload
  *   • add timeout + retry logic without leaking errors to the visitor
+ *
+ * The payload also carries the visitor's explicit SMS opt-in
+ * (sms_consent) plus the timestamp it was given, so proof of consent is
+ * stored alongside every lead for A2P 10DLC compliance.
  */
 
 export const runtime = 'edge';
@@ -24,6 +28,8 @@ interface LeadPayload {
   business_name: string;
   business_address: string;
   phone: string;
+  sms_consent: boolean;
+  sms_consent_timestamp: string;
 }
 
 function sanitize(s: unknown, max = 200): string {
@@ -39,11 +45,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
+  const smsConsent = raw?.sms_consent === true || raw?.sms_consent === 'true';
+
   const payload: LeadPayload = {
     first_name: sanitize(raw?.first_name, 80),
     business_name: sanitize(raw?.business_name, 120),
     business_address: sanitize(raw?.business_address, 200),
     phone: sanitize(raw?.phone, 32),
+    sms_consent: smsConsent,
+    sms_consent_timestamp:
+      sanitize(raw?.sms_consent_timestamp, 40) ||
+      (smsConsent ? new Date().toISOString() : ''),
   };
 
   // Required field check
@@ -54,6 +66,14 @@ export async function POST(req: NextRequest) {
     !payload.phone
   ) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 422 });
+  }
+
+  // SMS opt-in is required before we forward a textable lead.
+  if (!payload.sms_consent) {
+    return NextResponse.json(
+      { error: 'SMS consent is required to submit this form.' },
+      { status: 422 },
+    );
   }
 
   // Forward with a 10s timeout
