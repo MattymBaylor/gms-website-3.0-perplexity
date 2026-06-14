@@ -9,6 +9,7 @@ interface FormState {
   business_name: string;
   business_address: string;
   phone: string;
+  sms_consent: boolean;
 }
 
 const EMPTY: FormState = {
@@ -16,6 +17,8 @@ const EMPTY: FormState = {
   business_name: '',
   business_address: '',
   phone: '',
+  // SMS consent must be opt-in: unchecked by default (A2P 10DLC requirement).
+  sms_consent: false,
 };
 
 export function CTAForm() {
@@ -23,7 +26,7 @@ export function CTAForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'ok' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
 
-  const setField = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const setField = (k: keyof Omit<FormState, 'sms_consent'>) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setData((d) => ({ ...d, [k]: e.target.value }));
 
   const onSubmit = (e: React.FormEvent) => {
@@ -43,6 +46,17 @@ export function CTAForm() {
       return;
     }
 
+    // SMS consent must be explicitly granted before we can text the contact.
+    if (!data.sms_consent) {
+      setError('Please check the box to agree to receive SMS messages so we can text you about your demo.');
+      return;
+    }
+
+    // Capture the moment consent was given for the compliance record.
+    const consentTimestamp = new Date().toISOString();
+    const consentLanguage =
+      'I agree to receive SMS messages from Growth Mindset regarding my inquiry, appointments, requested services, and account updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for assistance. Consent is not a condition of purchase.';
+
     // Send the request straight to Matt's inbox via the visitor's mail client.
     const subject = `Demo request — ${data.business_name}`;
     const body = [
@@ -50,6 +64,9 @@ export function CTAForm() {
       `Business Name: ${data.business_name}`,
       `Business Address: ${data.business_address}`,
       `Phone: ${data.phone}`,
+      '',
+      `SMS Consent: Yes — opted in on ${consentTimestamp}`,
+      `Consent Language: ${consentLanguage}`,
     ].join('\n');
     window.location.href = `mailto:matt@growthmindset.ai?subject=${encodeURIComponent(
       subject,
@@ -153,6 +170,39 @@ export function CTAForm() {
             required
           />
         </Field>
+      </div>
+
+      {/* A2P 10DLC SMS consent — unchecked by default, standalone (not bundled
+          with any other agreement), placed directly above the submit button. */}
+      <div className="mt-6 rounded-btn border border-border bg-bg-elevated/40 p-4">
+        <label htmlFor="sms_consent" className="flex items-start gap-3 text-sm text-ink-muted">
+          <input
+            id="sms_consent"
+            name="sms_consent"
+            type="checkbox"
+            checked={data.sms_consent}
+            onChange={(e) => setData((d) => ({ ...d, sms_consent: e.target.checked }))}
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-accent"
+          />
+          <span>
+            I agree to receive SMS messages from Growth Mindset regarding my
+            inquiry, appointments, requested services, and account updates.
+            Message frequency varies. Message and data rates may apply. Reply
+            STOP to opt out and HELP for assistance. Consent is not a condition
+            of purchase.
+          </span>
+        </label>
+        <p className="mt-2 pl-7 text-xs text-ink-dim">
+          See our{' '}
+          <a href="/privacy" className="link-accent" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>{' '}
+          and{' '}
+          <a href="/terms" className="link-accent" target="_blank" rel="noopener noreferrer">
+            Terms &amp; Conditions
+          </a>
+          .
+        </p>
       </div>
 
       {error && (
