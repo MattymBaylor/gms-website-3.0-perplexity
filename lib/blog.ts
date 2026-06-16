@@ -19,7 +19,17 @@ export interface PostMeta extends PostFrontmatter {
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
 
-/** All published posts, newest first. Drafts excluded in production. */
+/**
+ * Slugs intentionally hidden from all listings (the homepage "See It In
+ * Action" grid and /blog) without deleting the source MDX files. Remove a
+ * slug from this set to republish that post.
+ */
+const HIDDEN_SLUGS = new Set<string>([
+  'seinfeld-ai-agents',
+  'seinfeld-roofing-case-study',
+]);
+
+/** All published posts, newest first. Drafts and hidden slugs excluded. */
 export function getAllPosts(): PostMeta[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
 
@@ -33,6 +43,7 @@ export function getAllPosts(): PostMeta[] {
   });
 
   return posts
+    .filter((p) => !HIDDEN_SLUGS.has(p.slug))
     .filter((p) => (process.env.NODE_ENV === 'production' ? !p.draft : true))
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
