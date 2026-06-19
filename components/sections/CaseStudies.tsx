@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { getAllPosts } from '@/lib/blog';
+import { PostThumb } from '@/components/blog/PostThumb';
 
 export function CaseStudies() {
   const posts = getAllPosts();
@@ -38,15 +38,7 @@ export function CaseStudies() {
         >
           <div className="grid md:grid-cols-[1.4fr_1fr]">
             <div className="relative aspect-[16/9] overflow-hidden bg-bg-elevated md:aspect-auto md:min-h-[260px]">
-              {featured.hero && (
-                <Image
-                  src={featured.hero}
-                  alt={featured.heroAlt || ''}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
-                />
-              )}
+              <PostThumb post={featured} sizes="(max-width: 768px) 100vw, 60vw" priority />
               <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cta px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
                 <Sparkles size={12} /> Featured
               </span>
@@ -72,17 +64,12 @@ export function CaseStudies() {
                 href={`/blog/${post.slug}`}
                 className="group card block overflow-hidden border-0 p-0"
               >
-                {post.hero && (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
-                    <Image
-                      src={post.hero}
-                      alt={post.heroAlt || ''}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                )}
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <PostThumb
+                    post={post}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
                 <div className="flex flex-col gap-2 p-5">
                   <h3 className="line-clamp-2 text-h3 font-semibold text-ink transition-colors group-hover:text-accent">
                     {post.title}

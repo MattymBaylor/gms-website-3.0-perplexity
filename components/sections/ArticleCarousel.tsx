@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { PostMeta } from '@/lib/blog';
+import { PostThumb } from '@/components/blog/PostThumb';
 
 /**
  * Accessible, dependency-free horizontal carousel built on native CSS
@@ -82,17 +82,9 @@ export function ArticleCarousel({ posts }: { posts: PostMeta[] }) {
               href={`/blog/${post.slug}`}
               className="group card flex h-full flex-col overflow-hidden border-0 p-0"
             >
-              {post.hero && (
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
-                  <Image
-                    src={post.hero}
-                    alt={post.heroAlt || ''}
-                    fill
-                    sizes="320px"
-                    className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                </div>
-              )}
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <PostThumb post={post} sizes="320px" />
+              </div>
               <div className="flex flex-1 flex-col gap-2 p-5">
                 <p className="text-xs text-ink-dim">
                   {new Date(post.date).toLocaleDateString('en-US', {
@@ -113,7 +105,7 @@ export function ArticleCarousel({ posts }: { posts: PostMeta[] }) {
           </li>
         ))}
 
-        {/* Trailing card -> full blog index */}
+        {/* Trailing card → full blog index */}
         <li className="w-[280px] shrink-0 snap-start sm:w-[320px]">
           <Link
             href="/blog"

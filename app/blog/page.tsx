@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { getAllPosts } from '@/lib/blog';
+import { PostThumb } from '@/components/blog/PostThumb';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -38,17 +38,9 @@ export default function BlogIndex() {
                     href={`/blog/${post.slug}`}
                     className="card group block overflow-hidden p-0"
                   >
-                    {post.hero && (
-                      <div className="relative aspect-[16/9] w-full overflow-hidden">
-                        <Image
-                          src={post.hero}
-                          alt={post.heroAlt ?? post.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 50vw"
-                          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                    )}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden">
+                      <PostThumb post={post} sizes="(max-width: 640px) 100vw, 50vw" />
+                    </div>
                     <div className="p-6">
                       <p className="text-xs text-ink-dim">
                         {new Date(post.date).toLocaleDateString('en-US', {
