@@ -56,7 +56,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     description: meta.description,
     datePublished: meta.date,
     dateModified: meta.date,
-    image: meta.hero ? `${SITE_URL}${meta.hero}` : undefined,
+    image: meta.hero ? new URL(meta.hero, SITE_URL).toString() : undefined,
     author: { '@type': 'Person', name: meta.author ?? 'Matt Martelli' },
     publisher: {
       '@type': 'Organization',
