@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
 import { Industries } from '@/components/sections/Industries';
 import { CaseStudies } from '@/components/sections/CaseStudies';
+import { LatestArticles } from '@/components/sections/LatestArticles';
 import { FreeTools } from '@/components/sections/FreeTools';
 import { Podcast } from '@/components/sections/Podcast';
 import { EmailCapture } from '@/components/sections/EmailCapture';
@@ -23,6 +24,8 @@ export default function HomePage() {
         <Industries />
         {/* §4 Case Studies (incl. Seinfeld flagship) */}
         <CaseStudies />
+        {/* §4b Latest Articles — carousel */}
+        <LatestArticles />
         {/* §5 Free Tools — AI Validation Panel callout */}
         <FreeTools />
         {/* §5b Podcast — The Matt & Maya Show */}
