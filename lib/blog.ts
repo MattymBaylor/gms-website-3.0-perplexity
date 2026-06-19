@@ -43,9 +43,9 @@ const HERO_OVERRIDES: Record<string, { hero: string; heroAlt: string }> = {
       "A homeowner's hand holding a smartphone showing five gold rating stars in a sunlit kitchen, a home-service contractor smiling out of focus behind",
   },
   'appointment-reminders': {
-    hero: 'https://d8j0ntlcm91z4.cloudfront.net/user_2x6GIJJShG79O7fFfTL1wGNeYpm/hf_20260619_153217_60c0a46c-4d56-4dbd-aa55-1609a298052e.png',
+    hero: 'https://d8j0ntlcm91z4.cloudfront.net/user_2x6GIJJShG79O7fFfTL1wGNeYpm/hf_20260619_154238_b976df6c-39df-4b94-afef-b7be12c7f176.png',
     heroAlt:
-      'A uniformed home-service technician arriving on time at a suburban front porch at golden hour as a homeowner opens the door, service van in the driveway',
+      "A busy wall calendar and desk planner in a tidy home office, every day filled with color-coded appointment blocks, a contractor's hand pinning a note in cool morning light",
   },
 };
 
