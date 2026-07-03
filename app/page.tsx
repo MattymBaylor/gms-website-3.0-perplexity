@@ -18,8 +18,9 @@ export default function HomePage() {
       <main id="main">
         {/* §1 Hero */}
         <Hero />
-        {/* §2 Video Explainer */}
-        <VideoExplainer />
+        {/* §2 Video Explainer — homepage keeps the original brand explainer;
+            industry pages use the missed-call cut via the component default */}
+        <VideoExplainer videoId="6rEDK6LX_AA" />
         {/* §3 Industries */}
         <Industries />
         {/* §4 Case Studies (incl. Seinfeld flagship) */}

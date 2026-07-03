@@ -28,7 +28,12 @@ export function VideoExplainer({
   heading = 'See it in action',
 }: VideoExplainerProps) {
   const [active, setActive] = useState(false);
-  const ytPoster = poster ?? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+  // maxresdefault only exists for videos with an HD thumbnail; YouTube serves a
+  // 120×90 gray placeholder otherwise, so fall back to sddefault when we detect it.
+  const [posterFallback, setPosterFallback] = useState(false);
+  const ytPoster =
+    poster ??
+    `https://i.ytimg.com/vi/${videoId}/${posterFallback ? 'sddefault' : 'maxresdefault'}.jpg`;
 
   return (
     <section className="section" aria-labelledby="video-heading">
@@ -71,6 +76,9 @@ export function VideoExplainer({
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
                 loading="lazy"
+                onLoad={(e) => {
+                  if (!poster && e.currentTarget.naturalWidth <= 120) setPosterFallback(true);
+                }}
               />
               <span
                 className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-cta text-white shadow-[0_8px_40px_rgba(249,115,22,0.45)] transition-transform group-hover:scale-105"
