@@ -42,6 +42,7 @@ export function IndustryPage({
   sub,
   trust,
   bullets,
+  videoId,
   children,
 }: IndustryPageProps) {
   return (
@@ -102,7 +103,7 @@ export function IndustryPage({
           </div>
         </section>
 
-        <VideoExplainer />
+        <VideoExplainer videoId={videoId} />
 
         {children}
 
