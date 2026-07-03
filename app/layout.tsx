@@ -65,6 +65,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       'https://www.youtube.com/@matt_martelli',
     ],
     description: 'AI voice agents for home service contractors.',
+    founder: {
+      '@type': 'Person',
+      name: 'Matt Martelli',
+      url: `${SITE_URL}/about`,
+      image: `${SITE_URL}/about/matt.webp`,
+      sameAs: ['https://www.linkedin.com/in/mattmartelli'],
+    },
   };
 
   return (
