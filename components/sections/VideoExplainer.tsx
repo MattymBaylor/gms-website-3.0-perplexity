@@ -55,7 +55,7 @@ export function VideoExplainer({
               className="absolute inset-0 h-full w-full"
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
               title="growthmindset.ai — 30 second explainer"
-              allow="accelerated-2d-canvas; autoplay; encrypted-media; picture-in-picture"
+              allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
           ) : (
