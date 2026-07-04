@@ -36,10 +36,12 @@
 #text(size: 10pt, fill: accent, weight: "semibold", tracking: 2pt)[FREE GUIDE · GROWTHMINDSET.AI]
 #v(10pt)
 #text(size: 34pt, weight: "bold")[The True Cost\ of Missed Calls]
+#v(6pt)
+#text(size: 15pt, fill: accent, weight: "semibold")[The Complete Southwest Florida Edition]
 #v(10pt)
 #text(size: 13pt, fill: muted)[
   The math nobody runs on an unanswered phone — with typical dollar
-  figures for twelve service industries in Southwest Florida.
+  figures for twelve service industries across Naples, Fort Myers, and Miami.
 ]
 #v(24pt)
 #box(fill: cardbg, radius: 6pt, inset: 14pt, width: 100%)[

@@ -43,12 +43,14 @@ export function EmailCapture() {
     <section className="section" aria-labelledby="email-capture-heading">
       <div className="container-prose">
         <div className="card mx-auto max-w-2xl p-8 md:p-10 text-center">
-          <p className="eyebrow">Free guide</p>
+          <p className="eyebrow">Free guide · Southwest Florida edition</p>
           <h2 id="email-capture-heading" className="mt-3 text-h2 font-semibold text-ink">
             The True Cost of Missed Calls
           </h2>
           <p className="mt-3 text-ink-muted">
-            Get the data. See what you're leaving on the table.
+            The complete guide for Southwest Florida service businesses — typical
+            job values for twelve industries across Naples, Fort Myers, and Miami,
+            and the exact math on what an unanswered phone costs you every month.
           </p>
 
           {status === 'ok' ? (
