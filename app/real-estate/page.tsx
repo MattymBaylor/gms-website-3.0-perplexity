@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function RealEstatePage() {
   return (
     <IndustryPage
+      videoId="ZhWcJKkFIgs"
       economics={INDUSTRY_ECONOMICS.realEstate}
       name="Real Estate"
       title="AI Voice Agent for Real Estate"

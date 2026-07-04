@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function ElectricalPage() {
   return (
     <IndustryPage
+      videoId="mSbAcEDNKfg"
       economics={INDUSTRY_ECONOMICS.electrical}
       name="Electrical"
       title="AI Voice Agent for Electricians"

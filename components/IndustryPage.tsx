@@ -30,9 +30,9 @@ export interface IndustryPageProps {
   trust: string;
   /** Bullets specific to this industry */
   bullets: string[];
-  /** Optional industry-specific YouTube id (defaults to generic explainer) */
+  /** Industry-specific YouTube cut; when set it wins the explainer slot */
   videoId?: string;
-  /** Industry economics for the animated missed-call explainer; replaces the video when set */
+  /** Industry economics for the animated missed-call explainer; used when no videoId cut exists */
   economics?: IndustryEconomics;
   /** Optional content slotted between the video explainer and the case studies. */
   children?: ReactNode;
@@ -107,7 +107,13 @@ export function IndustryPage({
           </div>
         </section>
 
-        {economics ? <MissedCallMath data={economics} /> : <VideoExplainer videoId={videoId} />}
+        {videoId ? (
+          <VideoExplainer videoId={videoId} />
+        ) : economics ? (
+          <MissedCallMath data={economics} />
+        ) : (
+          <VideoExplainer />
+        )}
 
         {children}
 

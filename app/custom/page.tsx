@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function CustomPage() {
   return (
     <IndustryPage
+      videoId="TEUaEDQ1Tuo"
       economics={INDUSTRY_ECONOMICS.custom}
       name="Custom"
       title="Custom AI Voice Agent for Your Business"
