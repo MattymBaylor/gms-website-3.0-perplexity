@@ -7,6 +7,7 @@
 import { Nav } from './Nav';
 import { Footer } from './Footer';
 import { VideoExplainer } from './sections/VideoExplainer';
+import { MissedCallMath, type IndustryEconomics } from './sections/MissedCallMath';
 import { CaseStudies } from './sections/CaseStudies';
 import { EmailCapture } from './sections/EmailCapture';
 import { PrimaryCTA } from './sections/PrimaryCTA';
@@ -31,6 +32,8 @@ export interface IndustryPageProps {
   bullets: string[];
   /** Optional industry-specific YouTube id (defaults to generic explainer) */
   videoId?: string;
+  /** Industry economics for the animated missed-call explainer; replaces the video when set */
+  economics?: IndustryEconomics;
   /** Optional content slotted between the video explainer and the case studies. */
   children?: ReactNode;
 }
@@ -43,6 +46,7 @@ export function IndustryPage({
   trust,
   bullets,
   videoId,
+  economics,
   children,
 }: IndustryPageProps) {
   return (
@@ -103,7 +107,7 @@ export function IndustryPage({
           </div>
         </section>
 
-        <VideoExplainer videoId={videoId} />
+        {economics ? <MissedCallMath data={economics} /> : <VideoExplainer videoId={videoId} />}
 
         {children}
 

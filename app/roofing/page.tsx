@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { IndustryPage } from '@/components/IndustryPage';
+import { INDUSTRY_ECONOMICS } from '@/content/industry-economics';
 import { RoofingPipeline } from '@/components/sections/RoofingPipeline';
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function RoofingPage() {
   return (
     <IndustryPage
+      economics={INDUSTRY_ECONOMICS.roofing}
       name="Roofing"
       title="AI Voice Agent for Roofers"
       headline="When the Storm Stops, the Phones Don't"

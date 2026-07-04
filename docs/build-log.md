@@ -57,3 +57,18 @@ Dated entries capturing the *moves* — decisions, components shipped, deck-wort
 **Parked:** rotating the OpenAI key that was hardcoded in the old Supabase function — Matt's call, logged in open commitments. Before rotating, check whether it's the same key behind the n8n "OpenAi account" credential (if so, rotation must update that credential too).
 
 **`[DECK]`** — *Swap the backend under a live demo with a one-line diff.* Because the chat frontend was written against a stable proxy contract, moving from a managed Supabase function to a self-hosted n8n workflow was a URL change — and the new endpoint was CORS-locked and verified the same hour. The pattern: put a dumb proxy contract between demo frontends and whatever AI backend is cheapest/healthiest this month.
+
+### 2026-07-03 — 12 industry-specific "missed-call math" animated explainers
+
+**What:** Replaced the generic YouTube explainer embed on all 12 industry pages with `MissedCallMath` — an animated 4-scene explainer (SWFL scenario → missed-call counter → the revenue equation with live count-up → the AI-answers flip) driven by per-industry economics in `content/industry-economics.ts`. Autoplays on scroll-into-view, scene dots + replay, honors `prefers-reduced-motion`. Homepage keeps the brand video; industry pages get the math.
+
+**Research:** 12-agent parallel fan-out (one pricing scout per industry, forced JSON schema, 40-word basis ceiling) priced the average sale for each trade in Naples/Fort Myers/Miami — from a $175 locksmith call to a $28K hurricane-code roof replacement. Sources cited inline as comments in the data file. ~43 seconds wall-clock for all 12.
+
+**Decisions:**
+- One shared component + a typed data record, not 12 bespoke components — adding industry #13 is a config entry, not a build.
+- Honest framing throughout: figures labeled as illustrations, assumptions (missed calls/week, close rate) printed in the fine print, insurance shows *commission* not premium, real estate uses a 5% close rate so the number survives a skeptical read.
+- `economics` prop falls back to the old `VideoExplainer` when absent, so the video path still exists for future pages.
+
+**Verified:** production build green (33/33 pages); Playwright run confirmed scene auto-advance and the exact math on `/hvac` ($44,200/mo) and `/legal` ($11,550/mo).
+
+**`[DECK]`** — *A 12-agent research swarm priced 12 local-service verticals in 43 seconds, and the numbers went straight into production animations the same hour.* The pattern: forced-schema pricing scouts → typed config file → one data-driven animation component. Research-to-pixels with no copy-paste step in between.

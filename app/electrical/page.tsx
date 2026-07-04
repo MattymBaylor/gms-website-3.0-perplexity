@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { IndustryPage } from '@/components/IndustryPage';
+import { INDUSTRY_ECONOMICS } from '@/content/industry-economics';
 
 export const metadata: Metadata = {
   title: 'AI Voice Agent for Electricians',
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function ElectricalPage() {
   return (
     <IndustryPage
+      economics={INDUSTRY_ECONOMICS.electrical}
       name="Electrical"
       title="AI Voice Agent for Electricians"
       headline="Every Unanswered Call Powers Someone Else's Business"
