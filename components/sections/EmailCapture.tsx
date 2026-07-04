@@ -21,9 +21,17 @@ export function EmailCapture() {
 
     setStatus('submitting');
     try {
-      // TODO: wire to Mailchimp / ConvertKit / N8N webhook.
-      // Stubbed delay so the UI exercise feels real in development.
-      await new Promise((r) => setTimeout(r, 600));
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email, source: 'missed-call-guide' }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setStatus('error');
+        setError(body?.error || 'Something went wrong. Try again.');
+        return;
+      }
       setStatus('ok');
     } catch {
       setStatus('error');
@@ -47,11 +55,20 @@ export function EmailCapture() {
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 inline-flex items-center gap-2 rounded-btn bg-success/10 px-4 py-3 text-success"
+              className="mt-6 flex flex-col items-center gap-4"
               role="status"
             >
-              <CheckCircle2 size={18} />
-              <span className="text-sm font-medium">Check your inbox — guide is on the way.</span>
+              <span className="inline-flex items-center gap-2 rounded-btn bg-success/10 px-4 py-3 text-success">
+                <CheckCircle2 size={18} />
+                <span className="text-sm font-medium">You&apos;re in — here&apos;s your guide.</span>
+              </span>
+              <a
+                href="/guides/the-true-cost-of-missed-calls.pdf"
+                download
+                className="btn-primary"
+              >
+                Download the guide (PDF)
+              </a>
             </motion.div>
           ) : (
             <form
