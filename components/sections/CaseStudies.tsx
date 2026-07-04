@@ -25,7 +25,7 @@ export function CaseStudies() {
         <div className="mb-14 max-w-2xl mx-auto text-center">
           <p className="eyebrow">Field notes</p>
           <h2 id="case-studies-heading" className="mt-3 text-h1 font-semibold text-ink">
-            Read the Results, Case Studies &amp; Experiences
+            Real Jobs, Real Numbers, Real Lessons
           </h2>
           <p className="mt-4 text-lead text-ink-muted">
             How the system actually works — straight from the team building it.
