@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function LegalPage() {
   return (
     <IndustryPage
+      videoId="YfZhcfAQclI"
       economics={INDUSTRY_ECONOMICS.legal}
       name="Legal"
       title="AI Voice Agent for Law Firms"

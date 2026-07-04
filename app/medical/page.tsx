@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function MedicalPage() {
   return (
     <IndustryPage
+      videoId="uqc22euBC-Y"
       economics={INDUSTRY_ECONOMICS.medical}
       name="Medical / Dental"
       title="AI Voice Agent for Medical & Dental Practices"

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function InsurancePage() {
   return (
     <IndustryPage
+      videoId="Q95FqV2Mn-M"
       economics={INDUSTRY_ECONOMICS.insurance}
       name="Insurance"
       title="AI Voice Agent for Insurance Agencies"
