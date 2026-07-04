@@ -12,11 +12,12 @@ const nextConfig = {
   },
   // Allow .md / .mdx files to be treated as pages and content.
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  // The Seinfeld HQ ships as a static HTML file in /public/seinfeld-hq,
-  // served via this rewrite by the Node server on Vercel.
+  // Static HTML apps shipped from /public are served at clean paths via these rewrites
+  // (the Node server on Vercel maps the bare path to the folder's index.html).
   async rewrites() {
     return [
       { source: '/seinfeld-hq', destination: '/seinfeld-hq/index.html' },
+      { source: '/games', destination: '/games/index.html' },
     ];
   },
 };
