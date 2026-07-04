@@ -15,16 +15,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const meta = getPostMeta(params.slug);
   if (!meta) return {};
   const url = `${SITE_URL}/blog/${meta.slug}`;
+  const authorName = meta.author ?? 'Matt Martelli';
   return {
     title: meta.title,
     description: meta.description,
     alternates: { canonical: `/blog/${meta.slug}` },
+    authors: [{ name: authorName, url: `${SITE_URL}/about` }],
     openGraph: {
       type: 'article',
       url,
       title: meta.title,
       description: meta.description,
       publishedTime: meta.date,
+      authors: [authorName],
       images: meta.hero ? [{ url: meta.hero }] : undefined,
     },
     twitter: {
@@ -39,6 +42,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const meta = getPostMeta(params.slug);
   if (!meta) notFound();
+
+  const authorName = meta.author ?? 'Matt Martelli';
 
   // Dynamic import of the MDX file as a component.
   let Article: React.ComponentType;
@@ -57,7 +62,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     datePublished: meta.date,
     dateModified: meta.date,
     image: meta.hero ? new URL(meta.hero, SITE_URL).toString() : undefined,
-    author: { '@type': 'Person', name: meta.author ?? 'Matt Martelli' },
+    author: {
+      '@type': 'Person',
+      name: authorName,
+      url: `${SITE_URL}/about`,
+      image: `${SITE_URL}/about/matt.webp`,
+    },
     publisher: {
       '@type': 'Organization',
       name: 'growthmindset.ai',
@@ -83,6 +93,23 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             {meta.description && (
               <p className="mt-4 text-lead text-ink-muted">{meta.description}</p>
             )}
+
+            <div className="mt-6 flex items-center gap-3" itemScope itemType="https://schema.org/Person">
+              <Image
+                src="/about/matt.webp"
+                alt={authorName}
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full object-cover"
+                itemProp="image"
+              />
+              <p className="text-sm text-ink-muted">
+                By{' '}
+                <Link href="/about" className="font-medium text-ink hover:underline" itemProp="url">
+                  <span itemProp="name">{authorName}</span>
+                </Link>
+              </p>
+            </div>
 
             {meta.hero && (
               <Image
