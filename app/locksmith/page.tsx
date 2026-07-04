@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function LocksmithPage() {
   return (
     <IndustryPage
+      videoId="iPzWroC610Y"
       economics={INDUSTRY_ECONOMICS.locksmith}
       name="Locksmith"
       title="AI Voice Agent for Locksmiths"

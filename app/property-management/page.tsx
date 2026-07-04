@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function PropertyManagementPage() {
   return (
     <IndustryPage
+      videoId="ellAdpgDHWI"
       economics={INDUSTRY_ECONOMICS.propertyManagement}
       name="Property Management"
       title="AI Voice Agent for Property Managers"

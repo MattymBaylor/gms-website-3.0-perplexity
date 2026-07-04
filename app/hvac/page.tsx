@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 export default function HVACPage() {
   return (
     <IndustryPage
+      videoId="8P6Hu1ggcQk"
       economics={INDUSTRY_ECONOMICS.hvac}
       name="HVAC"
       title="AI Voice Agent for HVAC Contractors"
