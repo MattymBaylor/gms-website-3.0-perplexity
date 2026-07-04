@@ -18,6 +18,7 @@ const nextConfig = {
     return [
       { source: '/seinfeld-hq', destination: '/seinfeld-hq/index.html' },
       { source: '/games', destination: '/games/index.html' },
+      { source: '/org-chart', destination: '/org-chart/index.html' },
     ];
   },
 };
