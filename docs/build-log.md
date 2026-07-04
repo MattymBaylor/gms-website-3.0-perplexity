@@ -80,3 +80,13 @@ Dated entries capturing the *moves* — decisions, components shipped, deck-wort
 **Note:** `LatestArticles.tsx` / `ArticleCarousel.tsx` are now unused — kept in the tree for potential reuse; delete in a future cleanup pass if still unused.
 
 **`[DECK]`** — *Every industry page now runs the full ladder: produced 30s video cut (Claude Design → YouTube) with an animated in-page fallback, all deployed same-day as the cuts were uploaded.*
+
+### 2026-07-04 — Free-guide email capture: stub → real pipeline
+
+**What:** Matt tested the "True Cost of Missed Calls" form and got nothing. Root cause was three stacked gaps: the form was a stub (fake delay + success message, no request), the n8n "GMS Website - Email Subscriber" workflow was cloned in May but never activated (and had no email step), and the guide PDF didn't exist. Fixed all three: authored a 4-page SWFL guide (Typst source in docs/guides/, compiled to public/guides/), wired the form → /api/subscribe → n8n webhook (Vercel env), rebuilt the n8n workflow (respond fast → Google Sheet capture → guide email to visitor, cc matt@growthmindset.ai) and activated it. Success state now delivers the guide by instant download, so delivery never depends on SMTP.
+
+**Gotcha worth remembering:** the repo folder was Vercel-linked to a stale duplicate project (gms-website-3-0-perplexity) while growthmindset.ai is actually served by project **gms-site** — the env var silently went to the wrong project first. Relinked the folder to gms-site; deploys are git-triggered on that project.
+
+**Open item:** the n8n SMTP credential "Gmail SMTP - matt@growthmindset.ai" is dead (Google 535 BadCredentials — app password revoked). Until Matt mints a new app password and updates that credential, the visitor/cc email step fails (loudly, in n8n executions); captures + instant download are unaffected. Longer term this is the 1Password/op-service-account tech-debt item.
+
+**`[DECK]`** — *"I entered my email and got nothing" → full diagnosis and rebuild of the lead-magnet pipeline (guide authored, API wired, n8n workflow repaired + activated, wrong-Vercel-project caught via log footer) in one session, verified with live executions.*
