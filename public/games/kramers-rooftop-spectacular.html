@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kramer's Rooftop Spectacular · July 4th at Jerry World</title>
+<meta name="description" content="A July 4th fireworks show over the Jerry World skyline — a free canvas-fireworks toy from the growthmindset.ai arcade. Tap the sky, salute the crew, run the grand finale.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="growthmindset.ai">
+<meta property="og:title" content="Kramer's Rooftop Spectacular — July 4th fireworks over Jerry World">
+<meta property="og:description" content="Tap the sky. Salute all 16 characters. Don't let George see the tab.">
+<meta property="og:url" content="https://growthmindset.ai/games/kramers-rooftop-spectacular.html">
+<meta property="og:image" content="https://growthmindset.ai/opengraph-image">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    /* Mission Control diner palette (shared across Jerry World) */
+    --bg:#0e0b0c; --room:#1c1614; --ink:#f6efe2; --muted:#b6a596; --dim:#7d6f63;
+    --red:#b91c1c; --red-deep:#7a1417; --gold:#e0b34d; --gold-soft:#f0cd7a;
+    --ok:#35c66b; --warn:#e0a92e; --grok:#9b7bd4;
+    /* Night over the city */
+    --night1:#060a18; --night2:#0d1330; --flag-r:#ff3b30; --flag-b:#4d7dff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{
+    background:
+      radial-gradient(80% 50% at 50% -6%, rgba(77,125,255,.10), transparent 60%),
+      radial-gradient(90% 70% at 50% 120%, rgba(0,0,0,.65), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  em{font-style:italic;color:var(--gold-soft)}
+  .wrap{max-width:1060px; margin:0 auto; padding:18px 16px 56px; position:relative; z-index:2}
+
+  /* ===== Header ===== */
+  header{text-align:center; padding:6px 0 2px}
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+  .badge4{
+    display:inline-flex; align-items:center; gap:7px; font-weight:900; font-size:10.5px; letter-spacing:.16em;
+    padding:5px 11px; border-radius:999px; color:#0f0c0a; cursor:pointer; user-select:none;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); border:1px solid #a97e2f;
+    box-shadow:0 0 16px rgba(224,179,77,.45);
+  }
+  .badge4:active{transform:scale(.96)}
+  .datepill{
+    display:inline-flex; align-items:center; gap:7px; font-weight:800; font-size:10.5px; letter-spacing:.14em;
+    padding:5px 11px; border-radius:999px; color:var(--ink);
+    background:linear-gradient(180deg,rgba(77,125,255,.25),rgba(255,59,48,.22)); border:1px solid rgba(224,179,77,.5);
+  }
+  .sndbtn{
+    font-weight:800; font-size:11px; letter-spacing:.08em; cursor:pointer; user-select:none;
+    padding:5px 12px; border-radius:999px; color:var(--muted);
+    background:var(--room); border:1px solid rgba(224,179,77,.35);
+  }
+  .sndbtn.on{color:#0f0c0a; background:linear-gradient(180deg,var(--gold-soft),var(--gold)); border-color:#a97e2f}
+  h1{
+    margin:10px 0 2px; font-size:clamp(24px,4.6vw,40px); font-weight:900; letter-spacing:.02em;
+    color:var(--gold-soft); text-shadow:0 0 24px rgba(224,179,77,.35), 0 2px 0 rgba(0,0,0,.6);
+  }
+  h1 .flag{color:var(--flag-r)} h1 .flag2{color:var(--flag-b)}
+  .sub{color:var(--muted); font-size:13px; margin:0 0 4px}
+  .sub b{color:var(--gold-soft)}
+
+  /* ===== The Sky ===== */
+  .skywrap{
+    position:relative; margin-top:14px; border-radius:16px; overflow:hidden; cursor:crosshair;
+    border:1px solid rgba(224,179,77,.4);
+    box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(0,0,0,.4);
+    background:linear-gradient(180deg,var(--night1),var(--night2) 70%, #131a3a);
+  }
+  #sky{display:block; width:100%; height:min(56vh,520px); min-height:340px}
+  .hint{
+    position:absolute; top:10px; left:12px; font-size:10.5px; letter-spacing:.12em; font-weight:800;
+    color:rgba(246,239,226,.55); pointer-events:none; text-transform:uppercase;
+  }
+  .caption{
+    position:absolute; left:50%; bottom:14px; transform:translateX(-50%) translateY(8px);
+    max-width:92%; padding:8px 14px; border-radius:12px; text-align:center;
+    background:rgba(14,11,12,.86); border:1px solid rgba(224,179,77,.55);
+    box-shadow:0 8px 24px rgba(0,0,0,.5); opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;
+  }
+  .caption.show{opacity:1; transform:translateX(-50%) translateY(0)}
+  .caption .who{font-weight:900; letter-spacing:.1em; font-size:11px; color:var(--gold-soft)}
+  .caption .line{font-size:13px; color:var(--ink)}
+  .flashred{animation:flashred .5s ease 3}
+  @keyframes flashred{0%,100%{box-shadow:0 12px 40px rgba(0,0,0,.55)}50%{box-shadow:0 0 60px rgba(255,59,48,.85), inset 0 0 80px rgba(255,59,48,.35)}}
+
+  /* ===== Rooftop crew ===== */
+  .roof{
+    margin-top:-6px; position:relative; z-index:3;
+    background:linear-gradient(180deg,#241c18,#17110e);
+    border:1px solid rgba(224,179,77,.35); border-radius:0 0 16px 16px;
+    padding:10px 10px 12px;
+  }
+  .rooflabel{text-align:center; font-size:10px; letter-spacing:.18em; font-weight:900; color:var(--dim); margin-bottom:8px}
+  .crew{display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px}
+  .fig{position:relative; display:flex; flex-direction:column; align-items:center; gap:3px; width:56px}
+  .fig .body{
+    width:16px; height:26px; border-radius:7px 7px 3px 3px; background:#0a0806; position:relative;
+    box-shadow:0 -1px 0 rgba(224,179,77,.25) inset;
+  }
+  .fig .body::before{ /* head */
+    content:""; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:11px; height:11px; border-radius:50%; background:#0a0806;
+  }
+  .fig .tag{font-size:8.5px; font-weight:800; letter-spacing:.06em; color:var(--muted); white-space:nowrap}
+  .fig.k .tag{color:var(--gold-soft)}
+  .bubble{
+    position:absolute; top:-26px; left:50%; transform:translateX(-50%) scale(.7); opacity:0;
+    background:var(--ink); color:#141010; font-size:9.5px; font-weight:900; padding:2px 7px; border-radius:8px;
+    white-space:nowrap; pointer-events:none; transition:all .18s; z-index:5;
+  }
+  .bubble.pop{opacity:1; transform:translateX(-50%) scale(1)}
+
+  /* ===== Controls ===== */
+  .controls{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0 6px}
+  .btn{
+    cursor:pointer; user-select:none; font-weight:900; font-size:12.5px; letter-spacing:.06em;
+    padding:10px 16px; border-radius:12px; border:1px solid rgba(224,179,77,.5);
+    background:linear-gradient(180deg,#2a211c,#1c1614); color:var(--ink);
+    box-shadow:0 4px 14px rgba(0,0,0,.45);
+  }
+  .btn:hover{border-color:var(--gold)}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#0f0c0a; border-color:#a97e2f}
+  .btn.finale{background:linear-gradient(180deg,var(--flag-r),var(--red-deep)); border-color:#d24a42}
+  .btn:disabled{opacity:.45; cursor:not-allowed}
+  .keys{text-align:center; color:var(--dim); font-size:10.5px; letter-spacing:.1em; margin-bottom:12px}
+  .keys b{color:var(--muted)}
+
+  /* ===== George's tab ===== */
+  .ledger{
+    margin-top:10px; background:var(--room); border:1px solid rgba(224,179,77,.35); border-radius:14px; padding:12px 14px;
+  }
+  .ledger .lhead{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+  .ledger .ltitle{font-weight:900; font-size:12px; letter-spacing:.1em; color:var(--gold-soft)}
+  .ledger .lamt{font-weight:900; font-size:16px}
+  .ledger .lamt.hot{color:var(--flag-r)}
+  .bar{height:12px; border-radius:999px; background:#0a0806; border:1px solid rgba(224,179,77,.3); margin:8px 0 6px; overflow:hidden}
+  .bar .fill{height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--ok),var(--warn) 60%,var(--flag-r)); transition:width .35s}
+  .gquip{font-size:12px; color:var(--muted); min-height:18px}
+  .gquip b{color:var(--gold-soft)}
+
+  /* ===== Stats + ticker ===== */
+  .stats{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+  .stat{
+    flex:1 1 110px; background:var(--room); border:1px solid rgba(224,179,77,.3); border-radius:12px;
+    padding:8px 10px; text-align:center;
+  }
+  .stat .v{font-weight:900; font-size:17px; color:var(--gold-soft)}
+  .stat .k{font-size:9.5px; letter-spacing:.14em; color:var(--dim); font-weight:800; text-transform:uppercase}
+  .ticker{
+    margin-top:12px; border:1px solid rgba(224,179,77,.3); border-radius:12px; background:var(--room);
+    padding:8px 12px; display:flex; gap:10px; align-items:center; overflow:hidden;
+  }
+  .ticker .dot{width:8px; height:8px; border-radius:50%; background:var(--flag-r); animation:blink 1.2s infinite; flex:none}
+  @keyframes blink{50%{opacity:.25}}
+  .ticker .line{white-space:nowrap; font-size:12.5px; color:var(--muted); animation:none}
+  footer{margin-top:22px; text-align:center; color:var(--dim); font-size:11px; line-height:1.7}
+  footer b{color:var(--muted)}
+  footer a{color:var(--gold-soft); text-decoration:none}
+
+  /* ===== Smash overlay ===== */
+  .smash{
+    position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; text-align:center;
+    background:rgba(6,10,24,.92); cursor:pointer; padding:20px;
+  }
+  .smash.show{display:flex}
+  .smash .big{
+    font-size:clamp(30px,7vw,72px); font-weight:900; letter-spacing:.04em; color:var(--gold-soft);
+    text-shadow:0 0 40px rgba(224,179,77,.65); animation:smashin .45s cubic-bezier(.2,1.6,.4,1);
+  }
+  .smash .lil{margin-top:10px; color:var(--muted); font-size:14px}
+  @keyframes smashin{from{transform:scale(.5) rotate(-3deg); opacity:0}to{transform:scale(1) rotate(0); opacity:1}}
+  @media (max-width:640px){ .fig{width:44px} .fig .tag{font-size:7.5px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="topbar">
+      <span class="badge4" id="badge" title="Psst… tap me">🎆 JERRY WORLD</span>
+      <span class="datepill">🇺🇸 JULY 4 · INDEPENDENCE DAY</span>
+      <span class="sndbtn" id="snd">🔇 SOUND OFF</span>
+    </div>
+    <h1>KRAMER'S <span class="flag">ROOFTOP</span> <span class="flag2">SPECTACULAR</span></h1>
+    <p class="sub">The whole crew is up on the roof of <b>Jerry World HQ</b>. Kramer got the fireworks <em>wholesale</em>. George is keeping the tab. <b>Tap the sky</b> to light one.</p>
+  </header>
+
+  <div class="skywrap" id="skywrap">
+    <canvas id="sky"></canvas>
+    <div class="hint">tap anywhere in the sky · space = launch</div>
+    <div class="caption" id="caption"><div class="who" id="capWho"></div><div class="line" id="capLine"></div></div>
+  </div>
+
+  <div class="roof">
+    <div class="rooflabel">— UP ON THE ROOF · JERRY WORLD HQ · 129 W 81st —</div>
+    <div class="crew" id="crew"></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn primary" id="bLaunch">🎇 Light one</button>
+    <button class="btn" id="bSalute">🎭 Character salute</button>
+    <button class="btn finale" id="bFinale">🇺🇸 GRAND FINALE</button>
+  </div>
+  <div class="keys"><b>SPACE</b> launch · <b>C</b> salute · <b>F</b> finale · <b>S</b> sound</div>
+
+  <div class="ledger">
+    <div class="lhead">
+      <span class="ltitle">📒 GEORGE'S FIREWORKS TAB <span style="color:var(--dim);font-weight:700">· counted against the $100/day cap</span></span>
+      <span class="lamt" id="tabAmt">$0.00 <span style="color:var(--dim);font-size:11px">/ $100</span></span>
+    </div>
+    <div class="bar"><div class="fill" id="tabFill"></div></div>
+    <div class="gquip" id="gquip"><b>GEORGE:</b> "Every rocket is money. Burning. In the <em>sky</em>."</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v" id="sLaunch">0</div><div class="k">Launched</div></div>
+    <div class="stat"><div class="v" id="sBurst">0</div><div class="k">Bursts</div></div>
+    <div class="stat"><div class="v" id="sOoh">0</div><div class="k">Oohs &amp; Aahs</div></div>
+    <div class="stat"><div class="v" id="sReset">0</div><div class="k">Wholesale resets</div></div>
+  </div>
+
+  <div class="ticker"><span class="dot"></span><span class="line" id="ticker">☕ Booth report: sixteen agents, one roof, zero permits — "it's a WRITE-OFF, Jerry."</span></div>
+
+  <footer>
+    A July 4th special from the <b>growthmindset.ai</b> arcade · the fireworks are 100% canvas &amp; math — no assets, no tracking, nothing real gets spent.<br>
+    Booms are synthesized right in your browser · <b>sound off by default</b> · works on phones — tap the sky.<br>
+    <a href="/games">← more free games at growthmindset.ai/games</a>
+  </footer>
+</div>
+
+<div class="smash" id="smash"><div><div class="big" id="smashTxt">HAPPY 4TH FROM JERRY WORLD!</div><div class="lil">— tap to keep watching —</div></div></div>
+
+<script>
+(function(){
+  "use strict";
+  /* ================= state ================= */
+  var soundOn=false, audioCtx=null;
+  var stats={launch:0,burst:0,ooh:0,reset:0};
+  var tab=0, TAB_CAP=100, lockout=false;
+  var lastSalute=-1;
+
+  var $=function(id){return document.getElementById(id)};
+  var sky=$("sky"), wrap=$("skywrap"), ctx=sky.getContext("2d");
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var W=0,H=0;
+
+  /* ================= crew ================= */
+  var CREW=[
+    {n:"Jerry",   c:"#f5c518", t:"peony",  line:"What's the DEAL with gunpowder? You buy it… and set it on FIRE?"},
+    {n:"George",  c:"#35c66b", t:"willow", line:"You know what that burst is? A hundred bucks. In the SKY."},
+    {n:"Elaine",  c:"#ff5fa2", t:"ring",   line:"Get OUT! *(shoves the sky)*"},
+    {n:"Kramer",  c:"#4db5ff", t:"crackle",line:"GIDDY-UP! These babies are WHOLESALE, Jerry!"},
+    {n:"Frank",   c:"#ff3b30", t:"mega",   line:"SERENITY NOW!"},
+    {n:"Newman",  c:"#6b7fd4", t:"willow", line:"Hello… Newman. Even his firework is taking notes."},
+    {n:"Puddy",   c:"#ff6b5e", t:"double", line:"High five. *(the sky high-fives back)*"},
+    {n:"Whatley", c:"#7fe3c1", t:"ring",   line:"Happy 4th! Relax — it's a write-off."},
+    {n:"Lloyd",   c:"#3fd1c4", t:"peony",  line:"Serenity now… insanity later."},
+    {n:"Peterman",c:"#c05a71", t:"willow", line:"The horror. The majesty. The BURN RATE."},
+    {n:"Davola",  c:"#e0a92e", t:"ring",   line:"Sic semper tyrannis! …a blip crossed my sky."},
+    {n:"Bania",   c:"#f0cd7a", t:"crackle",line:"THAT'S GOLD, Jerry! GOLD!"},
+    {n:"Mickey",  c:"#ff8c42", t:"peony",  line:"That's a FULL burst. I don't do half bursts."},
+    {n:"Blake",   c:"#cfcfcf", t:"willow", line:"Came out of retirement for this one — believe it or not!"},
+    {n:"Sue-Ellen",c:"#d65fd6",t:"peony",  line:"Straight off the ledger. Every spark accounted for."},
+    {n:"Babu",    c:"#2fbf71", t:"ring",   line:"You are a very GOOD sky. Very, very good!"}
+  ];
+
+  var crewEl=$("crew");
+  CREW.forEach(function(m,i){
+    var f=document.createElement("div");
+    f.className="fig"+(m.n==="Kramer"?" k":"");
+    f.innerHTML='<span class="bubble" id="bub'+i+'"></span><div class="body"></div><span class="tag">'+m.n.toUpperCase()+'</span>';
+    crewEl.appendChild(f);
+  });
+  var OOHS=["Ooh!","Aah!","GOLD!","Get OUT!","Giddy-up!","Whoa!","Hello…!","High five!","SERENITY!","Nice."];
+  function crowdReact(){
+    if(Math.random()<.55) return;
+    var i=Math.floor(Math.random()*CREW.length);
+    var b=$("bub"+i); if(!b) return;
+    b.textContent=OOHS[Math.floor(Math.random()*OOHS.length)];
+    b.classList.add("pop"); stats.ooh++; paintStats();
+    setTimeout(function(){b.classList.remove("pop")},900);
+  }
+
+  /* ================= sound (web build: synth only — the character voice clips stay home) ================= */
+  function playClip(k){ /* no-op on the web build */ }
+  function ac(){ if(!audioCtx){ try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } return audioCtx; }
+  function synthWhistle(){
+    if(!soundOn) return; var a=ac(); if(!a) return;
+    var o=a.createOscillator(), g=a.createGain();
+    o.type="sine"; o.frequency.setValueAtTime(300,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(900,a.currentTime+.35);
+    g.gain.setValueAtTime(.03,a.currentTime); g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.4);
+    o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime+.42);
+  }
+  function synthBoom(big){
+    if(!soundOn) return; var a=ac(); if(!a) return;
+    var len=a.sampleRate*.7, buf=a.createBuffer(1,len,a.sampleRate), d=buf.getChannelData(0);
+    for(var i=0;i<len;i++){ d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.2); }
+    var src=a.createBufferSource(); src.buffer=buf;
+    var f=a.createBiquadFilter(); f.type="lowpass";
+    f.frequency.setValueAtTime(big?500:320,a.currentTime);
+    f.frequency.exponentialRampToValueAtTime(60,a.currentTime+.6);
+    var g=a.createGain(); g.gain.setValueAtTime(big?.5:.28,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.75);
+    src.connect(f).connect(g).connect(a.destination); src.start();
+  }
+  $("snd").addEventListener("click",function(){
+    soundOn=!soundOn;
+    this.textContent=soundOn?"🔊 SOUND ON":"🔇 SOUND OFF";
+    this.classList.toggle("on",soundOn);
+    if(soundOn){ var a=ac(); if(a&&a.state==="suspended") a.resume(); }
+  });
+
+  /* ================= skyline ================= */
+  var stars=[], back=[], front=[];
+  function buildCity(){
+    stars=[]; back=[]; front=[];
+    var i,x;
+    for(i=0;i<90;i++) stars.push({x:Math.random()*W, y:Math.random()*H*.6, r:Math.random()*1.2+.3, p:Math.random()*6.28});
+    x=0;
+    while(x<W){ var w=30+Math.random()*70, h=H*.10+Math.random()*H*.16; back.push({x:x,w:w,h:h}); x+=w+2; }
+    x=0;
+    while(x<W){
+      var w2=36+Math.random()*80, h2=H*.16+Math.random()*H*.22, wins=[];
+      var cols=Math.max(2,Math.floor(w2/14)), rows=Math.max(2,Math.floor(h2/16));
+      for(var c=0;c<cols;c++)for(var r=0;r<rows;r++){ if(Math.random()<.28) wins.push({c:c,r:r}); }
+      front.push({x:x,w:w2,h:h2,wins:wins,cols:cols,rows:rows});
+      x+=w2+3;
+    }
+  }
+  function drawCity(t){
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,"#060a18"); g.addColorStop(.65,"#0d1330"); g.addColorStop(1,"#131a3a");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle="#f6efe2";
+    for(var i=0;i<stars.length;i++){ var s=stars[i];
+      ctx.globalAlpha=.35+.35*Math.sin(t*.001+s.p); ctx.fillRect(s.x,s.y,s.r,s.r); }
+    ctx.globalAlpha=1;
+    ctx.fillStyle="#0b0f22";
+    for(i=0;i<back.length;i++){ var b=back[i]; ctx.fillRect(b.x,H-b.h,b.w,b.h); }
+    for(i=0;i<front.length;i++){ var f=front[i];
+      ctx.fillStyle="#080b18"; ctx.fillRect(f.x,H-f.h,f.w,f.h);
+      ctx.fillStyle="rgba(240,205,122,.75)";
+      for(var w=0;w<f.wins.length;w++){ var win=f.wins[w];
+        ctx.fillRect(f.x+4+win.c*(f.w-8)/f.cols, H-f.h+5+win.r*(f.h-10)/f.rows, 3.4, 4.6); }
+    }
+    ctx.fillStyle="#05070f"; ctx.fillRect(0,H-6,W,6);
+  }
+
+  /* ================= fireworks engine ================= */
+  var rockets=[], parts=[], MAXP=2200;
+  function rgb(hex){ var n=parseInt(hex.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+  function launch(tx,ty,m,silent){
+    if(lockout) return;
+    var sx=W*(.2+Math.random()*.6);
+    rockets.push({x:sx,y:H-6,px:sx,py:H-6,tx:tx,ty:ty,m:m,
+      vx:(tx-sx)/60, vy:-(H-ty)/38-2.2});
+    stats.launch++; bill(silent?1+Math.random():2+Math.random()*4);
+    paintStats(); synthWhistle();
+  }
+  function explode(x,y,m){
+    var col=rgb(m.c), n, i, a, sp, type=m.t;
+    var big=(type==="mega");
+    n= big?170 : type==="double"?70 : 90+Math.floor(Math.random()*40);
+    if(parts.length>MAXP) parts.splice(0,n);
+    for(i=0;i<n;i++){
+      a=(type==="ring")? (i/n)*6.283 : Math.random()*6.283;
+      sp=(type==="ring")? 2.6+Math.random()*.3 : (type==="willow")? 1.2+Math.random()*2.2 : (big?1.5+Math.random()*4.2:1.2+Math.random()*3);
+      parts.push({x:x,y:y,px:x,py:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,
+        life:1, decay:(type==="willow")?.006+Math.random()*.004:.011+Math.random()*.008,
+        g:(type==="willow")?.045:.028, col:col, tw:Math.random()<.35,
+        crk:(type==="crackle"&&Math.random()<.25)});
+    }
+    if(type==="double"){ setTimeout(function(){ explodeAt(x+60,y-10,{c:"#f6efe2",t:"peony"}); },140); }
+    if(big){ flashRed(); }
+    stats.burst++; paintStats(); crowdReact(); synthBoom(big);
+  }
+  function explodeAt(x,y,m){ explode(x,y,m); }
+  function flashRed(){ wrap.classList.remove("flashred"); void wrap.offsetWidth; wrap.classList.add("flashred"); }
+
+  function tick(t){
+    ctx.globalCompositeOperation="source-over";
+    drawCity(t);
+    ctx.globalCompositeOperation="lighter";
+    var i,r,p;
+    for(i=rockets.length-1;i>=0;i--){ r=rockets[i];
+      r.px=r.x; r.py=r.y; r.x+=r.vx; r.y+=r.vy; r.vy+=.028;
+      ctx.strokeStyle="rgba(240,205,122,.9)"; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(r.px,r.py); ctx.lineTo(r.x,r.y); ctx.stroke();
+      if(Math.random()<.5) parts.push({x:r.x,y:r.y,px:r.x,py:r.y,vx:(Math.random()-.5)*.4,vy:.4,life:.5,decay:.04,g:.02,col:[240,205,122],tw:false,crk:false});
+      if(r.vy>=-.4||r.y<=r.ty){ explode(r.x,r.y,r.m); rockets.splice(i,1); }
+    }
+    for(i=parts.length-1;i>=0;i--){ p=parts[i];
+      p.px=p.x; p.py=p.y; p.vx*=.985; p.vy=p.vy*.985+p.g; p.x+=p.vx; p.y+=p.vy; p.life-=p.decay;
+      if(p.life<=0){ parts.splice(i,1); continue; }
+      if(p.crk&&p.life<.55){ p.crk=false;
+        for(var j=0;j<5;j++) parts.push({x:p.x,y:p.y,px:p.x,py:p.y,vx:(Math.random()-.5)*2.4,vy:(Math.random()-.5)*2.4,life:.5,decay:.03,g:.03,col:[246,239,226],tw:true,crk:false});
+      }
+      var a=p.tw? p.life*(.4+.6*Math.abs(Math.sin(t*.02+p.x))) : p.life;
+      ctx.strokeStyle="rgba("+p.col[0]+","+p.col[1]+","+p.col[2]+","+a+")";
+      ctx.lineWidth=p.life*2.4;
+      ctx.beginPath(); ctx.moveTo(p.px,p.py); ctx.lineTo(p.x,p.y); ctx.stroke();
+    }
+    ctx.globalCompositeOperation="source-over";
+    requestAnimationFrame(tick);
+  }
+
+  /* ================= George's tab ================= */
+  var GQ=[
+    [0,  "\"Every rocket is money. Burning. In the <em>sky</em>.\""],
+    [25, "\"Twenty-five bucks?! Costanza doesn't pay <em>retail</em> for LIGHT.\""],
+    [50, "\"HALF the cap! We're HEMORRHAGING gunpowder!\""],
+    [75, "\"I'm the COMPTROLLER! I demand the ladle— the LAUNCHER!\""],
+    [92, "\"One more and I'm calling it. I'M CALLING IT!\""]
+  ];
+  function bill(amt){
+    tab=Math.min(TAB_CAP,tab+amt);
+    var pct=tab/TAB_CAP*100;
+    $("tabFill").style.width=pct+"%";
+    $("tabAmt").innerHTML="$"+tab.toFixed(2)+' <span style="color:var(--dim);font-size:11px">/ $100</span>';
+    $("tabAmt").classList.toggle("hot",pct>75);
+    var q=GQ[0]; for(var i=0;i<GQ.length;i++){ if(tab>=GQ[i][0]) q=GQ[i]; }
+    $("gquip").innerHTML="<b>GEORGE:</b> "+q[1];
+    if(tab>=TAB_CAP && !lockout) capHit();
+  }
+  function capHit(){
+    lockout=true; flashRed(); playClip("frank");
+    $("gquip").innerHTML='<b style="color:var(--flag-r)">FRANK:</b> "SERENITY NOW! The cap! THE CAP!"';
+    showCaption("FRANK COSTANZA","SERENITY NOW! We hit the $100 cap!",null);
+    setTimeout(function(){
+      tab=0; lockout=false; stats.reset++; paintStats();
+      $("tabFill").style.width="0%";
+      $("tabAmt").innerHTML='$0.00 <span style="color:var(--dim);font-size:11px">/ $100</span>';
+      $("tabAmt").classList.remove("hot");
+      $("gquip").innerHTML='<b style="color:#4db5ff">KRAMER:</b> "Relax, buddy — I got \'em <em>WHOLESALE</em>. Tab\'s clean. GIDDY-UP."';
+      playClip("kramer");
+    },2600);
+  }
+
+  /* ================= captions & salutes ================= */
+  var capTimer=null;
+  function showCaption(who,line,clip){
+    $("capWho").textContent=who; $("capLine").textContent=line;
+    var c=$("caption"); c.classList.add("show");
+    clearTimeout(capTimer); capTimer=setTimeout(function(){c.classList.remove("show")},3400);
+    if(clip) playClip(clip);
+  }
+  function salute(){
+    lastSalute=(lastSalute+1)%CREW.length;
+    var m=CREW[lastSalute];
+    launch(W*(.25+Math.random()*.5), H*(.18+Math.random()*.2), m, false);
+    showCaption("🎆 "+m.n.toUpperCase()+" SALUTE", m.line, null);
+  }
+
+  /* ================= finale ================= */
+  var finaleBusy=false;
+  function finale(fromEgg){
+    if(finaleBusy) return; finaleBusy=true;
+    var seq=[], i;
+    for(i=0;i<22;i++) seq.push(CREW[Math.floor(Math.random()*CREW.length)]);
+    seq.push({c:"#ff3b30",t:"peony"},{c:"#f6efe2",t:"peony"},{c:"#4d7dff",t:"peony"},
+             {c:"#ff3b30",t:"ring"},{c:"#f6efe2",t:"ring"},{c:"#4d7dff",t:"ring"},
+             {c:"#f0cd7a",t:"mega"});
+    seq.forEach(function(m,idx){
+      setTimeout(function(){
+        launch(W*(.12+Math.random()*.76), H*(.10+Math.random()*.3), m, true);
+        if(idx===seq.length-1){
+          setTimeout(function(){
+            if(fromEgg){ $("smashTxt").textContent="HAPPY 4TH FROM JERRY WORLD!"; $("smash").classList.add("show"); }
+            showCaption("🇺🇸 THE GRAND FINALE","\"…and THAT is how you light a fourth of July, Jerry!\" — Kramer",null);
+            finaleBusy=false;
+          },900);
+        }
+      }, idx*260 + Math.random()*90);
+    });
+  }
+
+  /* ================= ticker ================= */
+  var TICKS=[
+    "☕ Booth report: sixteen agents, one roof, zero permits — \"it's a WRITE-OFF, Jerry.\"",
+    "📒 George bills every rocket against the $100/day cap. He is not having a good night.",
+    "🎆 Kramer on sourcing: \"wholesale, buddy. WHOLESALE.\"",
+    "📬 Newman is watching the show through binoculars. From his own roof. Taking notes.",
+    "📮 Elaine wants to post the finale everywhere. The finale does not want to be contained.",
+    "🧾 Sue-Ellen has entered \"gunpowder (decorative)\" into the ledger.",
+    "🚦 Davola logged 47 blips crossing the sky. ALLEGEDLY fireworks.",
+    "📞 Puddy watched a full minute of finale and said \"yeah, that's real fire.\" High five.",
+    "🥣 The soup stand closed early. Even the Soup Guy watches the finale.",
+    "😴 Bania slept through the first volley. Woke up for the mega. \"THAT'S GOLD!\"",
+    "🧯 Frank is standing by with a bucket. \"SERENITY... ready.\"",
+    "📝 Peterman is narrating the smoke: \"like Burma at dusk… invoice to follow.\"",
+    "🎙 Jerry, watching: \"A show about nothing… with EXPLOSIONS. Finally, a budget I understand.\""
+  ];
+  var ti=0;
+  setInterval(function(){ ti=(ti+1)%TICKS.length; $("ticker").innerHTML=TICKS[ti]; },6500);
+
+  /* ================= ambient show ================= */
+  setInterval(function(){
+    if(document.hidden||finaleBusy||lockout) return;
+    var m=CREW[Math.floor(Math.random()*CREW.length)];
+    launch(W*(.15+Math.random()*.7), H*(.12+Math.random()*.28), m, true);
+  }, 5200);
+
+  /* ================= stats ================= */
+  function paintStats(){
+    $("sLaunch").textContent=stats.launch;
+    $("sBurst").textContent=stats.burst;
+    $("sOoh").textContent=stats.ooh;
+    $("sReset").textContent=stats.reset;
+  }
+
+  /* ================= wiring ================= */
+  function resize(){
+    var r=sky.getBoundingClientRect();
+    W=Math.floor(r.width); H=Math.floor(r.height);
+    sky.width=W*DPR; sky.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    buildCity();
+  }
+  window.addEventListener("resize",resize);
+
+  wrap.addEventListener("pointerdown",function(e){
+    var r=sky.getBoundingClientRect();
+    var x=e.clientX-r.left, y=Math.max(30,e.clientY-r.top);
+    if(y>H*.7) y=H*.45;
+    var m=CREW[Math.floor(Math.random()*CREW.length)];
+    launch(x,y,m,false);
+  });
+  $("bLaunch").addEventListener("click",function(e){ e.stopPropagation();
+    var m=CREW[Math.floor(Math.random()*CREW.length)];
+    launch(W*(.2+Math.random()*.6), H*(.15+Math.random()*.25), m, false);
+  });
+  $("bSalute").addEventListener("click",function(e){ e.stopPropagation(); salute(); });
+  $("bFinale").addEventListener("click",function(e){ e.stopPropagation(); finale(false); });
+  $("badge").addEventListener("click",function(e){ e.stopPropagation(); finale(true); });
+  $("smash").addEventListener("click",function(){ $("smash").classList.remove("show"); });
+
+  document.addEventListener("keydown",function(e){
+    if(e.code==="Space"){ e.preventDefault();
+      var m=CREW[Math.floor(Math.random()*CREW.length)];
+      launch(W*(.2+Math.random()*.6), H*(.15+Math.random()*.25), m, false); }
+    else if(e.key==="c"||e.key==="C"){ salute(); }
+    else if(e.key==="f"||e.key==="F"){ finale(false); }
+    else if(e.key==="s"||e.key==="S"){ $("snd").click(); }
+  });
+
+  /* ================= go ================= */
+  resize();
+  requestAnimationFrame(tick);
+  setTimeout(function(){ // opening volley (free — Kramer's treat)
+    [0,350,700].forEach(function(d,i){
+      setTimeout(function(){ launch(W*(.3+i*.2), H*.2, CREW[[0,3,4][i]], true); },d);
+    });
+  },700);
+})();
+</script>
+</body>
+</html>
