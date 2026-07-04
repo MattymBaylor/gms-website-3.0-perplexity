@@ -5,7 +5,9 @@ import { PostThumb } from '@/components/blog/PostThumb';
 
 export function CaseStudies() {
   const posts = getAllPosts();
-  const [featured, ...rest] = posts;
+  // Featured + a bounded grid; the full library lives at /blog.
+  const [featured, ...others] = posts;
+  const rest = others.slice(0, 6);
 
   // If there are no posts at all, render nothing — the section disappears
   // gracefully rather than showing an empty grid.
@@ -21,9 +23,9 @@ export function CaseStudies() {
     >
       <div className="container-wide">
         <div className="mb-14 max-w-2xl mx-auto text-center">
-          <p className="eyebrow">Field notes</p>
+          <p className="eyebrow">The blog</p>
           <h2 id="case-studies-heading" className="mt-3 text-h1 font-semibold text-ink">
-            See It In Action
+            Field Notes
           </h2>
           <p className="mt-4 text-lead text-ink-muted">
             How the system actually works — straight from the team building it.

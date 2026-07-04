@@ -72,3 +72,11 @@ Dated entries capturing the *moves* — decisions, components shipped, deck-wort
 **Verified:** production build green (33/33 pages); Playwright run confirmed scene auto-advance and the exact math on `/hvac` ($44,200/mo) and `/legal` ($11,550/mo).
 
 **`[DECK]`** — *A 12-agent research swarm priced 12 local-service verticals in 43 seconds, and the numbers went straight into production animations the same hour.* The pattern: forced-schema pricing scouts → typed config file → one data-driven animation component. Research-to-pixels with no copy-paste step in between.
+
+### 2026-07-04 — All 12 video cuts wired + homepage heading de-dupe
+
+**What:** Wired all 12 Claude Design per-industry explainer cuts (YouTube) into their pages — a page's own cut wins the explainer slot, pages without one keep the MissedCallMath animation (roofing is the only one left). Then fixed the duplicate headline Matt screenshotted: the video section keeps "See it in action"; the article showcase (CaseStudies) is now "The blog / Field Notes". Capped its grid at featured + 6 so homepage and industry pages stay bounded as the blog grows, and removed the redundant LatestArticles carousel from the homepage (same posts as the section above it; nothing linked to #articles). `#case-studies` anchor preserved — both hero "see the results/breakdown" buttons still land.
+
+**Note:** `LatestArticles.tsx` / `ArticleCarousel.tsx` are now unused — kept in the tree for potential reuse; delete in a future cleanup pass if still unused.
+
+**`[DECK]`** — *Every industry page now runs the full ladder: produced 30s video cut (Claude Design → YouTube) with an animated in-page fallback, all deployed same-day as the cuts were uploaded.*

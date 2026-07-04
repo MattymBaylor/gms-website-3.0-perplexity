@@ -4,7 +4,6 @@ import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
 import { Industries } from '@/components/sections/Industries';
 import { CaseStudies } from '@/components/sections/CaseStudies';
-import { LatestArticles } from '@/components/sections/LatestArticles';
 import { FreeTools } from '@/components/sections/FreeTools';
 import { Podcast } from '@/components/sections/Podcast';
 import { EmailCapture } from '@/components/sections/EmailCapture';
@@ -23,10 +22,8 @@ export default function HomePage() {
         <VideoExplainer videoId="6rEDK6LX_AA" />
         {/* §3 Industries */}
         <Industries />
-        {/* §4 Case Studies (incl. Seinfeld flagship) */}
+        {/* §4 Field Notes — featured article + bounded grid (full library at /blog) */}
         <CaseStudies />
-        {/* §4b Latest Articles — carousel */}
-        <LatestArticles />
         {/* §5 Free Tools — AI Validation Panel callout */}
         <FreeTools />
         {/* §5b Podcast — The Matt & Maya Show */}
