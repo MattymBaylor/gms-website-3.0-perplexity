@@ -1,0 +1,83 @@
+---
+title: "Who Audits the Robots?"
+description: "If you hand real work to a team of AI agents, how do you know none of them are dropping the ball, stepping on each other, or quietly making things up? Here's the monthly inspection we built to find out — and why it matters if AI touches your revenue."
+date: "2026-07-04"
+tags:
+  - AI agent auditing
+  - reward engineering
+  - multi-agent quality assurance
+author: "Matt Martelli"
+draft: false
+---
+
+Here is the uncomfortable thing about artificial intelligence: it is **confident whether or not it is correct**. A human employee who is unsure will hedge, ask, or go quiet. An AI will hand you a wrong answer in the same self-assured tone it uses for a right one. Now multiply that by a whole team of AI "employees" working together, and you have a real management problem — one most companies are walking into without noticing.
+
+We call the fix the **Tiger Team**: a pack of rival AIs whose only job is to hunt one system for flaws, then hand back the fix.
+
+## You'd never run a company on the honor system
+
+Think about how a real business protects itself. You have accountants who reconcile the books. You have a second set of eyes on the big contract. Retailers hire mystery shoppers. Restaurants get inspected. None of it is because you assume people are dishonest — it's because you assume people are human, and humans miss things, duplicate things, and occasionally cut corners.
+
+When you replace part of that team with software agents, the need for inspection doesn't go away. It gets bigger, because the agents work faster, at all hours, with no instinct to raise their hand when something feels off. So we built the inspection layer that a team of AI agents needs — and we run it like clockwork.
+
+> The question isn't "is the AI smart?" It's "how do we know, this month, that it's actually doing its job?"
+
+## Three inspectors who don't talk to each other
+
+Once a month, three different AI models — one from Anthropic, one from OpenAI, one from Google — are each handed the same blueprint of how our AI system is supposed to work. They're told to tear it apart: find any job nobody owns, any two agents fighting over the same task, any step with no backup, any place a mistake could slip through.
+
+The reason we use three rivals from three different companies is the same reason a courtroom doesn't let a witness grade their own testimony. Models made by the same lab share the same blind spots and tend to flatter each other. Three independent inspectors, working with no knowledge of what the others found, catch far more — and when two of them independently flag the same problem, you can be almost certain it's real.
+
+> Different copies of the same AI share the same blind spots. Different platforms don't.
+
+This is the part almost everyone gets wrong. Plenty of tools will "use AI to check AI" — but they use the same model to grade itself, or three copies of one company's model. That's like asking three branches of the same firm, all trained the same way, to catch each other's mistakes. They miss the same things, in the same way. By deliberately pitting Anthropic against OpenAI against Google, we get three genuinely different ways of thinking — and we make them contradict each other on purpose.
+
+### Why "rival agents from different platforms" is the whole game
+
+- **Independent blind spots.** Models from one lab tend to fail in the same places. Three different labs fail in different places — so together they cover far more ground.
+- **No self-flattery.** An AI quietly favors its own answers. It can't favor a rival's, so the grading stays honest.
+- **No single point of failure.** If one provider has a bad month, changes a model, or goes down, two independent checks still run.
+- **No vendor lock-in.** Your peace of mind never rests on trusting one company's AI to police its own work.
+
+## The real machine — not a slide
+
+This is what actually runs. It isn't a diagram we drew for a pitch; it's the live automation, wired end to end. A finding enters on the left, fans out to the three auditors, gets cross-examined, scored, and lands as a report and a fix list on the right.
+
+<TigerTeamBlueprint />
+
+Read it left to right: the system wakes up on a schedule, loads the "source of truth," hands it to three rival auditors, merges their findings, cross-checks them, scores everything, and files the results — automatically.
+
+## The trick: we pay them to be right, and punish them for bluffing
+
+Here's where most "let AI check your AI" ideas quietly fall apart. The moment you reward a model for finding problems, you've given it a reason to invent problems. It will happily manufacture drama to look useful. Anyone who has managed to a metric knows exactly how this ends.
+
+So we changed the incentives. A finding earns points only if the auditor can point to the exact place the problem lives — no vague accusations. If an auditor makes something up and a rival catches it, that finding scores worse than saying nothing at all. And no model is ever allowed to clear its own work. The result is an inspector that has every reason to be accurate and no way to game the score.
+
+> A clean auditor that finds three real problems beats a loud one that finds ten and fakes one. Accuracy over noise, by design.
+
+### This discipline has a name: reward engineering
+
+- **Paid to be right.** Real, provable findings earn points scaled to how serious they are.
+- **Punished for bluffing.** A made-up finding scores worse than staying silent — so there's no upside to crying wolf.
+- **Cited, or it doesn't count.** Every finding must point to the exact spot in the system, or it earns nothing.
+- **Never grades itself.** A rival platform always does the checking — never the model that raised the flag.
+
+## What you actually get back
+
+Every run produces three things — on a schedule, without anyone asking:
+
+- **A health score.** A single go / no-go number for the system, backed by ten specific checks. Below the line means "fix before you ship."
+- **A ranked list of real, provable issues** — the ones two inspectors agreed on flagged first, each pointing at exactly where the problem is.
+- **A ready-to-run fix** — not just "here's what's wrong," but the exact instructions to repair it, reviewed before anything changes.
+
+Most audits stop at the bad news. This one hands you the bad news and the fix, then gets out of your way.
+
+## Why a business owner should care
+
+If AI is answering your phones, qualifying your leads, or moving data between your systems, it is already touching revenue. The difference between a business that trusts that quietly and one that verifies it on a schedule, with receipts, is the difference between "we think it's working" and "we know it is, and here's the proof from last month."
+
+That's the whole point of the Tiger Team. Not to make the AI smarter — to make it accountable. The same reason you reconcile the books even when you trust your bookkeeper.
+
+---
+
+*Curious what this looks like in your business? [Get a free demo](/#cta) — our AI will actually call you and run the whole flow, so you can hear it before you decide anything.*

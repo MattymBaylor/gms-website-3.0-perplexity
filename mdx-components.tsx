@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { ImageProps } from 'next/image';
 import { ROICalculator } from '@/components/blog/ROICalculator';
+import { TigerTeamBlueprint } from '@/components/blog/TigerTeamBlueprint';
 
 /**
  * Required by @next/mdx in the App Router.
@@ -56,6 +57,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     // Custom interactive components usable inside any .mdx article:
     ROICalculator,
+    TigerTeamBlueprint,
     ...components,
   };
 }
