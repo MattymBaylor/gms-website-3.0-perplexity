@@ -90,3 +90,18 @@ Dated entries capturing the *moves* — decisions, components shipped, deck-wort
 **Open item:** the n8n SMTP credential "Gmail SMTP - matt@growthmindset.ai" is dead (Google 535 BadCredentials — app password revoked). Until Matt mints a new app password and updates that credential, the visitor/cc email step fails (loudly, in n8n executions); captures + instant download are unaffected. Longer term this is the 1Password/op-service-account tech-debt item.
 
 **`[DECK]`** — *"I entered my email and got nothing" → full diagnosis and rebuild of the lead-magnet pipeline (guide authored, API wired, n8n workflow repaired + activated, wrong-Vercel-project caught via log footer) in one session, verified with live executions.*
+
+## 2026-07-10 — `/vault` — unlisted consulting library shipped
+
+**What:** The Claude Design "GMS Consulting Library" handoff is live as a static HTML app at `growthmindset.ai/vault` — the shelf landing page plus all three documents (Voice Agent Implementation Guide ×3pp, Enterprise AI Integration Playbook ×11pp, GMOS v2 ×22pp) in screen + print versions, brand SVGs, and the design-system token bundle.
+
+**Decisions:**
+- **Reachable-but-unlisted, not password-protected.** Matt's call: "not critical information… nobody is going to go to vault." `X-Robots-Tag: noindex, nofollow` via `next.config.mjs` headers on `/vault/:path*`, plus a `<meta name="robots">` in the page. Deliberately NOT in `robots.txt` — a `Disallow: /vault` line in a public file would advertise the exact path we're hiding.
+- **House pattern reused:** static app in `public/` + extensionless rewrite (`/vault` → `/vault/index.html`), same as `/seinfeld-hq`, `/games`, `/org-chart`.
+- **`<base href="/vault/">` fix:** served at the extensionless path, all relative refs (`support.js`, `_ds/`, sibling docs) resolved against site root and silently 404'd — the page rendered but never hydrated (`{{ asOf }}` showed raw). One base tag fixed every reference at once.
+- Kebab-case filenames (`gmos.html`, `enterprise-playbook.html`, …) instead of the handoff's spaced names; library hrefs repointed with print-variants replaced first so the plain names don't eat them.
+- GMOS is marked INTERNAL / NOT FOR DISTRIBUTION — flagged once that obscurity-only exposes it; Matt accepted. If that changes, gate `/vault/gmos*` specifically.
+
+**Verified:** local dev — library hydrates (UPDATED JULY 2026, emblem watermark, halos), GMOS renders, headers confirmed on all `/vault` paths and absent on `/`. Preview deploy green. Follow-ups parked: real PDFs from the `-print` pages (currently print-dialog flow, as designed), optional `vault.growthmindset.ai` alias.
+
+**`[DECK]`** — *Design-tool handoff to live URL in one session: unzip → rename → one `<base>` tag → noindex headers → deployed.* The interesting beat is the negative decision: keeping the hidden path OUT of robots.txt, because robots.txt is the first place anyone looks for what you're hiding.
