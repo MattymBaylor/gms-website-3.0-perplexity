@@ -19,6 +19,21 @@ const nextConfig = {
       { source: '/seinfeld-hq', destination: '/seinfeld-hq/index.html' },
       { source: '/games', destination: '/games/index.html' },
       { source: '/org-chart', destination: '/org-chart/index.html' },
+      { source: '/vault', destination: '/vault/index.html' },
+    ];
+  },
+  // /vault is reachable but unlisted: noindex header, no robots.txt entry
+  // (a Disallow line in the public robots.txt would advertise the path).
+  async headers() {
+    return [
+      {
+        source: '/vault/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/vault',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
     ];
   },
 };

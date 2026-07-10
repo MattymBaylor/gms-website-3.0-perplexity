@@ -1,0 +1,116 @@
+/* ============================================================
+   COLORS — GrowthMindset.ai / Matt Martelli
+   ------------------------------------------------------------
+   Two surfaces, one brand. PAPER is the default for executive
+   sales & portfolio pages (whitespace-led, premium, calm). NIGHT
+   is the brand's signature dark surface (from growthmindset.ai &
+   mattmartelli.com) used for heroes, dividers, and proof panels.
+   Cyan is the brand signal; amber marks the human / outcome.
+   ============================================================ */
+
+:root {
+  /* ---- Brand core ---- */
+  --gm-black: #0A0A0F;          /* "night" — brand background */
+  --gm-ink: #16181D;            /* near-black for text on paper */
+  --gm-cyan: #00D4FF;           /* brand cyan — bright, for dark surfaces */
+  --gm-cyan-bright: #22D3EE;    /* the lighter cyan used on mattmartelli.com */
+  --gm-teal: #0B7A8C;           /* deep cyan for accents ON LIGHT surfaces */
+  --gm-teal-deep: #075E6C;      /* pressed / hover deep teal */
+  --gm-amber: #F5A524;          /* human / outcome highlight */
+  --gm-amber-soft: #FBBF6B;
+
+  /* ---- Manila "case file" paper (the creative-brief surface) ---- */
+  --gm-manila: #F4E8CE;         /* warm folder paper */
+  --gm-manila-edge: #EADCB8;    /* folder tab / darker fold */
+  --gm-manila-line: rgba(120, 90, 40, 0.22); /* hairline on manila */
+  --gm-manila-label: #9A7B33;   /* mono field labels on manila */
+  --gm-manila-ink: #2B2310;     /* body text on manila */
+  --gm-indigo: #6366F1;         /* secondary accent — used sparingly */
+  --gm-green: #10B981;          /* success / positive delta */
+  --gm-red: #E5484D;            /* negative delta / alert */
+
+  /* ---- Neutral ramp (cool gray, paper → ink) ---- */
+  --gray-0:  #FFFFFF;
+  --gray-25: #FBFAF8;   /* warm paper */
+  --gray-50: #F5F5F4;
+  --gray-100:#ECECEA;
+  --gray-150:#E2E2DF;
+  --gray-200:#D4D6DA;
+  --gray-300:#B7BBC2;
+  --gray-400:#9098A3;
+  --gray-500:#6B7280;
+  --gray-600:#4B515B;
+  --gray-700:#343941;
+  --gray-800:#22262C;
+  --gray-900:#16181D;
+  --gray-950:#0A0A0F;
+
+  /* ---- Dark-surface ramp (layered near-blacks) ---- */
+  --night-0:  #0A0A0F;
+  --night-1:  #0D1117;  /* surface */
+  --night-2:  #12141C;  /* elevated */
+  --night-3:  #171A24;  /* raised */
+  --night-line: rgba(148, 163, 184, 0.12);
+  --night-line-strong: rgba(148, 163, 184, 0.22);
+
+  /* ============ SEMANTIC ALIASES ============ */
+
+  /* Surfaces — PAPER (default) */
+  --surface-page: var(--gray-25);
+  --surface-card: var(--gray-0);
+  --surface-sunken: var(--gray-50);
+  --surface-raised: var(--gray-0);
+
+  /* Surfaces — NIGHT */
+  --surface-night: var(--night-0);
+  --surface-night-card: var(--night-2);
+  --surface-night-raised: var(--night-3);
+
+  /* Text on paper */
+  --text-strong: var(--gray-900);
+  --text-body: var(--gray-700);
+  --text-muted: var(--gray-500);
+  --text-faint: var(--gray-400);
+  --text-on-accent: #FFFFFF;
+
+  /* Text on night */
+  --text-night-strong: #E6EDF3;
+  --text-night-body: #9BA7B4;
+  --text-night-faint: #697586;
+
+  /* Accent (primary action / links / data on light) */
+  --accent: var(--gm-teal);
+  --accent-hover: var(--gm-teal-deep);
+  --accent-contrast: #FFFFFF;
+  --accent-soft: rgba(11, 122, 140, 0.10);
+  --accent-soft-border: rgba(11, 122, 140, 0.22);
+
+  /* Accent on night */
+  --accent-night: var(--gm-cyan);
+  --accent-night-soft: rgba(0, 212, 255, 0.12);
+  --accent-night-glow: rgba(0, 212, 255, 0.35);
+
+  /* Outcome / human */
+  --outcome: var(--gm-amber);
+  --outcome-soft: rgba(245, 165, 36, 0.14);
+
+  /* Case-file surfaces */
+  --surface-brief: var(--gm-manila);
+  --text-on-brief: var(--gm-manila-ink);
+  --label-on-brief: var(--gm-manila-label);
+
+  /* Borders & dividers (on paper) */
+  --border: var(--gray-150);
+  --border-strong: var(--gray-200);
+  --border-faint: var(--gray-100);
+  --divider: var(--gray-150);
+
+  /* Status */
+  --positive: var(--gm-green);
+  --positive-soft: rgba(16, 185, 129, 0.12);
+  --negative: var(--gm-red);
+  --negative-soft: rgba(229, 72, 77, 0.12);
+
+  /* Focus ring */
+  --focus-ring: rgba(11, 122, 140, 0.45);
+}

@@ -1,0 +1,47 @@
+/* ============================================================
+   TYPOGRAPHY — GrowthMindset.ai
+   Display = Space Grotesk (headlines, numbers, eyebrows).
+   Body = Inter. Mono = JetBrains Mono (labels, data, node tags).
+   Tight, confident, executive. Type scale is a ~1.22 ratio.
+   ============================================================ */
+
+:root {
+  /* Families */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Typewriter — the "case file" voice (eyebrows, labels, stamps, flows) */
+  --font-mono: 'Courier Prime', ui-monospace, 'Courier New', monospace;
+  --font-typewriter: var(--font-mono);
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Type scale (px) */
+  --text-display: 64px;   /* hero */
+  --text-h1: 48px;
+  --text-h2: 36px;
+  --text-h3: 27px;
+  --text-h4: 22px;
+  --text-lead: 20px;      /* intro paragraphs */
+  --text-body-lg: 18px;
+  --text-base: 16px;
+  --text-sm: 14px;
+  --text-xs: 13px;
+  --text-eyebrow: 12px;   /* mono uppercase kicker */
+
+  /* Line heights */
+  --leading-tight: 1.05;
+  --leading-snug: 1.18;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter spacing */
+  --tracking-tight: -0.025em;   /* display / h1 */
+  --tracking-snug: -0.015em;    /* h2 / h3 */
+  --tracking-normal: 0em;
+  --tracking-wide: 0.02em;
+  --tracking-eyebrow: 0.1em;    /* typewriter kickers, uppercase (Courier is wide) */
+}

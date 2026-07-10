@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/styles.css">
+  <script src="_ds/growthmindset-ai-design-system-1d85355d-ea32-4733-9538-59423be49fb7/_ds_bundle.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+  <style>
+    body { margin: 0; background: #171A24; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    a { color: #00D4FF; text-decoration: none; }
+    a:hover { color: #22D3EE; text-decoration: underline; }
+    @page { size: letter; margin: 0; }
+    @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { background: #0A0A0F !important; margin: 0 !important; }
+      #desk { padding: 0 !important; gap: 0 !important; background: #0A0A0F !important; }
+      .gm-page { outline: none !important; box-shadow: none !important; margin: 0 auto !important; break-after: page; }
+      .gm-page:last-child { break-after: auto; }
+    }
+  </style>
+</helmet>
+
+<div id="desk" style="display: flex; flex-direction: column; align-items: center; gap: 56px; padding: 64px 32px; background: #171A24; min-height: 100vh; box-sizing: border-box;">
+
+  <!-- ============ PAGE 01 — COVER ============ -->
+  <div class="gm-page" data-screen-label="01 — Cover" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <img src="assets/brand/emblem-white.svg" alt="" style="position: absolute; right: -140px; bottom: -100px; height: 620px; width: auto; opacity: 0.05; pointer-events: none;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; position: relative;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 18px; width: auto;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">GROWTHMINDSET.AI</span>
+      </div>
+      <sc-if value="{{ hasPreparedFor }}" hint-placeholder-val="{{ false }}">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; color: #697586;">PREPARED FOR — <span style="color: #E6EDF3;">{{ preparedForUpper }}</span></span>
+      </sc-if>
+    </div>
+
+    <div style="margin-top: 170px; position: relative;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; color: #00D4FF;">CONSULTING PLAYBOOK</span>
+      </div>
+      <h1 style="margin: 24px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 52px; line-height: 1.07; font-weight: 600; letter-spacing: -0.025em; color: #FFFFFF;">Enterprise AI<br>Integration Playbook</h1>
+      <p style="margin: 24px 0 0; font-size: 17px; line-height: 1.55; color: #9BA7B4; max-width: 520px;">Designing, integrating, and governing enterprise AI&nbsp;systems.</p>
+      <div style="margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #697586;">DISCOVERY • ARCHITECTURE • INTEGRATION • GOVERNANCE • OPTIMIZATION</div>
+      <div style="margin-top: 30px; display: flex; align-items: center; gap: 12px;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.12em; color: #00D4FF; border: 1px solid rgba(0,212,255,0.35); background: rgba(0,212,255,0.07); border-radius: 4px; padding: 5px 12px;">VERSION {{ version }}</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586; border: 1px solid rgba(148,163,184,0.22); border-radius: 4px; padding: 5px 12px;">{{ asOf }}</span>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; position: relative;">
+      <p style="margin: 0 0 22px; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 15px; font-weight: 500; letter-spacing: -0.01em; color: #E6EDF3;">AI is the tool. <span style="color: #00D4FF;">The system is the product.</span></p>
+      <div style="border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+            <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+          </div>
+        </div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 01 / 11</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 02 — EXECUTIVE SUMMARY ============ -->
+  <div class="gm-page" data-screen-label="02 — Executive Summary" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">EXECUTIVE SUMMARY</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">AI that reaches production, not pilots.</h2>
+
+    <div style="margin-top: 40px; display: flex; flex-direction: column;">
+
+      <div style="border-top: 1px solid rgba(148,163,184,0.14); padding: 28px 0; display: grid; grid-template-columns: 180px 1fr; gap: 40px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.15em; color: #697586; padding-top: 4px;">WHAT IT IS</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #9BA7B4;">Enterprise AI integration is the discipline of connecting AI — models, agents, and automation — to the <strong style="color: #E6EDF3; font-weight: 600;">applications, data, and controls your business already runs on.</strong> Done well, AI becomes infrastructure: reliable, governed, measurable. Done poorly, it becomes another disconnected tool.</p>
+      </div>
+
+      <div style="border-top: 1px solid rgba(148,163,184,0.14); padding: 28px 0; display: grid; grid-template-columns: 180px 1fr; gap: 40px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.15em; color: #697586; padding-top: 4px;">WHY ADOPTION STALLS</div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: baseline; gap: 14px;">
+            <div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-4px);"></div>
+            <span style="font-size: 14px; line-height: 1.55; color: #C2CBD4;">Pilots that never touch production systems — impressive demos, no operational value</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 14px;">
+            <div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-4px);"></div>
+            <span style="font-size: 14px; line-height: 1.55; color: #C2CBD4;">Tool-first decisions made before architecture, creating integration debt from day one</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 14px;">
+            <div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-4px);"></div>
+            <span style="font-size: 14px; line-height: 1.55; color: #C2CBD4;">No governance model — so security, legal, and leadership can never fully say yes</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(148,163,184,0.14); padding: 28px 0; display: grid; grid-template-columns: 180px 1fr; gap: 40px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.15em; color: #697586; padding-top: 4px;">WHY ARCHITECTURE FIRST</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #9BA7B4;">Architecture is what makes AI investments <strong style="color: #E6EDF3; font-weight: 600;">compound instead of accumulate.</strong> A system designed around your data, security, and workflows outlives any individual model or vendor. The parts are interchangeable — <strong style="color: #E6EDF3; font-weight: 600;">the design is the asset.</strong></p>
+      </div>
+
+    </div>
+
+    <div style="margin-top: auto; margin-bottom: 34px; border: 1px solid rgba(148,163,184,0.2); border-radius: 10px; background: #0D1117; padding: 19px 24px; display: flex; align-items: center; justify-content: center; gap: 16px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em; color: #C2CBD4;">BUSINESS PROBLEM</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #00D4FF;">→</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em; color: #C2CBD4;">ARCHITECTURE</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #00D4FF;">→</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em; color: #C2CBD4;">INTEGRATION</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #00D4FF;">→</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em; color: #FFFFFF;">GOVERNED PRODUCTION</span>
+    </div>
+
+    <div style="border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 02 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 03 — METHODOLOGY ============ -->
+  <div class="gm-page" data-screen-label="03 — Methodology" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">CONSULTING METHODOLOGY</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">Six phases. One accountable system.</h2>
+
+    <div style="margin-top: 40px; display: flex; flex-direction: column;">
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 9px 16px; background: #0D1117; width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">01</span>&nbsp; DISCOVERY</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">Map the business problem, the systems it lives in, and the value at stake. <span style="color: #E6EDF3;">No design until the problem is measured.</span></p>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px;"><div style="display: flex; flex-direction: column; align-items: center; height: 26px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.3);"></div><div style="width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #00D4FF;"></div></div><div></div></div>
+
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 9px 16px; background: #0D1117; width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">02</span>&nbsp; ARCHITECTURE</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">Design the system on paper first — data flows, integrations, security, human touchpoints. <span style="color: #E6EDF3;">Approved before anything is built.</span></p>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px;"><div style="display: flex; flex-direction: column; align-items: center; height: 26px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.3);"></div><div style="width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #00D4FF;"></div></div><div></div></div>
+
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 9px 16px; background: #0D1117; width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">03</span>&nbsp; PROTOTYPE</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">A working slice against real systems and real data. <span style="color: #E6EDF3;">Proof in weeks, not quarters</span> — and an honest go / no-go.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px;"><div style="display: flex; flex-direction: column; align-items: center; height: 26px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.3);"></div><div style="width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #00D4FF;"></div></div><div></div></div>
+
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 9px 16px; background: #0D1117; width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">04</span>&nbsp; IMPLEMENTATION</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">Production build, integrated into your applications and workflows — <span style="color: #E6EDF3;">with testing and sign-off at every gate.</span></p>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px;"><div style="display: flex; flex-direction: column; align-items: center; height: 26px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.3);"></div><div style="width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #00D4FF;"></div></div><div></div></div>
+
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 9px 16px; background: #0D1117; width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">05</span>&nbsp; OPTIMIZATION</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">Measured against discovery baselines and tuned on a set cadence. <span style="color: #E6EDF3;">Performance is a program, not a phase.</span></p>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px;"><div style="display: flex; flex-direction: column; align-items: center; height: 26px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.3);"></div><div style="width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #00D4FF;"></div></div><div></div></div>
+
+      <div style="display: grid; grid-template-columns: 190px 1fr; gap: 36px; align-items: center;">
+        <div style="display: flex; justify-content: center;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; color: #00D4FF; border: 1px solid rgba(0,212,255,0.4); border-radius: 6px; padding: 9px 16px; background: rgba(0,212,255,0.07); width: 158px; text-align: center; box-sizing: border-box;"><span style="color: #00D4FF;">06</span>&nbsp; GOVERNANCE</span></div>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #9BA7B4;">Access, approvals, audit, and monitoring — <span style="color: #E6EDF3;">the operating rules that let the system scale safely.</span></p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; border: 1px solid rgba(148,163,184,0.14); border-radius: 12px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 20px 26px; text-align: center;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #9BA7B4;">GOVERNANCE IS NOT A FINAL STEP — <span style="color: #00D4FF;">IT IS DESIGNED IN FROM PHASE ONE</span></span>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 03 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 04 — DISCOVERY FRAMEWORK ============ -->
+  <div class="gm-page" data-screen-label="04 — Discovery Framework" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">ENTERPRISE DISCOVERY FRAMEWORK</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">Discovery maps the whole terrain.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 580px;">Nine areas, examined before any design decision. What we find here becomes the architecture's requirements.</p>
+
+    <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Business Goals</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">What outcome pays for this system — in dollars, hours, or risk.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Stakeholders</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Who owns, operates, approves — and who is affected.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Current Systems</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">The application landscape as it actually runs today.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Data Sources</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Where the truth lives — quality, access, ownership, gaps.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Security</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Identity, access, and data-handling requirements.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Compliance</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Regulatory and contractual constraints, mapped early.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Pain Points</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Where time, money, and trust leak today.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Success Metrics</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Baselines captured now, so improvement is provable later.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="6" y1="3" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Dependencies</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">What must exist, integrate, or change for this to work.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; border: 1px solid rgba(148,163,184,0.2); border-radius: 10px; background: #0D1117; padding: 18px 24px; display: flex; align-items: center; justify-content: center; gap: 14px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #697586;">OUTPUT</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: #C2CBD4;">SCOPE <span style="color: #00D4FF;">·</span> ARCHITECTURE REQUIREMENTS <span style="color: #00D4FF;">·</span> RISK REGISTER <span style="color: #00D4FF;">·</span> PHASED ROADMAP</span>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 04 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 05 — REFERENCE ARCHITECTURE ============ -->
+  <div class="gm-page" data-screen-label="05 — Reference Architecture" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">ENTERPRISE REFERENCE ARCHITECTURE</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">One architecture, adapted per engagement.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 600px;">Eight layers, separated so each can change without breaking the others. Models are interchangeable parts; the design is what lasts.</p>
+
+    <div style="margin-top: 26px; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 26px 30px;">
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L1</span>
+        <div style="border: 1px solid rgba(148,163,184,0.3); border-radius: 8px; background: #0A0A0F; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Users</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">EMPLOYEES · CUSTOMERS · APPROVERS</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L2</span>
+        <div style="border: 1px solid rgba(148,163,184,0.22); border-radius: 8px; background: #12141C; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Business Applications</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">WEB · MOBILE · INTERNAL TOOLS · VOICE</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #00D4FF;">L3</span>
+        <div style="border: 1px solid rgba(0,212,255,0.45); border-radius: 8px; background: #12141C; box-shadow: 0 0 0 1px rgba(0,212,255,0.06), 0 8px 32px rgba(0,212,255,0.1); padding: 11px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #FFFFFF;">AI Orchestration Layer</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #00D4FF;">AGENTS · ROUTING · MEMORY · HUMAN-IN-THE-LOOP</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L4</span>
+        <div style="border: 1px solid rgba(148,163,184,0.22); border-radius: 8px; background: #12141C; padding: 9px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">CLAUDE</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">OPENAI</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">GEMINI</span>
+          </div>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">MODELS — INTERCHANGEABLE BY DESIGN</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L5</span>
+        <div style="border: 1px solid rgba(148,163,184,0.22); border-radius: 8px; background: #12141C; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Tool Calling / MCP</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">STANDARDIZED, PERMISSIONED ACCESS TO TOOLS</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L6</span>
+        <div style="border: 1px solid rgba(148,163,184,0.22); border-radius: 8px; background: #12141C; padding: 9px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">CRM</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">ERP</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">SQL</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.28); border-radius: 5px; padding: 4px 10px; background: #0A0A0F;">KNOWLEDGE BASE</span>
+          </div>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">BUSINESS SYSTEMS</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L7</span>
+        <div style="border: 1px solid rgba(148,163,184,0.22); border-radius: 8px; background: #12141C; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Workflow Automation</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">TRIGGERS · SYNCS · FOLLOW-UPS · ESCALATIONS</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px;"><span></span><div style="display: flex; flex-direction: column; align-items: center; height: 15px;"><div style="width: 1px; flex: 1; background: rgba(148,163,184,0.35);"></div><div style="width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid #00D4FF;"></div></div></div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">L8</span>
+        <div style="border: 1px solid rgba(148,163,184,0.3); border-radius: 8px; background: #0A0A0F; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Reporting &amp; Monitoring</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.1em; color: #697586;">DASHBOARDS · ALERTS · AUDIT TRAILS</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.12em; color: #4B515B; text-align: center;">GOVERNANCE &amp; SECURITY SPAN EVERY LAYER — PAGE 07 · EACH LAYER SWAPS WITHOUT BREAKING THE OTHERS</div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 05 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 06 — INTEGRATION PATTERNS ============ -->
+  <div class="gm-page" data-screen-label="06 — Integration Patterns" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">INTEGRATION PATTERNS</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">We integrate with what you already run.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 600px;">Named platforms are examples, not requirements — the patterns are vendor-neutral and survive tool changes.</p>
+
+    <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px;">
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">CRM</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">BIDIRECTIONAL SYNC</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">ERP</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">ORDERS · INVENTORY · FINANCE</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">HubSpot</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">NATIVE APP + API</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Salesforce</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">API + PLATFORM EVENTS</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2"></rect><rect width="20" height="8" x="2" y="14" rx="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">SQL Databases</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">READ + GOVERNED WRITE</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">REST APIs</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">ANY MODERN SERVICE</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">SharePoint</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">DOCUMENTS · INTRANET</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Microsoft 365</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">MAIL · TEAMS · FILES</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Email</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">SEND · PARSE · ROUTE</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Calendars</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">SCHEDULING · AVAILABILITY</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10v3"></path><path d="M6 6v11"></path><path d="M10 3v18"></path><path d="M14 8v7"></path><path d="M18 5v13"></path><path d="M22 10v3"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Voice</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">INBOUND · OUTBOUND</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 14px 15px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+        <div style="margin-top: 9px; font-size: 12px; font-weight: 600; color: #E6EDF3;">Document Processing</div>
+        <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #4B515B;">EXTRACT · CLASSIFY · FILE</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 24px 30px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #00D4FF;">EVERY INTEGRATION FOLLOWS THE SAME PATTERN</div>
+      <div style="margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 8px 13px; background: #0A0A0F;">AUTHENTICATE</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #00D4FF;">→</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 8px 13px; background: #0A0A0F;">SYNC / TRIGGER</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #00D4FF;">→</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 8px 13px; background: #0A0A0F;">TRANSFORM</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #00D4FF;">→</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; color: #00D4FF; border: 1px solid rgba(0,212,255,0.4); border-radius: 6px; padding: 8px 13px; background: rgba(0,212,255,0.07);">ACT</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #00D4FF;">→</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; color: #C2CBD4; border: 1px solid rgba(148,163,184,0.3); border-radius: 6px; padding: 8px 13px; background: #0A0A0F;">LOG</span>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 06 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 07 — GOVERNANCE &amp; SECURITY ============ -->
+  <div class="gm-page" data-screen-label="07 — Governance &amp; Security" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">GOVERNANCE &amp; SECURITY</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">Governed enough for security to say yes.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 580px;">Nine controls, designed in from day one — not retrofitted after the first incident.</p>
+
+    <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Authentication</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Every actor — human or agent — proves identity before anything runs.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Authorization</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Agents get the narrowest permissions that still do the job.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(0,212,255,0.3); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Human Approval</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Consequential actions wait for a person. By design, not exception.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Audit Logs</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Every action recorded — who, what, when, and on whose approval.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Role-Based Access</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Access follows roles, not individuals or one-off exceptions.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Data Privacy</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Sensitive data is scoped and handled to your policy — never beyond it.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Monitoring</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Live visibility into behavior, cost, and quality — with alerts.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Fallback Procedures</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">When AI is uncertain, the system degrades gracefully to humans.</div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 17px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 600; color: #E6EDF3;">Enterprise Guardrails</div>
+        <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Hard limits on what the system may say, spend, and do.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 24px 30px; text-align: center;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.16em; color: #00D4FF;">THE OPERATING PRINCIPLE</div>
+      <p style="margin: 10px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 18px; line-height: 1.4; font-weight: 500; letter-spacing: -0.015em; color: #E6EDF3;">Human-in-the-loop by design — approval gates on every consequential action.</p>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 07 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 08 — DELIVERY FRAMEWORK ============ -->
+  <div class="gm-page" data-screen-label="08 — Delivery Framework" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">DELIVERY FRAMEWORK</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">A timeline you can hold us to.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 580px;">Typical mid-size engagement. Dates are set in discovery; every phase ends with a decision gate you control.</p>
+
+    <div style="margin-top: 32px; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 30px 26px 26px;">
+      <div style="position: relative;">
+        <div style="position: absolute; top: 4px; left: calc(100% / 14); right: calc(100% / 14); height: 1px; background: rgba(148,163,184,0.3);"></div>
+        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid #00D4FF; box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Discovery</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">WKS 1–2</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid #00D4FF; box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Architecture</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">WKS 3–5</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #00D4FF; border: 2px solid #00D4FF; box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Pilot</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">WKS 6–9</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid #00D4FF; box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Production</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">WKS 10–14</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid rgba(148,163,184,0.5); box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Optimization</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">ONGOING</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid rgba(148,163,184,0.5); box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Knowledge Transfer</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">BUILT-IN</div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 9px; height: 9px; border-radius: 50%; background: #0A0A0F; border: 2px solid rgba(148,163,184,0.5); box-sizing: border-box;"></div>
+            <div style="margin-top: 12px; font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #E6EDF3;">Support</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.08em; color: #697586;">SLA-BACKED</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+      <div style="background: #0D1117; border: 1px solid rgba(148,163,184,0.14); border-radius: 12px; padding: 18px 20px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #697586;">EVERY PHASE ENDS WITH</div>
+        <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 9px;">
+          <div style="display: flex; align-items: baseline; gap: 12px;"><div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-3px);"></div><span style="font-size: 12px; line-height: 1.5; color: #C2CBD4;">A working demonstration — not a status report</span></div>
+          <div style="display: flex; align-items: baseline; gap: 12px;"><div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-3px);"></div><span style="font-size: 12px; line-height: 1.5; color: #C2CBD4;">A document that survives the meeting</span></div>
+          <div style="display: flex; align-items: baseline; gap: 12px;"><div style="width: 12px; height: 1.5px; background: #00D4FF; flex: none; transform: translateY(-3px);"></div><span style="font-size: 12px; line-height: 1.5; color: #C2CBD4;">A go / no-go decision that you make</span></div>
+        </div>
+      </div>
+      <div style="background: #0D1117; border: 1px solid rgba(0,212,255,0.25); border-radius: 12px; padding: 18px 20px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #00D4FF;">YOU OWN EVERYTHING</div>
+        <p style="margin: 12px 0 0; font-size: 12px; line-height: 1.6; color: #C2CBD4;">Architecture documents, integrations, prompts, dashboards, and runbooks are handed over as part of delivery — knowledge transfer is a phase, not a favor. <span style="color: #E6EDF3; font-weight: 600;">No black boxes.</span></p>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.12em; color: #4B515B; text-align: center;">PILOT SCOPE IS PRODUCTION SCOPE, SMALLER — NEVER A THROWAWAY DEMO</div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 08 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 09 — BUSINESS OUTCOMES ============ -->
+  <div class="gm-page" data-screen-label="09 — Business Outcomes" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">BUSINESS OUTCOMES</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">Outcomes you can put in a board deck.</h2>
+    <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: #9BA7B4; max-width: 580px;">Every engagement is measured against the baselines captured in discovery — improvement is provable, not claimed.</p>
+
+    <div style="margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Faster operations</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Hours-long processes compress to minutes.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Reduced manual work</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Routine handling moves off your team's plate.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Higher data quality</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Every interaction lands as clean, structured records.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Improved customer experience</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Answered instantly, consistently, in your voice.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Scalable automation</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Capacity grows without matching headcount.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Enterprise visibility</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Live dashboards where spreadsheets used to be.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Operational consistency</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">The best process, executed the same way every time.</div>
+        </div>
+      </div>
+      <div style="background: #12141C; border: 1px solid rgba(148,163,184,0.18); border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px;">
+        <svg style="flex: none; margin-top: 2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #E6EDF3;">Better decision-making</div>
+          <div style="margin-top: 4px; font-size: 11px; line-height: 1.55; color: #9BA7B4;">Decisions made on current data, not last quarter's.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; border: 1px solid rgba(148,163,184,0.2); border-radius: 10px; background: #0D1117; padding: 18px 24px; display: flex; align-items: center; justify-content: center; gap: 14px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #697586;">MEASUREMENT</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: #C2CBD4;">BASELINE IN DISCOVERY <span style="color: #00D4FF;">→</span> TARGETS IN ARCHITECTURE <span style="color: #00D4FF;">→</span> REPORTED MONTHLY IN PRODUCTION</span>
+    </div>
+
+    <div style="margin-top: auto; border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 09 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 10 — WHY GROWTH MINDSET AI ============ -->
+  <div class="gm-page" data-screen-label="10 — Why Growth Mindset AI" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">WHY GROWTH MINDSET AI</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">We sell methodology, not tools.</h2>
+
+    <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1.15fr; gap: 44px; align-items: start;">
+      <div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #9BA7B4;">Tools change monthly. Our value is an operating discipline: how we <strong style="color: #E6EDF3; font-weight: 600;">discover, design, integrate, govern, and improve</strong> — the same way, every engagement.</p>
+        <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 1.7; color: #9BA7B4;">That discipline runs on our own operating system for knowledge, delivery, and reuse — so your engagement starts from <strong style="color: #E6EDF3; font-weight: 600;">everything we've already proven</strong>, not a blank page.</p>
+        <div style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; line-height: 2; color: #4B515B;">25+ YEARS BUILDING MARKETING, CRM &amp; OPERATIONAL SYSTEMS<br>EVERY ENGAGEMENT DOCUMENTED · EVERY PATTERN REUSED</div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Architecture-first</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">Design before build — every time, no exceptions.</span>
+        </div>
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Business-first</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">Problems and outcomes lead; technology follows.</span>
+        </div>
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Governance built-in</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">Security and approvals designed in from phase one.</span>
+        </div>
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Reusable systems</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">Proven patterns, adapted — not experiments, repeated.</span>
+        </div>
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Documentation</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">Every system ships with the manual.</span>
+        </div>
+        <div style="padding: 13px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Knowledge management</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">What we learn on your system stays organized — and yours.</span>
+        </div>
+        <div style="padding: 13px 0 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: baseline;">
+          <span style="font-size: 12.5px; font-weight: 600; color: #E6EDF3;">Long-term optimization</span>
+          <span style="font-size: 11.5px; line-height: 1.55; color: #9BA7B4;">We stay accountable to the numbers after go-live.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; margin-bottom: 34px; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 30px 40px; text-align: center;">
+      <p style="margin: 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 21px; line-height: 1.45; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF; max-width: 560px; margin-left: auto; margin-right: auto;">The future belongs to organizations that combine <span style="color: #00D4FF;">AI, automation, data, and human expertise.</span></p>
+    </div>
+
+    <div style="border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 10 / 11</span>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 11 — NEXT STEPS ============ -->
+  <div class="gm-page" data-screen-label="11 — Next Steps" style="width: 816px; height: 1056px; box-sizing: border-box; background: #0A0A0F; outline: 1px solid rgba(148,163,184,0.14); box-shadow: 0 32px 64px rgba(0,0,0,0.5); padding: 56px 64px 44px; display: flex; flex-direction: column; font-family: var(--font-body, 'Inter', sans-serif); position: relative; overflow: hidden;">
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 18px; height: 2px; background: #00D4FF;"></div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: #9BA7B4;">NEXT STEPS</span>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #4B515B;">EAI PLAYBOOK</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF;">The path from here is short.</h2>
+
+    <div style="margin-top: 36px; display: flex; flex-direction: column;">
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">01</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Discovery Workshop</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">A half-day working session — your problems, mapped and prioritized.</span>
+      </div>
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">02</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Architecture Assessment</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">Your current systems and data, scored for AI readiness.</span>
+      </div>
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">03</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Implementation Roadmap</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">A phased plan with costs, decision gates, and expected outcomes.</span>
+      </div>
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">04</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Pilot Engagement</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">One high-value workflow, live against real systems in weeks.</span>
+      </div>
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">05</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Production Deployment</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">Governed rollout across the business, with monitoring from day one.</span>
+      </div>
+      <div style="padding: 15px 0; border-top: 1px solid rgba(148,163,184,0.14); border-bottom: 1px solid rgba(148,163,184,0.14); display: grid; grid-template-columns: 56px 220px 1fr; gap: 18px; align-items: baseline;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #00D4FF;">06</span>
+        <span style="font-size: 13.5px; font-weight: 600; color: #E6EDF3;">Continuous Optimization</span>
+        <span style="font-size: 12px; line-height: 1.55; color: #9BA7B4;">Measured, tuned, and expanded quarter over quarter.</span>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; margin-bottom: 34px; border: 1px solid rgba(0,212,255,0.3); border-radius: 16px; background-color: #0D1117; background-image: radial-gradient(rgba(148,163,184,0.13) 1px, transparent 1px); background-size: 22px 22px; padding: 40px 44px; text-align: center;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.16em; color: #00D4FF;">THE NEXT MOVE</div>
+      <p style="margin: 16px 0 0; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 22px; line-height: 1.45; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF; max-width: 560px; margin-left: auto; margin-right: auto;">Tell me about the business problem. I'll tell you how I'd architect the system that solves it.</p>
+      <div style="margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: #9BA7B4;">GROWTHMINDSET.AI — START WITH THE DISCOVERY WORKSHOP</div>
+    </div>
+
+    <div style="border-top: 1px solid rgba(148,163,184,0.14); padding-top: 14px; display: flex; align-items: flex-end; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/brand/emblem-white.svg" alt="" style="height: 14px; width: auto; opacity: 0.9;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 11px; font-weight: 600; letter-spacing: -0.01em; color: #B7BBC2;">GrowthMindset.ai</span>
+          <span style="font-size: 8px; letter-spacing: 0.05em; color: #697586;">AI Voice Agents • Workflow Automation • Business AI</span>
+        </div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: #697586;">V{{ version }} · 11 / 11</span>
+    </div>
+  </div>
+
+  <!-- @MORE : adapt this template per engagement type by duplicating the file and swapping page content — keep headers, footers, and page geometry -->
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;version&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;1.0&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Document&quot;},
+  &quot;asOf&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;July 2026&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Document&quot;},
+  &quot;preparedFor&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Document&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const preparedFor = (this.props.preparedFor ?? '').trim();
+    return {
+      version: this.props.version ?? '1.0',
+      asOf: (this.props.asOf ?? 'July 2026').toUpperCase(),
+      hasPreparedFor: preparedFor.length > 0,
+      preparedForUpper: preparedFor.toUpperCase(),
+    };
+  }
+}
+</script>
+</body>
+</html>
