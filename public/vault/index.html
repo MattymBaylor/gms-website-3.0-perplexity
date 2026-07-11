@@ -22,6 +22,28 @@
     body { margin: 0; background: #0A0A0F; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
     a { color: #00D4FF; text-decoration: none; }
     a:hover { color: #22D3EE; }
+
+    /* Blueprint Train — Print Library covers */
+    .bp-viewport { overflow: hidden; position: relative; margin-top: 26px; padding: 16px 0 6px; }
+    .bp-track { display: flex; width: max-content; animation: bp-scroll 48s linear infinite; will-change: transform; }
+    .bp-viewport:hover .bp-track { animation-play-state: paused; }
+    @keyframes bp-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .bp-card { flex: none; width: 184px; margin-right: 30px; position: relative; display: block; }
+    .bp-glow { position: absolute; left: -22%; top: -9%; width: 144%; height: 120%; background: radial-gradient(ellipse at 50% 42%, rgba(0,212,255,0.18), rgba(0,212,255,0.04) 48%, transparent 72%); pointer-events: none; }
+    .bp-cover { aspect-ratio: 816 / 1056; background: #0D1117; border: 1px solid rgba(148,163,184,0.25); border-radius: 5px; position: relative; overflow: hidden; box-shadow: 0 28px 56px rgba(0,0,0,0.6); padding: 22px 18px 16px; box-sizing: border-box; display: flex; flex-direction: column; transition: transform 0.18s ease, border-color 0.18s ease; }
+    .bp-card:hover .bp-cover { transform: translateY(-6px); border-color: rgba(0,212,255,0.55); }
+    .bp-cover--flagship { border-color: rgba(0,212,255,0.35); box-shadow: 0 0 0 1px rgba(0,212,255,0.05), 0 28px 56px rgba(0,0,0,0.6), 0 8px 40px rgba(0,212,255,0.08); }
+    .bp-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: rgba(255,255,255,0.045); border-right: 1px solid rgba(148,163,184,0.1); }
+    .bp-label { display: flex; align-items: center; gap: 7px; }
+    .bp-label i { width: 12px; height: 1.5px; background: #00D4FF; display: block; }
+    .bp-label span { font-family: 'JetBrains Mono', monospace; font-size: 6.5px; letter-spacing: 0.16em; color: #9BA7B4; }
+    .bp-label.cy span { color: #00D4FF; }
+    .bp-title { margin-top: 24px; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 16.5px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF; }
+    .bp-sub { margin-top: 10px; font-size: 7.5px; line-height: 1.5; color: #9BA7B4; max-width: 130px; }
+    .bp-badge { margin-top: 12px; }
+    .bp-badge span { font-family: 'JetBrains Mono', monospace; font-size: 6px; letter-spacing: 0.1em; color: #00D4FF; border: 1px solid rgba(0,212,255,0.35); border-radius: 3px; padding: 2px 6px; }
+    .bp-brand { margin-top: auto; display: flex; align-items: center; gap: 5px; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: 6.5px; font-weight: 600; color: #B7BBC2; }
+    @media (prefers-reduced-motion: reduce) { .bp-track { animation: none; } .bp-viewport { overflow-x: auto; } .bp-dup { display: none; } }
   </style>
 </helmet>
 
@@ -271,6 +293,74 @@
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #4B515B;">LETTER · FULL BLEED</span>
       </div>
       <p style="margin: 16px 0 0; font-size: 12.5px; line-height: 1.6; color: #697586; max-width: 520px;">Print copies open with the print dialog ready — choose &ldquo;Save as PDF.&rdquo; Regenerate after content edits so the PDF matches the source.</p>
+
+      <!-- covers train -->
+      <div class="bp-viewport" aria-label="Document covers">
+        <div class="bp-track">
+          <a class="bp-card" href="voice-agent-guide.html">
+            <span class="bp-glow"></span>
+            <div class="bp-cover">
+              <div class="bp-spine"></div>
+              <div class="bp-label"><i></i><span>IMPLEMENTATION GUIDE</span></div>
+              <div class="bp-title">AI Voice Agent Implementation Guide</div>
+              <div class="bp-sub">A practical framework for designing, deploying, and integrating AI voice agents.</div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+          <a class="bp-card" href="enterprise-playbook.html">
+            <span class="bp-glow"></span>
+            <div class="bp-cover bp-cover--flagship">
+              <div class="bp-spine"></div>
+              <div class="bp-label cy"><i></i><span>CONSULTING PLAYBOOK</span></div>
+              <div class="bp-title">Enterprise AI Integration Playbook</div>
+              <div class="bp-sub">Designing, integrating, and governing enterprise AI systems.</div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+          <a class="bp-card" href="gmos.html">
+            <span class="bp-glow"></span>
+            <div class="bp-cover">
+              <div class="bp-spine"></div>
+              <div class="bp-label cy"><i></i><span>GMOS</span></div>
+              <div class="bp-title">Growth Mindset Operating System</div>
+              <div class="bp-sub">The complete consulting operating system.</div>
+              <div class="bp-badge"><span>V2.0 — LIVING DOCUMENT</span></div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+          <a class="bp-card bp-dup" href="voice-agent-guide.html" aria-hidden="true" tabindex="-1">
+            <span class="bp-glow"></span>
+            <div class="bp-cover">
+              <div class="bp-spine"></div>
+              <div class="bp-label"><i></i><span>IMPLEMENTATION GUIDE</span></div>
+              <div class="bp-title">AI Voice Agent Implementation Guide</div>
+              <div class="bp-sub">A practical framework for designing, deploying, and integrating AI voice agents.</div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+          <a class="bp-card bp-dup" href="enterprise-playbook.html" aria-hidden="true" tabindex="-1">
+            <span class="bp-glow"></span>
+            <div class="bp-cover bp-cover--flagship">
+              <div class="bp-spine"></div>
+              <div class="bp-label cy"><i></i><span>CONSULTING PLAYBOOK</span></div>
+              <div class="bp-title">Enterprise AI Integration Playbook</div>
+              <div class="bp-sub">Designing, integrating, and governing enterprise AI systems.</div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+          <a class="bp-card bp-dup" href="gmos.html" aria-hidden="true" tabindex="-1">
+            <span class="bp-glow"></span>
+            <div class="bp-cover">
+              <div class="bp-spine"></div>
+              <div class="bp-label cy"><i></i><span>GMOS</span></div>
+              <div class="bp-title">Growth Mindset Operating System</div>
+              <div class="bp-sub">The complete consulting operating system.</div>
+              <div class="bp-badge"><span>V2.0 — LIVING DOCUMENT</span></div>
+              <div class="bp-brand"><img src="assets/brand/emblem-white.svg" alt="" style="height: 7px; width: auto; opacity: 0.9;"><span>GrowthMindset.ai</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
 
       <div style="margin-top: 20px; background: #0D1117; border: 1px solid rgba(148,163,184,0.14); border-radius: 12px; padding: 6px 20px 8px;">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 0;">
