@@ -55,7 +55,7 @@ export function IndustryPage({
       <Nav />
       <main id="main">
         {/* Hero — simpler than homepage hero (no blueprint), heavier on industry-specific bullets */}
-        <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+        <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
           <div
             className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[600px] w-[1100px] -translate-x-1/2"
             style={{
@@ -65,20 +65,17 @@ export function IndustryPage({
             aria-hidden="true"
           />
 
-          {/* Top-left back — full container width so it sits under the nav, left edge */}
-          <div className="container-wide mb-8 md:mb-10">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-btn border border-white/10 bg-white/[0.03] px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-accent/40 hover:bg-accent/10 hover:text-accent"
-            >
-              <ArrowLeft size={16} aria-hidden="true" />
-              Go back to the main page
-            </Link>
-          </div>
-
           <div className="container-wide grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
             <div>
-              <p className="eyebrow">For {name} businesses</p>
+              {/* Same pattern as mattmartelli subpages — little arrow, no pill */}
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-accent"
+              >
+                <ArrowLeft size={15} aria-hidden="true" />
+                Back to home
+              </Link>
+              <p className="eyebrow mt-8">For {name} businesses</p>
               <h1 className="mt-4 text-hero font-semibold tracking-tight text-ink">
                 {headline}{' '}
                 {headlineSecondary && (
