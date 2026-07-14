@@ -1,48 +1,36 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  Wind,
-  Home,
-  Wrench,
-  Zap,
-  Shield,
-  Building2,
-  Scale,
-  Stethoscope,
-  KeyRound,
-  Building,
-  HardHat,
-  Sparkles,
-  ArrowRight,
-} from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 interface Industry {
   slug: string;
   name: string;
-  icon: React.ReactNode;
+  /** Metallic icon asset under /public/industries/icons */
+  icon: string;
 }
 
 /**
  * Variation 2 — Soft Green Tint Hover
- * Normal: chrome-silver icon + soft white levitating light under the icon.
- * Hover: same icon metal; under-icon light shifts to a restrained sage-green tint.
- * Cards stay dark charcoal; no multi-color accent washes.
+ * Icons: metallic shapes from the Variation 2 mockup (not Lucide outlines).
+ * Normal: soft white levitating light under each icon.
+ * Hover: under-icon light shifts to restrained sage green only.
  */
 const INDUSTRIES: Industry[] = [
-  { slug: 'hvac', name: 'HVAC', icon: <Wind size={28} strokeWidth={1.75} /> },
-  { slug: 'roofing', name: 'Roofing', icon: <Home size={28} strokeWidth={1.75} /> },
-  { slug: 'plumbing', name: 'Plumbing', icon: <Wrench size={28} strokeWidth={1.75} /> },
-  { slug: 'electrical', name: 'Electrical', icon: <Zap size={28} strokeWidth={1.75} /> },
-  { slug: 'insurance', name: 'Insurance', icon: <Shield size={28} strokeWidth={1.75} /> },
-  { slug: 'real-estate', name: 'Real Estate', icon: <Building2 size={28} strokeWidth={1.75} /> },
-  { slug: 'legal', name: 'Legal', icon: <Scale size={28} strokeWidth={1.75} /> },
-  { slug: 'medical', name: 'Medical / Dental', icon: <Stethoscope size={28} strokeWidth={1.75} /> },
-  { slug: 'locksmith', name: 'Locksmith', icon: <KeyRound size={28} strokeWidth={1.75} /> },
-  { slug: 'property-management', name: 'Property Mgmt', icon: <Building size={28} strokeWidth={1.75} /> },
-  { slug: 'home-services', name: 'Home Services', icon: <HardHat size={28} strokeWidth={1.75} /> },
-  { slug: 'custom', name: 'Custom', icon: <Sparkles size={28} strokeWidth={1.75} /> },
+  { slug: 'hvac', name: 'HVAC', icon: 'hvac' },
+  { slug: 'roofing', name: 'Roofing', icon: 'roofing' },
+  { slug: 'plumbing', name: 'Plumbing', icon: 'plumbing' },
+  { slug: 'electrical', name: 'Electrical', icon: 'electrical' },
+  { slug: 'insurance', name: 'Insurance', icon: 'insurance' },
+  { slug: 'real-estate', name: 'Real Estate', icon: 'real-estate' },
+  { slug: 'legal', name: 'Legal', icon: 'legal' },
+  { slug: 'medical', name: 'Medical / Dental', icon: 'medical' },
+  { slug: 'locksmith', name: 'Locksmith', icon: 'locksmith' },
+  { slug: 'property-management', name: 'Property Mgmt', icon: 'property-management' },
+  { slug: 'home-services', name: 'Home Services', icon: 'home-services' },
+  { slug: 'custom', name: 'Custom', icon: 'custom' },
 ];
 
 /** Muted sophisticated sage — soft green tint for hover light only */
@@ -78,55 +66,54 @@ export function Industries() {
             >
               <Link
                 href={`/${i.slug}`}
-                className="group relative flex h-full w-full flex-col items-center gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-[#16161a] to-[#0c0c0f] px-4 py-6 text-center transition-all duration-300 hover:border-white/[0.12] sm:px-5 sm:py-7"
+                className="group relative flex h-full w-full flex-col items-center gap-2.5 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-[#16161a] to-[#0c0c0f] px-4 py-6 text-center transition-all duration-300 hover:border-white/[0.12] sm:px-5 sm:py-7"
                 aria-label={`${i.name} — AI voice agent details`}
               >
-                {/* Icon stage — chrome mark + levitating under-light */}
-                <span className="relative z-10 flex h-[4.5rem] w-full items-center justify-center">
+                {/* Icon stage — metallic mockup art + levitating under-light */}
+                <span className="relative z-10 flex h-[5.25rem] w-full items-center justify-center sm:h-[5.75rem]">
                   {/* Soft white under-light (normal) */}
                   <span
-                    className="pointer-events-none absolute bottom-1 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-90 blur-[6px] transition-opacity duration-300 group-hover:opacity-0"
+                    className="pointer-events-none absolute bottom-1 left-1/2 h-9 w-16 -translate-x-1/2 rounded-[100%] opacity-90 blur-[7px] transition-opacity duration-300 group-hover:opacity-0"
                     style={{
                       background:
-                        'radial-gradient(ellipse at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 45%, transparent 72%)',
+                        'radial-gradient(ellipse at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.16) 45%, transparent 72%)',
                     }}
                     aria-hidden="true"
                   />
                   {/* Soft green under-light (hover) — Variation 2 */}
                   <span
-                    className="pointer-events-none absolute bottom-1 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-0 blur-[6px] transition-opacity duration-300 group-hover:opacity-100"
+                    className="pointer-events-none absolute bottom-1 left-1/2 h-9 w-16 -translate-x-1/2 rounded-[100%] opacity-0 blur-[7px] transition-opacity duration-300 group-hover:opacity-100"
                     style={{
-                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.55) 0%, rgba(${HOVER_GREEN},0.22) 45%, transparent 72%)`,
+                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.55) 0%, rgba(${HOVER_GREEN},0.2) 45%, transparent 72%)`,
                     }}
                     aria-hidden="true"
                   />
-                  {/* Wider ambient floor glow */}
+                  {/* Wider ambient floor */}
                   <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-40 blur-md transition-all duration-300 group-hover:opacity-70 group-hover:blur-lg"
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-35 blur-md transition-opacity duration-300 group-hover:opacity-0"
                     style={{
                       background:
-                        'radial-gradient(ellipse at center, rgba(255,255,255,0.28) 0%, transparent 70%)',
+                        'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 70%)',
                     }}
                     aria-hidden="true"
                   />
                   <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-55"
                     style={{
-                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.35) 0%, transparent 70%)`,
+                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.32) 0%, transparent 70%)`,
                     }}
                     aria-hidden="true"
                   />
 
-                  {/* Chrome icon */}
-                  <span
-                    className="relative z-10 text-zinc-200 drop-shadow-[0_2px_6px_rgba(255,255,255,0.22)] transition-[color,filter,drop-shadow] duration-300 group-hover:text-zinc-100 group-hover:drop-shadow-[0_0_10px_rgba(110,170,130,0.35)]"
-                    style={{
-                      filter:
-                        'drop-shadow(0 1px 0 rgba(255,255,255,0.35)) drop-shadow(0 2px 4px rgba(0,0,0,0.55))',
-                    }}
-                  >
-                    {i.icon}
-                  </span>
+                  {/* Metallic mockup icon */}
+                  <Image
+                    src={`/industries/icons/${i.icon}.png`}
+                    alt=""
+                    width={96}
+                    height={96}
+                    className="relative z-10 h-[4.25rem] w-[4.25rem] object-contain transition-[filter,transform] duration-300 group-hover:scale-[1.04] group-hover:drop-shadow-[0_0_12px_rgba(110,170,130,0.35)] sm:h-[4.75rem] sm:w-[4.75rem]"
+                    aria-hidden="true"
+                  />
                 </span>
 
                 {/* Name */}
