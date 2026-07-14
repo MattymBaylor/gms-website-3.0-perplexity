@@ -79,10 +79,10 @@ export function Industries() {
                   aria-hidden="true"
                 />
 
-                <span className="relative z-10 flex h-[5.25rem] w-full items-center justify-center sm:h-[5.75rem]">
+                <span className="relative z-10 flex h-[4.75rem] w-full items-center justify-center sm:h-[5.25rem]">
                   {/* White under-light */}
                   <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-16 -translate-x-1/2 rounded-[100%] opacity-80 blur-[6px] transition-opacity duration-300 group-hover:opacity-0"
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-80 blur-[6px] transition-opacity duration-300 group-hover:opacity-0"
                     style={{
                       background:
                         'radial-gradient(ellipse at center, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0.1) 50%, transparent 72%)',
@@ -91,13 +91,14 @@ export function Industries() {
                   />
                   {/* Green under-light */}
                   <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-9 w-16 -translate-x-1/2 rounded-[100%] opacity-0 blur-[6px] transition-opacity duration-300 group-hover:opacity-100"
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-0 blur-[6px] transition-opacity duration-300 group-hover:opacity-100"
                     style={{
                       background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.55) 0%, rgba(${HOVER_GREEN},0.16) 50%, transparent 72%)`,
                     }}
                     aria-hidden="true"
                   />
 
+                  {/* Icons only +10% — card/button footprint unchanged */}
                   <Image
                     src={`/industries/icons/${i.icon}.png`}
                     alt=""
