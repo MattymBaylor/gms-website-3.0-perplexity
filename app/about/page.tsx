@@ -77,12 +77,17 @@ export default function AboutPage() {
                   </p>
                   <p>
                     I believe the most valuable AI systems are rarely the most
-                    complicated. The best systems are reliable, practical, and
-                    solve real problems for real people.
+                    complicated.
+                    <br />
+                    The best systems are reliable, practical, and solve real
+                    problems for real people.
                   </p>
                   <p>
-                    That&apos;s the standard we live by. Because at the end of
-                    the day, businesses don&apos;t buy AI. They buy outcomes.
+                    That&apos;s the standard we live by.
+                    <br />
+                    Because at the end of the day, businesses don&apos;t buy AI.
+                    <br />
+                    They buy outcomes.
                   </p>
                 </div>
               </div>
