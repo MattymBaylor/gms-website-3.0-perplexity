@@ -2,6 +2,7 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { Industries } from '@/components/sections/Industries';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { LivingFlow } from '@/components/sections/LivingFlow';
@@ -15,27 +16,27 @@ export default function HomePage() {
     <>
       <Nav />
       <main id="main">
-        {/* §1 Hero */}
+        {/* §1 Hero — Every Missed Call… */}
         <Hero />
-        {/* §2 Video Explainer — homepage keeps the original brand explainer;
-            industry pages use the missed-call cut via the component default */}
+        {/* §2 Video Explainer — See it in action (extra top pad vs hero) */}
         <VideoExplainer videoId="6rEDK6LX_AA" />
-        {/* §3 Industries */}
+        {/* §3 Testimonials marquee — side-faded ticker */}
+        <Testimonials />
+        {/* §4 Industries */}
         <Industries />
-        {/* §4 Field Notes — featured article + bounded grid (full library at /blog) */}
+        {/* §5 Field Notes — featured article + bounded grid (full library at /blog) */}
         <CaseStudies />
-        {/* §5 Living Flow — interactive map of AI + human handoffs */}
+        {/* §6 Living Flow — interactive map of AI + human handoffs */}
         <LivingFlow />
-        {/* §6 Free Tools — AI Validation Panel callout */}
+        {/* §7 Free Tools — AI Validation Panel callout */}
         <FreeTools />
-        {/* §7 Email Capture */}
+        {/* §8 Email Capture */}
         <EmailCapture />
-        {/* §8 Primary CTA */}
+        {/* §9 Primary CTA */}
         <PrimaryCTA />
-        {/* §9 FAQ (canonical FAQPage schema lives here) */}
+        {/* §10 FAQ (canonical FAQPage schema lives here) */}
         <FAQ emitSchema />
       </main>
-      {/* §10 Footer */}
       <Footer />
     </>
   );
