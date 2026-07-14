@@ -2,7 +2,6 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { Industries } from '@/components/sections/Industries';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { LivingFlow } from '@/components/sections/LivingFlow';
@@ -20,21 +19,20 @@ export default function HomePage() {
         <Hero />
         {/* §2 Video Explainer — See it in action (extra top pad vs hero) */}
         <VideoExplainer videoId="6rEDK6LX_AA" />
-        {/* §3 Testimonials marquee — side-faded ticker */}
-        <Testimonials />
-        {/* §4 Industries */}
+        {/* Testimonials marquee — parked until Matt picks the final quotes */}
+        {/* §3 Industries */}
         <Industries />
-        {/* §5 Field Notes — featured article + bounded grid (full library at /blog) */}
+        {/* §4 Field Notes — featured article + bounded grid (full library at /blog) */}
         <CaseStudies />
-        {/* §6 Living Flow — interactive map of AI + human handoffs */}
+        {/* §5 Living Flow — interactive map of AI + human handoffs */}
         <LivingFlow />
-        {/* §7 Free Tools — AI Validation Panel callout */}
+        {/* §6 Free Tools — AI Validation Panel callout */}
         <FreeTools />
-        {/* §8 Email Capture */}
+        {/* §7 Email Capture */}
         <EmailCapture />
-        {/* §9 Primary CTA */}
+        {/* §8 Primary CTA */}
         <PrimaryCTA />
-        {/* §10 FAQ (canonical FAQPage schema lives here) */}
+        {/* §9 FAQ (canonical FAQPage schema lives here) */}
         <FAQ emitSchema />
       </main>
       <Footer />
