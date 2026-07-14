@@ -9,21 +9,28 @@ import { BrandName } from '@/components/BrandName';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'The story behind growthmindset.ai — AI voice agents for home service contractors.',
+    'Matt Martelli, Founder & Chief AI Architect at growthmindset.ai — production AI systems for real business outcomes.',
   alternates: { canonical: '/about' },
   openGraph: {
     type: 'profile',
     url: '/about',
     title: 'About growthmindset.ai · Matt Martelli',
     description:
-      'How growthmindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
-    images: [{ url: '/about/matt.webp', width: 800, height: 1000, alt: 'Matt Martelli, founder of growthmindset.ai' }],
+      'Founder & Chief AI Architect — production AI systems that are reliable, practical, and built for outcomes.',
+    images: [
+      {
+        url: '/about/matt.webp',
+        width: 800,
+        height: 1000,
+        alt: 'Matt Martelli, founder of growthmindset.ai',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About growthmindset.ai · Matt Martelli',
     description:
-      'How growthmindset.ai started, who built it, and the philosophy behind the voice agents we ship.',
+      'Founder & Chief AI Architect — production AI systems that are reliable, practical, and built for outcomes.',
     images: ['/about/matt.webp'],
   },
 };
@@ -46,39 +53,37 @@ export default function AboutPage() {
                   height={1000}
                   sizes="(max-width: 768px) 100vw, 400px"
                   className="w-full rounded-2xl object-cover"
+                  priority
                 />
               </div>
 
-              {/* Bio */}
+              {/* Bio — hierarchy matches about.jpg reference */}
               <div>
-                <h1 className="text-h2 font-semibold text-ink">About <BrandName /></h1>
+                <h1 className="text-h1 font-semibold tracking-tight text-ink md:text-hero">
+                  <BrandName />
+                </h1>
 
-                <div className="mt-6 space-y-5 leading-relaxed text-ink-muted">
-                  <p>I&apos;m Matt Martelli, founder of <BrandName />.</p>
+                <p className="mt-3 text-lg font-medium text-ink md:text-xl">
+                  Matt Martelli | Founder &amp; Chief AI Architect
+                </p>
+
+                <div className="mt-8 space-y-6 text-base leading-[1.75] text-ink-muted md:text-[1.05rem]">
                   <p>
-                    My background spans operations, business building,
-                    automation, and applied AI.
-                  </p>
-                  <p>
-                    I spend my time designing and deploying production AI
-                    systems that help businesses operate more efficiently,
-                    communicate more effectively, and scale without adding
-                    unnecessary complexity.
+                    My background spans operations, business building, automation,
+                    and applied AI. I spend my time designing and deploying
+                    production AI systems that help businesses operate more
+                    efficiently, communicate more effectively, and scale without
+                    adding unnecessary complexity.
                   </p>
                   <p>
                     I believe the most valuable AI systems are rarely the most
-                    complicated.
+                    complicated. The best systems are reliable, practical, and
+                    solve real problems for real people.
                   </p>
                   <p>
-                    The best systems are reliable, practical, and solve real
-                    problems for real people.
+                    That&apos;s the standard we live by. Because at the end of
+                    the day, businesses don&apos;t buy AI. They buy outcomes.
                   </p>
-                  <p>That&apos;s the standard we build toward at <BrandName />.</p>
-                  <p>
-                    Because at the end of the day, businesses don&apos;t buy
-                    AI.
-                  </p>
-                  <p>They buy outcomes.</p>
                 </div>
               </div>
             </div>
