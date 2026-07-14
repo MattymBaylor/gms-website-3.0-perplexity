@@ -70,10 +70,11 @@ export default function AboutPage() {
                 <div className="mt-8 space-y-6 text-base leading-[1.75] text-ink-muted md:text-[1.05rem]">
                   <p>
                     My background spans operations, business building, automation,
-                    and applied AI. I spend my time designing and deploying
-                    production AI systems that help businesses operate more
-                    efficiently, communicate more effectively, and scale without
-                    adding unnecessary complexity.
+                    and applied AI.
+                    <br />
+                    I spend my time designing and deploying production AI systems
+                    that help businesses operate more efficiently, communicate more
+                    effectively, and scale without adding unnecessary complexity.
                   </p>
                   <p>
                     I believe the most valuable AI systems are rarely the most
