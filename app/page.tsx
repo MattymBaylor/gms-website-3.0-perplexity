@@ -4,8 +4,8 @@ import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
 import { Industries } from '@/components/sections/Industries';
 import { CaseStudies } from '@/components/sections/CaseStudies';
+import { LivingFlow } from '@/components/sections/LivingFlow';
 import { FreeTools } from '@/components/sections/FreeTools';
-import { Podcast } from '@/components/sections/Podcast';
 import { EmailCapture } from '@/components/sections/EmailCapture';
 import { PrimaryCTA } from '@/components/sections/PrimaryCTA';
 import { FAQ } from '@/components/sections/FAQ';
@@ -24,18 +24,18 @@ export default function HomePage() {
         <Industries />
         {/* §4 Field Notes — featured article + bounded grid (full library at /blog) */}
         <CaseStudies />
-        {/* §5 Free Tools — AI Validation Panel callout */}
+        {/* §5 Living Flow — interactive map of AI + human handoffs */}
+        <LivingFlow />
+        {/* §6 Free Tools — AI Validation Panel callout */}
         <FreeTools />
-        {/* §5b Podcast — The Matt & Maya Show */}
-        <Podcast />
-        {/* §6 Email Capture */}
+        {/* §7 Email Capture */}
         <EmailCapture />
-        {/* §6 Primary CTA */}
+        {/* §8 Primary CTA */}
         <PrimaryCTA />
-        {/* §7 FAQ (canonical FAQPage schema lives here) */}
+        {/* §9 FAQ (canonical FAQPage schema lives here) */}
         <FAQ emitSchema />
       </main>
-      {/* §8 Footer */}
+      {/* §10 Footer */}
       <Footer />
     </>
   );
