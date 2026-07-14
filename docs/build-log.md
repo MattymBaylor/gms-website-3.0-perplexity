@@ -107,3 +107,21 @@ Dated entries capturing the *moves* — decisions, components shipped, deck-wort
 **`[DECK]`** — *Design-tool handoff to live URL in one session: unzip → rename → one `<base>` tag → noindex headers → deployed.* The interesting beat is the negative decision: keeping the hidden path OUT of robots.txt, because robots.txt is the first place anyone looks for what you're hiding.
 
 **Addendum (same day):** Added section **04 — FIELD NOTES** to the vault — the two "Who Audits the Robots?" papers (*Paying Agents to Find Truth*, *Standing Watch*, 5pp each) as real static PDFs, styled on the print-library panel pattern; pipeline/print renumbered 05/06, hero stats now 5 docs · 46pp. Skipped `reward-engineering.pdf` (undesigned draft render of the same Paying-Agents essay — duplicate). Matt confirmed: print-dialog PDF flow stays, subdomain alias deferred ("push"). Learned + memorized: **gms-site auto-deploys on push to main** (Git-connected), unlike mattmartelli-site — a push there IS a prod deploy.
+
+## 2026-07-14 — Industries grid: Variation 2 soft green hover
+
+**What:** Replaced multi-color per-card accents on homepage **Industries We Serve** with Variation 2 treatment from the green-tint hover mockup.
+
+**Move:**
+- Normal: chrome-silver Lucide icons + soft white levitating under-light
+- Hover: same metal; under-icon light only shifts to restrained sage green (`110, 170, 130`)
+- Cards stay dark charcoal; no rainbow accent washes or green card fills
+- Kept all 12 industry links (mockup showed 8; live catalog stays complete)
+
+**Why:** Mockup side-by-side proved soft green under-light is more elegant than multi-hue accents. Unified chrome + single hover tint reads premium and consistent with Living Flow night plate.
+
+**Files:** `components/sections/Industries.tsx`
+
+**[DECK]** Pixel-mock → production hover in one session — Variation 2 shipped live without inventing a second icon system.
+
+---

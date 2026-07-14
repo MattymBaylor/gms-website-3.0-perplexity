@@ -22,30 +22,37 @@ interface Industry {
   slug: string;
   name: string;
   icon: React.ReactNode;
-  /** Accent color for the card glow */
-  accent: string;
 }
 
+/**
+ * Variation 2 — Soft Green Tint Hover
+ * Normal: chrome-silver icon + soft white levitating light under the icon.
+ * Hover: same icon metal; under-icon light shifts to a restrained sage-green tint.
+ * Cards stay dark charcoal; no multi-color accent washes.
+ */
 const INDUSTRIES: Industry[] = [
-  { slug: 'hvac', name: 'HVAC', icon: <Wind size={28} />, accent: '0, 180, 220' },
-  { slug: 'roofing', name: 'Roofing', icon: <Home size={28} />, accent: '220, 140, 50' },
-  { slug: 'plumbing', name: 'Plumbing', icon: <Wrench size={28} />, accent: '60, 130, 220' },
-  { slug: 'electrical', name: 'Electrical', icon: <Zap size={28} />, accent: '240, 210, 50' },
-  { slug: 'insurance', name: 'Insurance', icon: <Shield size={28} />, accent: '80, 180, 100' },
-  { slug: 'real-estate', name: 'Real Estate', icon: <Building2 size={28} />, accent: '180, 100, 220' },
-  { slug: 'legal', name: 'Legal', icon: <Scale size={28} />, accent: '160, 160, 180' },
-  { slug: 'medical', name: 'Medical / Dental', icon: <Stethoscope size={28} />, accent: '220, 70, 90' },
-  { slug: 'locksmith', name: 'Locksmith', icon: <KeyRound size={28} />, accent: '220, 180, 60' },
-  { slug: 'property-management', name: 'Property Mgmt', icon: <Building size={28} />, accent: '140, 100, 220' },
-  { slug: 'home-services', name: 'Home Services', icon: <HardHat size={28} />, accent: '60, 200, 160' },
-  { slug: 'custom', name: 'Custom', icon: <Sparkles size={28} />, accent: '0, 212, 255' },
+  { slug: 'hvac', name: 'HVAC', icon: <Wind size={28} strokeWidth={1.75} /> },
+  { slug: 'roofing', name: 'Roofing', icon: <Home size={28} strokeWidth={1.75} /> },
+  { slug: 'plumbing', name: 'Plumbing', icon: <Wrench size={28} strokeWidth={1.75} /> },
+  { slug: 'electrical', name: 'Electrical', icon: <Zap size={28} strokeWidth={1.75} /> },
+  { slug: 'insurance', name: 'Insurance', icon: <Shield size={28} strokeWidth={1.75} /> },
+  { slug: 'real-estate', name: 'Real Estate', icon: <Building2 size={28} strokeWidth={1.75} /> },
+  { slug: 'legal', name: 'Legal', icon: <Scale size={28} strokeWidth={1.75} /> },
+  { slug: 'medical', name: 'Medical / Dental', icon: <Stethoscope size={28} strokeWidth={1.75} /> },
+  { slug: 'locksmith', name: 'Locksmith', icon: <KeyRound size={28} strokeWidth={1.75} /> },
+  { slug: 'property-management', name: 'Property Mgmt', icon: <Building size={28} strokeWidth={1.75} /> },
+  { slug: 'home-services', name: 'Home Services', icon: <HardHat size={28} strokeWidth={1.75} /> },
+  { slug: 'custom', name: 'Custom', icon: <Sparkles size={28} strokeWidth={1.75} /> },
 ];
+
+/** Muted sophisticated sage — soft green tint for hover light only */
+const HOVER_GREEN = '110, 170, 130';
 
 export function Industries() {
   return (
     <section id="industries" className="section" aria-labelledby="industries-heading">
       <div className="container-wide">
-        <div className="mb-14 max-w-2xl mx-auto text-center">
+        <div className="mb-14 mx-auto max-w-2xl text-center">
           <p className="eyebrow">Built for your industry</p>
           <h2 id="industries-heading" className="mt-3 text-h1 font-semibold text-ink">
             Industries We Serve
@@ -58,7 +65,7 @@ export function Industries() {
         </div>
 
         <ul
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
           role="list"
         >
           {INDUSTRIES.map((i, idx) => (
@@ -71,71 +78,70 @@ export function Industries() {
             >
               <Link
                 href={`/${i.slug}`}
-                className="group relative flex h-full w-full flex-col items-start gap-3 overflow-hidden rounded-xl border border-white/[0.06] p-6 text-left transition-all duration-300 hover:border-white/[0.12]"
-                style={{
-                  background: `
-                    radial-gradient(ellipse at 70% 20%, rgba(${i.accent}, 0.06), transparent 70%),
-                    linear-gradient(180deg, rgba(20,20,23,1) 0%, rgba(12,12,15,1) 100%)
-                  `,
-                }}
+                className="group relative flex h-full w-full flex-col items-center gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-[#16161a] to-[#0c0c0f] px-4 py-6 text-center transition-all duration-300 hover:border-white/[0.12] sm:px-5 sm:py-7"
                 aria-label={`${i.name} — AI voice agent details`}
               >
-                {/* Hover glow overlay */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background: `
-                      radial-gradient(ellipse at 70% 20%, rgba(${i.accent}, 0.15), transparent 60%),
-                      radial-gradient(ellipse at 30% 80%, rgba(${i.accent}, 0.06), transparent 60%)
-                    `,
-                  }}
-                />
+                {/* Icon stage — chrome mark + levitating under-light */}
+                <span className="relative z-10 flex h-[4.5rem] w-full items-center justify-center">
+                  {/* Soft white under-light (normal) */}
+                  <span
+                    className="pointer-events-none absolute bottom-1 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-90 blur-[6px] transition-opacity duration-300 group-hover:opacity-0"
+                    style={{
+                      background:
+                        'radial-gradient(ellipse at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.18) 45%, transparent 72%)',
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Soft green under-light (hover) — Variation 2 */}
+                  <span
+                    className="pointer-events-none absolute bottom-1 left-1/2 h-8 w-14 -translate-x-1/2 rounded-[100%] opacity-0 blur-[6px] transition-opacity duration-300 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.55) 0%, rgba(${HOVER_GREEN},0.22) 45%, transparent 72%)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Wider ambient floor glow */}
+                  <span
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-40 blur-md transition-all duration-300 group-hover:opacity-70 group-hover:blur-lg"
+                    style={{
+                      background:
+                        'radial-gradient(ellipse at center, rgba(255,255,255,0.28) 0%, transparent 70%)',
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-5 w-20 -translate-x-1/2 rounded-[100%] opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
+                    style={{
+                      background: `radial-gradient(ellipse at center, rgba(${HOVER_GREEN},0.35) 0%, transparent 70%)`,
+                    }}
+                    aria-hidden="true"
+                  />
 
-                {/* Subtle grid pattern overlay */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '24px 24px',
-                  }}
-                />
-
-                {/* Top accent line */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-60 transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(90deg, transparent 0%, rgba(${i.accent}, 0.6) 50%, transparent 100%)`,
-                  }}
-                />
-
-                {/* Icon */}
-                <span
-                  className="relative z-10 rounded-lg p-3 transition-all duration-300"
-                  style={{
-                    background: `rgba(${i.accent}, 0.08)`,
-                    color: `rgba(${i.accent}, 0.7)`,
-                    boxShadow: `0 0 0 1px rgba(${i.accent}, 0.12)`,
-                  }}
-                >
-                  <span className="block transition-colors duration-300 group-hover:text-white" style={{ color: 'inherit' }}>
+                  {/* Chrome icon */}
+                  <span
+                    className="relative z-10 text-zinc-200 drop-shadow-[0_2px_6px_rgba(255,255,255,0.22)] transition-[color,filter,drop-shadow] duration-300 group-hover:text-zinc-100 group-hover:drop-shadow-[0_0_10px_rgba(110,170,130,0.35)]"
+                    style={{
+                      filter:
+                        'drop-shadow(0 1px 0 rgba(255,255,255,0.35)) drop-shadow(0 2px 4px rgba(0,0,0,0.55))',
+                    }}
+                  >
                     {i.icon}
                   </span>
                 </span>
 
                 {/* Name */}
-                <span className="relative z-10 text-base font-semibold text-white/90 group-hover:text-white transition-colors duration-300">
+                <span className="relative z-10 text-sm font-semibold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-white sm:text-base">
                   {i.name}
                 </span>
 
                 {/* CTA */}
-                <span className="relative z-10 mt-auto inline-flex items-center gap-1.5 text-xs transition-all duration-300 group-hover:gap-2"
-                  style={{ color: `rgba(${i.accent}, 0.5)` }}
-                >
-                  <span className="group-hover:text-white/70 transition-colors duration-300">Learn more</span>
-                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                <span className="relative z-10 mt-auto inline-flex items-center gap-1.5 text-xs text-white/40 transition-all duration-300 group-hover:gap-2 group-hover:text-white/65">
+                  Learn more
+                  <ArrowRight
+                    size={12}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
                 </span>
               </Link>
             </motion.li>
