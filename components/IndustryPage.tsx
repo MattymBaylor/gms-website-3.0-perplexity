@@ -4,6 +4,7 @@
  * the layout, sections, and CTA are identical to the homepage funnel.
  */
 
+import Link from 'next/link';
 import { Nav } from './Nav';
 import { Footer } from './Footer';
 import { VideoExplainer } from './sections/VideoExplainer';
@@ -12,7 +13,7 @@ import { CaseStudies } from './sections/CaseStudies';
 import { EmailCapture } from './sections/EmailCapture';
 import { PrimaryCTA } from './sections/PrimaryCTA';
 import { FAQ } from './sections/FAQ';
-import { ArrowRight, CheckCircle2, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Users } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export interface IndustryPageProps {
@@ -66,6 +67,13 @@ export function IndustryPage({
 
           <div className="container-wide grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
             <div>
+              <Link
+                href="/#industries"
+                className="mb-6 inline-flex items-center gap-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-muted transition-colors hover:text-accent"
+              >
+                <ArrowLeft size={14} aria-hidden="true" />
+                Back to industries
+              </Link>
               <p className="eyebrow">For {name} businesses</p>
               <h1 className="mt-4 text-hero font-semibold tracking-tight text-ink">
                 {headline}{' '}
