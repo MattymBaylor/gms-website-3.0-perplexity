@@ -53,13 +53,13 @@ export function LivingFlowEmbed({
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden overscroll-none rounded-xl border border-border bg-bg [touch-action:pan-x]">
+    <div className="relative w-full overflow-hidden overscroll-none bg-bg [touch-action:pan-x]">
       <iframe
         ref={ref}
         src={src}
         title={title}
         onLoad={lockScroll}
-        className="block h-[min(88vh,960px)] min-h-[520px] w-full border-0 sm:min-h-[640px] lg:min-h-[760px]"
+        className="block h-[min(82vh,880px)] min-h-[480px] w-full border-0 sm:min-h-[600px] lg:min-h-[720px]"
         loading="lazy"
         allow="fullscreen"
         {...({ scrolling: 'no' } as IframeHTMLAttributes<HTMLIFrameElement>)}
