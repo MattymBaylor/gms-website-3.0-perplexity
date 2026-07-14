@@ -31,8 +31,9 @@ export function LivingFlowEmbed({
         min-height: 0 !important;
         overflow: hidden !important;
         overscroll-behavior: none !important;
+        background: #0a0a0a !important;
       }
-      body { position: relative !important; }
+      body { position: relative !important; margin: 0 !important; }
       body > *:first-child { max-height: 100% !important; }
     `;
     doc.head.appendChild(style);
@@ -53,15 +54,16 @@ export function LivingFlowEmbed({
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden overscroll-none bg-bg [touch-action:pan-x]">
+    <div className="relative w-full overflow-hidden overscroll-none bg-[#0a0a0a] [touch-action:pan-x]">
       <iframe
         ref={ref}
         src={src}
         title={title}
         onLoad={lockScroll}
-        className="block h-[min(82vh,880px)] min-h-[480px] w-full border-0 sm:min-h-[600px] lg:min-h-[720px]"
+        className="block h-[min(82vh,880px)] min-h-[480px] w-full border-0 bg-[#0a0a0a] sm:min-h-[600px] lg:min-h-[720px]"
         loading="lazy"
         allow="fullscreen"
+        style={{ backgroundColor: '#0a0a0a', colorScheme: 'dark' }}
         {...({ scrolling: 'no' } as IframeHTMLAttributes<HTMLIFrameElement>)}
       />
     </div>

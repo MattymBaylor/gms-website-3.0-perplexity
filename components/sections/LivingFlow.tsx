@@ -6,8 +6,7 @@ const SRC = '/living-flow-landscape.html';
 
 /**
  * Living Flow — interactive map only.
- * Outer page chrome (duplicate title/lead) removed; slim back plate + rear glow
- * frames the iframe so it reads as lit from behind.
+ * Single back plate (no nested light borders) so corners stay dark.
  */
 export function LivingFlow() {
   return (
@@ -17,8 +16,8 @@ export function LivingFlow() {
       aria-label="Living Flow — how trusted agents move work"
     >
       <div className="container-wide">
-        {/* Soft rear light — keeps the plate lit without a second header stack */}
         <div className="relative">
+          {/* Rear cyan light */}
           <div
             className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-[radial-gradient(ellipse_at_50%_40%,rgba(0,212,255,0.18),rgba(0,212,255,0.05)_45%,transparent_70%)] blur-2xl md:-inset-10"
             aria-hidden="true"
@@ -28,9 +27,9 @@ export function LivingFlow() {
             aria-hidden="true"
           />
 
-          {/* Slim back plate — just enough rim to hold glow/border, not a second content card */}
-          <div className="overflow-hidden rounded-card border border-border bg-bg-card/50 p-2 shadow-[0_0_0_1px_rgba(0,212,255,0.12),0_0_48px_-8px_rgba(0,212,255,0.35)] ring-1 ring-accent/20 backdrop-blur-sm sm:p-2.5 md:p-3">
-            <div className="overflow-hidden rounded-[10px] border border-border bg-bg">
+          {/* One plate only — solid night bg, cyan rim via box-shadow (no stacked white borders) */}
+          <div className="isolate overflow-hidden rounded-card bg-[#0a0a0a] p-2 shadow-[0_0_0_1px_rgba(0,212,255,0.22),0_0_48px_-8px_rgba(0,212,255,0.35)] sm:p-2.5 md:p-3">
+            <div className="overflow-hidden rounded-[10px] bg-[#0a0a0a]">
               <LivingFlowEmbed
                 src={SRC}
                 title="Living Flow landscape — interactive multi-agent workflow"
