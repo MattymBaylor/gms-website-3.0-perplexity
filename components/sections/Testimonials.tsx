@@ -5,75 +5,11 @@
  * marquee (items rendered twice, translateX -50%). Soft edge fades so the
  * strip dissolves into the page margins. Hover pauses; reduced-motion users
  * get a static horizontal scroll.
+ *
+ * Copy lives in content/testimonials.ts. Empty array → section not rendered.
  */
 
-export interface Testimonial {
-  industry: string;
-  quote: string;
-}
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    industry: 'Roofing',
-    quote:
-      "We went from missing storm-season calls to having our phone answered instantly, every time. The AI books inspections while my crew's still on the roof.",
-  },
-  {
-    industry: 'Roofing',
-    quote:
-      "Our close rate on inbound leads jumped once every caller got a live 'person' on the first ring. I stopped worrying about who's covering the phone at night.",
-  },
-  {
-    industry: 'HVAC',
-    quote:
-      'Holiday and after-hours AC emergencies used to go straight to voicemail. Now the AI picks up, qualifies, and books the job before they can call a competitor.',
-  },
-  {
-    industry: 'HVAC',
-    quote:
-      'It sounds like a real CSR, asks the right questions, and texts customers confirmations automatically. My techs just show up to pre-qualified, high-value service calls.',
-  },
-  {
-    industry: 'Insurance',
-    quote:
-      "We plugged the AI into our existing phone number and it started capturing quote requests we didn't even know we were missing. Our producers now walk into conversations already pre-qualified.",
-  },
-  {
-    industry: 'Insurance',
-    quote:
-      'Clients get immediate reassurance when something goes wrong, instead of waiting on hold or leaving a voicemail. That alone has cut down on angry follow-up calls.',
-  },
-  {
-    industry: 'Plumbing',
-    quote:
-      "Weekend backups and emergency leaks are now our best jobs instead of our biggest headaches. The AI calmly walks customers through the issue and gets us on the schedule in minutes.",
-  },
-  {
-    industry: 'Plumbing',
-    quote:
-      "We didn't change our ads at all — just stopped losing the calls they generated. Revenue went up, and my office manager finally got her evenings back.",
-  },
-  {
-    industry: 'Electrical',
-    quote:
-      "Homeowners don't care if it's AI or a person; they care that someone answers and gets them on the calendar. This does that without ever getting tired.",
-  },
-  {
-    industry: 'Electrical',
-    quote:
-      'After switching it on, our missed-call report basically went to zero. Now even 9 p.m. panel-trouble calls turn into booked estimates instead of lost opportunities.',
-  },
-  {
-    industry: 'Property Management',
-    quote:
-      'Tenants get someone answering 24/7, logging every detail, and routing it to the right team. My maintenance coordinator went from drowning in voicemails to simply prioritizing jobs.',
-  },
-  {
-    industry: 'Property Management',
-    quote:
-      'Emergency calls no longer depend on who happens to be near the phone. The AI captures everything, texts updates, and keeps our owners and tenants calm and informed.',
-  },
-];
+import { TESTIMONIALS, type Testimonial } from '@/content/testimonials';
 
 function Card({ t, dup }: { t: Testimonial; dup: boolean }) {
   return (
@@ -98,9 +34,11 @@ function Card({ t, dup }: { t: Testimonial; dup: boolean }) {
 }
 
 export function Testimonials() {
+  if (TESTIMONIALS.length === 0) return null;
+
   const many = TESTIMONIALS.length > 1;
-  // ~7s per card keeps the ticker readable
-  const durationSec = Math.max(TESTIMONIALS.length * 7, 70);
+  // ~7s per card keeps the ticker readable; floor so 1–2 cards still drift slowly
+  const durationSec = Math.max(TESTIMONIALS.length * 7, 40);
 
   return (
     <section
@@ -138,6 +76,11 @@ export function Testimonials() {
             <Card key={`a-${i}`} t={t} dup={false} />
           ))}
           {many &&
+            TESTIMONIALS.map((t, i) => (
+              <Card key={`b-${i}`} t={t} dup />
+            ))}
+          {/* Single card: still duplicate so -50% loop has distance */}
+          {!many &&
             TESTIMONIALS.map((t, i) => (
               <Card key={`b-${i}`} t={t} dup />
             ))}
