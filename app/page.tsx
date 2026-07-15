@@ -18,10 +18,10 @@ export default function HomePage() {
       <main id="main">
         {/* §1 Hero — Every Missed Call… */}
         <Hero />
-        {/* §2 Video Explainer — See it in action */}
-        <VideoExplainer videoId="6rEDK6LX_AA" />
-        {/* §3 Testimonials marquee — hidden while content/testimonials.ts is empty */}
+        {/* §2 Testimonials marquee — under hero, above video (top of fold) */}
         <Testimonials />
+        {/* §3 Video Explainer — See it in action */}
+        <VideoExplainer videoId="6rEDK6LX_AA" />
         {/* §4 Industries */}
         <Industries />
         {/* §5 Field Notes — featured article + bounded grid (full library at /blog) */}

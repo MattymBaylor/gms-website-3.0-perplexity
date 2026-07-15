@@ -22,12 +22,12 @@ function Card({ t, dup }: { t: Testimonial; dup: boolean }) {
       <p className="font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-accent">
         {t.industry}
       </p>
-      <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted sm:text-[0.95rem] sm:leading-[1.65]">
-        <span className="text-ink/40" aria-hidden="true">
+      <blockquote className="mt-3 flex-1 text-sm italic leading-relaxed text-ink-muted sm:text-[0.95rem] sm:leading-[1.65]">
+        <span className="text-ink/40 not-italic" aria-hidden="true">
           “
         </span>
         {t.quote}
-        <span className="text-ink/40" aria-hidden="true">
+        <span className="text-ink/40 not-italic" aria-hidden="true">
           ”
         </span>
       </blockquote>
