@@ -47,7 +47,7 @@ export function Testimonials() {
 
   return (
     <section
-      className="section pt-12 pb-16 md:pt-16 md:pb-20"
+      className="section pt-10 pb-12 md:pt-12 md:pb-16"
       aria-label="Customer testimonials"
     >
       <div className="mb-10 text-center md:mb-12">
