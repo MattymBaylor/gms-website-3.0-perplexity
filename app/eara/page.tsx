@@ -463,8 +463,8 @@ export default function Home() {
                 <h3>{dimension.name}</h3>
                 <p>{dimension.note}</p>
                 <span className="framework-prompt">What this assesses <b aria-hidden="true">+</b></span>
+                <p className="framework-detail">{dimension.detail}</p>
               </summary>
-              <p className="framework-detail">{dimension.detail}</p>
             </details>
           ))}
         </div>
