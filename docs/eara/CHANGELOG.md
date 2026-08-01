@@ -1,5 +1,14 @@
 # Enterprise AI Readiness Assessment changelog
 
+## 1.2.0-beta — 2026-08-01
+
+### Changed
+- Added concise “what this assesses” context to all six readiness-dimension cards.
+- Added hover and keyboard-focus reveals on desktop plus native tap-to-expand behavior on touch devices.
+- Added visible focus treatment and preserved reduced-motion behavior for accessibility.
+- Added an explicitly qualified external market-context benchmark sourced to McKinsey’s 2025 global survey.
+- Differentiated roadmap priorities with restrained bright-blue, mid-blue, and slate-blue accents while preserving yellow for scores and timeline markers.
+
 ## 1.1.0-beta — 2026-08-01
 
 ### Changed
