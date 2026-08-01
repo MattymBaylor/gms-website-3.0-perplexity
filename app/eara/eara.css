@@ -363,6 +363,10 @@ footer p { margin: 0; color: #8d99aa; text-align: right; font-size: 13px; line-h
   .results-title h1, .card-heading h2, .decision-card h2, .roadmap-intro h2, .priority-header h3 { color: #111 !important; }
   .results-title h1 em, .card-heading > span, .decision-card li b, .priority-header > strong, .timeline-actions span { color: #715900 !important; }
   .results-title > p, .score-list p, .decision-copy, .decision-rule, .roadmap-intro > p, .priority-header p, .timeline-actions p, .report-footer p { color: #333 !important; }
+  .benchmark-strip { border-color: #bbb !important; background: #fff !important; }
+  .benchmark-strip span, .benchmark-source a { color: #405b88 !important; }
+  .benchmark-strip strong { color: #111 !important; }
+  .benchmark-strip > p, .benchmark-source small { color: #333 !important; }
   .radar-card, .decision-card, .priority-card { break-inside: avoid; border-color: #bbb; background: #fff; }
   .priority-card { margin-bottom: 12px; }
   .score-orbit { color: #fff !important; }
