@@ -10,6 +10,7 @@ type Dimension = {
   name: string;
   icon: string;
   note: string;
+  detail: string;
   questions: string[];
   roadmap: {
     objective: string;
@@ -23,6 +24,7 @@ const dimensions: Dimension[] = [
     name: "Strategy",
     icon: "◎",
     note: "Business outcomes and executive alignment",
+    detail: "Tests whether AI priorities are tied to measurable outcomes, realistic lifecycle costs, and executives empowered to make investment tradeoffs.",
     questions: [
       "The business outcomes we expect AI to improve are explicitly documented.",
       "An executive sponsor is accountable for enterprise AI outcomes—not merely technology delivery.",
@@ -45,6 +47,7 @@ const dimensions: Dimension[] = [
     name: "Data",
     icon: "▤",
     note: "Access, quality, ownership, and usefulness",
+    detail: "Examines whether priority data is accessible, trustworthy, governed, and fit for the business decisions or workflows AI will support.",
     questions: [
       "Critical data assets are inventoried and have accountable business owners.",
       "Data quality is measured at the source using agreed standards and thresholds.",
@@ -67,6 +70,7 @@ const dimensions: Dimension[] = [
     name: "Processes",
     icon: "⌘",
     note: "Workflows, friction, and operating discipline",
+    detail: "Determines whether work is understood and redesigned before automation—including handoffs, exceptions, human judgment, escalation, and measurable performance.",
     questions: [
       "Priority workflows are mapped end to end across teams, systems, decisions, and handoffs.",
       "Customer friction, cycle time, rework, failure demand, and bottlenecks are quantified.",
@@ -89,6 +93,7 @@ const dimensions: Dimension[] = [
     name: "Governance",
     icon: "◇",
     note: "Risk, oversight, and responsible control",
+    detail: "Evaluates whether risk tiers, decision rights, human oversight, vendor controls, incident response, and auditability operate in practice—not only on paper.",
     questions: [
       "Enterprise policies define acceptable, restricted, and prohibited AI uses.",
       "AI initiatives are classified by risk before development or procurement begins.",
@@ -111,6 +116,7 @@ const dimensions: Dimension[] = [
     name: "People",
     icon: "◉",
     note: "Roles, skills, adoption, and accountability",
+    detail: "Assesses whether roles, skills, incentives, change ownership, and workforce participation can turn an AI deployment into sustained adoption.",
     questions: [
       "Roles and decision rights for AI strategy, delivery, risk, operations, and adoption are clear.",
       "Leaders can explain why the organization is using AI and what will not be delegated to it.",
@@ -133,6 +139,7 @@ const dimensions: Dimension[] = [
     name: "Technology",
     icon: "▦",
     note: "Architecture, integration, and reliability",
+    detail: "Reviews whether architecture integrates securely, remains observable and resilient, supports rollback, and can adapt as models, vendors, and requirements change.",
     questions: [
       "A target AI architecture defines how models, agents, data, systems, identity, and controls interact.",
       "Priority business systems expose stable, secure integration paths and reliable interfaces.",
@@ -152,7 +159,7 @@ const dimensions: Dimension[] = [
   },
 ];
 
-const EARA_VERSION = "1.1.0-beta";
+const EARA_VERSION = "1.2.0-beta";
 
 const ratingScale = [
   { value: 1, label: "Not in place", short: "Absent" },
@@ -334,6 +341,15 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="benchmark-strip" aria-label="External enterprise AI benchmark">
+          <div><span>External market context</span><strong>Nearly two-thirds</strong></div>
+          <p>of organizations have not yet begun scaling AI across the enterprise.</p>
+          <div className="benchmark-source">
+            <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noreferrer">McKinsey, State of AI 2025 ↗</a>
+            <small>Directional context only. External surveys do not map directly to EARA scores.</small>
+          </div>
+        </section>
+
         <section className="results-grid">
           <article className="radar-card">
             <div className="card-heading"><div><p className="eyebrow">Readiness profile</p><h2>Six connected capabilities</h2></div><span>{overallScore}</span></div>
@@ -372,7 +388,7 @@ export default function Home() {
           <div className="roadmap-intro"><div><p className="eyebrow">Prioritized roadmap</p><h2>Start where weakness constrains value.</h2></div><p>{uniformProfile ? "All six dimensions scored equally. This sequence is a starting hypothesis—not a proven priority—and should be validated with leadership input and operating evidence." : "The roadmap sequences your three lowest-scoring dimensions. These are not three unrelated projects; each move should make the next one safer and more valuable."}</p></div>
           <div className="priority-stack">
             {ranked.slice(0, 3).map((priority, index) => (
-              <article className="priority-card" key={priority.key}>
+              <article className={`priority-card priority-${index + 1}`} key={priority.key}>
                 <div className="priority-header"><span>Priority {index + 1}</span><div><h3>{priority.name}</h3><p>{priority.roadmap.objective}</p></div><strong>{priority.score}</strong></div>
                 <div className="timeline-actions">
                   {priority.roadmap.actions.map((action, actionIndex) => <div key={action}><span>{["Days 1–30", "Days 31–60", "Days 61–90"][actionIndex]}</span><p>{action}</p></div>)}
@@ -395,7 +411,7 @@ export default function Home() {
       <BrandHeader onHome={returnHome} />
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">Enterprise AI Readiness Assessment <span className="version-badge">Beta v1.1</span></p>
+          <p className="eyebrow">Enterprise AI Readiness Assessment <span className="version-badge">Beta v1.2</span></p>
           <h1>Know where to begin before investing further in enterprise AI.</h1>
           <p className="hero-lede">A confidential, evidence-led diagnostic for CIOs and executive teams. Assess six connected dimensions, expose the constraints most likely to derail value, and receive a prioritized 90-day decision roadmap.</p>
           <p className="positioning-line">Not a software selector. Not a compliance certification. A decision diagnostic for executive teams.</p>
@@ -439,7 +455,19 @@ export default function Home() {
       <section className="framework-section" id="framework">
         <p className="eyebrow">One system, six lenses</p><h2>Readiness is only as strong as the connections.</h2>
         <p className="section-intro">A strong model with weak ownership is not readiness. Neither is clean data attached to a broken process. This diagnostic shows where capability is real, where it is assumed, and what deserves attention first.</p>
-        <div className="framework-grid">{dimensions.map((dimension) => <article key={dimension.name}><span>{dimension.icon}</span><h3>{dimension.name}</h3><p>{dimension.note}</p></article>)}</div>
+        <div className="framework-grid">
+          {dimensions.map((dimension) => (
+            <details className="framework-card" key={dimension.name}>
+              <summary>
+                <span className="framework-icon" aria-hidden="true">{dimension.icon}</span>
+                <h3>{dimension.name}</h3>
+                <p>{dimension.note}</p>
+                <span className="framework-prompt">What this assesses <b aria-hidden="true">+</b></span>
+              </summary>
+              <p className="framework-detail">{dimension.detail}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <footer><img src="/eara/growthmindset-logo-white.svg" alt="growthmindset.ai" /><p>Enterprise AI decisions grounded in evidence, responsibility, and business value.<br /><span className="footer-version">EARA {EARA_VERSION}</span></p></footer>
