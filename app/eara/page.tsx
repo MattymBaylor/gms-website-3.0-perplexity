@@ -152,6 +152,8 @@ const dimensions: Dimension[] = [
   },
 ];
 
+const EARA_VERSION = "1.1.0-beta";
+
 const ratingScale = [
   { value: 1, label: "Not in place", short: "Absent" },
   { value: 2, label: "Ad hoc", short: "Ad hoc" },
@@ -223,6 +225,8 @@ export default function Home() {
   const overallScore = useMemo(() => Math.round(dimensionScores.reduce((sum, dimension) => sum + dimension.score, 0) / dimensions.length), [dimensionScores]);
   const ranked = useMemo(() => [...dimensionScores].sort((a, b) => a.score - b.score), [dimensionScores]);
   const strength = useMemo(() => [...dimensionScores].sort((a, b) => b.score - a.score)[0], [dimensionScores]);
+  const lowestScore = ranked[0].score;
+  const uniformProfile = lowestScore === strength.score;
 
   const goTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const startAssessment = () => { setStage("assessment"); setSectionIndex(0); setShowValidation(false); setTimeout(goTop, 0); };
@@ -307,9 +311,11 @@ export default function Home() {
 
   if (stage === "results") {
     const status = maturity(overallScore);
-    const decision = overallScore >= 80
-      ? `Scale selectively from your strongest foundation in ${strength.name}, while protecting against overextension in ${ranked[0].name}.`
-      : `Authorize a 90-day foundation sprint centered on ${ranked[0].name}, with ${ranked[1].name} treated as the enabling dependency.`;
+    const decision = uniformProfile
+      ? "Authorize a 90-day cross-functional validation sprint. Equal scores do not establish a unique constraint, so validate Strategy and Data with evidence before setting investment priorities."
+      : overallScore >= 80
+        ? `Scale selectively from your strongest foundation in ${strength.name}, while protecting against overextension in ${ranked[0].name}.`
+        : `Authorize a 90-day foundation sprint centered on ${ranked[0].name}, with ${ranked[1].name} treated as the enabling dependency.`;
     return (
       <main className="results-shell">
         <BrandHeader compact onHome={returnHome} />
@@ -344,16 +350,26 @@ export default function Home() {
             <h2>Now that I know this, what decision can I responsibly make?</h2>
             <p className="decision-copy">{decision}</p>
             <ul>
-              <li><span>Constraint</span><b>{ranked[0].name} · {ranked[0].score}</b></li>
-              <li><span>Enabling dependency</span><b>{ranked[1].name} · {ranked[1].score}</b></li>
-              <li><span>Strongest foundation</span><b>{strength.name} · {strength.score}</b></li>
+              {uniformProfile ? (
+                <>
+                  <li><span>Starting hypothesis</span><b>Strategy · {dimensionScores[0].score}</b></li>
+                  <li><span>Enabling dependency</span><b>Data · {dimensionScores[1].score}</b></li>
+                  <li><span>Profile signal</span><b>No unique strength</b></li>
+                </>
+              ) : (
+                <>
+                  <li><span>Constraint</span><b>{ranked[0].name} · {ranked[0].score}</b></li>
+                  <li><span>Enabling dependency</span><b>{ranked[1].name} · {ranked[1].score}</b></li>
+                  <li><span>Strongest foundation</span><b>{strength.name} · {strength.score}</b></li>
+                </>
+              )}
             </ul>
             <p className="decision-rule">Do not approve broad technology procurement until the priority outcome, accountable owner, baseline metric, data boundary, and governance gate are explicit.</p>
           </article>
         </section>
 
         <section className="roadmap-section">
-          <div className="roadmap-intro"><div><p className="eyebrow">Prioritized roadmap</p><h2>Start where weakness constrains value.</h2></div><p>The roadmap sequences your three lowest-scoring dimensions. These are not three unrelated projects; each move should make the next one safer and more valuable.</p></div>
+          <div className="roadmap-intro"><div><p className="eyebrow">Prioritized roadmap</p><h2>Start where weakness constrains value.</h2></div><p>{uniformProfile ? "All six dimensions scored equally. This sequence is a starting hypothesis—not a proven priority—and should be validated with leadership input and operating evidence." : "The roadmap sequences your three lowest-scoring dimensions. These are not three unrelated projects; each move should make the next one safer and more valuable."}</p></div>
           <div className="priority-stack">
             {ranked.slice(0, 3).map((priority, index) => (
               <article className="priority-card" key={priority.key}>
@@ -368,7 +384,7 @@ export default function Home() {
 
         <section className="report-footer">
           <img src="/eara/growthmindset-logo-white.svg" alt="growthmindset.ai" />
-          <div><p>This assessment is a directional diagnostic, not an audit or compliance certification. Validate the findings through stakeholder interviews, workflow evidence, architecture review, and operating data before committing major capital.</p><a href="https://growthmindset.ai" target="_blank" rel="noreferrer">Continue with growthmindset.ai →</a></div>
+          <div><p><strong>EARA {EARA_VERSION}.</strong> This assessment is a directional diagnostic, not an audit or compliance certification. Validate the findings through stakeholder interviews, workflow evidence, architecture review, and operating data before committing major capital.</p><a href="https://growthmindset.ai" target="_blank" rel="noreferrer">Continue with growthmindset.ai →</a></div>
         </section>
       </main>
     );
@@ -379,11 +395,13 @@ export default function Home() {
       <BrandHeader onHome={returnHome} />
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">Enterprise AI readiness</p>
-          <h1>Enterprise AI<br />Readiness<br />Assessment</h1>
-          <p className="hero-lede">Measure your organization across strategy, data, processes, governance, people, and technology—then turn the results into a prioritized roadmap.</p>
-          <button className="primary-button" type="button" onClick={startAssessment}><span aria-hidden="true">→</span>Begin Assessment</button>
-          <p className="assessment-meta"><span>36 questions</span><span>8–10 minutes</span><span>Executive-ready roadmap</span></p>
+          <p className="eyebrow">Enterprise AI Readiness Assessment <span className="version-badge">Beta v1.1</span></p>
+          <h1>Know where to begin before investing further in enterprise AI.</h1>
+          <p className="hero-lede">A confidential, evidence-led diagnostic for CIOs and executive teams. Assess six connected dimensions, expose the constraints most likely to derail value, and receive a prioritized 90-day decision roadmap.</p>
+          <p className="positioning-line">Not a software selector. Not a compliance certification. A decision diagnostic for executive teams.</p>
+          <button className="primary-button" type="button" onClick={startAssessment}><span aria-hidden="true">→</span>Assess readiness</button>
+          <p className="assessment-meta"><span>36 executive-level questions</span><span>8–10 minutes</span><span>No login</span></p>
+          <p className="assessment-trust">Responses stay in this browser and are not submitted or stored.</p>
         </div>
 
         <div className="system-map" aria-label="Six connected readiness dimensions">
@@ -401,13 +419,30 @@ export default function Home() {
         <article><span>⌖</span><div><h2>Decision guidance</h2><p>A responsible next decision—not a shopping list of AI tools.</p></div></article>
       </section>
 
+      <section className="method-section" id="methodology">
+        <p className="eyebrow">Method and limits</p>
+        <div className="method-heading">
+          <h2>A directional diagnostic—not a declaration of readiness.</h2>
+          <p>Use the result to identify where executive assumptions need evidence before major capital, procurement, or scaling decisions are approved.</p>
+        </div>
+        <div className="method-grid">
+          <article><span>01</span><h3>Compare leadership views</h3><p>For the strongest signal, ask 3–6 leaders across business, technology, data, risk, and operations to complete it independently, then compare where their answers diverge.</p></article>
+          <article className="evidence-card"><span>02</span><h3>Validate perceived maturity</h3><p>Scores reflect reported capability—not verified maturity. Confirm the result through stakeholder interviews, workflow evidence, architecture review, and operating data.</p></article>
+          <article><span>03</span><h3>Keep responses private</h3><p>No login or email is required. Responses remain in this browser and are not submitted or stored by the assessment.</p></article>
+        </div>
+        <div className="method-action">
+          <button className="primary-button" type="button" onClick={startAssessment}><span aria-hidden="true">→</span>Begin confidential assessment</button>
+          <p>EARA {EARA_VERSION} · Beta methodology · August 1, 2026</p>
+        </div>
+      </section>
+
       <section className="framework-section" id="framework">
         <p className="eyebrow">One system, six lenses</p><h2>Readiness is only as strong as the connections.</h2>
         <p className="section-intro">A strong model with weak ownership is not readiness. Neither is clean data attached to a broken process. This diagnostic shows where capability is real, where it is assumed, and what deserves attention first.</p>
         <div className="framework-grid">{dimensions.map((dimension) => <article key={dimension.name}><span>{dimension.icon}</span><h3>{dimension.name}</h3><p>{dimension.note}</p></article>)}</div>
       </section>
 
-      <footer><img src="/eara/growthmindset-logo-white.svg" alt="growthmindset.ai" /><p>Enterprise AI decisions grounded in evidence, responsibility, and business value.</p></footer>
+      <footer><img src="/eara/growthmindset-logo-white.svg" alt="growthmindset.ai" /><p>Enterprise AI decisions grounded in evidence, responsibility, and business value.<br /><span className="footer-version">EARA {EARA_VERSION}</span></p></footer>
     </main>
   );
 }
