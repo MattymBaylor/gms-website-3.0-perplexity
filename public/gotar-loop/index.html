@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The GOTAR Loop — Growth Mindset</title>
+<meta name="description" content="An agentic loop built from eight markdown files ran a full content pipeline and documented itself doing it. Four cycles, zero drift, an honest ~4x multiplier." />
+<link rel="canonical" href="https://growthmindset.ai/gotar-loop" />
+<meta property="og:title" content="The GOTAR Loop" />
+<meta property="og:description" content="Goal, Observe, Think, Act, Result — a real agentic loop run, on the record. Four cycles, zero drift, an honest ~4x." />
+<meta property="og:url" content="https://growthmindset.ai/gotar-loop" />
+<meta property="og:type" content="article" />
+<style>
+:root{--bg:#050505;--white:#fff;--dim:#6b6b70;--amber:#d97736;--blue:#3b9eff;--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,system-ui,sans-serif}
+body{background-image:linear-gradient(to right,rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.018) 1px,transparent 1px);background-size:64px 64px}
+.brand{position:fixed;top:18px;left:22px;z-index:50;font-size:.95rem;letter-spacing:.03em}
+.brand a{color:rgba(255,255,255,.7);text-decoration:none}
+.brand a:hover{color:#fff}
+.shell{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:56px 20px 80px}
+.header{text-align:center;max-width:520px;margin-bottom:16px}
+.eyebrow{font-size:.58rem;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:3px}
+h1{font-size:clamp(1.4rem,2.6vw,2rem);margin:0 0 3px;letter-spacing:-.03em}
+h1 .gotar{color:var(--amber)}
+.tagline{font-size:.72rem;color:#aaa;letter-spacing:.04em;margin:0 0 10px}
+.intro{font-size:.76rem;color:#888;line-height:1.5;margin:0}
+.stage-wrap{position:relative;width:min(86vw,520px);aspect-ratio:1;margin-bottom:8px}
+.stage{position:relative;width:100%;height:100%}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orbit{fill:none;stroke:rgba(255,255,255,.1);stroke-width:1}
+.outer-ring{fill:none;stroke:rgba(255,255,255,.06);stroke-width:3}
+.tick{stroke:rgba(255,255,255,.15);stroke-width:1.2}
+.tick.used{stroke:rgba(217,119,54,.75);stroke-width:2}
+.thread{fill:none;stroke:rgba(255,255,255,.3);stroke-width:1;stroke-dasharray:5 5;opacity:0;transition:opacity .3s}
+.feed{fill:none;stroke:var(--amber);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;opacity:0;filter:drop-shadow(0 0 5px rgba(217,119,54,.45));transition:stroke-dashoffset .65s,opacity .3s}
+.correct{fill:none;stroke:rgba(255,255,255,.65);stroke-width:1.2;stroke-dasharray:230;stroke-dashoffset:230;opacity:0;transition:stroke-dashoffset .65s,opacity .3s}
+.node{position:absolute;width:82px;height:42px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.12);border-radius:7px;background:rgba(8,8,9,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s;z-index:5}
+.node .name{font-size:.54rem;letter-spacing:.12em;font-weight:600}
+.node .status{height:9px;margin-top:1px;font-size:.38rem;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;opacity:0}
+.node.active{border-color:rgba(255,255,255,.9);box-shadow:0 0 15px rgba(255,255,255,.12);transform:translate(-50%,-50%) scale(1.05)}
+.node.active .status{opacity:1}
+.node.done{border-color:rgba(217,119,54,.28)}
+.node.goal{left:50%;top:14%}
+.node.observe{left:82%;top:35%}
+.node.think{left:71%;top:78%}
+.node.act{left:29%;top:78%}
+.node.result{left:18%;top:35%}
+.node.state{left:50%;top:50%;width:150px;height:150px;border-radius:50%;z-index:4;background:radial-gradient(circle,rgba(255,255,255,.09),transparent 68%);border-color:rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px}
+.node.state .cycle{font-size:2.15rem;font-weight:700;line-height:1;letter-spacing:-.04em}
+.node.state .crit{font-size:.44rem;letter-spacing:.08em;color:#9a9aa0;margin-top:3px}
+.node.state .title{font-size:.6rem;font-weight:500;margin-top:4px;letter-spacing:.01em;line-height:1.25;color:#ddd}
+.node.state .phase{font-size:.42rem;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.leg{position:absolute;font-size:.42rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-transform:uppercase;z-index:6}
+.leg-goal{left:50%;top:7%;transform:translateX(-50%)}
+.leg-observe{left:90%;top:35%;transform:translateY(-50%)}
+.leg-think{left:79%;top:87%;transform:translateX(-50%)}
+.leg-act{left:21%;top:87%;transform:translateX(-50%)}
+.leg-result{left:10%;top:35%;transform:translateY(-50%)}
+.pulse-rig{position:absolute;left:50%;top:50%;width:345px;height:345px;transform:translate(-50%,-50%);transition:transform .75s cubic-bezier(.4,0,.2,1);z-index:3;pointer-events:none}
+.pulse-dot{position:absolute;left:50%;top:-8px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0%,#f0f0f0 40%,rgba(255,255,255,.6) 70%,transparent 100%);transform:translateX(-50%);box-shadow:0 0 6px 2px #fff,0 0 14px 4px rgba(255,255,255,.7),0 0 28px 8px rgba(255,255,255,.35),0 0 48px 12px rgba(255,255,255,.12)}
+.phase-label{position:absolute;z-index:7;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .3s;color:var(--dim)}
+.feed-label{left:50%;top:6.5%;transform:translateX(-50%);color:var(--amber)}
+.correct-label{left:50%;top:86%;transform:translateX(-50%)}
+.termination{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;width:62%;text-align:center;opacity:0;transition:opacity .8s;pointer-events:none}
+.termination h2{margin:0;font-size:1.05rem;letter-spacing:.16em}
+.termination p{margin:6px 0 0;font-size:.6rem;color:#999;letter-spacing:.04em;line-height:1.5}
+.overlay{position:absolute;bottom:-46px;left:0;right:0;text-align:center;opacity:0;transition:opacity .35s}
+.overlay.show{opacity:1}
+.overlay-copy{font-size:.65rem;color:#777;margin:0;line-height:1.5}
+.replay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .4s;z-index:20;border-radius:12px}
+.replay.show{opacity:1;pointer-events:auto}
+.replay button{appearance:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.78rem;letter-spacing:.08em;padding:12px 22px;border-radius:999px;cursor:pointer;backdrop-filter:blur(8px)}
+.replay button:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.step-bar{width:min(86vw,520px);margin-top:56px;margin-bottom:12px}
+.step-bar-label{display:flex;justify-content:space-between;font-size:.65rem;color:#666;margin-bottom:4px}
+.step-track{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.step-fill{height:100%;background:var(--amber);width:0%;transition:width .3s}
+.cta-wrap{margin:18px 0 40px;text-align:center}
+.cta{display:inline-block;background:rgba(59,158,255,.08);border:1px dashed rgba(59,158,255,.35);color:#6ba9d8;font-size:.72rem;letter-spacing:.04em;padding:10px 20px;border-radius:999px}
+.below{width:min(100%,720px)}
+.sec{margin-bottom:48px}
+.sec-num{font-size:.7rem;letter-spacing:.14em;color:var(--amber);margin-bottom:4px}
+.sec h2{font-size:1.25rem;margin:0 0 6px}
+.sec-sub{font-size:.78rem;color:#888;line-height:1.45;margin:0 0 16px;max-width:60ch}
+.card{background:rgba(12,12,14,.9);border:1px solid var(--line);border-radius:12px;padding:18px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:640px){.calc-grid{grid-template-columns:1fr}}
+.inrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.75rem;color:#999}
+.inrow input{width:100%;accent-color:var(--amber);margin-top:2px}
+input[type=range]{width:100%;accent-color:var(--amber)}
+.bignum{font-size:2.4rem;font-weight:700;color:#fff;line-height:1}
+.chip{display:inline-block;font-size:.7rem;border:1px solid rgba(217,119,54,.45);color:var(--amber);border-radius:6px;padding:5px 9px;margin:8px 0}
+.tbar{height:22px;border-radius:5px;display:flex;align-items:center;padding:0 8px;font-size:.65rem;margin-bottom:6px}
+.tbar.manual{background:linear-gradient(90deg,#a86a1c,var(--amber));color:#1a1205}
+.tbar.loop{background:linear-gradient(90deg,#555,#888);color:#111}
+.note{font-size:.68rem;color:#666;margin-top:10px;line-height:1.5}
+.file-layout{display:grid;grid-template-columns:200px 1fr;gap:14px}
+@media(max-width:600px){.file-layout{grid-template-columns:1fr}}
+.file-chip{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:.72rem;cursor:pointer;margin-bottom:6px;background:rgba(255,255,255,.02)}
+.file-chip.active{border-color:var(--amber);color:var(--amber)}
+.lc{font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 5px;border-radius:4px;border:1px solid}
+.lc.ow{color:#7dd3fc;border-color:#1a8fb0}
+.lc.ap{color:var(--amber);border-color:rgba(217,119,54,.5)}
+.lc.lk{color:#777;border-color:#444}
+.file-detail{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:10px;padding:14px;min-height:180px}
+.file-detail h3{font-size:.9rem;margin:0 0 4px;color:var(--amber)}
+.file-detail .purpose{font-size:.75rem;color:#999;margin:0 0 10px}
+.sample{font-family:ui-monospace,monospace;font-size:.65rem;background:#0a0a0b;border:1px solid var(--line);border-radius:7px;padding:10px;white-space:pre-wrap;color:#ccc}
+.footer{margin-top:40px;font-size:.7rem;color:#444;letter-spacing:.04em}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
+</style>
+</head>
+<body>
+<div class="brand"><a href="https://growthmindset.ai">growthmindset.ai</a></div>
+<div class="shell">
+<div class="header">
+<div class="eyebrow">Process Model</div>
+<h1>THE <span class="gotar">GOTAR</span> LOOP</h1>
+<div class="tagline">An Adaptive Decision &amp; Learning Framework</div>
+<p class="intro">Goal, Observe, Think, Act, Result — cycling until a checklist of &ldquo;done&rdquo; is fully ticked. This is a real run from 2026-08-01: four cycles, zero drift, terminated on success. The centre shows the live cycle and how many of the seven success criteria are met.</p>
+</div>
+<div class="stage-wrap">
+<div class="stage">
+<svg viewBox="0 0 520 520" role="img" aria-label="GOTAR loop diagram: four cycles of Goal, Observe, Think, Act, Result, terminating on success">
+<circle class="outer-ring" cx="260" cy="260" r="208"/>
+<g id="ticks"></g>
+<circle class="orbit" cx="260" cy="260" r="165"/>
+<line class="thread" id="thread-observe" x1="425" y1="195" x2="260" y2="260"/>
+<line class="thread" id="thread-think" x1="368" y1="402" x2="260" y2="260"/>
+<line class="thread" id="thread-act" x1="152" y1="402" x2="260" y2="260"/>
+<path class="feed" id="feed" d="M 78 192 A 192 192 0 0 1 442 192"/>
+<path class="correct" id="correct" d="M 358 388 A 112 112 0 0 0 162 388"/>
+</svg>
+<div class="leg leg-goal">Goal</div>
+<div class="leg leg-observe">Observe</div>
+<div class="leg leg-think">Think</div>
+<div class="leg leg-act">Act</div>
+<div class="leg leg-result">Result</div>
+<div class="phase-label feed-label" id="feedLabel">Feed Forward</div>
+<div class="phase-label correct-label" id="correctLabel">Self-Correction</div>
+<div class="pulse-rig" id="pulseRig"><div class="pulse-dot"></div></div>
+<div class="node state" id="state">
+<div class="cycle" id="stateCycle">1</div>
+<div class="crit" id="stateCrit">0 / 7 CRITERIA</div>
+<div class="title" id="stateTitle">Goal locked</div>
+<div class="phase" id="statePhase">GOAL</div>
+</div>
+<div class="node goal" id="goal"><div class="name">GOAL</div><div class="status"></div></div>
+<div class="node observe" id="observe"><div class="name">OBSERVE</div><div class="status"></div></div>
+<div class="node think" id="think"><div class="name">THINK</div><div class="status"></div></div>
+<div class="node act" id="act"><div class="name">ACT</div><div class="status"></div></div>
+<div class="node result" id="result"><div class="name">RESULT</div><div class="status"></div></div>
+<div class="termination" id="termination"><h2>TERMINATION</h2><p>7 / 7 criteria met at cycle 4 of a permitted 8. Zero drift across the entire run.</p></div>
+<div class="replay" id="replay"><button id="replayBtn">Play again</button></div>
+</div>
+<div class="overlay" id="overlay"><div class="overlay-copy" id="overlayCopy"></div></div>
+</div>
+<div class="step-bar">
+<div class="step-bar-label"><span id="stepLabel">Step 01</span><span id="pctLabel">0%</span></div>
+<div class="step-track"><div class="step-fill" id="stepFill"></div></div>
+</div>
+<div class="cta-wrap">
+<span class="cta">Full write-up — coming soon</span>
+</div>
+<div class="below">
+<section class="sec">
+<div class="sec-num">02</div>
+<h2>Your multiplier</h2>
+<p class="sec-sub">Preloaded with this run's real numbers. Change the estimates and it recomputes live. The headline is the pessimistic bound — never the flattering midpoint.</p>
+<div class="card">
+<div class="calc-grid">
+<div>
+<div class="inrow"><span>Article — manual</span><span id="n-art">180</span></div>
+<input type="range" id="art" min="0" max="400" value="180" aria-label="Article manual estimate in minutes">
+<div class="inrow"><span>Social posts — manual</span><span id="n-soc">45</span></div>
+<input type="range" id="soc" min="0" max="200" value="45" aria-label="Social posts manual estimate in minutes">
+<div class="inrow"><span>Image prompts — manual</span><span id="n-img">30</span></div>
+<input type="range" id="img" min="0" max="200" value="30" aria-label="Image prompts manual estimate in minutes">
+<div class="inrow"><span>Video script — manual</span><span id="n-vid">45</span></div>
+<input type="range" id="vid" min="0" max="200" value="45" aria-label="Video script manual estimate in minutes">
+<div class="inrow"><span>Loop wall-clock</span><span id="n-loop">8.9</span></div>
+<input type="range" id="loop" min="1" max="60" step="0.1" value="8.9" aria-label="Loop wall-clock in minutes">
+<div class="inrow"><span>Your review time</span><span id="n-rev">30</span></div>
+<input type="range" id="rev" min="0" max="120" value="30" aria-label="Human review time in minutes">
+</div>
+<div>
+<div style="font-size:.65rem;letter-spacing:.1em;color:#777;margin-bottom:4px">DEFENSIBLE HEADLINE</div>
+<div class="bignum">~<span id="mult">3.9</span>×</div>
+<div class="chip">baseline <span id="base">7.7</span>× · range <span id="range">3.9×–11.6×</span></div>
+<div style="font-size:.65rem;color:#777;margin:10px 0 4px">manual, by hand — <span id="manMin">300</span> min</div>
+<div class="tbar manual" id="barMan" style="width:100%">manual</div>
+<div style="font-size:.65rem;color:#777;margin:8px 0 4px">GOTAR loop — <span id="denMin">38.9</span> min</div>
+<div class="tbar loop" id="barLoop" style="width:13%">loop</div>
+<p class="note"><b>Methodology, stated plainly:</b> the baseline is my own estimate for four stages (300 min), with <b>one</b> stage — the social posts — validated by a real manual-edit timing (~15 min actual against a 45 min estimate). The other three were near-final loop drafts, not separately polished to publishable. If they had been, human time rises and the multiplier falls. That is exactly why the headline is the pessimistic bound and not the 7.7× midpoint. An estimate-based multiplier with a single empirical anchor — not a controlled study.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-num">03</div>
+<h2>File anatomy</h2>
+<p class="sec-sub">The loop's entire mind is eight markdown files. Four are overwritten each cycle, three are append-only, and one is locked. If it isn't on disk, it doesn't exist.</p>
+<div class="file-layout">
+<div id="fileList"></div>
+<div class="file-detail" id="fileDetail"></div>
+</div>
+</section>
+</div>
+<div class="footer">growthmindset.ai 2026 — data embedded from the real 2026-08-01 run</div>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+// criteria met at the END of each cycle — straight from LOOP_LOG.md
+const MET=[1,2,4,7];
+// real per-stop copy, drawn from LOOP_LOG.md and RUNNING-DOC.md
+const REAL={
+1:{Goal:['Goal signed off','Baseline locked. This is the one file the loop may never edit itself.'],
+Observe:['8 files, 0 artifacts','8 state files on disk, 0 pipeline artifacts. The article is the highest-leverage gap.'],
+Think:['The article is the keystone','Write it first and cycles 2-4 become derivation, not invention.'],
+Act:['article.md — 1,402 words','Multiplier left as [TO BACKFILL] rather than guessed.'],
+Result:['1 / 7 — prediction matched','Predicted 1,400-1,600 words. Actual 1,402. Match on every line.'],
+Feed:['Carried into cycle 2','The article is on disk, so the social pack finally has sections to map against.']},
+2:{Goal:['Goal unchanged','Locked. Only a human sign-off at a checkpoint may change it.'],
+Observe:['Article on disk','1,402 words in 5 sections. That unblocks the social pack.'],
+Think:['Derivation, not invention','3 LinkedIn + 3 captions mapped to named sections. Near-final — this is the spot-check stage.'],
+Act:['social-posts.md written','LinkedIn char counts 1,083 / 1,140 / 1,145, all under 1,300.'],
+Result:['2 / 7 — two clean cycles','Predicted 2/7. Actual 2/7. That is the convergence signal.'],
+Feed:['Carried into cycle 3','Spot-check is live. Images and video are the next coupled gap.']},
+3:{Goal:['Goal unchanged','Locked. Observe checks against it, Think plans toward it, Result scores against it.'],
+Observe:['Article + social on disk','Images and video are a coupled gap — the video keys its overlays to the images.'],
+Think:['Couple them deliberately','Produce both together so image-to-overlay references are correct by construction.'],
+Act:['4 prompts + 74s script','Image 3 left as [N]x — no fabricated number, even in a picture.'],
+Result:['4 / 7 — three clean cycles','Predicted 150-190 spoken words. Actual 185. Match.'],
+Feed:['Carried into cycle 4','All four artifacts exist. Cycle 4 is the closer: no new creation, just convergence.']},
+4:{Goal:['Goal unchanged','Still locked, on the last cycle as on the first.'],
+Observe:['Human times are in','All four artifacts present. The multiplier is computable for the first time.'],
+Think:['A risk written down first','"The consistency grep will surface a stray placeholder I forgot to backfill."'],
+SelfCorrect:['The predicted mistake','The grep found a stray [N]x in video-script.md — exactly as predicted — and it was fixed the same cycle.'],
+Act:['300 / 38.9 = 7.7x','Computed and then bounded. Headlined at the pessimistic bound, never the midpoint.'],
+Result:['7 / 7 — success','Predicted 7/7 AND predicted the stray placeholder. Both happened. Zero drift, all four cycles.'],
+Term:['Loop terminates','Result scored 7/7, so the loop exits instead of feeding forward. Four cycles of a permitted eight.']}
+};
+const BASE=[
+{phase:'Goal',key:'Goal',node:'goal',rot:0,status:'LOCKED'},
+{phase:'Observe',key:'Observe',node:'observe',rot:72,status:'SCANNING',thread:'observe'},
+{phase:'Think',key:'Think',node:'think',rot:144,status:'EVALUATING',thread:'think'},
+{phase:'Act',key:'Act',node:'act',rot:216,status:'DEPLOYING',thread:'act'},
+{phase:'Result',key:'Result',node:'result',rot:288,status:'MEASURING'},
+{phase:'Feed Forward',key:'Feed',node:'result',rot:360,status:'LEARNING',feed:true,dwell:1.7}
+];
+// The run terminated at cycle 4 of a permitted max of 8. Self-correction happened ONCE,
+// in cycle 4 — it is not a routine phase and is not shown as one.
+const STEPS=[];
+for(let c=1;c<=4;c++){
+BASE.forEach(b=>{
+if(b.key==='Feed'&&c===4){
+STEPS.push({phase:'Termination',key:'Term',node:'result',rot:360,status:'7/7 SUCCESS',cycle:4,dwell:2.2,term:true});
+return;
+}
+STEPS.push({...b,cycle:c});
+if(c===4&&b.key==='Think'){
+STEPS.push({phase:'Self-Correct',key:'SelfCorrect',node:'think',rot:144,status:'RE-ROUTING',correct:true,dwell:2,cycle:4});
+}
+});
+}
+const totalSteps=STEPS.length;
+let index=0,timer=null,playing=true;
+(function(){const g=$('#ticks');for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2-Math.PI/2;const l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',260+198*Math.cos(a));l.setAttribute('y1',260+198*Math.sin(a));l.setAttribute('x2',260+218*Math.cos(a));l.setAttribute('y2',260+218*Math.sin(a));l.setAttribute('class','tick');l.setAttribute('data-i',i);g.appendChild(l)}})();
+function render(i){
+index=Math.max(0,Math.min(totalSteps-1,i));
+const d=STEPS[index];
+const copy=REAL[d.cycle][d.key]||['',''];
+// criteria banked so far: only credited once that cycle's Result has been scored
+const scored=(d.key==='Result'||d.key==='Feed'||d.key==='Term');
+const met=scored?MET[d.cycle-1]:(d.cycle===1?0:MET[d.cycle-2]);
+document.querySelectorAll('.node').forEach(n=>{n.classList.remove('active','done');const s=n.querySelector('.status');if(s)s.textContent=''});
+const order=['goal','observe','think','act','result'];
+order.forEach((id,n)=>{if(n<order.indexOf(d.node))$('#'+id).classList.add('done')});
+$('#'+d.node).classList.add('active');
+const st=$('#'+d.node+' .status');if(st)st.textContent=d.status;
+$('#stateCycle').textContent=d.cycle;
+$('#stateCrit').textContent=met+' / 7 CRITERIA';
+$('#stateTitle').textContent=copy[0];
+$('#statePhase').textContent=d.phase.toUpperCase();
+$('#pulseRig').style.transform=`translate(-50%,-50%) rotate(${d.rot}deg)`;
+document.querySelectorAll('.thread').forEach(t=>t.style.opacity='0');
+if(d.thread)$('#thread-'+d.thread).style.opacity='1';
+$('#feed').style.opacity=d.feed?'1':'0';$('#feed').style.strokeDashoffset=d.feed?'0':'440';$('#feedLabel').style.opacity=d.feed?'1':'0';
+$('#correct').style.opacity=d.correct?'1':'0';$('#correct').style.strokeDashoffset=d.correct?'0':'230';$('#correctLabel').style.opacity=d.correct?'1':'0';
+// only the cycles actually run are lit on the outer dial — 4 of a permitted 8
+document.querySelectorAll('.tick').forEach(t=>t.classList.toggle('used',+t.dataset.i<d.cycle));
+$('#termination').style.opacity=d.term?'1':'0';
+document.querySelectorAll('.node').forEach(n=>n.style.opacity=d.term?'.15':'1');
+$('#overlayCopy').textContent=copy[1];
+const ov=$('#overlay');ov.classList.remove('show');setTimeout(()=>ov.classList.add('show'),60);
+$('#stepLabel').textContent=`Cycle ${d.cycle} of 4 · ${d.phase}`;
+$('#pctLabel').textContent=`${Math.round((index/(totalSteps-1))*100)}%`;
+$('#stepFill').style.width=`${(index/(totalSteps-1))*100}%`;
+if(d.term){playing=false;$('#replay').classList.add('show')}
+}
+function schedule(){clearTimeout(timer);if(!playing)return;const d=STEPS[index];timer=setTimeout(()=>{if(index<totalSteps-1){render(index+1);schedule()}},1100*(d.dwell||1))}
+function start(){playing=true;$('#replay').classList.remove('show');render(0);schedule()}
+$('#replayBtn').addEventListener('click',start);
+render(0);schedule();
+const vals={art:180,soc:45,img:30,vid:45,loop:8.9,rev:30};
+function recompute(){
+const manual=vals.art+vals.soc+vals.img+vals.vid;
+const denom=Math.max(.1,vals.loop+vals.rev);
+const base=manual/denom,pess=(manual*.5)/denom,opt=(manual*1.5)/denom;
+$('#n-art').textContent=vals.art;$('#n-soc').textContent=vals.soc;$('#n-img').textContent=vals.img;$('#n-vid').textContent=vals.vid;
+$('#n-loop').textContent=vals.loop.toFixed(1);$('#n-rev').textContent=vals.rev;
+// the headline is the PESSIMISTIC bound. The baseline is shown as context, never as the claim.
+$('#mult').textContent=pess.toFixed(1);
+$('#base').textContent=base.toFixed(1);
+$('#range').textContent=pess.toFixed(1)+'×–'+opt.toFixed(1)+'×';
+$('#manMin').textContent=Math.round(manual);$('#denMin').textContent=denom.toFixed(1);
+$('#barMan').style.width='100%';
+$('#barLoop').style.width=Math.max(8,(denom/Math.max(manual,1)*100))+'%';
+}
+['art','soc','img','vid','loop','rev'].forEach(k=>{document.getElementById(k).addEventListener('input',e=>{vals[k]=parseFloat(e.target.value);recompute()})});
+recompute();
+const FILES=[
+{name:'GOAL.md',lc:'lk',purpose:'The fixed north star. Defines what "done" means as measurable checkboxes. The one file the loop cannot edit itself.',sample:'# GOAL.md\nStatus: SIGNED OFF · baseline LOCKED\nC1 Article 1,200-1,800w ...\nTermination: 7/7 · max-cycles=8 · human-abort'},
+{name:'OBSERVE.md',lc:'ow',purpose:'What exists, what changed, gaps vs. the goal. A snapshot, not a diary — overwritten every cycle.',sample:'# OBSERVE.md — Cycle 3\narticle + social exist.\nGap: C3+C4 are COUPLED.'},
+{name:'THINK.md',lc:'ow',purpose:'Hypotheses, options, plan, and a mandatory prediction. Without it, Result has nothing to grade.',sample:'# THINK.md — Cycle 1\nHypothesis: the article is the keystone.\nPREDICTION: C1 flips → 1/7.'},
+{name:'ACT.md',lc:'ow',purpose:'The single concrete move. Describes what happened, never whether it worked — that is Result’s job.',sample:'# ACT.md — Cycle 1\nWrote /pipeline/article.md — 1,402 words.'},
+{name:'RESULT.md',lc:'ow',purpose:'Prediction beside actual, plus a criteria scorecard. Two divergences in a row means drift.',sample:'# RESULT.md — Cycle 1\nPredicted 1/7.\nActual 1/7. Match. No drift.'},
+{name:'LOOP_LOG.md',lc:'ap',purpose:'One compact line per cycle, append-only, never edited. The audit trail.',sample:'Cycle 1 | Criteria: 1/7\nCycle 4 | 7/7 SUCCESS'},
+{name:'METRICS.md',lc:'ap',purpose:'The evidence base. Locked baseline estimates and the multiplier with its honest sensitivity band.',sample:'multiplier = 300 / 38.9 = 7.7x\npessimistic 3.9x · optimistic 11.6x\nHEADLINE: ~4x'},
+{name:'RUNNING-DOC.md',lc:'ap',purpose:'The human-readable master doc. Vocabulary, per-cycle log, and a messaging bank to mine for content.',sample:'## Messaging bank\n"The AI is a commodity; the loop is the leverage."'}
+];
+const list=$('#fileList'),detail=$('#fileDetail');
+function show(f){detail.innerHTML=`<h3>${f.name}</h3><p class="purpose">${f.purpose}</p><div class="sample">${f.sample.replace(/</g,'&lt;')}</div>`}
+FILES.forEach((f,i)=>{
+const b=document.createElement('div');
+b.className='file-chip'+(i===0?' active':'');
+b.innerHTML=`<span>${f.name}</span><span class="lc ${f.lc}">${f.lc==='ow'?'overwrite':f.lc==='ap'?'append':'locked'}</span>`;
+b.onclick=()=>{document.querySelectorAll('.file-chip').forEach(c=>c.classList.remove('active'));b.classList.add('active');show(f)};
+list.appendChild(b);
+});
+show(FILES[0]);
+</script>
+</body>
+</html>
