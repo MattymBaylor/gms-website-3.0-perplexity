@@ -138,7 +138,7 @@ export function Nav() {
             About
           </Link>
           <a href="/#cta" className="btn-primary">
-            Get Your Free Demo
+            Get My Free Demo
           </a>
         </nav>
 
@@ -205,7 +205,7 @@ export function Nav() {
             onClick={() => setOpen(false)}
             className="btn-primary mt-2 w-full"
           >
-            Get Your Free Demo
+            Get My Free Demo
           </a>
         </nav>
       </div>

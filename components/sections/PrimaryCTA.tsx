@@ -15,11 +15,17 @@ export function PrimaryCTA() {
         <div className="mb-10 text-center">
           <p className="eyebrow">The Demo IS the Product</p>
           <h2 id="cta-heading" className="mt-3 text-h1 font-semibold text-ink">
-            Get Your Free AI Demo
+            Hear it answer the phone for your business
           </h2>
           <p className="mt-4 text-lead text-ink-muted">
-            14-day free trial → <span className="text-ink">$397/mo</span> after.
-            No contracts.
+            Fill this out and we&apos;ll build a voice agent trained on your business — your
+            services, your service area, your reviews.{' '}
+            <span className="text-ink">Within 24 hours it lands in your inbox.</span> One click
+            activates it, and you can call it yourself.
+          </p>
+          <p className="mt-3 text-sm text-ink-dim">
+            Free to try · 14-day trial, then <span className="text-ink-muted">$397/mo</span> · No
+            contracts
           </p>
         </div>
 
