@@ -214,3 +214,10 @@ Asked and answered by Matt:
 2. **Variants:** `/upwork/voice` + `/upwork/conversational` first. Others are config entries.
 3. **Base:** fresh from the §5 demo tokens (not stripped-down public pages) — zero chance a
    footer phone number or CTAForm survives. VoiceDemo reuses AgentFrame's proven sizing logic.
+
+4. **v1.1 (same day):** Matt reviewed v1 and asked for talk.html's landing grammar instead of
+   the single-column layout — brand header + live badge, two-column grid (hero, numbered
+   steps, skill-chip stacks left; haloed demo card + Upwork CTA panel right), plain two-line
+   footer. Rebuilt to mirror it, class-for-class where possible (`uw-` prefixed, scoped under
+   `.uw-root`). Compliance rules unchanged: still zero links and zero contact affordances —
+   the header brand and footer are plain text, unlike talk.html there is nothing clickable.

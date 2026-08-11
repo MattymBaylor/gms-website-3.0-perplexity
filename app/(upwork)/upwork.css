@@ -1,7 +1,7 @@
-/* Upwork landing pages — tokens lifted verbatim from the shipped demo
-   (docs/UPWORK-LANDING-PAGES.md §5) so the wrapper page and the embedded
-   agent card read as one surface. Scoped under .uw-root on purpose: these
-   pages do NOT share the public site's cyan/orange theme. */
+/* Upwork landing pages — visual grammar ported from the shipped demo page
+   (gms-voice-demo talk.html, now also /demo-conversation) so the wrapper and
+   the embedded agent card read as one product. Tokens verbatim from
+   docs/UPWORK-LANDING-PAGES.md §5. Everything scoped under .uw-root. */
 
 .uw-root {
   --bg: #080b14;
@@ -18,84 +18,106 @@
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, Helvetica, Arial, sans-serif;
 
   min-height: 100vh;
-  background:
-    radial-gradient(1100px 600px at 12% -8%, rgba(61, 123, 253, 0.16), transparent 60%),
-    radial-gradient(900px 520px at 88% -6%, rgba(92, 225, 185, 0.10), transparent 55%),
-    var(--bg);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 600px at 15% -10%, rgba(61, 123, 253, 0.16), transparent 60%),
+    radial-gradient(900px 500px at 95% 0%, rgba(92, 225, 185, 0.10), transparent 55%);
+  background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
-.uw-wrap { max-width: 720px; margin: 0 auto; padding: 44px 20px 72px; }
+.uw-wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 72px; }
 
-.uw-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px; letter-spacing: 0.14em; font-weight: 600;
-  color: var(--accent-2);
-  border: 1px solid var(--line);
-  background: rgba(92, 225, 185, 0.06);
-  padding: 6px 12px; border-radius: 999px; margin: 0 0 18px;
+/* header — brand lockup + live badge, exactly the demo's */
+.uw-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin-bottom: 44px; flex-wrap: wrap;
 }
-.uw-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent-2);
-  animation: uwPulse 2.4s ease-in-out infinite;
+.uw-brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -0.01em; }
+.uw-brand-mark {
+  width: 34px; height: 34px; border-radius: 9px; flex: none;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: grid; place-items: center; color: #050a16; font-size: 17px; font-weight: 800;
 }
-@keyframes uwPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(92, 225, 185, 0.45); }
-  50% { opacity: 0.55; box-shadow: 0 0 0 6px rgba(92, 225, 185, 0); }
+.uw-brand small { display: block; font-weight: 500; font-size: 11.5px; color: var(--muted); letter-spacing: 0.02em; }
+.uw-badge {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--accent-2);
+  border: 1px solid rgba(92, 225, 185, 0.28); background: rgba(92, 225, 185, 0.07);
+  padding: 6px 13px; border-radius: 999px; font-weight: 600;
+}
+.uw-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-2); animation: uwPulse 1.8s infinite; }
+@keyframes uwPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.8); } }
+
+/* two-column landing grid */
+.uw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+@media (max-width: 900px) { .uw-grid { grid-template-columns: 1fr; gap: 38px; } }
+
+.uw-h1 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); line-height: 1.08; letter-spacing: -0.035em; margin: 0 0 18px; }
+.uw-grad {
+  background: linear-gradient(120deg, var(--accent-2), var(--accent));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.uw-lede { font-size: 1.1rem; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
+
+.uw-steps { list-style: none; padding: 0; margin: 0 0 30px; display: grid; gap: 13px; }
+.uw-steps li { display: flex; gap: 13px; align-items: flex-start; font-size: 0.96rem; color: #c3cee5; }
+.uw-num {
+  flex: none; width: 24px; height: 24px; border-radius: 7px; background: var(--panel-2);
+  border: 1px solid var(--line); display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: var(--accent-2); margin-top: 1px;
 }
 
-.uw-h1 {
-  font-size: clamp(30px, 6vw, 44px); line-height: 1.08;
-  letter-spacing: -0.02em; font-weight: 800; margin: 0 0 14px;
+.uw-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+@media (max-width: 1040px) { .uw-panels { grid-template-columns: 1fr; gap: 20px; } }
+.uw-stack { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 4px; }
+.uw-hero > .uw-stack { margin-top: 26px; }
+.uw-stack-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--muted); margin-bottom: 11px; font-weight: 700;
 }
-.uw-sub { color: var(--muted); font-size: 17px; line-height: 1.55; margin: 0 0 28px; max-width: 640px; }
-
-.uw-demo { max-width: 600px; margin: 0 auto; }
-.uw-demo-note { color: var(--muted); font-size: 13px; margin: 10px 0 0; text-align: center; }
-
-.uw-try, .uw-proof { margin: 36px 0 0; }
-.uw-try h2, .uw-proof h2, .uw-cta h2 {
-  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); font-weight: 700; margin: 0 0 14px;
+.uw-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.uw-chip {
+  font-size: 12px; color: #aebbd4; border: 1px solid var(--line);
+  background: var(--panel); padding: 5px 11px; border-radius: 7px;
 }
+.uw-hint { font-size: 12.3px; color: var(--muted); line-height: 1.55; margin: 12px 0 0; }
+.uw-hint strong { color: #c3cee5; font-weight: 600; }
+.uw-proofline { margin: 0 0 10px; }
+.uw-proofline strong { color: var(--accent-2); font-weight: 700; }
 
-.uw-try ol { list-style: none; counter-reset: uw; margin: 0; padding: 0; display: grid; gap: 10px; }
-.uw-try li {
-  counter-increment: uw; position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%), var(--panel);
-  border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 14px 16px 14px 52px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+/* halo so the demo card reads as the lit object on the page */
+.uw-shell { position: relative; }
+.uw-shell::before {
+  content: ""; position: absolute; inset: -52px -34px -26px; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(58% 42% at 50% 6%, rgba(255, 255, 255, 0.17), transparent 70%),
+    radial-gradient(74% 52% at 50% 0%, rgba(61, 123, 253, 0.34), transparent 72%),
+    radial-gradient(54% 44% at 82% 100%, rgba(92, 225, 185, 0.20), transparent 72%);
+  filter: blur(30px);
 }
-.uw-try li::before {
-  content: counter(uw);
-  position: absolute; left: 16px; top: 14px;
-  width: 24px; height: 24px; border-radius: 8px;
-  background: rgba(61, 123, 253, 0.16); color: var(--accent);
-  font-weight: 700; font-size: 13px;
-  display: flex; align-items: center; justify-content: center;
-}
-.uw-try strong { display: block; color: var(--ink); margin-bottom: 2px; }
-.uw-try li span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.uw-shell > * { position: relative; z-index: 1; }
 
-.uw-proof ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.uw-proof li { color: var(--ink); font-size: 15px; line-height: 1.5; position: relative; padding-left: 22px; }
-.uw-proof li::before {
-  content: ''; position: absolute; left: 4px; top: 9px;
-  width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
-}
-.uw-stack { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 16px 0 0; }
-
+/* Upwork CTA panel — same card family as the demo card */
 .uw-cta {
-  margin: 40px 0 0; padding: 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 45%), var(--panel-2);
-  border: 1px solid var(--line); border-radius: var(--radius);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  margin-top: 26px; padding: 22px 24px;
+  background: linear-gradient(180deg, #141d33, #0b1020);
+  border: 1px solid #2b3c60; border-radius: var(--radius);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.085);
 }
-.uw-cta p { margin: 0; font-size: 18px; line-height: 1.5; color: var(--ink); font-weight: 600; }
-.uw-cta .uw-cta-sub { margin-top: 6px; font-size: 14px; color: var(--muted); font-weight: 400; }
+.uw-cta h2 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--muted); margin: 0 0 10px; font-weight: 700;
+}
+.uw-cta-main { margin: 0; font-size: 17.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.uw-cta-sub { margin: 6px 0 0; font-size: 13px; color: var(--muted); font-weight: 400; }
 
-.uw-fine { margin: 28px 0 0; color: var(--muted); opacity: 0.85; font-size: 12.5px; line-height: 1.6; }
+.uw-fine { font-size: 11.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+
+.uw-footer {
+  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--muted);
+}
