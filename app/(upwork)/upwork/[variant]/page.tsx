@@ -251,7 +251,20 @@ export default function UpworkVariantPage({ params }: { params: { variant: strin
 
           <div className="uw-cta">
             <h2>{v.ctaHead}</h2>
-            <p className="uw-cta-main">Message me back on Upwork.</p>
+            {/* This is a link by Matt's explicit decision (2026-08-11), overriding
+                the "plain text, not a link" rule in docs/UPWORK-LANDING-PAGES.md.
+                It is the ONE link permitted on these pages and it points back
+                INTO Upwork — the opposite of circumvention. Never repoint it at
+                email, a booking tool, a chat widget or any off-platform channel;
+                that is the behaviour the rule exists to prevent. */}
+            <a
+              className="uw-cta-main uw-cta-btn"
+              href="https://www.upwork.com/nx/messages/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Message me back on Upwork
+            </a>
             <p className="uw-cta-sub">Same thread this link came from — everything stays on the platform.</p>
           </div>
 

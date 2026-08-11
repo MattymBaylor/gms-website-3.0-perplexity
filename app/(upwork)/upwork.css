@@ -115,7 +115,23 @@
   color: var(--muted); margin: 0 0 10px; font-weight: 700;
 }
 .uw-cta-main { margin: 0; font-size: 17.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
-.uw-cta-sub { margin: 6px 0 0; font-size: 13px; color: var(--muted); font-weight: 400; }
+
+/* The one link allowed on these pages, and it points back into Upwork.
+   See the comment in upwork/[variant]/page.tsx before changing this. */
+.uw-cta-btn {
+  display: inline-block; text-decoration: none; margin: 2px 0 0;
+  padding: 13px 22px; border-radius: 11px;
+  color: #fff; background: #14a800; /* Upwork green — reads as "back to Upwork" */
+  box-shadow: 0 6px 24px rgba(20, 168, 0, 0.22);
+  transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+.uw-cta-btn:hover {
+  background: #17bd00; transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(20, 168, 0, 0.32);
+}
+.uw-cta-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.uw-cta-sub { margin: 10px 0 0; font-size: 13px; color: var(--muted); font-weight: 400; }
 
 .uw-fine { font-size: 11.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
 

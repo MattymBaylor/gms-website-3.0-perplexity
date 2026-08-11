@@ -45,7 +45,23 @@ that answer has come back, it overrides everything in this section — ask Matt 
 | Social icons linking to DMs | Outside communication channel |
 | Site nav that reaches any of the above | Indirect path to the same problem |
 
-**The only CTA:** *"Message me back on Upwork."* Plain text. Not a link.
+**The only CTA:** *"Message me back on Upwork."*
+
+> **Overridden 2026-08-11 by Matt, deliberately.** This was "plain text, not a link."
+> It is now a button linking to `https://www.upwork.com/nx/messages/`. The reasoning:
+> the rule exists to stop *outside* communication channels, and a link pointing back
+> **into** Upwork is the opposite of circumvention. It is the only link on these pages.
+> Never repoint it at email, a booking tool, a chat widget or any off-platform
+> destination. If Upwork support answers the open question in §2 and says otherwise,
+> that answer wins — revert it to plain text.
+
+> **Also overridden 2026-08-11 by Matt, against the table above.** The voice demo card
+> these pages iframe (`/demo-appointment?embed=1`, from `MattymBaylor/gms-voice-demo`)
+> now has a **required email field**. Matt was shown that this contradicts the "Email
+> address / Contact form of any kind" rows and the circumvention penalty, was offered a
+> version that renders the field on growthmindset.ai and hides it in the Upwork embed,
+> and chose to require it everywhere. Do not silently revert it — but do raise it with
+> him again if Upwork support responds, because this is the riskiest item on these pages.
 
 Do not import the site's global `<Header>` or `<Footer>` into these routes. Give the route
 segment its own minimal `layout.tsx`. If the shared layout is inherited from a parent, use a
