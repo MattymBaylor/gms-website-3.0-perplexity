@@ -21,6 +21,7 @@ const nextConfig = {
       { source: '/org-chart', destination: '/org-chart/index.html' },
       { source: '/vault', destination: '/vault/index.html' },
       { source: '/gotar-loop', destination: '/gotar-loop/index.html' },
+      { source: '/demo-appointment', destination: '/demo-appointment/index.html' },
     ];
   },
   // /vault is reachable but unlisted: noindex header, no robots.txt entry
