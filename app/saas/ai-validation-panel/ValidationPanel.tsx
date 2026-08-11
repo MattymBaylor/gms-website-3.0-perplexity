@@ -25,6 +25,10 @@ export function ValidationPanel() {
   const [audience, setAudience] = useState('');
   const [goal, setGoal] = useState('');
   const [messagesText, setMessagesText] = useState('');
+  // Optional on purpose. This is a tool, not a gate — making it required would
+  // buy a few addresses and cost the try-it-instantly moment that gets people
+  // to run it at all. Anyone who wants their results keeps them.
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ValidateResponse | null>(null);
@@ -50,6 +54,17 @@ export function ValidationPanel() {
     if (!audience.trim() || !goal.trim() || messages.length < 2) {
       setError('Please fill all three fields, with at least 2 messages (one per line).');
       return;
+    }
+
+    // Fire-and-forget. A bad address, or a subscribe endpoint having a bad day,
+    // must never stop someone getting their panel results.
+    const trimmedEmail = email.trim();
+    if (trimmedEmail && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmedEmail)) {
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: trimmedEmail, source: 'ai-validation-panel' }),
+      }).catch(() => {});
     }
 
     setLoading(true);
@@ -153,6 +168,27 @@ export function ValidationPanel() {
           />
           <p className="mt-2 text-xs text-ink-dim">
             2–10 variants works best. Each line is one message.
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor="panel-email" className="block text-sm font-medium text-ink mb-2">
+            Your email{' '}
+            <span className="text-ink-dim font-normal">(optional)</span>
+          </label>
+          <input
+            id="panel-email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input"
+            placeholder="you@yourcompany.com"
+          />
+          <p className="mt-2 text-xs text-ink-dim">
+            Leave it and we&apos;ll send you the results plus the missed-call guide. Skip it and
+            the panel still runs — nothing here is gated.
           </p>
         </div>
 

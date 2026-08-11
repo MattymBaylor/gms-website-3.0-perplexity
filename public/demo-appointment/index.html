@@ -184,6 +184,7 @@
   .aftercall .stat b{font-size:1.12em}
   .aftercall .stat i{display:block;font-style:normal;font-size:11px;opacity:.62;margin-top:1px}
   .aftercall .statfoot{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .aftercall .statline{display:block;margin-top:8px}
   /* ── After the call ────────────────────────────────────────────────
      The panel is good news, so it reads green rather than warning-orange,
      and the form it used to sit on top of gets out of the way. */
@@ -208,15 +209,36 @@
     border:1px solid rgba(92,225,185,.22);
     background:linear-gradient(180deg,rgba(92,225,185,.07),rgba(92,225,185,.02))}
   #ctaBlock h3{margin:0 0 8px;font-size:17px;line-height:1.3;color:#eafff7}
-  #ctaBlock p{margin:0 0 16px;font-size:13.5px;line-height:1.55;color:var(--muted)}
+  #ctaBlock p{margin:0 0 13px;font-size:13.5px;line-height:1.55;color:var(--muted)}
+  #ctaList{margin:0 0 14px;padding:0;list-style:none}
+  #ctaList li{position:relative;padding-left:19px;margin:0 0 7px;font-size:13.5px;
+    line-height:1.45;color:#cfe9df}
+  #ctaList li:before{content:"";position:absolute;left:2px;top:7px;width:6px;height:6px;
+    border-radius:50%;background:var(--accent-2)}
+  #ctaKicker{margin:0 0 15px !important;color:#eafff7 !important;font-weight:600}
+  /* growthmindset.ai's primary-action colour, matched to the site's own .btn:
+     bg-cta #f97316, white text, the same shadow and the same lift on hover.
+     Warm against the green panel, and identical to every other CTA a prospect
+     will see on the site minutes later. */
   #ctaBtn{display:block;width:100%;text-align:center;text-decoration:none;
-    padding:14px 18px;border-radius:11px;font-weight:700;font-size:15px;color:#06231b;
-    background:linear-gradient(135deg,var(--accent-2),#33b892);
-    box-shadow:0 10px 30px -10px rgba(92,225,185,.6),0 0 0 1px rgba(255,255,255,.06)}
-  #ctaBtn:hover{filter:brightness(1.06)}
+    padding:15px 18px;border-radius:11px;font-weight:600;font-size:15.5px;
+    letter-spacing:.2px;color:#fff;background:#f97316;
+    box-shadow:0 6px 24px rgba(249,115,22,.25);
+    transition:background 180ms ease,transform 180ms ease,box-shadow 180ms ease}
+  #ctaBtn:hover{background:#fb8d3a;transform:translateY(-1px);
+    box-shadow:0 10px 30px rgba(249,115,22,.35)}
   #ctaAgain{text-align:center;font-size:12.5px;color:var(--muted);margin:14px 0 0}
   #ctaAgain a{color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.18)}
   #ctaAgain a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+  /* ── Brand ────────────────────────────────────────────────────────
+     Mark, wordmark and the cyan .ai are growthmindset.ai's own tokens
+     (tailwind.config.ts: accent #00d4ff, ink #f5f5f5). */
+  .brandbar{display:flex;align-items:center;gap:9px;margin:0 0 20px;
+    padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,.07);color:#f5f5f5}
+  .brandmark{height:17px;width:auto;flex:none}
+  .brandword{font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1}
+  .brandtld{color:#00d4ff}
+  body.embed .brandbar{display:none}
   .altlink a:hover{border-bottom-color:var(--accent-2)}
 </style>
 <!-- ─────────────────────────────────────────────────────────────────────
@@ -455,6 +477,18 @@
       <div class="card-shell">
       <div class="card">
 
+        <!-- Brand lockup. Official mark from growthmindset.ai components/Logo.tsx,
+             inlined so the page stays self-contained. Hidden in embed mode - the
+             host page is already branded and this would just repeat it. -->
+        <div class="brandbar" id="brandBar">
+          <svg class="brandmark" viewBox="0 0 366.32 387.8" fill="currentColor" aria-hidden="true">
+            <polygon points="255.19 280.02 196.93 387.8 308.06 387.8 366.32 280.02 255.19 280.02"/>
+            <path d="M173.18,172.25l-116.51,215.55h111.13l63.66-117.78c23.86-44.15-8.11-97.76-58.29-97.76"/>
+            <path d="M174.18,116.51h58.84L183.78,0,0,116.51h63.04L10.65,213.44c-23.86,44.15,8.11,97.76,58.29,97.76l105.24-194.7Z"/>
+          </svg>
+          <span class="brandword">growthmindset<span class="brandtld">.ai</span></span>
+        </div>
+
         <!-- SETUP -->
         <div id="setupView">
           <div class="agenthead">
@@ -472,15 +506,13 @@
           <div class="notice aftercall" id="afterCall" style="display:none">
             <span class="ico">📞</span>
             <span>
-              <b>That was one call, and she never dropped it.</b>
-              <span class="stat"><b>48%</b> of people who call a home services business never reach a person.<i>Invoca, 2026 — 70M+ calls</i></span>
-              <span class="stat"><b>21%</b> of them hang up and call a competitor on the spot.<i>CallRail, 2025 — survey of 1,000 consumers</i></span>
-              <span class="stat"><b>$87,000</b> tile, <b>$18–20,000</b> shingle — Naples.<i>You already knew that one. That is the point.</i></span>
-              <span class="statfoot">Two or three missed calls a week is about
-              <b>13 jobs a year</b> that never call back. On shingle alone that is
-              <b>$245,000</b>. On tile it clears <b>a million</b>.
-              She answers on the first ring, at 9pm, on a Sunday, the week after a storm —
-              and hands you the ones worth driving out for.</span>
+              <b>She never dropped that call.</b>
+              <span class="stat"><b>48%</b> of home-services callers never reach a person.<i>Invoca, 2026</i></span>
+              <span class="stat"><b>21%</b> hang up and call a competitor.<i>CallRail, 2025</i></span>
+              <span class="stat"><b>$87,000</b> tile &middot; <b>$18–20,000</b> shingle — Naples.<i>You already knew that one. That is the point.</i></span>
+              <span class="statfoot">Two or three missed calls a week is <b>13 jobs a year</b>.
+              On shingle that is <b>$245,000</b>; on tile it clears <b>a million</b>.
+              <span class="statline">She answers on the first ring. At 9pm. On a Sunday. The week after a storm.</span></span>
             </span>
           </div>
 
@@ -502,6 +534,12 @@
             <label for="phone">Your mobile number</label>
             <input id="phone" type="tel" placeholder="(216) 555-0142" autocomplete="tel" inputmode="tel" />
             <div class="hint">US numbers. One call per number every 10 minutes.</div>
+          </div>
+
+          <div class="field">
+            <label for="email">Your email</label>
+            <input id="email" type="email" placeholder="you@yourcompany.com" autocomplete="email" inputmode="email" />
+            <div class="hint">She confirms appointments by email — this is where yours goes.</div>
           </div>
 
           <div class="field">
@@ -565,11 +603,18 @@
                COPY and DESTINATION are meant to be edited: the href below is
                CTA_URL in the script, the words are right here. -->
           <div id="ctaBlock">
-            <h3 id="ctaHead">Want to hear this one with your company on it?</h3>
-            <p id="ctaBody">Tell me about your business and I'll build you an actual call &mdash;
-              your name, your market, the objections you actually get &mdash; and email it to you
-              inside 24 hours.</p>
-            <a id="ctaBtn" href="#" rel="noopener">Get My Free Demo</a>
+            <h3 id="ctaHead">This was just a demo.</h3>
+            <p id="ctaBody">Want to hear one that knows your business inside and out?
+              Within 24 hours yours will know:</p>
+            <ul id="ctaList">
+              <li>Your business, top to bottom</li>
+              <li>Your services</li>
+              <li>Your reviews</li>
+              <li>Your customers' pain points</li>
+              <li>How to answer any objection a caller throws at her</li>
+            </ul>
+            <p id="ctaKicker">Click Get Started and it lands in your inbox.</p>
+            <a id="ctaBtn" href="#" rel="noopener">Get Started</a>
             <p id="ctaAgain"><a href="#" id="againLink">or run this one again</a></p>
           </div>
 
@@ -665,6 +710,11 @@
   // Where the after-call CTA button goes. Change this one line to point it at
   // a booking link, a form, or a mailto - nothing else needs to move.
   var CTA_URL   = "https://growthmindset.ai/#cta";
+  // "GMS Website — Demo Request Intake" in n8n. Posted directly rather than via
+  // growthmindset.ai/api/lead because this file is served standalone and from
+  // inside other pages. That route enforces SMS consent, which this form does
+  // not collect; the workflow itself does not, so demo leads land fine.
+  var LEAD_HOOK = "https://n8n.growthmindsetai.tech/webhook/gms-website-demo-request";
 
   // ── Christina's photo ────────────────────────────────────────────────
   // Inlined as a data URI by the build step so the image and the HTML can
@@ -1277,14 +1327,45 @@ calendarBlock(),
       show("warn","This browser can't run the live voice demo. Chrome, Edge or Safari will.");
       return;
     }
+    // Email is required: she tells the caller the office confirms by email, so
+    // the demo has to be able to make good on that. It is also the only way a
+    // demo-taker who never clicks the CTA is reachable afterwards.
+    var emailVal = ($("email") ? $("email").value.trim() : "");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal)) {
+      show("warn","Please enter your email — that is where her confirmation goes.");
+      try { $("email").focus(); } catch(e){}
+      return;
+    }
+
     var v = {
       first_name: $("firstName").value.trim() || "there",
+      email: emailVal,
       company_name: $("companyName").value.trim() || "Quality Home Services",
       service_type: $("service").value,
       appointment_date: dateSel.value,
       appointment_time: $("appointmentTime").value,
       customer_address: $("address").value.trim() || "the address on file"
     };
+
+    // Fire-and-forget: a demo-taker is a lead the moment they start the call,
+    // whether or not they ever reach the CTA. Never block the call on this and
+    // never surface a failure — the call is what they came for.
+    try {
+      fetch(LEAD_HOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: v.first_name,
+          business_name: v.company_name,
+          phone: ($("phone") ? $("phone").value.trim() : ""),
+          email: v.email,
+          service_type: v.service_type,
+          sms_consent: false,
+          source: "voice demo — " + clientSlug()
+        }),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
 
     ended=false;
     setupView.style.display="none";
@@ -1421,9 +1502,9 @@ calendarBlock(),
     // The form has done its job. From here the page is the result and the offer.
     setupView.classList.add("postcall");
     var h=setupView.querySelector(".agenthead h2");
-    if (h) h.textContent = "That is exactly what your prospects would hear.";
+    if (h) h.textContent = "That was her working from a script.";
     var hs=setupView.querySelector(".agenthead .sub");
-    if (hs) hs.textContent = "Same agent, your company, your market. Below is how to get one of your own.";
+    if (hs) hs.textContent = "Yours would go a good deal further than that.";
     transcript.innerHTML="";
     if (emptyNote) transcript.appendChild(emptyNote);
     agentBubble=null;
