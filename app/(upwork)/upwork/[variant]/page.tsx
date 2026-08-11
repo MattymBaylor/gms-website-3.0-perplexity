@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { LogoMark } from '@/components/Logo';
 import { VoiceDemo, type VoiceDemoAgent } from '@/components/VoiceDemo';
 import { Beacon } from '../beacon';
 
 /**
  * Upwork proposal landing pages — /upwork/voice, /upwork/conversational.
  *
- * Visual grammar mirrors the shipped demo landing page (gms-voice-demo
- * talk.html): brand header, two-column grid — hero + steps + chip stacks on
- * the left, the haloed live agent card on the right — plain footer.
+ * Layout grammar mirrors the shipped demo landing page (talk.html); the
+ * palette is the SITE brand (cyan accent, green live states, #141417 cards)
+ * so the wrapper and the site-skinned embedded card read as one product.
+ * The real LogoMark sits top-left — as plain, unlinked markup.
  *
  * Read docs/UPWORK-LANDING-PAGES.md before changing ANYTHING here. The rules
  * that matter most: zero contact affordances (no form, no email, no phone,
@@ -22,6 +24,7 @@ type Variant = {
   title: string;
   h1Plain: string;
   h1Grad: string;
+  h1Fit?: boolean;
   lede: string;
   agent: VoiceDemoAgent;
   steps: string[];
@@ -43,6 +46,7 @@ const VARIANTS: Record<string, Variant> = {
     title: 'Live Voice Agent Demo',
     h1Plain: 'Don’t take my word for it.',
     h1Grad: 'Talk to the agent.',
+    h1Fit: true,
     lede:
       'Christina confirms tomorrow’s appointment for a home-services company — live, in your browser. Real-time speech-to-speech: she pauses, breathes, and stops the moment you talk over her. About two minutes, then she wraps up on her own.',
     agent: 'appointment',
@@ -160,9 +164,11 @@ export default function UpworkVariantPage({ params }: { params: { variant: strin
 
       <header className="uw-header">
         <div className="uw-brand">
-          <div className="uw-brand-mark" aria-hidden="true">G</div>
+          <LogoMark className="uw-logo" />
           <div>
-            Growth Mindset Solutions
+            <span className="uw-wordmark">
+              growthmindset<span className="uw-wordmark-ai">.ai</span>
+            </span>
             <small>AI voice &amp; workflow automation</small>
           </div>
         </div>
@@ -173,7 +179,7 @@ export default function UpworkVariantPage({ params }: { params: { variant: strin
 
       <div className="uw-grid">
         <section className="uw-hero">
-          <h1 className="uw-h1">
+          <h1 className={v.h1Fit ? 'uw-h1 uw-h1--fit' : 'uw-h1'}>
             {v.h1Plain}
             <br />
             <span className="uw-grad">{v.h1Grad}</span>

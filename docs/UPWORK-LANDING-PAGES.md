@@ -221,3 +221,11 @@ Asked and answered by Matt:
    footer. Rebuilt to mirror it, class-for-class where possible (`uw-` prefixed, scoped under
    `.uw-root`). Compliance rules unchanged: still zero links and zero contact affordances —
    the header brand and footer are plain text, unlike talk.html there is nothing clickable.
+
+5. **v1.2 (same day):** Matt asked for ONE brand system — the wrapper now uses the site palette
+   (cyan `#00d4ff` accent, green live states, `#141417` cards, orange reserved for the primary
+   action inside the embedded card), the real `LogoMark` + growthmindset.ai wordmark top-left
+   (plain markup, still not a link), and the voice h1 is size-fitted so "Don't take my word for
+   it." holds one line. `/demo-conversation` now carries a `gms-site-skin` block (same body.embed
+   -scoped pattern as `/demo-appointment`) so June's card matches the site too — the resync rule
+   for that file is now file-minus-skin-block == upstream talk.html, no longer byte-identical.
