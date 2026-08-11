@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { CheckCircle2, Loader2, AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FormState {
   first_name: string;
@@ -30,6 +30,21 @@ export function CTAForm() {
   const [data, setData] = useState<FormState>(EMPTY);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'ok' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
+
+  // Someone arriving from the voice demo has already typed their company in to
+  // hear the agent say it out loud. That is the strongest intent signal we get,
+  // so the demo passes it through as ?business= and we fill it in for them
+  // rather than asking the same question twice.
+  useEffect(() => {
+    try {
+      const fromDemo = new URLSearchParams(window.location.search).get('business');
+      if (fromDemo) {
+        setData((d) => (d.business_name ? d : { ...d, business_name: fromDemo.slice(0, 120) }));
+      }
+    } catch {
+      /* no query string, nothing to prefill */
+    }
+  }, []);
 
   const setField =
     (k: keyof Omit<FormState, 'sms_consent'>) => (e: React.ChangeEvent<HTMLInputElement>) =>
