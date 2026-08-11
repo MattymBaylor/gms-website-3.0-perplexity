@@ -92,11 +92,14 @@ export function Hero() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center"
           >
-            <a href="#cta" className="btn-primary">
-              Get Your Free Demo <ArrowRight size={16} />
+            <a href="#cta" className="btn-primary px-8 py-4 text-lg">
+              Get My Free Demo <ArrowRight size={18} />
             </a>
-            <a href="#case-studies" className="btn-ghost">
-              See the Results
+            <a
+              href="#case-studies"
+              className="text-sm text-ink-muted underline underline-offset-4 transition-colors hover:text-ink"
+            >
+              or see the results first
             </a>
           </motion.div>
 

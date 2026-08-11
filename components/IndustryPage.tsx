@@ -85,11 +85,14 @@ export function IndustryPage({
               <p className="mt-6 max-w-xl text-lead text-ink-muted">{sub}</p>
 
               <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                <a href="#cta" className="btn-primary">
-                  Get Your Free Demo <ArrowRight size={16} />
+                <a href="#cta" className="btn-primary px-8 py-4 text-lg">
+                  Get My Free Demo <ArrowRight size={18} />
                 </a>
-                <a href="#case-studies" className="btn-ghost">
-                  Read the breakdown
+                <a
+                  href="#case-studies"
+                  className="text-sm text-ink-muted underline underline-offset-4 transition-colors hover:text-ink"
+                >
+                  or read the breakdown first
                 </a>
               </div>
 

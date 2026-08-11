@@ -8,7 +8,6 @@ import { AppointmentAgent } from '@/components/sections/AppointmentAgent';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { LivingFlow } from '@/components/sections/LivingFlow';
 import { FreeTools } from '@/components/sections/FreeTools';
-import { EmailCapture } from '@/components/sections/EmailCapture';
 import { PrimaryCTA } from '@/components/sections/PrimaryCTA';
 import { FAQ } from '@/components/sections/FAQ';
 
@@ -33,11 +32,14 @@ export default function HomePage() {
         <LivingFlow />
         {/* §8 Free Tools — AI Validation Panel callout */}
         <FreeTools />
-        {/* §9 Email Capture */}
-        <EmailCapture />
-        {/* §10 Primary CTA */}
+        {/* §9 Primary CTA — the ONE call to action.
+            The "Send Me the Guide" EmailCapture section used to sit directly above
+            this and competed with it for the same visitor, asking for an email in
+            exchange for a PDF instead of a demo. The component still exists and is
+            used on blog posts, where the reader isn't ready to buy yet. Do not put
+            a second form back on the home page. */}
         <PrimaryCTA />
-        {/* §11 FAQ (canonical FAQPage schema lives here) */}
+        {/* §10 FAQ (canonical FAQPage schema lives here) */}
         <FAQ emitSchema />
       </main>
       <Footer />
