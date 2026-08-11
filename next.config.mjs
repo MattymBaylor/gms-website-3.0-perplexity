@@ -22,6 +22,9 @@ const nextConfig = {
       { source: '/vault', destination: '/vault/index.html' },
       { source: '/gotar-loop', destination: '/gotar-loop/index.html' },
       { source: '/demo-appointment', destination: '/demo-appointment/index.html' },
+      // /demo → the same page under a link that survives being read aloud,
+      // typed from a phone, or pasted into a LinkedIn post.
+      { source: '/demo', destination: '/demo-appointment/index.html' },
     ];
   },
   // /vault is reachable but unlisted: noindex header, no robots.txt entry
