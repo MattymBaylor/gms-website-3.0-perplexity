@@ -8,34 +8,41 @@ import { AgentFrame } from '@/components/sections/AgentFrame';
 /**
  * /demo — the landing page behind the LinkedIn post.
  *
- * Deliberately bare: the site's own nav and footer for the logo and the way
- * back, one line of setup, the live agent, and two ways to act. Everything the
- * standalone demo carries for its own sake — its hero, its stack chips, its
- * footer — is stripped by ?embed=1 inside AgentFrame, so the visitor lands on
- * the form rather than scrolling to it.
+ * Deliberately narrow: the headline, the three things to try, and the agent.
+ * Everything the standalone demo carries for its own sake — the stack chips,
+ * the "demo, not the product" explainer, the voice-catalogue note — is stripped
+ * by ?embed=1 inside AgentFrame, so a cold visitor from LinkedIn lands on the
+ * form instead of scrolling past a spec sheet to find it.
  *
- * This is a page in this site, not a copy of the demo. public/demo-appointment
- * is untouched and still serves its own standalone page.
+ * This is a page in this site, so the nav and footer bring the real logo and
+ * palette with them. public/demo-appointment is a different page owned by
+ * another thread and is not touched by anything here.
  */
 export const metadata: Metadata = {
-  title: 'Talk to the AI That Books Your Jobs',
+  title: "Don't Take My Word for It — Talk to the Agent",
   description:
-    'A live AI voice agent, answering in your browser right now — not a recording. Book a fake appointment and hear exactly what your callers would hear.',
+    'A live AI appointment-confirmation agent, answering in your browser right now. Not a recording. Book a fake appointment and hear what your callers would hear.',
   alternates: { canonical: '/demo' },
   openGraph: {
     type: 'website',
     url: '/demo',
-    title: 'Talk to the AI That Books Your Jobs',
+    title: "Don't Take My Word for It — Talk to the Agent",
     description:
-      'A live AI voice agent, answering in your browser right now — not a recording.',
+      'A live AI appointment-confirmation agent, answering in your browser right now. Not a recording.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Talk to the AI That Books Your Jobs',
+    title: "Don't Take My Word for It — Talk to the Agent",
     description:
-      'A live AI voice agent, answering in your browser right now — not a recording.',
+      'A live AI appointment-confirmation agent, answering in your browser right now. Not a recording.',
   },
 };
+
+const STEPS = [
+  'Enter any appointment details. Made-up is fine — she works from whatever you put in.',
+  'Tap Book Now and allow your mic. She calls you straight back, right in the page.',
+  "Push back on her. Say you want to cancel, say you don't remember booking, say the price scares you.",
+];
 
 // Prefilled so the visitor sends a usable email instead of a blank one.
 const MAILTO = `mailto:matt@growthmindset.ai?subject=${encodeURIComponent(
@@ -61,23 +68,58 @@ export default function DemoPage() {
       <main id="main">
         <section className="section" aria-labelledby="demo-heading">
           <div className="container-wide">
-            <div className="mx-auto mb-10 max-w-2xl text-center">
-              <p className="eyebrow">Live demo</p>
-              <h1 id="demo-heading" className="mt-3 text-hero font-semibold text-ink">
-                Talk to the AI That Books Your Jobs
-              </h1>
-              <p className="mt-4 text-lead text-ink-muted">
-                Book a fake appointment below and the agent calls you back in your
-                browser to confirm it. She&rsquo;s answering live &mdash; not a
-                recording. Move the date on her, or tell her you never booked it, and
-                hear exactly what your callers would hear.
-              </p>
+            <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Left: what this is and what to try */}
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-success">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-success animate-pulse-soft"
+                    aria-hidden
+                  />
+                  Live agent — not a recording
+                </p>
+
+                <h1
+                  id="demo-heading"
+                  className="mt-5 text-hero font-semibold text-ink"
+                >
+                  Don&rsquo;t take my word for it.
+                  <br />
+                  <span className="text-accent">Talk to the agent.</span>
+                </h1>
+
+                <p className="mt-5 max-w-xl text-lead text-ink-muted">
+                  This is a real appointment-confirmation agent &mdash; the same kind I
+                  build for home-services companies. Fill in whatever details you like,
+                  then talk to her. She works from exactly what you typed, handles your
+                  objections, and knows when to stop selling and hand you off.
+                </p>
+
+                <ol className="mt-8 max-w-xl space-y-4">
+                  {STEPS.map((step, i) => (
+                    <li key={step} className="flex items-start gap-3.5">
+                      <span
+                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-accent/30 bg-accent/10 font-mono text-[11px] font-bold text-accent"
+                        aria-hidden
+                      >
+                        {i + 1}
+                      </span>
+                      <span className="text-sm leading-relaxed text-ink-muted sm:text-base">
+                        {step}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Right: the agent */}
+              <div className="lg:pt-2">
+                <AgentFrame />
+              </div>
             </div>
 
-            <AgentFrame />
-
             {/* Two ways out: read more, or start. */}
-            <div className="mx-auto mt-12 max-w-2xl text-center">
+            <div className="mx-auto mt-16 max-w-2xl border-t border-border pt-12 text-center">
               <h2 className="text-h2 font-semibold text-ink">
                 Want one answering your phone?
               </h2>
