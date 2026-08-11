@@ -22,6 +22,7 @@ const nextConfig = {
       { source: '/vault', destination: '/vault/index.html' },
       { source: '/gotar-loop', destination: '/gotar-loop/index.html' },
       { source: '/demo-appointment', destination: '/demo-appointment/index.html' },
+      { source: '/demo-conversation', destination: '/demo-conversation/index.html' },
     ];
   },
   // /vault is reachable but unlisted: noindex header, no robots.txt entry
@@ -34,6 +35,17 @@ const nextConfig = {
       },
       {
         source: '/vault',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      // /upwork/* and /demo-conversation follow the same reachable-but-unlisted
+      // pattern (see docs/UPWORK-LANDING-PAGES.md — a robots.txt Disallow would
+      // advertise the paths, so they get headers + per-page metadata instead).
+      {
+        source: '/upwork/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/demo-conversation',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
     ];
