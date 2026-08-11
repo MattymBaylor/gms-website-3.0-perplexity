@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/Hero';
 import { VideoExplainer } from '@/components/sections/VideoExplainer';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Industries } from '@/components/sections/Industries';
+import { AppointmentAgent } from '@/components/sections/AppointmentAgent';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { LivingFlow } from '@/components/sections/LivingFlow';
 import { FreeTools } from '@/components/sections/FreeTools';
@@ -24,17 +25,19 @@ export default function HomePage() {
         <VideoExplainer videoId="6rEDK6LX_AA" />
         {/* §4 Industries */}
         <Industries />
-        {/* §5 Field Notes — featured article + bounded grid (full library at /blog) */}
+        {/* §5 Appointment agent — Christina, live in the page */}
+        <AppointmentAgent />
+        {/* §6 Field Notes — featured article + bounded grid (full library at /blog) */}
         <CaseStudies />
-        {/* §6 Living Flow — interactive map of AI + human handoffs */}
+        {/* §7 Living Flow — interactive map of AI + human handoffs */}
         <LivingFlow />
-        {/* §7 Free Tools — AI Validation Panel callout */}
+        {/* §8 Free Tools — AI Validation Panel callout */}
         <FreeTools />
-        {/* §8 Email Capture */}
+        {/* §9 Email Capture */}
         <EmailCapture />
-        {/* §9 Primary CTA */}
+        {/* §10 Primary CTA */}
         <PrimaryCTA />
-        {/* §10 FAQ (canonical FAQPage schema lives here) */}
+        {/* §11 FAQ (canonical FAQPage schema lives here) */}
         <FAQ emitSchema />
       </main>
       <Footer />
