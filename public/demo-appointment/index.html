@@ -183,27 +183,40 @@
   .altlink a:hover{border-bottom-color:var(--accent-2)}
 </style>
 <!-- ─────────────────────────────────────────────────────────────────────
-     growthmindset.ai site skin — the ONLY local modification to this file.
+     growthmindset.ai embed skin — the ONLY local modification to this file.
      Everything above this block is a verbatim copy of realtime.html from
      MattymBaylor/gms-voice-demo. When that file changes, re-copy it and
      re-append this block; do not hand-merge the two.
+
+     EVERY rule here is scoped to body.embed, which the demo sets only when
+     it is iframed or loaded with ?embed=1. Visiting /demo-appointment
+     directly — the Upwork-facing page — renders exactly as upstream does,
+     untouched. Keep it that way: never add an unscoped rule below.
      ───────────────────────────────────────────────────────────────────── -->
 <style id="gms-site-skin">
-  /* Inter, self-hosted next to this file so the embed matches the site's
-     type exactly and still makes zero third-party requests. */
+  /* Inter, self-hosted next to this file so the embedded card matches the
+     site's type and still makes zero third-party requests. Declaring the face
+     costs nothing until something asks for the family, and only body.embed
+     does — the standalone page keeps its system stack. */
   @font-face{
-    font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
+    font-family:'InterGMS';font-style:normal;font-weight:100 900;font-display:swap;
     src:url('/demo-appointment/inter-latin.woff2') format('woff2');
     unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
   }
   @font-face{
-    font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
+    font-family:'InterGMS';font-style:normal;font-weight:100 900;font-display:swap;
     src:url('/demo-appointment/inter-latin-ext.woff2') format('woff2');
     unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
   }
 
-  /* Site tokens (tailwind.config.ts) mapped onto the demo's variables. */
-  :root{
+  /* Keeps the iframe canvas from painting white behind a transparent body.
+     On the standalone page this changes nothing: with html transparent the
+     body's own background still propagates to the canvas as before. */
+  html{background:transparent;color-scheme:dark}
+
+  /* Site tokens (tailwind.config.ts) mapped onto the demo's variables. Set on
+     body.embed, not :root, so they only cascade inside the embedded card. */
+  body.embed{
     --bg:#0a0a0a; --panel:#111113; --panel-2:#141417;
     --line:rgba(255,255,255,.12);
     --ink:#f5f5f5; --muted:#9ca3af;
@@ -212,16 +225,14 @@
     --cta:#f97316;         /* orange — primary action only */
     --cta-hover:#fb8d3a;
     --danger:#ef4444; --warn:#f97316; --radius:12px;
-    --font:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-family:'InterGMS',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
   }
-  html{background:transparent;color-scheme:dark}
-  body{font-family:var(--font)}
 
   /* Give the halo room instead of letting the iframe clip it. */
   body.embed .wrap{padding:24px 20px;max-width:600px}
 
   /* ── Card ─────────────────────────────────────────────────────────── */
-  .card{
+  body.embed .card{
     background:#141417;
     border:1px solid rgba(255,255,255,.07);
     border-radius:var(--radius);
@@ -230,7 +241,7 @@
       0 0 0 1px rgba(255,255,255,.03),
       inset 0 1px 0 rgba(255,255,255,.05);
   }
-  .card-shell:before{
+  body.embed .card-shell:before{
     background:
       radial-gradient(58% 42% at 50% 6%, rgba(255,255,255,.035), transparent 70%),
       radial-gradient(74% 52% at 50% 0%, rgba(0,212,255,.22), transparent 72%),
@@ -238,77 +249,77 @@
   }
 
   /* ── Form controls — mirrors .input in app/globals.css ─────────────── */
-  input,select{
+  body.embed input,body.embed select{
     background-color:#111113;border:1px solid rgba(255,255,255,.12);
     border-radius:10px;color:var(--ink);
   }
-  input::placeholder{color:#6b7280}
-  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
-  select{
+  body.embed input::placeholder{color:#6b7280}
+  body.embed input:focus,body.embed select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
+  body.embed select{
     background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 12px center;background-size:16px;
   }
-  label{color:#d1d5db}
-  /* Give the date its own room — "Tomorrow — Wednesday, Aug 12" was clipping
-     against the time select at the embedded card width. */
-  .row{grid-template-columns:1.35fr 1fr}
-  .row select{font-size:14px;padding-right:32px}
-  @media (max-width:520px){.row{grid-template-columns:1fr}}
+  body.embed label{color:#d1d5db}
+  /* Give the date its own room — "Tomorrow — Wednesday, August 12th" was
+     clipping against the time select at the embedded card width. */
+  body.embed .row{grid-template-columns:1.35fr 1fr}
+  body.embed .row select{font-size:14px;padding-right:32px}
+  @media (max-width:520px){body.embed .row{grid-template-columns:1fr}}
 
   /* ── Buttons — orange is the primary action, exactly one per view ──── */
-  button{border-radius:10px}
-  #startBtn,.mic{
+  body.embed button{border-radius:10px}
+  body.embed #startBtn,body.embed .mic{
     background:var(--cta);color:#fff;
     box-shadow:0 6px 24px rgba(249,115,22,.25);
   }
-  #startBtn:hover:not(:disabled),.mic:hover:not(:disabled){
+  body.embed #startBtn:hover:not(:disabled),body.embed .mic:hover:not(:disabled){
     background:var(--cta-hover);filter:none;
     box-shadow:0 10px 30px rgba(249,115,22,.35);
   }
   /* Secondary: "call my phone" reads as the site's ghost button. */
-  #callBtn{
+  body.embed #callBtn{
     background:none;border:1px solid rgba(255,255,255,.12);color:var(--ink);
     box-shadow:none;font-weight:600;
   }
-  #callBtn:hover:not(:disabled){
+  body.embed #callBtn:hover:not(:disabled){
     background:rgba(255,255,255,.05);border-color:rgba(0,212,255,.6);filter:none;
   }
-  .btn-ghost{background:none;border:1px solid rgba(255,255,255,.12);color:var(--ink)}
-  .btn-ghost:hover:not(:disabled){background:rgba(255,255,255,.05);border-color:rgba(0,212,255,.6)}
-  .mic.on,.btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 24px rgba(220,38,38,.22)}
-  .mic.on:hover:not(:disabled),.btn-danger:hover:not(:disabled){background:#ef4444}
+  body.embed .btn-ghost{background:none;border:1px solid rgba(255,255,255,.12);color:var(--ink)}
+  body.embed .btn-ghost:hover:not(:disabled){background:rgba(255,255,255,.05);border-color:rgba(0,212,255,.6)}
+  body.embed .mic.on,body.embed .btn-danger{background:#dc2626;color:#fff;box-shadow:0 6px 24px rgba(220,38,38,.22)}
+  body.embed .mic.on:hover:not(:disabled),body.embed .btn-danger:hover:not(:disabled){background:#ef4444}
 
   /* ── Agent avatars ────────────────────────────────────────────────── */
-  .agentphoto,.avatar{
+  body.embed .agentphoto,body.embed .avatar{
     background:linear-gradient(135deg,rgba(0,212,255,.28),rgba(16,185,129,.20));
     border:1px solid rgba(255,255,255,.12);
     box-shadow:0 0 0 4px rgba(0,212,255,.08);
   }
-  .avatar.speaking{border-color:var(--accent-2);box-shadow:0 0 0 6px rgba(16,185,129,.12)}
-  .avatar.listening{border-color:var(--accent);box-shadow:0 0 0 6px rgba(0,212,255,.12)}
+  body.embed .avatar.speaking{border-color:var(--accent-2);box-shadow:0 0 0 6px rgba(16,185,129,.12)}
+  body.embed .avatar.listening{border-color:var(--accent);box-shadow:0 0 0 6px rgba(0,212,255,.12)}
 
   /* ── Transcript ───────────────────────────────────────────────────── */
-  .transcript{background:#111113;border:1px solid rgba(255,255,255,.07);border-radius:12px}
-  .bubble.agent{background:#1a1a1f;border:1px solid rgba(255,255,255,.08)}
-  .bubble.you{background:rgba(0,212,255,.13);border:1px solid rgba(0,212,255,.28)}
+  body.embed .transcript{background:#111113;border:1px solid rgba(255,255,255,.07);border-radius:12px}
+  body.embed .bubble.agent{background:#1a1a1f;border:1px solid rgba(255,255,255,.08)}
+  body.embed .bubble.you{background:rgba(0,212,255,.13);border:1px solid rgba(0,212,255,.28)}
 
   /* ── Status messages + disclaimers ────────────────────────────────── */
-  .notice{
+  body.embed .notice{
     background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.32);
     border-left:3px solid var(--cta);color:#fdba74;border-radius:10px;
   }
-  .msg{border-radius:10px}
-  .msg.err{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.30);color:#fca5a5}
-  .msg.warn{background:rgba(249,115,22,.09);border:1px solid rgba(249,115,22,.30);color:#fdba74}
-  .msg.ok{background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.30);color:#6ee7b7}
-  .timeleft{color:var(--cta);border:1px solid rgba(249,115,22,.35);background:rgba(249,115,22,.08)}
-  .fineprint,.hint,.card .sub{color:var(--muted)}
-  .callhead .state b{color:var(--accent)}
-  .divider{color:#6b7280}
+  body.embed .msg{border-radius:10px}
+  body.embed .msg.err{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.30);color:#fca5a5}
+  body.embed .msg.warn{background:rgba(249,115,22,.09);border:1px solid rgba(249,115,22,.30);color:#fdba74}
+  body.embed .msg.ok{background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.30);color:#6ee7b7}
+  body.embed .timeleft{color:var(--cta);border:1px solid rgba(249,115,22,.35);background:rgba(249,115,22,.08)}
+  body.embed .fineprint,body.embed .hint,body.embed .card .sub{color:var(--muted)}
+  body.embed .callhead .state b{color:var(--accent)}
+  body.embed .divider{color:#6b7280}
 
   /* Selection + focus ring, same as the parent page. */
-  ::selection{background:rgba(0,212,255,.25);color:#fff}
-  *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  body.embed ::selection{background:rgba(0,212,255,.25);color:#fff}
+  body.embed *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 </style>
 </head>
 <body>
