@@ -240,6 +240,7 @@
   .brandtld{color:#00d4ff}
   body.embed .brandbar{display:none}
   .altlink a:hover{border-bottom-color:var(--accent-2)}
+  input:read-only{background:#0a0f1c;color:#c3cee5;cursor:default}
 </style>
 <!-- ─────────────────────────────────────────────────────────────────────
      growthmindset.ai embed skin — the ONLY local modification to this file.
@@ -495,11 +496,6 @@
             <div class="agentphoto" id="setupPhoto">👩</div>
             <div>
               <h2>Schedule your online appointment now.</h2>
-              <p class="sub" style="margin:0">
-                This kind of engagement lets your prospects set their own appointment and get a
-                live call from a voice AI agent. She runs the call, overcomes at least one
-                objection, then routes the lead appropriately. I customize her to fit your business.
-              </p>
             </div>
           </div>
 
@@ -509,24 +505,15 @@
               <b>She never dropped that call.</b>
               <span class="stat"><b>48%</b> of home-services callers never reach a person.<i>Invoca, 2026</i></span>
               <span class="stat"><b>21%</b> hang up and call a competitor.<i>CallRail, 2025</i></span>
-              <span class="stat"><b>$87,000</b> tile &middot; <b>$18–20,000</b> shingle — Naples.<i>You already knew that one. That is the point.</i></span>
+              <span class="stat"><b>$86,000</b> tile &middot; <b>$18,000</b> shingle — Fort Myers.<i>You already knew that one. That is the point.</i></span>
               <span class="statfoot">Two or three missed calls a week is <b>13 jobs a year</b>.
               On shingle that is <b>$245,000</b>; on tile it clears <b>a million</b>.
               <span class="statline">She answers on the first ring. At 9pm. On a Sunday. The week after a storm.</span></span>
             </span>
           </div>
 
-          <div class="notice" id="demoNotice">
-            <span class="ico">⚠️</span>
-            <span>
-              <b>This is a demonstration.</b> <span id="coDisclaimer">"Quality Home Services" is a
-              fictional company</span>, so nothing is actually scheduled and nobody is coming to
-              your home. You're experiencing exactly what your own prospects would.
-            </span>
-          </div>
-
           <div class="field">
-            <label for="firstName">Your first name</label>
+            <label for="firstName">First Name</label>
             <input id="firstName" type="text" placeholder="Alex" autocomplete="given-name" />
           </div>
 
@@ -543,13 +530,12 @@
           </div>
 
           <div class="field">
-            <label for="companyName">Company she is calling for</label>
-            <input id="companyName" type="text" placeholder="Quality Home Services" autocomplete="organization" />
-            <div class="hint">Put your own company in and she answers the phone with it.</div>
+            <label for="companyName">Company</label>
+            <input id="companyName" type="text" value="Crowther Roofing &amp; Cooling" readonly autocomplete="off" />
           </div>
 
           <div class="field">
-            <label for="service">Service being confirmed</label>
+            <label for="service">Service</label>
             <select id="service">
               <option selected>Roofing</option>
               <option>Siding</option>
@@ -562,11 +548,11 @@
 
           <div class="row">
             <div class="field">
-              <label for="appointmentDate">Appointment date</label>
+              <label for="appointmentDate">Appointment Date</label>
               <select id="appointmentDate"></select>
             </div>
             <div class="field">
-              <label for="appointmentTime">Appointment time</label>
+              <label for="appointmentTime">Appointment Time</label>
               <select id="appointmentTime">
                 <option>10:00 AM</option>
                 <option selected>2:00 PM</option>
@@ -577,7 +563,7 @@
           </div>
 
           <div class="field">
-            <label for="address">Service address</label>
+            <label for="address">Service Street Address</label>
             <input id="address" type="text" placeholder="2200 Main Street" autocomplete="street-address" />
           </div>
 
@@ -674,11 +660,16 @@
   // These defaults are the Naples values verbatim: if the webhook returns
   // nothing, or an unknown slug, the demo behaves exactly as it always has.
   var CFG = {
-    market:  "Naples",
-    tile:    "eighty-seven thousand",
-    shingle: "eighteen to twenty",
+    market:  "Fort Myers",
+    tile:    "eighty-six thousand",
+    shingle: "eighteen thousand",
     extra:   ""
   };
+
+  // Crowther build: company is fixed, not read from a ?c= slug or the token
+  // webhook's config. The field shows the ampersand; she speaks "and" so
+  // pronunciation is never left up to the TTS layer's handling of "&".
+  var HARDCODED_COMPANY_SPOKEN = "Crowther Roofing and Cooling";
 
   // Slug comes from ?c= on the demo URL. When the page is framed (both site
   // embeds are), our own search string is just ?embed=1 - so fall back to the
@@ -1340,7 +1331,7 @@ calendarBlock(),
     var v = {
       first_name: $("firstName").value.trim() || "there",
       email: emailVal,
-      company_name: $("companyName").value.trim() || "Quality Home Services",
+      company_name: HARDCODED_COMPANY_SPOKEN,
       service_type: $("service").value,
       appointment_date: dateSel.value,
       appointment_time: $("appointmentTime").value,
@@ -1381,7 +1372,9 @@ calendarBlock(),
     fetch(TOKEN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({client:clientSlug()})})
       .then(function(r){ return r.json(); })
       .then(function(d){
-        if (d && d.ok && d.token) { applyConfig(d.config, v); openSocket(d.token, v); return; }
+        // Crowther build: config is hardcoded above, so the per-client
+        // override from the token webhook (d.config) is deliberately ignored.
+        if (d && d.ok && d.token) { openSocket(d.token, v); return; }
         var e=new Error("denied"); e.info=d||{}; throw e;
       })
       .catch(function(err){
