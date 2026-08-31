@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rise Renovation · Command</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/command/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b2240;
+      --red: #e53d51;
+      --black: #07090c;
+      --ok: #3ecf8e;
+      --paper: #ffffff;
+      --ink: #12202f;
+      --muted: #5c6b7a;
+      --card: #ffffff;
+      --line: #e4e8ee;
+    }
+    html[data-theme="dark"] {
+      --paper: #07090c;
+      --ink: #f2f4f6;
+      --muted: #9aa3ad;
+      --card: #10141a;
+      --line: rgba(255,255,255,.1);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Urbanist, system-ui, sans-serif;
+      line-height: 1.55;
+      font-size: 16px;
+    }
+    .bar {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      padding: 14px 22px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .bar img { height: 26px; width: auto; }
+    .bar .meta { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: #c5cdd8; letter-spacing: .04em; }
+    .bar .right { display: flex; align-items: center; gap: 10px; }
+    .prog {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      color: #fff;
+      background: rgba(0,0,0,.25);
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+    button, .btn {
+      appearance: none; border: 0; cursor: pointer;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      padding: 8px 12px; border-radius: 8px;
+      background: var(--red); color: #fff;
+    }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2); text-decoration: none; display: inline-block; }
+    .theme-toggle {
+      background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2);
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 36px 22px 80px; }
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(32px, 5vw, 44px); letter-spacing: -.03em; line-height: 1.05; margin-bottom: 14px; color: var(--navy); }
+    html[data-theme="dark"] h1 { color: #fff; }
+    h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); margin: 36px 0 10px; }
+    html[data-theme="dark"] h2 { color: #fff; }
+    .lede { font-size: 18px; color: var(--muted); max-width: 62ch; }
+    .lede b { color: var(--ink); }
+    .nums {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      margin: 28px 0;
+    }
+    .nums div {
+      background: var(--navy); color: #fff; border-radius: 12px; padding: 14px 14px 12px;
+    }
+    .nums span { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #9eb0c4; }
+    .nums b { font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 500; color: #fff; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 8px;
+      margin: 12px 0 0;
+    }
+    .card.black {
+      background: var(--black);
+      border-color: #07090c;
+      color: #fff;
+    }
+    .card.black p { color: #d5dbe2; }
+    .card.black p b { color: #fff; }
+    p { color: var(--muted); margin: 0 0 12px; }
+    .mono { font-family: "IBM Plex Mono", monospace; }
+    label.ck {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 4px; border-bottom: 1px solid var(--line);
+      cursor: pointer; color: var(--ink); font-size: 15px;
+    }
+    label.ck:last-of-type { border-bottom: 0; }
+    label.ck input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--red); flex: 0 0 18px; }
+    label.ck.on { color: var(--muted); }
+    label.ck.on span { text-decoration: line-through; }
+    .who {
+      display: inline-block; margin-left: 8px; padding: 1px 6px; border-radius: 4px;
+      font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      background: rgba(229,61,81,.16); color: var(--red); vertical-align: 1px; white-space: nowrap;
+    }
+    .who.n { background: var(--navy); color: #d7dde6; }
+    .note {
+      margin-top: 28px; padding: 16px 18px; border-left: 3px solid var(--red);
+      background: rgba(229,61,81,.08); color: var(--ink); font-size: 15px;
+    }
+    footer { margin-top: 40px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 640px) {
+      .nums { grid-template-columns: 1fr 1fr; }
+      label.ck { min-height: 44px; }
+    }
+    @media print {
+      body { background: #fff; color: #12202f; }
+      .bar { position: static; background: #0b2240; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .no-print { display: none !important; }
+      main { padding: 12px 0; }
+      h1, h2 { color: #0b2240; }
+      .lede, p { color: #3a4553; }
+      .card { border-color: #e4e8ee; background: #fff; }
+      .card.black { background: #07090c; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .nums div { background: #0b2240; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <img src="/command/assets/rise-logo-on-dark.svg" alt="Rise Renovation" />
+    <div class="meta">Tuesday 1 Sep · 10:30 AM ET · Pre-read</div>
+    <div class="right">
+      <div class="prog" id="prog">0 / 0</div>
+      <button class="theme-toggle no-print" type="button" id="themeBtn">Dark</button>
+      <a class="btn-ghost no-print" href="/command/Rise-Renovation-Tuesday-Brief.pdf">PDF</a>
+      <button class="no-print" type="button" onclick="window.print()">Print</button>
+    </div>
+  </div>
+  <main>
+    <div class="eyebrow">Rise Renovation × Growth Mindset</div>
+    <h1>Decisions before we turn the tap on.</h1>
+    <p class="lede">Directionally we’re aligned. First 30 days is <b>getting leads flowing</b>, not an audit. Scorecard is full funnel through CAC — a cheap lead that never sells is expensive. CallRail is in before a dollar of media. This is the short list so September 1 is a start date, not a discovery date.</p>
+
+    <div class="nums">
+      <div><span>Ticket</span><b>$17,100</b></div>
+      <div><span>Contribution</span><b>33.8%</b></div>
+      <div><span>Max CAC</span><b>$2,900</b></div>
+      <div><span>Net close</span><b>24%</b></div>
+      <div><span>Plan conversion</span><b>2–4%</b></div>
+      <div><span>30-day test</span><b>$15–25K</b></div>
+    </div>
+    <p>Your numbers, locked from the 26th. If anything moved, we adjust Tuesday before we’re on the clock. Digital Run Rate stays signed contracts in a trailing 30 days × 12 — $15MM means $1.25MM inside a window, not an upfront promise.</p>
+
+    <h2>What we’re testing</h2>
+    <div class="card black">
+      <p>3–4 named sources. One response engine. ~30 days each to prove $2,900 CAC, then remove or fund. Planning case is 2–4% lead-to-sale because nothing in the CRM supports 4–6% on a purchased lead. Paid search / LSA at $200 and 3% destroys value; we will not spend into that. Shared inventory is cheaper and slower; exclusive is dearer and cleaner. We never compare on CPL.</p>
+      <p>Paid traffic lands on dedicated roof and windows pages we own — not a WordPress rebuild of riserenovation.com. Same GA4 property you already have. Tools are Rise opex, roughly $600/mo, outside the media cap.</p>
+    </div>
+
+    <h2>Confirm these still hold</h2>
+    <div class="card">
+      <label class="ck"><input type="checkbox" data-id="n-numbers"> <span>Numbers above are still current — $17,100 · 33.8% · $2,900 · 24% · 2–4%.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-signed"> <span>Metric is signed contracts, not invoiced revenue (44-day lag).</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-blank"> <span>Blank source never counts as digital. Catch-all ~14% stays out.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-rehash"> <span>Rehash of the existing database does not count toward Digital Run Rate.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-callrail"> <span>No media dollar until CallRail is on the pages.</span></label>
+    </div>
+
+    <h2>Need from you Tuesday</h2>
+    <div class="card">
+      <label class="ck"><input type="checkbox" data-id="n-zips"> <span>Denver zip list / territory, in writing. Vendors cannot quote without it.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-product"> <span>Product order: roof + windows first? Gutters only with a roof?</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-name"> <span>Permission to name Rise to vendors.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-phone"> <span>Who answers (720) 295-7451 today — service, CSR, or reps? Hours vs Mon–Sat 8–7 MT.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-sf"> <span>You’re building source / campaign / UTM. I’ll hand you a 12-field list so we don’t get two schemas. Original source is write-once. Subsource is the flavor (product–model–market). Campaign is what made the sale on a rehash. Source field is 98% empty, which helps.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-dedupe"> <span>Dedupe: household active in the last 12 months vs any prior Salesforce record. I want canvass history not to eat new digital credit.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-dns"> <span>DNS / hosting contact for riserenovation.com (landing pages live off WordPress).</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-ein"> <span>EIN + legal name Rise Renovation LLC this week, for 10DLC. SMS is dark until carriers approve.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-weekly"> <span>Standing weekly 30 minutes: every source scale / optimize / pause. No middle ground.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-tools"> <span>Measurement tools sit in Rise’s name and sit outside the media cap.</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-hours"> <span>Confirm hours: Mon–Sat 8am–7pm MT, closed Sunday.</span><span class="who n">nick</span></label>
+      <label class="ck"><input type="checkbox" data-id="n-ins"> <span>Insurance / storm work: in or out of the digital test.</span><span class="who n">nick</span></label>
+    </div>
+
+    <h2>Week 1 from this side — $0 media on purpose</h2>
+    <div class="card">
+      <label class="ck"><input type="checkbox" data-id="m-sf-sandbox"> <span>Salesforce sandbox as soon as we start. Push one test lead through the 12 fields. Original source write-once. Confirm it lands on the board before any media.</span></label>
+      <label class="ck"><input type="checkbox" data-id="m-10dlc"> <span>File 10DLC under Rise. Carrier clock starts day one.</span></label>
+      <label class="ck"><input type="checkbox" data-id="m-callrail"> <span>CallRail live, one number per source.</span></label>
+      <label class="ck"><input type="checkbox" data-id="m-sf"> <span>12 fields + write-once rule, using the tags you’re building.</span></label>
+      <label class="ck"><input type="checkbox" data-id="m-lp"> <span>Roof + windows landing pages (not WordPress). Same GA4. POST into the engine.</span></label>
+      <label class="ck"><input type="checkbox" data-id="m-pipe"> <span>Intake: validate → consent → dedupe → Salesforce. One test lead into the run-rate report before any spend.</span></label>
+    </div>
+
+    <h2>Who owns what</h2>
+    <div class="card">
+      <p><b>You own from day one:</b> Salesforce, the cap, ad accounts, CallRail, GA4, domain, data, EIN, hiring, install, and who answers the phone.</p>
+      <p><b>Growth Mindset incubates until handoff:</b> the GCP project, Command Center, landing pages, intake engine, vendor sourcing, weekly math. You can have Owner on the project whenever you want. Nothing on Rise’s card for the factory until you ask.</p>
+      <p><b>Handoff</b> is Owner + runbooks + Matt’s access down. It is not a prerequisite to turn the tap on.</p>
+    </div>
+
+    <div class="card" style="margin-top:28px">
+      <p><b>This is a real submit.</b> Checks save here and land in the hosted database. Matt sees the last submission when he opens this page.</p>
+      <label class="f" style="display:block;margin:12px 0">
+        <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Your name</span>
+        <input id="who" value="Nick" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit" />
+      </label>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-bottom:12px">
+        <button type="button" id="submitBtn">Submit</button>
+        <span id="status" style="font-size:13px;color:var(--muted)"></span>
+      </div>
+    </div>
+
+    <footer>
+      Rise Renovation × Growth Mindset · Command · 31 Aug 2026<br />
+      Submit writes to the hosted record. Boxes also save on this device.
+    </footer>
+  </main>
+  <script>
+    const KEY = "rise-nick-brief-v1";
+    const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    const boxes = [...document.querySelectorAll("input[data-id]")];
+    const prog = document.getElementById("prog");
+    const status = document.getElementById("status");
+    const who = document.getElementById("who");
+    const themeBtn = document.getElementById("themeBtn");
+
+    const theme = localStorage.getItem("rise-nick-theme") || "light";
+    document.documentElement.dataset.theme = theme === "dark" ? "dark" : "";
+    if (themeBtn) themeBtn.textContent = theme === "dark" ? "Light" : "Dark";
+    themeBtn?.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next === "dark" ? "dark" : "";
+      localStorage.setItem("rise-nick-theme", next);
+      themeBtn.textContent = next === "dark" ? "Light" : "Dark";
+    });
+
+    function snapshot() {
+      const checks = {};
+      boxes.forEach((b) => { checks[b.dataset.id] = b.checked; });
+      return checks;
+    }
+    function apply(checks) {
+      boxes.forEach((b) => {
+        if (checks && Object.prototype.hasOwnProperty.call(checks, b.dataset.id)) {
+          b.checked = !!checks[b.dataset.id];
+          saved[b.dataset.id] = b.checked;
+        }
+      });
+      localStorage.setItem(KEY, JSON.stringify(saved));
+      paint();
+    }
+    function paint() {
+      let d = 0;
+      boxes.forEach((b) => {
+        if (b.checked) d++;
+        b.closest("label")?.classList.toggle("on", b.checked);
+      });
+      prog.textContent = d + " / " + boxes.length;
+    }
+    boxes.forEach((b) => {
+      b.checked = !!saved[b.dataset.id];
+      b.addEventListener("change", () => {
+        saved[b.dataset.id] = b.checked;
+        localStorage.setItem(KEY, JSON.stringify(saved));
+        paint();
+      });
+    });
+    paint();
+
+    fetch("/api/brief")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.latest?.checks) {
+          apply(data.latest.checks);
+          if (data.latest.who && who) who.value = data.latest.who;
+          status.textContent = "Last submitted " + new Date(data.latest.at).toLocaleString() + " · " + (data.latest.who || "");
+        }
+      })
+      .catch(() => {});
+
+    document.getElementById("submitBtn")?.addEventListener("click", async () => {
+      status.textContent = "Sending…";
+      try {
+        const res = await fetch("/api/brief", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ checks: snapshot(), who: who?.value || "Nick" }),
+        });
+        const data = await res.json();
+        if (!res.ok || data?.ok === false) throw new Error("fail");
+        status.textContent = "Submitted. Matt has this.";
+      } catch {
+        status.textContent = "Couldn’t reach the server — copy is still on this device.";
+      }
+    });
+  </script>
+</body>
+</html>

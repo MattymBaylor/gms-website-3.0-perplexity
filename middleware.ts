@@ -2,27 +2,29 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * HTTP Basic Auth for /clients/rise only.
+ * HTTP Basic Auth for /command (and the old /clients/rise path, which 308s here).
  * Does not touch the public marketing site.
  *
- * Override in Vercel env:
- *   RISE_GATE_USER
- *   RISE_GATE_PASS          (plaintext — hashed at the edge)
- *   RISE_GATE_PASS_SHA256   (hex SHA-256, used if PASS is unset)
+ * Two logins. Override in Vercel env:
+ *   RISE_GATE_USER / RISE_GATE_PASS / RISE_GATE_PASS_SHA256  → partner
+ *   RISE_OWNER_USER / RISE_OWNER_PASS / RISE_OWNER_PASS_SHA256 → owner
  */
-const FALLBACK_USER = 'nick';
-const FALLBACK_PASS_SHA256 =
+const PARTNER_USER = 'nick';
+const PARTNER_PASS_SHA256 =
   '9d7abd1f07cae86e567ec84a45f1c08683575a40cb55ab753e71e466231b12ab';
+const OWNER_USER = 'matt';
+const OWNER_PASS_SHA256 =
+  '8bb205233a5c942d19fe9b70aa43d259826fd3db7af2c66d267cb257eb0d3ff9';
 
 export const config = {
-  matcher: ['/clients/rise', '/clients/rise/:path*'],
+  matcher: ['/command', '/command/:path*', '/clients/rise', '/clients/rise/:path*'],
 };
 
 function unauthorized() {
   return new NextResponse('Authentication required.', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="Rise Renovation", charset="UTF-8"',
+      'WWW-Authenticate': 'Basic realm="Command Center", charset="UTF-8"',
       'X-Robots-Tag': 'noindex, nofollow',
       'Cache-Control': 'no-store',
     },
@@ -43,6 +45,21 @@ async function sha256hex(value: string) {
     .join('');
 }
 
+async function accounts() {
+  const partnerUser = process.env.RISE_GATE_USER || PARTNER_USER;
+  const ownerUser = process.env.RISE_OWNER_USER || OWNER_USER;
+  const partnerHash = process.env.RISE_GATE_PASS
+    ? await sha256hex(process.env.RISE_GATE_PASS)
+    : (process.env.RISE_GATE_PASS_SHA256 || PARTNER_PASS_SHA256).toLowerCase();
+  const ownerHash = process.env.RISE_OWNER_PASS
+    ? await sha256hex(process.env.RISE_OWNER_PASS)
+    : (process.env.RISE_OWNER_PASS_SHA256 || OWNER_PASS_SHA256).toLowerCase();
+  return [
+    { user: partnerUser, hash: partnerHash },
+    { user: ownerUser, hash: ownerHash },
+  ];
+}
+
 export async function middleware(req: NextRequest) {
   const header = req.headers.get('authorization') || '';
   if (!header.startsWith('Basic ')) return unauthorized();
@@ -57,16 +74,17 @@ export async function middleware(req: NextRequest) {
   const colon = decoded.indexOf(':');
   const user = colon === -1 ? decoded : decoded.slice(0, colon);
   const pass = colon === -1 ? '' : decoded.slice(colon + 1);
-
-  const expectedUser = process.env.RISE_GATE_USER || FALLBACK_USER;
-  const passPlain = process.env.RISE_GATE_PASS;
-  const expectedHash = passPlain
-    ? await sha256hex(passPlain)
-    : (process.env.RISE_GATE_PASS_SHA256 || FALLBACK_PASS_SHA256).toLowerCase();
-
   const gotHash = await sha256hex(pass);
-  if (!timingEqual(user, expectedUser) || !timingEqual(gotHash, expectedHash)) {
-    return unauthorized();
+  const ok = (await accounts()).some((a) => timingEqual(user, a.user) && timingEqual(gotHash, a.hash));
+  if (!ok) return unauthorized();
+
+  const path = req.nextUrl.pathname;
+  if (path === '/clients/rise' || path.startsWith('/clients/rise/')) {
+    const url = req.nextUrl.clone();
+    url.pathname = path.replace(/^\/clients\/rise/, '/command');
+    const res = NextResponse.redirect(url, 308);
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return res;
   }
 
   const res = NextResponse.next();
