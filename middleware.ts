@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * HTTP Basic Auth for /command (and the old /clients/rise path, which 308s here).
+ * HTTP Basic Auth for /playbook (old /command and /clients/rise 308 here).
  * Does not touch the public marketing site.
  *
  * Two logins. Override in Vercel env:
@@ -17,14 +17,21 @@ const OWNER_PASS_SHA256 =
   '8bb205233a5c942d19fe9b70aa43d259826fd3db7af2c66d267cb257eb0d3ff9';
 
 export const config = {
-  matcher: ['/command', '/command/:path*', '/clients/rise', '/clients/rise/:path*'],
+  matcher: [
+    '/playbook',
+    '/playbook/:path*',
+    '/command',
+    '/command/:path*',
+    '/clients/rise',
+    '/clients/rise/:path*',
+  ],
 };
 
 function unauthorized() {
   return new NextResponse('Authentication required.', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="Command Center", charset="UTF-8"',
+      'WWW-Authenticate': 'Basic realm="Playbook", charset="UTF-8"',
       'X-Robots-Tag': 'noindex, nofollow',
       'Cache-Control': 'no-store',
     },
@@ -79,9 +86,15 @@ export async function middleware(req: NextRequest) {
   if (!ok) return unauthorized();
 
   const path = req.nextUrl.pathname;
+  let dest: string | null = null;
   if (path === '/clients/rise' || path.startsWith('/clients/rise/')) {
+    dest = path.replace(/^\/clients\/rise/, '/playbook');
+  } else if (path === '/command' || path.startsWith('/command/')) {
+    dest = path.replace(/^\/command/, '/playbook');
+  }
+  if (dest) {
     const url = req.nextUrl.clone();
-    url.pathname = path.replace(/^\/clients\/rise/, '/command');
+    url.pathname = dest;
     const res = NextResponse.redirect(url, 308);
     res.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return res;

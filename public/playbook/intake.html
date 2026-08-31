@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rise Renovation · Access & legal packet</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/playbook/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#0b2240; --red:#e53d51; --black:#07090c; --ink:#f2f4f6; --muted:#9aa3ad; --card:#10141a; --line:rgba(255,255,255,.1); --ok:#3ecf8e; }
+    * { box-sizing:border-box; margin:0; }
+    body { background:var(--black); color:var(--ink); font-family:Urbanist,system-ui,sans-serif; line-height:1.5; font-size:16px; }
+    .bar { position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:12px 20px; background:var(--navy); border-bottom:1px solid var(--line); }
+    .bar img { height:24px; }
+    .bar .meta { font-family:"IBM Plex Mono",monospace; font-size:11px; color:#c5cdd8; }
+    main { max-width:740px; margin:0 auto; padding:32px 20px 96px; }
+    .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+    h1 { font-size:clamp(28px,4.5vw,40px); letter-spacing:-.03em; line-height:1.08; margin-bottom:10px; }
+    .lede { color:#c8ced6; max-width:62ch; margin-bottom:28px; }
+    h2 { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#fff; margin:28px 0 10px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 8px; }
+    label.f { display:block; margin:0 0 14px; }
+    label.f span { display:block; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#9eb0c4; margin-bottom:6px; }
+    label.f span em { color:var(--red); font-style:normal; }
+    input, select, textarea {
+      width:100%; background:#0b0e12; color:#fff; border:1px solid var(--line);
+      border-radius:10px; padding:11px 12px; font:inherit; font-size:15px;
+    }
+    textarea { min-height:110px; resize:vertical; }
+    input:focus, select:focus, textarea:focus { outline:1px solid var(--red); border-color:var(--red); }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .hint { font-size:13px; color:var(--muted); margin:-6px 0 14px; }
+    .note { margin:18px 0; padding:14px 16px; border-left:3px solid var(--red); background:rgba(229,61,81,.08); color:#e8edf2; font-size:14px; }
+    .actions { position:sticky; bottom:0; display:flex; gap:8px; flex-wrap:wrap; padding:12px 0 8px; background:linear-gradient(transparent, var(--black) 30%); }
+    button {
+      appearance:none; border:0; cursor:pointer; font-family:inherit; font-weight:600; font-size:14px;
+      padding:12px 16px; border-radius:10px; background:var(--red); color:#fff;
+    }
+    button.ghost { background:transparent; border:1px solid rgba(255,255,255,.2); }
+    #status { font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ok); min-height:16px; }
+    footer { margin-top:24px; color:var(--muted); font-size:12px; }
+    @media (max-width:640px) { .row { grid-template-columns:1fr; } }
+    @media print {
+      body { background:#fff; color:#122; }
+      .bar, .actions, .no-print { display:none !important; }
+      input, select, textarea { border-color:#ccc; color:#122; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <img src="/playbook/assets/rise-logo-on-dark.svg" alt="Rise Renovation" />
+    <div class="meta">Intake</div>
+    <div>
+      <a href="/playbook" style="color:#fff;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:7px 11px;border-radius:8px">Command</a>
+      <a href="/playbook/brief.html" style="color:#fff;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:7px 11px;border-radius:8px">Brief</a>
+    </div>
+  </div>
+  <main>
+    <div class="eyebrow">Rise Renovation × Growth Mindset</div>
+    <h1>A few fields so we can file and stand up tracking.</h1>
+    <p class="lede">Send the completed packet to <b>ai.revenuegenerator@gmail.com</b>. No passwords, no API keys, no documents on this page. Legal name and EIN are the ones on the clock — 10DLC cannot file without them. Everything saves on this device if you need to step away.</p>
+    <div class="note">Do not paste secrets here. If a W-9 is needed, send it through whatever path you already use for tax docs — not this form.</div>
+
+    <form id="pkt" autocomplete="on">
+      <h2>1 · Legal — for 10DLC this week</h2>
+      <div class="card">
+        <label class="f"><span>Legal entity name <em>*</em></span>
+          <input name="legal_name" required value="Rise Renovation LLC" /></label>
+        <div class="row">
+          <label class="f"><span>EIN <em>*</em></span>
+            <input name="ein" required inputmode="numeric" placeholder="XX-XXXXXXX" /></label>
+          <label class="f"><span>State of formation</span>
+            <input name="formation_state" value="Colorado" /></label>
+        </div>
+        <label class="f"><span>Physical address <em>*</em></span>
+          <input name="address" required value="13949 W Colfax Ave, Suite 250, Lakewood, CO 80401" /></label>
+        <div class="row">
+          <label class="f"><span>Website</span>
+            <input name="website" value="https://riserenovation.com" /></label>
+          <label class="f"><span>Brand phone</span>
+            <input name="phone" value="(720) 295-7451" /></label>
+        </div>
+      </div>
+
+      <h2>2 · People</h2>
+      <div class="card">
+        <div class="row">
+          <label class="f"><span>Your name</span>
+            <input name="nick_name" value="Nick Ventura" /></label>
+          <label class="f"><span>Your email <em>*</em></span>
+            <input name="nick_email" type="email" required placeholder="nick@…" /></label>
+        </div>
+        <label class="f"><span>Your mobile</span>
+          <input name="nick_mobile" inputmode="tel" /></label>
+        <label class="f"><span>Who answers (720) 295-7451 today? <em>*</em></span>
+          <select name="answers_phone" required>
+            <option value="">Select…</option>
+            <option>Answering service / call center (name in notes)</option>
+            <option>In-house CSR</option>
+            <option>Sales reps on the main line</option>
+            <option>No live coverage yet</option>
+          </select>
+        </label>
+        <label class="f"><span>If a service: vendor name, hours, do they log Salesforce?</span>
+          <textarea name="phone_notes" placeholder="Name of service, hours vs Mon–Sat 8–7 MT, Salesforce logging yes/no"></textarea></label>
+      </div>
+
+      <h2>3 · Territory and product</h2>
+      <div class="card">
+        <label class="f"><span>Service zips or cities <em>*</em></span>
+          <textarea name="zips" required placeholder="80204, 80212, Lakewood, Golden… whatever list vendors should quote against"></textarea></label>
+        <p class="hint">Vendors cannot price Denver without this. Cities are fine if that’s how you think about it — we’ll turn them into zips.</p>
+        <label class="f"><span>Product order for the digital test <em>*</em></span>
+          <select name="products" required>
+            <option value="">Select…</option>
+            <option>Roof + windows first; gutters only with a roof</option>
+            <option>Roof only first</option>
+            <option>Windows only first</option>
+            <option>All products in the test</option>
+          </select>
+        </label>
+        <div class="row">
+          <label class="f"><span>Insurance / storm in the digital test?</span>
+            <select name="insurance">
+              <option>Out of the first test</option>
+              <option>In — route storm separately</option>
+              <option>Decide later</option>
+            </select>
+          </label>
+          <label class="f"><span>Permission to name Rise to vendors <em>*</em></span>
+            <select name="name_rise" required>
+              <option value="">Select…</option>
+              <option>Yes — name Rise Renovation</option>
+              <option>Not yet</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <h2>4 · Salesforce — you own the org</h2>
+      <div class="card">
+        <label class="f"><span>Who types the 12 source / UTM fields?</span>
+          <select name="sf_who">
+            <option>I’ll do it (Nick)</option>
+            <option>Existing Salesforce admin / developer</option>
+            <option>Matt in a sandbox, then we promote</option>
+          </select>
+        </label>
+        <div class="row">
+          <label class="f"><span>Admin name / email if not you</span>
+            <input name="sf_admin" placeholder="name@…" /></label>
+          <label class="f"><span>Sandbox we can use?</span>
+            <select name="sf_sandbox">
+              <option>Yes</option>
+              <option>Not yet</option>
+              <option>Unsure</option>
+            </select>
+          </label>
+        </div>
+        <label class="f"><span>Dedupe rule for digital credit</span>
+          <select name="dedupe">
+            <option>Active in Salesforce in the last 12 months</option>
+            <option>Any prior household in Salesforce</option>
+            <option>Walk this live — not decided</option>
+          </select>
+        </label>
+      </div>
+
+      <h2>6 · Google — Matt holds until transfer</h2>
+      <div class="card">
+        <p class="hint">Public IDs only. No passwords. Measurement ID and stream ID are already known. Fill the blanks you can see in Admin.</p>
+        <div class="row">
+          <label class="f"><span>GA4 Measurement ID</span>
+            <input name="ga4_measurement" value="G-M8YB1CPY0N" /></label>
+          <label class="f"><span>GA4 Stream ID</span>
+            <input name="ga4_stream" value="15529865072" /></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>GA4 stream name</span>
+            <input name="ga4_stream_name" value="Rise Innovations Main Site" /></label>
+          <label class="f"><span>GA4 Property ID (Admin → Property settings)</span>
+            <input name="ga4_property" value="552098207" /></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>GTM Container ID if you use GTM</span>
+            <input name="gtm" placeholder="GTM-XXXX or “gtag direct, no GTM”" /></label>
+          <label class="f"><span>Search Console property</span>
+            <input name="gsc" value="Not verified yet — skip. URL-prefix https://riserenovation.com/ after DNS or Analytics verify." /></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>Google Ads account ID / linked to GA4?</span>
+            <input name="gads" placeholder="XXX-XXX-XXXX · linked yes/no" /></label>
+          <label class="f"><span>Admin Google accounts (email, not password)</span>
+            <input name="gadmin" value="ai.revenuegenerator@gmail.com · Nick (both GA4 admins)" /></label>
+        </div>
+        <label class="f"><span>Handoff path</span>
+          <select name="google_path">
+            <option selected>Matt holds GA4 + Search Console until Nick wants transfer (Path B)</option>
+            <option>Transfer admin to a Rise Google account now (Path A)</option>
+          </select>
+        </label>
+      </div>
+
+      <h2>5 · Access</h2>
+      <div class="card">
+            <input name="dns_name" required placeholder="Name" /></label>
+          <label class="f"><span>Their email <em>*</em></span>
+            <input name="dns_email" type="email" required /></label>
+        </div>
+        <label class="f"><span>Cloud / Google accounts</span>
+          <select name="cloud_path">
+            <option>Transfer to Rise now (Path A)</option>
+            <option>Keep with Growth Mindset until wrap, then transfer (Path B)</option>
+            <option>Decide later</option>
+          </select>
+        </label>
+        <label class="f"><span>Anything else we should not guess</span>
+          <textarea name="notes" placeholder="Calendar/dispatch tool name, portal.riserenovation.com, production system, financing, etc."></textarea></label>
+      </div>
+
+      <p id="status"></p>
+      <div class="actions no-print">
+        <button type="submit">Copy packet</button>
+        <button type="button" class="ghost" id="dl">Download .txt</button>
+        <button type="button" class="ghost" id="mail">Open email</button>
+      </div>
+    </form>
+    <footer>Rise Renovation × Growth Mindset · Access packet · 31 Aug 2026 · No secrets on this page.</footer>
+  </main>
+  <script>
+    const KEY = "rise-intake-v1";
+    const form = document.getElementById("pkt");
+    const status = document.getElementById("status");
+    const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    for (const [k, v] of Object.entries(saved)) {
+      if (form.elements[k] && v != null) form.elements[k].value = v;
+    }
+    form.addEventListener("input", () => {
+      const data = Object.fromEntries(new FormData(form).entries());
+      localStorage.setItem(KEY, JSON.stringify(data));
+    });
+
+    function packet() {
+      const d = Object.fromEntries(new FormData(form).entries());
+      const line = (k, v) => v && String(v).trim() ? k + ": " + String(v).trim() : null;
+      return [
+        "RISE RENOVATION — ACCESS & LEGAL PACKET",
+        "Completed: " + new Date().toISOString(),
+        "",
+        "LEGAL",
+        line("Legal name", d.legal_name),
+        line("EIN", d.ein),
+        line("State of formation", d.formation_state),
+        line("Address", d.address),
+        line("Website", d.website),
+        line("Brand phone", d.phone),
+        "",
+        "PEOPLE",
+        line("Name", d.nick_name),
+        line("Email", d.nick_email),
+        line("Mobile", d.nick_mobile),
+        line("Who answers (720) 295-7451", d.answers_phone),
+        line("Phone notes", d.phone_notes),
+        "",
+        "TERRITORY / PRODUCT",
+        line("Zips / cities", d.zips),
+        line("Product order", d.products),
+        line("Insurance / storm", d.insurance),
+        line("Name Rise to vendors", d.name_rise),
+        "",
+        "SALESFORCE",
+        line("Who types the 12 fields", d.sf_who),
+        line("SF admin", d.sf_admin),
+        line("Sandbox", d.sf_sandbox),
+        line("Dedupe rule", d.dedupe),
+        "",
+        "GOOGLE (public IDs only — Matt holds until transfer)",
+        line("GA4 Measurement ID", d.ga4_measurement),
+        line("GA4 Stream ID", d.ga4_stream),
+        line("GA4 stream name", d.ga4_stream_name),
+        line("GA4 Property ID", d.ga4_property),
+        line("GTM Container ID", d.gtm),
+        line("Search Console property", d.gsc),
+        line("Google Ads", d.gads),
+        line("Admin Google account", d.gadmin),
+        line("Google handoff path", d.google_path),
+        "",
+        "ACCESS",
+        line("DNS contact", d.dns_name),
+        line("DNS email", d.dns_email),
+        line("Cloud path", d.cloud_path),
+        line("Notes", d.notes),
+        "",
+        "No secrets were requested or stored."
+      ].filter((x) => x !== null).join("\n");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const text = packet();
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = "Copied. Paste into a reply to ai.revenuegenerator@gmail.com.";
+      } catch {
+        status.textContent = "Select and copy the download instead.";
+      }
+    });
+    document.getElementById("dl").addEventListener("click", () => {
+      if (!form.reportValidity()) return;
+      const blob = new Blob([packet()], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "Rise-Renovation-Access-Packet.txt";
+      a.click();
+      status.textContent = "Downloaded.";
+    });
+    document.getElementById("mail").addEventListener("click", () => {
+      if (!form.reportValidity()) return;
+      const body = encodeURIComponent(packet());
+      const sub = encodeURIComponent("Rise Renovation — access & legal packet");
+      window.location.href = "mailto:ai.revenuegenerator@gmail.com?subject=" + sub + "&body=" + body;
+    });
+  </script>
+</body>
+</html>

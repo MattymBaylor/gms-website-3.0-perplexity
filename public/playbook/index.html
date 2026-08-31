@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rise Renovation · Command Center</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/playbook/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b2240;
+      --red: #e53d51;
+      --black: #07090c;
+      --ok: #3ecf8e;
+      --paper: #f4f6f8;
+      --ink: #12202f;
+      --muted: #5c6b7a;
+      --card: #ffffff;
+      --line: #e4e8ee;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Urbanist, system-ui, sans-serif;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+    .bar {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      padding: 14px 22px;
+      background: var(--navy);
+    }
+    .bar img { height: 26px; width: auto; }
+    .bar nav { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bar a {
+      color: #fff; font-size: 13px; font-weight: 600; text-decoration: none;
+      border: 1px solid rgba(255,255,255,.2); padding: 8px 12px; border-radius: 8px;
+    }
+    .bar a.on { background: rgba(255,255,255,.15); border-color: transparent; }
+    main { max-width: 1080px; margin: 0 auto; padding: 32px 22px 80px; }
+    .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-size: clamp(32px, 5vw, 44px); letter-spacing: -.03em; line-height: 1.05; margin: 8px 0 10px; }
+    .lede { color: var(--muted); max-width: 62ch; margin-bottom: 28px; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--navy); border-radius: 14px; overflow: hidden; margin-bottom: 22px; }
+    .kpis div { background: var(--navy); color: #fff; padding: 18px 16px; }
+    .kpis span { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    .kpis b { display: block; margin-top: 8px; font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 500; }
+    .kpis i { display: block; margin-top: 4px; font-style: normal; font-size: 12px; color: rgba(255,255,255,.45); }
+    .grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+    .card.navy { background: var(--navy); color: #fff; border: 0; }
+    .card.black { background: var(--black); color: #fff; border: 0; }
+    .card h2 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+    .card.navy h2, .card.black h2 { color: rgba(255,255,255,.55); }
+    .card p { font-size: 15px; color: var(--muted); }
+    .card.navy p, .card.black p { color: rgba(255,255,255,.78); }
+    .places { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .places a {
+      display: block; background: rgba(255,255,255,.08); color: #fff; text-decoration: none;
+      border-radius: 10px; padding: 14px 16px; font-weight: 600;
+    }
+    .places a span { display: block; font-size: 12px; font-weight: 400; color: rgba(255,255,255,.55); margin-top: 4px; }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .row:last-child { border-bottom: 0; }
+    .tag { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--red); }
+    @media (max-width: 800px) {
+      .kpis { grid-template-columns: 1fr 1fr; }
+      .grid, .places { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <img src="/playbook/assets/rise-logo-on-dark.svg" alt="Rise Renovation" />
+    <nav>
+      <a class="on" href="/playbook">Command</a>
+      <a href="/playbook/brief.html">Brief</a>
+      <a href="/playbook/meeting.html">Run of show</a>
+      <a href="/playbook/intake.html">Intake</a>
+    </nav>
+  </div>
+  <main>
+    <p class="eyebrow">Rise Renovation · Denver</p>
+    <h1>Command Center</h1>
+    <p class="lede">One board. Locked numbers from the 26th. First 30 days is getting leads flowing — CallRail in before a dollar of media. Salesforce sandbox the day we start.</p>
+
+    <section class="kpis">
+      <div><span>Ticket</span><b>$17,100</b><i>signed, not invoiced</i></div>
+      <div><span>Max CAC</span><b>$2,900</b><i>33.8% contribution</i></div>
+      <div><span>Net close</span><b>24%</b><i>plan conversion 2–4%</i></div>
+      <div><span>30-day test</span><b>$15–25K</b><i>after the test lead lands</i></div>
+    </section>
+
+    <div class="grid">
+      <div class="card navy">
+        <h2>Salesforce sandbox</h2>
+        <p>As soon as this kicks off, a sandbox is in play. Push one test lead through the 12 fields — original source write-once — and watch it count before a dollar of media. Appointments can POST back: set, lost, sold, signed, lost rehash.</p>
+        <div class="places">
+          <a href="/playbook/brief.html">Brief<span>Decisions before the tap</span></a>
+          <a href="/playbook/meeting.html">Run of show<span>Tuesday 10:30 ET walk</span></a>
+          <a href="/playbook/intake.html">Intake<span>EIN, DNS, sandbox flag</span></a>
+          <a href="/playbook/Rise-Renovation-Tuesday-Brief.pdf">PDF<span>Same brief, offline</span></a>
+        </div>
+      </div>
+      <div class="card black">
+        <h2>Who owns what</h2>
+        <p style="margin-bottom:14px">Rise owns Salesforce, the cap, hiring, install, and the phone. Growth Mindset incubates the factory until handoff.</p>
+        <div class="row" style="border-color:rgba(255,255,255,.1);color:#fff"><span>Digital Run Rate</span><span class="tag">signed × 12</span></div>
+        <div class="row" style="border-color:rgba(255,255,255,.1);color:#fff"><span>Week 1 media</span><span class="tag">$0 on purpose</span></div>
+        <div class="row" style="border-color:rgba(255,255,255,.1);color:#fff"><span>Tools</span><span class="tag">Rise opex</span></div>
+        <div class="row" style="border-color:rgba(255,255,255,.1);color:#fff"><span>Market</span><span class="tag">Denver only</span></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
