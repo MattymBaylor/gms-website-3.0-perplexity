@@ -23,7 +23,7 @@ const nextConfig = {
       { source: '/gotar-loop', destination: '/gotar-loop/index.html' },
       { source: '/demo-appointment', destination: '/demo-appointment/index.html' },
       { source: '/demo-conversation', destination: '/demo-conversation/index.html' },
-      { source: '/command', destination: '/command/index.html' },
+      { source: '/playbook', destination: '/playbook/index.html' },
     ];
   },
   // /vault is reachable but unlisted: noindex header, no robots.txt entry
@@ -50,11 +50,11 @@ const nextConfig = {
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/command',
+        source: '/playbook',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/command/:path*',
+        source: '/playbook/:path*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
     ];
