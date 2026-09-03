@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Book Your Estimate - Rise Renovation</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #0a2240;
+            --coral: #e53d51;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --error-red: #d32f2f;
+            --success-green: #388e3c;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 16px 40px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(ellipse at center,
+                rgba(229, 61, 81, 0.16) 0%,
+                rgba(10, 34, 64, 0.16) 40%,
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border-radius: 16px;
+            box-shadow:
+                0 0 0 1px rgba(229,61,81,0.15),
+                0 8px 32px rgba(0,0,0,0.6),
+                0 0 80px rgba(229,61,81,0.08);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--navy);
+            padding: 22px 20px 18px;
+            text-align: center;
+            border-bottom: 3px solid var(--coral);
+        }
+        .header-logo { height: 30px; width: auto; }
+        .header-logo .cls-1 { fill: var(--white); }
+        .header-logo .cls-2 { fill: var(--coral); }
+        .logo-tag { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75); letter-spacing: 4px; text-transform: uppercase; margin-top: 8px; }
+
+        .progress-container { padding: 20px 16px 0; background: white; position: relative; }
+        .progress-steps { display: flex; justify-content: space-between; position: relative; margin-bottom: 8px; }
+        .progress-steps::before { content: ''; position: absolute; top: 18px; left: 8%; right: 8%; height: 2px; background: var(--medium-gray); z-index: 0; }
+        .progress-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; z-index: 1; }
+        .step-number { width: 36px; height: 36px; border-radius: 50%; background: var(--medium-gray); color: var(--text-light); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; transition: var(--transition); border: 2px solid transparent; }
+        .step-label { font-size: 10px; color: var(--text-light); margin-top: 4px; font-weight: 500; transition: var(--transition); text-align: center; }
+        .progress-step.active .step-number { background: var(--coral); color: white; }
+        .progress-step.active .step-label { color: var(--coral); font-weight: 700; }
+        .progress-step.completed .step-number { background: var(--navy); color: white; }
+        .progress-bar-fill { height: 3px; background: var(--navy); transition: width 0.5s ease; margin-top: 4px; }
+
+        .form-content { padding: 24px 20px; }
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+        .step-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+        .step-subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+        .form-input { width: 100%; padding: 14px 16px; border: 2px solid var(--medium-gray); border-radius: var(--radius-md); font-size: 16px; color: var(--text-dark); background: white; transition: var(--transition); outline: none; -webkit-appearance: none; }
+        .form-input:focus { border-color: var(--coral); box-shadow: 0 0 0 3px rgba(229,61,81,0.1); }
+        .form-input.valid { border-color: var(--success-green); }
+        .form-input.error { border-color: var(--error-red); }
+        .input-helper { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+        .error-message { font-size: 12px; color: var(--error-red); margin-top: 4px; display: none; }
+        .error-message.show { display: block; }
+
+        .button-group { display: flex; gap: 12px; margin-top: 24px; }
+        .btn { flex: 1; padding: 16px; border: none; border-radius: var(--radius-md); font-size: 16px; font-weight: 700; cursor: pointer; transition: var(--transition); -webkit-appearance: none; }
+        .btn-primary { background: var(--coral); color: white; }
+        .btn-primary:hover:not(:disabled) { background: #c92e41; transform: translateY(-1px); }
+        .btn-primary:disabled { background: var(--medium-gray); color: var(--text-light); cursor: not-allowed; transform: none; }
+        .btn-secondary { background: white; color: var(--navy); border: 2px solid var(--navy); }
+        .btn-secondary:hover { background: var(--navy); color: white; }
+
+        /* ── SERVICE PICKER (step 1) ── */
+        .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .service-card { border: 2px solid var(--medium-gray); border-radius: var(--radius-md); padding: 14px 10px; text-align: center; cursor: pointer; transition: var(--transition); background: white; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .service-card:hover { border-color: var(--coral); background: rgba(229,61,81,0.05); }
+        .service-card.selected { border-color: var(--coral); background: rgba(229,61,81,0.08); }
+        .service-card .service-icon { font-size: 22px; line-height: 1; }
+        .service-card .service-name { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.25; }
+        .service-card.selected .service-name { color: var(--coral); }
+
+        .waitlist-message { display: none; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: var(--radius-lg); padding: 24px; text-align: center; color: white; margin-bottom: 16px; }
+        .waitlist-message.show { display: block; }
+        .waitlist-icon { font-size: 36px; margin-bottom: 10px; }
+        .waitlist-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .waitlist-text { font-size: 14px; opacity: 0.9; }
+
+        .calendar-container { margin-bottom: 20px; }
+        .calendar-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .cal-arrow { width: 44px; height: 44px; border-radius: 50%; background: var(--coral); color: white; border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: var(--transition); }
+        .cal-arrow:hover { background: #c92e41; transform: scale(1.05); }
+        .cal-arrow:disabled { background: var(--medium-gray); color: var(--text-light); cursor: not-allowed; transform: none; }
+        .calendar-days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex: 1; }
+        .calendar-day { border: 2px solid var(--medium-gray); border-radius: var(--radius-md); padding: 10px 4px; text-align: center; cursor: pointer; transition: var(--transition); background: white; }
+        .calendar-day:hover { border-color: var(--coral); background: rgba(229,61,81,0.05); }
+        .calendar-day.selected { border-color: var(--coral); background: var(--coral); color: white; }
+        .day-name { font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
+        .calendar-day.selected .day-name { opacity: 1; }
+        .day-date { font-size: 22px; font-weight: 800; line-height: 1.1; }
+        .day-month { font-size: 10px; opacity: 0.7; }
+        .calendar-day.selected .day-month { opacity: 1; }
+
+        .time-slots { display: none; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .time-slots.show { display: flex; }
+        .time-slot { border: 2px solid var(--medium-gray); border-radius: var(--radius-md); padding: 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); }
+        .time-slot:hover { border-color: var(--coral); background: rgba(229,61,81,0.05); }
+        .time-slot.selected { border-color: var(--coral); background: rgba(229,61,81,0.1); }
+        .time-slot-label { font-size: 20px; font-weight: 700; color: var(--navy); }
+        .time-slot-period { font-size: 13px; color: var(--text-light); font-weight: 500; }
+
+        .loading { display: none; text-align: center; padding: 40px 20px; }
+        .loading.show { display: block; }
+        .spinner { width: 48px; height: 48px; border: 4px solid var(--medium-gray); border-top-color: var(--coral); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── CONFIRMATION (booking complete) ── */
+        .confirm { display: none; text-align: center; padding: 26px 6px 10px; animation: fadeUp .45s ease both; }
+        .confirm.show { display: block; }
+        .confirm-check { width: 66px; height: 66px; margin: 0 auto 16px; border-radius: 50%; background: rgba(56,142,60,.10); color: var(--success-green); border: 2px solid var(--success-green); display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; }
+        .confirm-summary { text-align: left; margin: 18px auto 0; max-width: 360px; display: flex; flex-direction: column; gap: 10px; }
+        .confirm-summary > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--medium-gray); border-radius: var(--radius-md); padding: 12px 14px; }
+        .confirm-summary .lbl { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; font-weight: 600; }
+        .confirm-summary .val { font-size: 14px; color: var(--navy); font-weight: 700; text-align: right; }
+        .confirm-note { font-size: 13px; color: var(--text-light); margin-top: 16px; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .typing { border-right: 2px solid var(--coral); }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <svg class="header-logo" viewBox="0 0 158.58 41.49" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rise Renovation">
+            <path class="cls-1" d="m63.82,40.86h-9.25l-7.18-14.48h-8.1v14.48h-8.04V.63h18.73c7.59,0,13.85,4.19,13.85,12.76,0,6.03-2.59,9.83-7.7,11.84l7.7,15.63Zm-8.27-27.3c0-3.62-2.18-5.11-5.75-5.11h-10.52v10.34h10.52c3.74,0,5.75-1.72,5.75-5.23Z"></path>
+            <path class="cls-1" d="m80.89,40.86h-8.05V.63h8.05v40.23Z"></path>
+            <path class="cls-1" d="m121.29,28.68c0,7.64-4.83,12.82-15.8,12.82-6.72,0-12.58-2.82-15.63-7.3l5.8-5.17c2.82,3.28,6.44,4.6,10.29,4.6,4.77,0,7.01-1.32,7.01-4.37,0-2.59-1.38-3.74-8.97-5.46-7.41-1.72-12.58-4.08-12.58-12.01,0-7.3,6.44-11.78,14.37-11.78,6.26,0,10.86,2.36,14.65,6.32l-5.8,5.63c-2.59-2.64-5.46-4.14-9.14-4.14-4.31,0-5.75,1.84-5.75,3.62,0,2.53,1.72,3.33,8.1,4.83,6.38,1.49,13.45,3.68,13.45,12.41Z"></path>
+            <path class="cls-1" d="m158.58,40.86h-28.79V.63h27.93v7.87h-19.88v6.95h11.55v7.82h-11.55v9.71h20.75v7.87Z"></path>
+            <path class="cls-2" d="m22.12,41.49h-8.3V8.3L22.12,0v41.49Z"></path>
+            <path class="cls-2" d="m11.05,41.49h-5.53v-24.9l5.53-5.53v30.43Z"></path>
+            <path class="cls-2" d="m2.76,41.49H0v-19.37l2.76-2.76v22.14Z"></path>
+        </svg>
+        <span class="logo-tag">Free Estimate · No Obligation</span>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="progress-step active" data-step="1"><div class="step-number">1</div><div class="step-label">Service</div></div>
+            <div class="progress-step" data-step="2"><div class="step-number">2</div><div class="step-label">Email</div></div>
+            <div class="progress-step" data-step="3"><div class="step-number">3</div><div class="step-label">Contact</div></div>
+            <div class="progress-step" data-step="4"><div class="step-number">4</div><div class="step-label">Address</div></div>
+            <div class="progress-step" data-step="5"><div class="step-number">5</div><div class="step-label">Schedule</div></div>
+        </div>
+        <div class="progress-bar-fill" id="progressBar" style="width:20%"></div>
+    </div>
+
+    <div class="form-content">
+        <form id="bookingForm" onsubmit="return false;">
+
+            <div class="form-step active" data-step="1">
+                <h2 class="step-title">What can we help with?</h2>
+                <p class="step-subtitle">Pick the project you'd like a free estimate on</p>
+                <div class="service-grid" id="serviceGrid">
+                    <div class="service-card" data-service="Windows" onclick="selectService(this)"><span class="service-icon">&#129517;</span><span class="service-name">Windows</span></div>
+                    <div class="service-card" data-service="Doors" onclick="selectService(this)"><span class="service-icon">&#128682;</span><span class="service-name">Doors</span></div>
+                    <div class="service-card" data-service="Siding" onclick="selectService(this)"><span class="service-icon">&#127968;</span><span class="service-name">Siding</span></div>
+                    <div class="service-card" data-service="Roofing" onclick="selectService(this)"><span class="service-icon">&#127977;</span><span class="service-name">Roofing</span></div>
+                    <div class="service-card" data-service="Bathrooms" onclick="selectService(this)"><span class="service-icon">&#128705;</span><span class="service-name">Bathrooms</span></div>
+                    <div class="service-card" data-service="Gutters" onclick="selectService(this)"><span class="service-icon">&#127783;&#65039;</span><span class="service-name">Gutters</span></div>
+                    <div class="service-card" data-service="Attic Insulation" onclick="selectService(this)"><span class="service-icon">&#127777;&#65039;</span><span class="service-name">Attic Insulation</span></div>
+                </div>
+                <input type="hidden" id="selectedService">
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" id="step1Next" disabled onclick="nextStep(1)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="2">
+                <h2 class="step-title">Let's get started!</h2>
+                <p class="step-subtitle">Where should we send your appointment confirmation?</p>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="your@email.com" autocomplete="email">
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+                    <button type="button" class="btn btn-primary" id="step2Next" onclick="nextStep(2)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="3">
+                <h2 class="step-title">Great! Now let's get to know you</h2>
+                <p class="step-subtitle">How should we address you?</p>
+                <div class="form-group"><label class="form-label">First Name</label><input type="text" id="firstName" class="form-input" placeholder="John" autocomplete="given-name"><div class="error-message" id="firstName-error"></div></div>
+                <div class="form-group"><label class="form-label">Last Name</label><input type="text" id="lastName" class="form-input" placeholder="Smith" autocomplete="family-name"><div class="error-message" id="lastName-error"></div></div>
+                <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="phone" class="form-input" placeholder="(720) 555-0147" autocomplete="tel"><div class="input-helper">We'll text you appointment reminders</div><div class="error-message" id="phone-error"></div></div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+                    <button type="button" class="btn btn-primary" id="step3Next" onclick="nextStep(3)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="4">
+                <h2 class="step-title">Where do you need service?</h2>
+                <p class="step-subtitle">We'll check if we serve your area</p>
+                <div class="form-group"><label class="form-label">ZIP Code</label><input type="text" id="zipCode" class="form-input" placeholder="80202" maxlength="5" autocomplete="postal-code"><div class="input-helper">Enter your 5-digit ZIP code</div><div class="error-message" id="zipCode-error"></div></div>
+                <div class="form-group"><label class="form-label">Street Address</label><input type="text" id="address" class="form-input" placeholder="1776 Larimer St" autocomplete="street-address"><div class="error-message" id="address-error"></div></div>
+                <div class="form-group"><label class="form-label">City</label><input type="text" id="city" class="form-input" placeholder="Denver" autocomplete="address-level2"><div class="error-message" id="city-error"></div></div>
+                <div class="waitlist-message" id="waitlistMessage">
+                    <div class="waitlist-icon">📍</div>
+                    <h3 class="waitlist-title">We're not in your area yet!</h3>
+                    <p class="waitlist-text">Good news! We're expanding soon. We've added you to our waitlist and will notify you when we start serving your area.</p>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(3)">Back</button>
+                    <button type="button" class="btn btn-primary" id="step4Next" onclick="nextStep(4)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="5">
+                <h2 class="step-title">Pick your perfect time</h2>
+                <p class="step-subtitle">Choose a day, then select a time slot</p>
+                <div class="calendar-container">
+                    <div class="calendar-nav">
+                        <button type="button" class="cal-arrow" id="calPrev" onclick="shiftCal(-1)">&#8592;</button>
+                        <div class="calendar-days" id="calendarDays"></div>
+                        <button type="button" class="cal-arrow" id="calNext" onclick="shiftCal(1)">&#8594;</button>
+                    </div>
+                    <div class="time-slots" id="timeSlots">
+                        <div class="time-slot" data-time="10:00 AM" onclick="selectTime(this)"><span class="time-slot-label">10:00 AM</span><span class="time-slot-period">Morning</span></div>
+                        <div class="time-slot" data-time="2:00 PM" onclick="selectTime(this)"><span class="time-slot-label">2:00 PM</span><span class="time-slot-period">Afternoon</span></div>
+                        <div class="time-slot" data-time="6:00 PM" onclick="selectTime(this)"><span class="time-slot-label">6:00 PM</span><span class="time-slot-period">Evening</span></div>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedDate"><input type="hidden" id="selectedTime">
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="goToStep(4)">Back</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" disabled onclick="submitForm()">Book My Appointment</button>
+                </div>
+            </div>
+
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <p style="color:var(--navy);font-weight:600;">Booking your appointment...</p>
+            </div>
+
+            <div class="confirm" id="confirmState">
+                <div class="confirm-check">&#10003;</div>
+                <h2 class="step-title">You're booked!</h2>
+                <p class="step-subtitle">A confirmation is on its way to <span id="confEmail">your inbox</span>.</p>
+                <div class="confirm-summary">
+                    <div><span class="lbl">Project</span><span class="val" id="confService">Your selected service</span></div>
+                    <div><span class="lbl">When</span><span class="val" id="confWhen">Your selected time</span></div>
+                    <div><span class="lbl">Where</span><span class="val" id="confWhere">1776 Larimer St, Denver</span></div>
+                </div>
+                <p class="confirm-note">We'll text a reminder to (720) 555-0147.</p>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+const SERVICE_ZIPS = new Set([
+    "80202","80203","80204","80205","80206","80207","80209","80210",
+    "80211","80212","80214","80215","80218","80219","80220","80222",
+    "80223","80224","80226","80227","80228","80229","80231","80232",
+    "80235","80236","80237","80238","80239","80246","80247",
+    "80401","80403","80007","80020","80301","80302"
+]);
+
+let currentStep = 1;
+let calOffset   = 0;
+const DAYS_SHOWN   = 4;
+const MAX_DAYS     = 14;
+const TOTAL_STEPS  = 5;
+
+function goToStep(n) {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+    currentStep = n;
+    document.querySelectorAll('.progress-step').forEach(s => {
+        const sn = parseInt(s.dataset.step);
+        s.classList.remove('active','completed');
+        if (sn === n)   s.classList.add('active');
+        if (sn < n)     s.classList.add('completed');
+    });
+    document.getElementById('progressBar').style.width = ((n / TOTAL_STEPS) * 100) + '%';
+}
+
+function selectService(el) {
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selectedService').value = el.dataset.service;
+    document.getElementById('step1Next').disabled = false;
+}
+
+function nextStep(from) {
+    if (!validateStep(from)) return;
+    if (from === 4) {
+        const zip = document.getElementById('zipCode').value.trim();
+        const wl  = document.getElementById('waitlistMessage');
+        const btn = document.getElementById('step4Next');
+        if (!SERVICE_ZIPS.has(zip)) { wl.classList.add('show'); btn.textContent = 'Join Waitlist'; return; }
+        wl.classList.remove('show'); btn.textContent = 'Continue';
+    }
+    goToStep(from + 1);
+    if (from + 1 === 5) renderCalendar();
+}
+
+function validateStep(step) {
+    if (step === 1) {
+        return !!document.getElementById('selectedService').value;
+    }
+    let ok = true;
+    const req = { 2: ['email'], 3: ['firstName','lastName','phone'], 4: ['zipCode','address','city'] }[step] || [];
+    req.forEach(id => {
+        const el  = document.getElementById(id);
+        const err = document.getElementById(id + '-error');
+        if (!el.value.trim()) { el.classList.add('error'); if (err) { err.textContent = 'This field is required'; err.classList.add('show'); } ok = false; }
+        else { el.classList.remove('error'); el.classList.add('valid'); if (err) { err.classList.remove('show'); } }
+    });
+    return ok;
+}
+
+function renderCalendar() {
+    const container = document.getElementById('calendarDays');
+    container.innerHTML = '';
+    const today = new Date(); today.setHours(0,0,0,0);
+    const days  = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    const months= ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    for (let i = 0; i < DAYS_SHOWN; i++) {
+        const d = new Date(today); d.setDate(today.getDate() + calOffset + i);
+        const el = document.createElement('div');
+        el.className  = 'calendar-day';
+        el.dataset.date = d.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+        el.innerHTML = `<div class="day-name">${days[d.getDay()]}</div><div class="day-date">${d.getDate()}</div><div class="day-month">${months[d.getMonth()]}</div>`;
+        el.addEventListener('click', () => selectDay(el, d));
+        container.appendChild(el);
+    }
+    document.getElementById('calPrev').disabled = (calOffset === 0);
+    document.getElementById('calNext').disabled = (calOffset + DAYS_SHOWN >= MAX_DAYS);
+    document.getElementById('timeSlots').classList.remove('show');
+    document.getElementById('submitBtn').disabled = true;
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+}
+
+function shiftCal(dir) { calOffset = Math.max(0, Math.min(calOffset + DAYS_SHOWN * dir, MAX_DAYS - DAYS_SHOWN)); renderCalendar(); }
+
+function selectDay(el, dateObj) {
+    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selectedDate').value = el.dataset.date;
+    document.getElementById('timeSlots').classList.add('show');
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    document.getElementById('submitBtn').disabled = true;
+}
+
+function selectTime(el) {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selectedTime').value = el.dataset.time;
+    document.getElementById('submitBtn').disabled = false;
+}
+
+// Submit -> booking spinner -> confirmation screen (the second half of the demo).
+function submitForm() {
+    document.querySelector('.form-step[data-step="5"]').style.display = 'none';
+    document.getElementById('loadingState').classList.add('show');
+    setTimeout(function() {
+        document.getElementById('loadingState').classList.remove('show');
+        var when = document.getElementById('selectedDate').value || '';
+        var time = document.getElementById('selectedTime').value || '';
+        document.getElementById('confEmail').textContent = document.getElementById('email').value || 'your inbox';
+        document.getElementById('confService').textContent = document.getElementById('selectedService').value || 'Your selected service';
+        document.getElementById('confWhen').textContent = (when ? when + (time ? '  ·  ' + time : '') : 'Your selected time');
+        var addr = document.getElementById('address').value, city = document.getElementById('city').value;
+        document.getElementById('confWhere').textContent = (addr ? addr + (city ? ', ' + city : '') : '1776 Larimer St, Denver');
+        document.getElementById('confirmState').classList.add('show');
+    }, 1400);
+}
+
+function resetDemo() {
+    ['email','firstName','lastName','phone','zipCode','address','city'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) { el.value = ''; el.classList.remove('valid','error'); }
+    });
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('selectedService').value = '';
+    document.getElementById('step1Next').disabled = true;
+    document.getElementById('waitlistMessage').classList.remove('show');
+    document.getElementById('confirmState').classList.remove('show');
+    document.getElementById('loadingState').classList.remove('show');
+    document.querySelector('.form-step[data-step="5"]').style.display = '';
+    var sb = document.getElementById('submitBtn'); if (sb) sb.disabled = true;
+    calOffset = 0;
+    goToStep(1);
+}
+
+// ── AUTO-FILL DEMO (auto-plays on load, loops forever) ──
+function typeInto(id, text, cb) {
+    const el = document.getElementById(id);
+    el.value = ''; el.classList.add('typing');
+    let i = 0;
+    const iv = setInterval(() => {
+        el.value += text[i++];
+        if (i >= text.length) { clearInterval(iv); el.classList.remove('typing'); el.classList.add('valid'); if (cb) setTimeout(cb, 200); }
+    }, 60);
+}
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function runDemo() {
+    resetDemo();
+    await delay(700);
+
+    goToStep(1);
+    await delay(500);
+    const serviceCards = document.querySelectorAll('.service-card');
+    const demoServices = ['Bathrooms', 'Roofing', 'Windows', 'Siding'];
+    const pick = demoServices[Math.floor(Math.random() * demoServices.length)];
+    const cardToClick = Array.from(serviceCards).find(c => c.dataset.service === pick) || serviceCards[0];
+    cardToClick.click();
+    await delay(700);
+    document.getElementById('step1Next').click();
+
+    await delay(500);
+    await new Promise(r => typeInto('email', 'john.smith@gmail.com', r));
+    await delay(700);
+    document.getElementById('step2Next').click();
+
+    await delay(500);
+    await new Promise(r => typeInto('firstName', 'John', r));
+    await delay(300);
+    await new Promise(r => typeInto('lastName', 'Smith', r));
+    await delay(300);
+    await new Promise(r => typeInto('phone', '(720) 555-0147', r));
+    await delay(700);
+    document.getElementById('step3Next').click();
+
+    await delay(500);
+    await new Promise(r => typeInto('zipCode', '80202', r));
+    await delay(300);
+    await new Promise(r => typeInto('address', '1776 Larimer St', r));
+    await delay(300);
+    await new Promise(r => typeInto('city', 'Denver', r));
+    await delay(700);
+    document.getElementById('step4Next').click();
+
+    await delay(600);
+    const days = document.querySelectorAll('.calendar-day');
+    if (days[1]) { days[1].click(); await delay(650); }
+    const slots = document.querySelectorAll('.time-slot');
+    if (slots[1]) { slots[1].click(); await delay(800); }
+
+    // Finish it: submit -> booking -> confirmation, hold, then loop.
+    document.getElementById('submitBtn').click();
+    await delay(1400);   // booking spinner
+    await delay(3600);   // hold on the confirmation
+    runDemo();
+}
+
+renderCalendar();
+setTimeout(runDemo, 800);
+</script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Appointment is Confirmed | Rise Renovation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+:root {
+  --hge-blue: #e53d51;
+  --hge-navy: #0a2240;
+  --hge-green: #e53d51;
+  --hge-sky: #ff8a94;
+  --hge-white: #ffffff;
+  --hge-light: #f4f6fb;
+  --hge-gray: #6b7a99;
+  --hge-border: #d8dfe8;
+  --hge-danger: #e53e3e;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(3,18,61,.12);
+  --shadow-lg: 0 8px 40px rgba(3,18,61,.18);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--hge-light);
+  color: var(--hge-navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: .03em; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--hge-navy);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 64px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.nav-logo { height: 38px; }
+.nav-phone {
+  color: var(--hge-green); font-weight: 700; font-size: 15px;
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+}
+.nav-phone:hover { color: var(--hge-white); }
+.nav-phone svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--hge-navy) 0%, #0a1e5c 100%);
+  color: var(--hge-white); text-align: center;
+  padding: 56px 24px 48px;
+}
+.hero-check {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--hge-green); color: var(--hge-navy);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 32px; margin-bottom: 16px;
+}
+.hero h1 { font-size: 42px; line-height: 1.1; margin-bottom: 8px; }
+.hero h1 .green { color: var(--hge-green); }
+.hero p { color: rgba(255,255,255,.7); font-size: 15px; max-width: 480px; margin: 0 auto; }
+
+/* ── CARD ── */
+.card-wrap { max-width: 620px; margin: -32px auto 0; padding: 0 16px; position: relative; z-index: 2; }
+.card {
+  background: var(--hge-white); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); overflow: hidden;
+}
+.card-header {
+  background: var(--hge-navy); color: var(--hge-white);
+  padding: 20px 28px; display: flex; align-items: center; justify-content: space-between;
+}
+.card-header h3 { font-size: 22px; }
+.card-badge {
+  background: var(--hge-green); color: var(--hge-navy);
+  font-size: 11px; font-weight: 700; padding: 4px 12px;
+  border-radius: 20px; text-transform: uppercase;
+}
+.card-body { padding: 28px; }
+.card-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-bottom: 24px;
+}
+.card-field label {
+  display: block; font-size: 11px; text-transform: uppercase;
+  color: var(--hge-gray); font-weight: 600; margin-bottom: 4px; letter-spacing: .05em;
+}
+.card-field .val { font-size: 16px; font-weight: 700; }
+.card-field .val.big { font-size: 22px; font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; }
+.card-divider { border: none; border-top: 2px dashed var(--hge-border); margin: 0 -28px 24px; }
+.card-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.card-row .icon {
+  width: 36px; height: 36px; border-radius: 8px; display: flex;
+  align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.card-row .icon.blue { background: rgba(32,76,229,.1); }
+.card-row .detail-label { font-size: 11px; text-transform: uppercase; color: var(--hge-gray); font-weight: 600; }
+.card-row .detail-val { font-size: 14px; font-weight: 600; }
+
+/* ── CHECKBOXES ── */
+.checks { margin-top: 28px; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--hge-border);
+}
+.check-item:last-child { border-bottom: none; }
+.check-item input[type="checkbox"] {
+  width: 22px; height: 22px; margin-top: 2px; accent-color: var(--hge-green);
+  flex-shrink: 0; cursor: pointer;
+}
+.check-label { font-size: 14px; font-weight: 500; }
+.check-help { font-size: 12px; color: var(--hge-gray); margin-top: 2px; }
+.ask-jessica {
+  color: var(--hge-blue); font-weight: 600; cursor: pointer;
+  text-decoration: none; white-space: nowrap;
+}
+.ask-jessica:hover { text-decoration: underline; }
+
+/* ── ACCESS NOTES ── */
+.notes-section { margin-top: 20px; }
+.notes-section label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.notes-section textarea {
+  width: 100%; min-height: 80px; border: 2px solid var(--hge-border);
+  border-radius: 8px; padding: 12px; font-family: inherit; font-size: 14px;
+  resize: vertical; transition: border-color .2s;
+}
+.notes-section textarea:focus { outline: none; border-color: var(--hge-blue); }
+
+/* ── CTA ── */
+.cta-wrap { margin-top: 28px; text-align: center; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--hge-green); color: var(--hge-navy);
+  font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+  letter-spacing: .04em; padding: 16px 48px;
+  border: none; border-radius: 60px; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(32,252,143,.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(32,252,143,.45); }
+.cta-btn:active { transform: translateY(0); }
+.cta-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* ── CONFIRMED STATE ── */
+.confirmed-state { text-align: center; padding: 40px 28px; }
+.confirmed-state .big-check {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--hge-green); color: var(--hge-navy);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 36px; margin-bottom: 16px;
+}
+.confirmed-state h2 { font-size: 32px; margin-bottom: 8px; }
+.confirmed-state p { color: var(--hge-gray); font-size: 14px; }
+
+/* ── EXPECT SECTION ── */
+.expect {
+  max-width: 900px; margin: 56px auto; padding: 0 16px; text-align: center;
+}
+.expect h2 { font-size: 32px; margin-bottom: 32px; }
+.expect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.expect-card {
+  background: var(--hge-white); border-radius: var(--radius);
+  padding: 32px 24px; box-shadow: var(--shadow);
+  transition: transform .2s;
+}
+.expect-card:hover { transform: translateY(-4px); }
+.expect-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(32,76,229,.08); color: var(--hge-blue);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 16px;
+}
+.expect-card h4 { font-size: 20px; margin-bottom: 8px; }
+.expect-card p { font-size: 13px; color: var(--hge-gray); }
+
+/* ── TRUST ROW ── */
+.trust {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 32px;
+  max-width: 900px; margin: 0 auto 56px; padding: 0 16px;
+}
+.trust-item { text-align: center; }
+.trust-item .num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--hge-blue); }
+.trust-item .lbl { font-size: 12px; color: var(--hge-gray); font-weight: 600; text-transform: uppercase; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--hge-navy); color: rgba(255,255,255,.6);
+  text-align: center; padding: 40px 24px;
+}
+.footer-logo { height: 32px; margin-bottom: 12px; opacity: .7; }
+.footer a { color: var(--hge-sky); text-decoration: none; }
+.footer a:hover { color: var(--hge-white); }
+.footer-row { display: flex; justify-content: center; gap: 24px; font-size: 14px; margin-top: 8px; flex-wrap: wrap; }
+
+/* ── AVATAR WIDGET ── */
+.avatar-launcher {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  display: flex; align-items: center; gap: 0;
+  cursor: pointer;
+}
+.avatar-bubble {
+  background: var(--hge-navy); color: var(--hge-white);
+  padding: 10px 18px; border-radius: 20px 4px 20px 20px;
+  font-size: 13px; font-weight: 600; margin-right: -8px;
+  box-shadow: var(--shadow); white-space: nowrap;
+  animation: bubblePulse 3s ease-in-out infinite;
+}
+@keyframes bubblePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.avatar-btn {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--hge-green); border: 3px solid var(--hge-white);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-lg); position: relative; z-index: 1;
+  transition: transform .2s;
+}
+.avatar-btn:hover { transform: scale(1.08); }
+.avatar-btn img, .avatar-btn svg { width: 34px; height: 34px; border-radius: 50%; }
+
+/* Panel */
+.avatar-panel {
+  position: fixed; bottom: 24px; right: 24px; z-index: 600;
+  width: 380px; max-height: calc(100vh - 48px);
+  background: var(--hge-white); border-radius: 16px;
+  box-shadow: var(--shadow-lg); display: none; flex-direction: column;
+  overflow: hidden;
+}
+.avatar-panel.open { display: flex; }
+.avatar-panel-head {
+  background: var(--hge-navy); color: var(--hge-white);
+  padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;
+}
+.avatar-panel-head .name-row { display: flex; align-items: center; gap: 8px; }
+.avatar-panel-head .name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .04em; }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--hge-gray); display: inline-block;
+}
+.status-dot.active { background: var(--hge-green); }
+.status-text { font-size: 11px; color: rgba(255,255,255,.6); }
+.close-btn {
+  background: none; border: none; color: rgba(255,255,255,.6);
+  font-size: 22px; cursor: pointer; padding: 4px;
+}
+.close-btn:hover { color: var(--hge-white); }
+
+/* Video area */
+.avatar-video-wrap {
+  position: relative; background: #0a0f1c;
+  aspect-ratio: 16/9; overflow: hidden;
+}
+.avatar-video-wrap video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.avatar-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-placeholder .circle {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--hge-blue), var(--hge-sky));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--hge-white);
+}
+.start-overlay {
+  position: absolute; inset: 0;
+  background: rgba(3,18,61,.7); backdrop-filter: blur(4px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; color: var(--hge-white);
+}
+.start-overlay.hidden { display: none; }
+.start-overlay h4 { font-size: 24px; }
+.start-btn {
+  background: var(--hge-green); color: var(--hge-navy);
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+  padding: 12px 36px; border: none; border-radius: 40px;
+  cursor: pointer; transition: transform .15s;
+}
+.start-btn:hover { transform: scale(1.05); }
+.start-btn:disabled { opacity: .5; cursor: wait; }
+
+/* Transcript */
+.avatar-transcript {
+  flex: 1; min-height: 320px; max-height: 420px;
+  overflow-y: auto; padding: 14px 18px;
+  font-size: 13px; background: var(--hge-light);
+}
+.msg.thinking .text { color: var(--hge-gray); font-style: italic; }
+.msg { margin-bottom: 8px; }
+.msg.avatar .sender { color: var(--hge-blue); font-weight: 600; }
+.msg.user .sender { color: var(--hge-navy); font-weight: 600; }
+.msg .text { color: var(--hge-navy); }
+.msg.system { color: var(--hge-gray); font-style: italic; font-size: 12px; }
+
+/* Input row */
+.avatar-input {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px; border-top: 1px solid var(--hge-border);
+}
+.mic-btn {
+  width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--hge-border);
+  background: var(--hge-white); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; flex-shrink: 0;
+}
+.mic-btn.active { border-color: var(--hge-green); background: rgba(32,252,143,.1); }
+.mic-btn svg { width: 18px; height: 18px; }
+.text-input {
+  flex: 1; border: 2px solid var(--hge-border); border-radius: 20px;
+  padding: 8px 16px; font-family: inherit; font-size: 13px;
+  outline: none; transition: border-color .2s;
+}
+.text-input:focus { border-color: var(--hge-blue); }
+.send-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--hge-blue); border: none; color: var(--hge-white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; transition: background .2s;
+}
+.send-btn:hover { background: var(--hge-navy); }
+.send-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .nav { padding: 0 16px; }
+  .nav-logo { height: 30px; }
+  .hero { padding: 40px 16px 36px; }
+  .hero h1 { font-size: 30px; }
+  .card-grid { grid-template-columns: 1fr; gap: 14px; }
+  .card-body { padding: 20px; }
+  .expect-grid { grid-template-columns: 1fr; }
+  .trust { gap: 20px; }
+  .avatar-panel { width: calc(100vw - 16px); right: 8px; bottom: 8px; max-height: calc(100vh - 16px); }
+  .avatar-launcher { bottom: 16px; right: 16px; }
+  .cta-btn { font-size: 18px; padding: 14px 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <svg class="nav-logo" viewBox="0 0 158.58 41.49" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rise Renovation">
+    <path fill="#ffffff" d="m63.82,40.86h-9.25l-7.18-14.48h-8.1v14.48h-8.04V.63h18.73c7.59,0,13.85,4.19,13.85,12.76,0,6.03-2.59,9.83-7.7,11.84l7.7,15.63Zm-8.27-27.3c0-3.62-2.18-5.11-5.75-5.11h-10.52v10.34h10.52c3.74,0,5.75-1.72,5.75-5.23Z"></path>
+    <path fill="#ffffff" d="m80.89,40.86h-8.05V.63h8.05v40.23Z"></path>
+    <path fill="#ffffff" d="m121.29,28.68c0,7.64-4.83,12.82-15.8,12.82-6.72,0-12.58-2.82-15.63-7.3l5.8-5.17c2.82,3.28,6.44,4.6,10.29,4.6,4.77,0,7.01-1.32,7.01-4.37,0-2.59-1.38-3.74-8.97-5.46-7.41-1.72-12.58-4.08-12.58-12.01,0-7.3,6.44-11.78,14.37-11.78,6.26,0,10.86,2.36,14.65,6.32l-5.8,5.63c-2.59-2.64-5.46-4.14-9.14-4.14-4.31,0-5.75,1.84-5.75,3.62,0,2.53,1.72,3.33,8.1,4.83,6.38,1.49,13.45,3.68,13.45,12.41Z"></path>
+    <path fill="#ffffff" d="m158.58,40.86h-28.79V.63h27.93v7.87h-19.88v6.95h11.55v7.82h-11.55v9.71h20.75v7.87Z"></path>
+    <path fill="#e53d51" d="m22.12,41.49h-8.3V8.3L22.12,0v41.49Z"></path>
+    <path fill="#e53d51" d="m11.05,41.49h-5.53v-24.9l5.53-5.53v30.43Z"></path>
+    <path fill="#e53d51" d="m2.76,41.49H0v-19.37l2.76-2.76v22.14Z"></path>
+  </svg>
+  <a href="tel:+17205550147" class="nav-phone">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+    (720) 555-0147
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-check">&#10003;</div>
+  <h1>HI JOHN, <span class="green">YOU'RE ALL SET</span></h1>
+  <p>Your appointment has been scheduled. Please review the details below and confirm.</p>
+</section>
+
+<!-- APPOINTMENT CARD -->
+<div class="card-wrap">
+  <div class="card" id="apptCard">
+    <div class="card-header">
+      <h3>APPOINTMENT DETAILS</h3>
+      <span class="card-badge">Scheduled</span>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="card-grid">
+        <div class="card-field">
+          <label>Date</label>
+          <div class="val big">FRIDAY, MAY 16</div>
+        </div>
+        <div class="card-field">
+          <label>Time</label>
+          <div class="val big">10:00 AM</div>
+        </div>
+        <div class="card-field">
+          <label>Service</label>
+          <div class="val">Free Bathroom Remodel Estimate</div>
+        </div>
+        <div class="card-field">
+          <label>Location</label>
+          <div class="val">Denver, CO</div>
+        </div>
+      </div>
+
+      <hr class="card-divider">
+
+      <div class="card-row">
+        <div class="icon blue">&#128100;</div>
+        <div>
+          <div class="detail-label">Your Representative</div>
+          <div class="detail-val">Marcus Chen</div>
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="icon blue">&#128231;</div>
+        <div>
+          <div class="detail-label">Contact</div>
+          <div class="detail-val">marcus@riserenovation.com</div>
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="icon blue">&#128222;</div>
+        <div>
+          <div class="detail-label">Phone</div>
+          <div class="detail-val">(720) 555-0147</div>
+        </div>
+      </div>
+
+      <hr class="card-divider">
+
+      <!-- Checkboxes -->
+      <div class="checks">
+        <div class="check-item">
+          <input type="checkbox" id="chkDate">
+          <div>
+            <div class="check-label">Friday, May 16 at 10:00 AM works for me</div>
+            <div class="check-help">Need a different time? <a class="ask-jessica" data-prompt="I need to reschedule my appointment to a different date or time. Can you help?">Ask Jessica &rarr;</a></div>
+          </div>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chkOwner">
+          <div>
+            <div class="check-label">All homeowners will be present</div>
+            <div class="check-help">Both homeowners must be present for the estimate. <a class="ask-jessica" data-prompt="Why do all homeowners need to be present for the estimate?">Ask Jessica &rarr;</a></div>
+          </div>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="chkAddr">
+          <div>
+            <div class="check-label">My address in Denver, CO is correct</div>
+            <div class="check-help">Wrong address? <a class="ask-jessica" data-prompt="The address on my appointment is incorrect. I need to update it.">Ask Jessica &rarr;</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Access Notes -->
+      <div class="notes-section">
+        <label for="accessNotes">Gate codes, dog in yard, or other access notes?</label>
+        <textarea id="accessNotes" placeholder="e.g. Gate code is #1234, please park on the street..."></textarea>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <button class="cta-btn" id="confirmBtn" disabled>&#10003; YES &mdash; CONFIRM MY APPOINTMENT</button>
+        <p id="ctaHint" style="font-size:12px;color:var(--hge-gray);margin-top:8px;">Please check all three boxes above to confirm</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT TO EXPECT -->
+<section class="expect">
+  <h2>WHAT TO EXPECT</h2>
+  <div class="expect-grid">
+    <div class="expect-card">
+      <div class="expect-icon">&#128337;</div>
+      <h4>ON-TIME ARRIVAL</h4>
+      <p>Your rep Marcus will arrive right at your scheduled time. You'll get a text 30 minutes before.</p>
+    </div>
+    <div class="expect-card">
+      <div class="expect-icon">&#128269;</div>
+      <h4>FULL INSPECTION</h4>
+      <p>A complete exterior inspection using drone imaging and on-the-ground assessment. Takes about 45 minutes.</p>
+    </div>
+    <div class="expect-card">
+      <div class="expect-icon">&#128196;</div>
+      <h4>SAME-DAY ESTIMATE</h4>
+      <p>You'll receive a detailed written estimate before Marcus leaves. No pressure, no obligation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST ROW -->
+<div class="trust">
+  <div class="trust-item">
+    <div class="num">12,000+</div>
+    <div class="lbl">Jobs Completed</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">A+</div>
+    <div class="lbl">BBB Rating</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">PLATINUM</div>
+    <div class="lbl">Warranties</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">FREE</div>
+    <div class="lbl">No-Obligation Estimate</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <svg class="footer-logo" viewBox="0 0 158.58 41.49" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rise Renovation">
+    <path fill="rgba(255,255,255,.7)" d="m63.82,40.86h-9.25l-7.18-14.48h-8.1v14.48h-8.04V.63h18.73c7.59,0,13.85,4.19,13.85,12.76,0,6.03-2.59,9.83-7.7,11.84l7.7,15.63Zm-8.27-27.3c0-3.62-2.18-5.11-5.75-5.11h-10.52v10.34h10.52c3.74,0,5.75-1.72,5.75-5.23Z"></path>
+    <path fill="rgba(255,255,255,.7)" d="m80.89,40.86h-8.05V.63h8.05v40.23Z"></path>
+    <path fill="rgba(255,255,255,.7)" d="m121.29,28.68c0,7.64-4.83,12.82-15.8,12.82-6.72,0-12.58-2.82-15.63-7.3l5.8-5.17c2.82,3.28,6.44,4.6,10.29,4.6,4.77,0,7.01-1.32,7.01-4.37,0-2.59-1.38-3.74-8.97-5.46-7.41-1.72-12.58-4.08-12.58-12.01,0-7.3,6.44-11.78,14.37-11.78,6.26,0,10.86,2.36,14.65,6.32l-5.8,5.63c-2.59-2.64-5.46-4.14-9.14-4.14-4.31,0-5.75,1.84-5.75,3.62,0,2.53,1.72,3.33,8.1,4.83,6.38,1.49,13.45,3.68,13.45,12.41Z"></path>
+    <path fill="rgba(255,255,255,.7)" d="m158.58,40.86h-28.79V.63h27.93v7.87h-19.88v6.95h11.55v7.82h-11.55v9.71h20.75v7.87Z"></path>
+    <path fill="#e53d51" d="m22.12,41.49h-8.3V8.3L22.12,0v41.49Z"></path>
+    <path fill="#e53d51" d="m11.05,41.49h-5.53v-24.9l5.53-5.53v30.43Z"></path>
+    <path fill="#e53d51" d="m2.76,41.49H0v-19.37l2.76-2.76v22.14Z"></path>
+  </svg>
+  <div class="footer-row">
+    <a href="tel:+17205550147">(720) 555-0147</a>
+    <a href="https://riserenovation.com" target="_blank" rel="noopener">riserenovation.com</a>
+  </div>
+</footer>
+
+<!-- AVATAR WIDGET: Launcher -->
+<div class="avatar-launcher" id="avatarLauncher">
+  <div class="avatar-bubble">Have a question? Ask Ava</div>
+  <div class="avatar-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#0a2240" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </div>
+</div>
+
+<!-- AVATAR WIDGET: Panel -->
+<div class="avatar-panel" id="avatarPanel">
+  <div class="avatar-panel-head">
+    <div class="name-row">
+      <span class="name">AVA</span>
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-text" id="statusText">Offline</span>
+    </div>
+    <button class="close-btn" id="closePanel">&times;</button>
+  </div>
+
+  <div class="avatar-transcript" id="transcript"></div>
+
+  <div class="avatar-input">
+    <input type="text" class="text-input" id="textInput" placeholder="Ask about your appointment or a project&hellip;">
+    <button class="send-btn" id="sendBtn" title="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ── Ava's briefing (leading turn Claude always sees) ── */
+  var AVA_BRIEFING = "You are Ava, the friendly on-page assistant for Rise Renovation, a home "
+    + "renovation company serving the Denver, CO metro area. A homeowner named John Smith just "
+    + "booked a free estimate — Bathroom Remodel — for Friday at 10:00 AM at 1776 Larimer St, "
+    + "Denver, CO with rep Marcus Chen (marcus@riserenovation.com, (720) 555-0147). Rise's "
+    + "services are: Windows, Doors, Siding, Roofing, Bathrooms, Gutters, and Attic Insulation. "
+    + "Answer the homeowner's questions about their appointment or these services warmly and "
+    + "concisely — 2-3 sentences unless they ask for more detail. If asked something you can't "
+    + "know (pricing, scheduling changes), tell them to call (720) 555-0147 or that Marcus will "
+    + "cover it on-site. Never claim to be human.";
+
+  /* ── DOM refs ── */
+  var launcher     = document.getElementById('avatarLauncher');
+  var panel        = document.getElementById('avatarPanel');
+  var closeBtn     = document.getElementById('closePanel');
+  var transcript   = document.getElementById('transcript');
+  var textInput    = document.getElementById('textInput');
+  var sendBtn      = document.getElementById('sendBtn');
+  var statusDot    = document.getElementById('statusDot');
+  var statusText   = document.getElementById('statusText');
+  var confirmBtn   = document.getElementById('confirmBtn');
+  var ctaHint      = document.getElementById('ctaHint');
+  var chkDate      = document.getElementById('chkDate');
+  var chkOwner     = document.getElementById('chkOwner');
+  var chkAddr      = document.getElementById('chkAddr');
+  var accessNotes  = document.getElementById('accessNotes');
+  var cardBody     = document.getElementById('cardBody');
+  var apptCard     = document.getElementById('apptCard');
+
+  var sampleFn = null;      // resolved claude.use("sample"), or null if unavailable
+  var turns = [];           // {role, content} history sent to sample()
+  var greeted = false;
+  var sending = false;
+
+  /* ── Helpers ── */
+  function setStatus(text, active) {
+    statusText.textContent = text;
+    statusDot.classList.toggle('active', !!active);
+  }
+
+  function addMsg(role, text) {
+    var div = document.createElement('div');
+    div.className = 'msg ' + role;
+    if (role === 'system') {
+      div.textContent = text;
+    } else {
+      div.innerHTML = '<span class="sender">' + (role === 'avatar' ? 'Ava' : 'You') + ':</span> <span class="text">' + escHtml(text) + '</span>';
+    }
+    transcript.appendChild(div);
+    transcript.scrollTop = transcript.scrollHeight;
+    return div;
+  }
+
+  function escHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  /* ── Panel open/close ── */
+  function openPanel() {
+    launcher.style.display = 'none';
+    panel.classList.add('open');
+    if (!greeted) { greeted = true; initAva(); }
+  }
+
+  function closePanel_() {
+    panel.classList.remove('open');
+    launcher.style.display = 'flex';
+  }
+
+  launcher.addEventListener('click', openPanel);
+  closeBtn.addEventListener('click', closePanel_);
+
+  /* ── Boot the sample capability, then greet ── */
+  async function initAva() {
+    setStatus('Connecting', false);
+    try {
+      sampleFn = window.claude && typeof window.claude.use === 'function'
+        ? await window.claude.use('sample')
+        : null;
+    } catch (e) {
+      sampleFn = null;
+    }
+
+    if (!sampleFn) {
+      setStatus('Unavailable here', false);
+      addMsg('system', "Ava's live chat only runs inside a published Claude artifact preview — this copy can't reach Claude.");
+      return;
+    }
+
+    setStatus('Online', true);
+    await askAva("Introduce yourself in one short sentence and ask how you can help with John's upcoming bathroom remodel appointment.", { silent: true });
+  }
+
+  /* ── Ask Ava (drives both typed messages and the "Ask Ava" links) ── */
+  async function askAva(userText, opts) {
+    opts = opts || {};
+    if (!sampleFn || sending) return;
+    sending = true;
+
+    if (!opts.silent) addMsg('user', userText);
+    turns.push({ role: 'user', content: userText });
+
+    setStatus('Thinking…', true);
+    var thinkingEl = addMsg('avatar', 'Thinking…');
+    thinkingEl.classList.add('thinking');
+
+    try {
+      var result = await sampleFn(
+        [{ role: 'user', content: AVA_BRIEFING }].concat(turns),
+        {
+          modelTier: 'quick',
+          cache: false,
+          onText: function (u) {
+            thinkingEl.classList.remove('thinking');
+            thinkingEl.querySelector('.text').textContent = u.text;
+            transcript.scrollTop = transcript.scrollHeight;
+          },
+        }
+      );
+      turns.push({ role: 'assistant', content: result.text });
+      setStatus('Online', true);
+    } catch (err) {
+      thinkingEl.remove();
+      var code = err && err.code;
+      if (code === 'not_granted') {
+        addMsg('system', "You'll need to allow this artifact to use Claude to chat with Ava.");
+      } else if (code === 'rate_limited') {
+        addMsg('system', 'Ava is getting a lot of questions right now — try again in a moment.');
+      } else {
+        addMsg('system', "Ava couldn't respond just now. Try again, or call (720) 555-0147.");
+      }
+      setStatus('Online', true);
+    } finally {
+      sending = false;
+    }
+  }
+
+  /* ── Send text message ── */
+  function sendText() {
+    var text = textInput.value.trim();
+    if (!text) return;
+    textInput.value = '';
+    askAva(text);
+  }
+
+  sendBtn.addEventListener('click', sendText);
+  textInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendText();
+    }
+  });
+
+  /* ── Ask Ava links (reschedule / homeowners / address) ── */
+  document.querySelectorAll('.ask-jessica').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var prompt = this.getAttribute('data-prompt');
+      openPanel();
+      if (prompt) askAva(prompt);
+    });
+  });
+
+  /* ── Checkbox / CTA logic ── */
+  function updateCta() {
+    var allChecked = chkDate.checked && chkOwner.checked && chkAddr.checked;
+    confirmBtn.disabled = !allChecked;
+    ctaHint.style.display = allChecked ? 'none' : '';
+  }
+  chkDate.addEventListener('change', updateCta);
+  chkOwner.addEventListener('change', updateCta);
+  chkAddr.addEventListener('change', updateCta);
+
+  confirmBtn.addEventListener('click', function() {
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'CONFIRMING...';
+
+    setTimeout(function() {
+      cardBody.innerHTML = '';
+      var conf = document.createElement('div');
+      conf.className = 'confirmed-state';
+      conf.innerHTML = '<div class="big-check">&#10003;</div>'
+        + '<h2>APPOINTMENT CONFIRMED</h2>'
+        + '<p>You\'re all set for Friday, May 16 at 10:00 AM.<br>Marcus Chen will see you in Denver, CO.</p>';
+      cardBody.appendChild(conf);
+
+      var badge = apptCard.querySelector('.card-badge');
+      if (badge) {
+        badge.textContent = 'Confirmed';
+        badge.style.background = '#e53d51';
+      }
+
+      if (sampleFn && greeted) {
+        askAva('The customer just confirmed their appointment. Thank them warmly in one sentence and tell them what happens next.', { silent: false });
+      }
+    }, 700);
+  });
+
+  /* ── Auto-open widget ── */
+  setTimeout(openPanel, 400);
+
+})();
+</script>
+</body>
+</html>
