@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Speed-to-Lead Call - Rise Renovation</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0a2240; --coral:#e53d51; --white:#ffffff;
+  --light-gray:#f5f5f5; --medium-gray:#e0e0e0;
+  --text-dark:#333333; --text-light:#666666; --success-green:#388e3c;
+  --radius-md:8px; --radius-lg:12px;
+}
+body {
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#000; color:var(--text-dark); line-height:1.6; min-height:100vh;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:20px 16px 40px; position:relative;
+}
+body::before {
+  content:''; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:700px; height:700px;
+  background:radial-gradient(ellipse at center, rgba(229,61,81,.16) 0%, rgba(10,34,64,.16) 40%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.container {
+  width:100%; max-width:480px; background:white; border-radius:16px;
+  box-shadow:0 0 0 1px rgba(229,61,81,.15), 0 8px 32px rgba(0,0,0,.6), 0 0 80px rgba(229,61,81,.08);
+  overflow:hidden; position:relative; z-index:1;
+}
+.header { background:var(--navy); padding:22px 20px 18px; text-align:center; border-bottom:3px solid var(--coral); }
+.header-logo { height:28px; width:auto; }
+.logo-tag { display:block; font-size:11px; font-weight:600; color:rgba(255,255,255,.75); letter-spacing:3.5px; text-transform:uppercase; margin-top:8px; }
+
+.call-strip { background:var(--light-gray); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--medium-gray); }
+.call-strip .label { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-light); }
+.call-strip .timer { font-size:20px; font-weight:800; color:var(--navy); font-variant-numeric:tabular-nums; }
+.call-strip .timer.done { color:var(--success-green); }
+
+.status-row { padding:20px 20px 6px; display:flex; align-items:center; gap:12px; }
+.agent-avatar {
+  width:52px; height:52px; border-radius:50%; background:var(--navy); color:var(--white);
+  display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800;
+  flex-shrink:0; position:relative;
+}
+.agent-avatar::after {
+  content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--coral);
+  opacity:0; animation:none;
+}
+.agent-avatar.ringing::after { opacity:1; animation:pulse 1s ease-out infinite; }
+@keyframes pulse { 0%{transform:scale(.9);opacity:.8} 100%{transform:scale(1.35);opacity:0} }
+.status-copy .agent-name { font-size:15px; font-weight:700; color:var(--navy); }
+.status-copy .status-text { font-size:13px; color:var(--text-light); display:flex; align-items:center; gap:6px; }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--medium-gray); flex-shrink:0; }
+.dot.live { background:var(--coral); animation:blink 1s ease-in-out infinite; }
+.dot.confirmed { background:var(--success-green); animation:none; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.transcript { padding:16px 20px 8px; display:flex; flex-direction:column; gap:10px; min-height:260px; }
+.bubble { max-width:82%; padding:11px 14px; border-radius:14px; font-size:14px; line-height:1.5; opacity:0; transform:translateY(6px); animation:bubbleIn .35s ease forwards; }
+.bubble .who { display:block; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-bottom:3px; opacity:.65; }
+.bubble.agent { align-self:flex-start; background:var(--light-gray); color:var(--text-dark); border-bottom-left-radius:4px; }
+.bubble.caller { align-self:flex-end; background:var(--navy); color:var(--white); border-bottom-right-radius:4px; }
+@keyframes bubbleIn { to { opacity:1; transform:translateY(0); } }
+
+.typing-indicator { align-self:flex-start; display:none; gap:4px; padding:11px 14px; background:var(--light-gray); border-radius:14px; border-bottom-left-radius:4px; }
+.typing-indicator.show { display:flex; }
+.typing-indicator span { width:6px; height:6px; border-radius:50%; background:var(--text-light); animation:tdot 1.1s ease-in-out infinite; }
+.typing-indicator span:nth-child(2) { animation-delay:.15s; }
+.typing-indicator span:nth-child(3) { animation-delay:.3s; }
+@keyframes tdot { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-4px);opacity:1} }
+
+.result-banner {
+  margin:16px 20px 0; padding:16px; border-radius:var(--radius-lg); text-align:center;
+  background:rgba(56,142,60,.08); border:1px solid rgba(56,142,60,.3);
+  opacity:0; max-height:0; overflow:hidden; transition:opacity .4s ease, max-height .4s ease, padding .4s ease, margin .4s ease;
+}
+.result-banner.show { opacity:1; max-height:140px; padding:16px; margin:16px 20px 0; }
+.result-check { width:38px; height:38px; margin:0 auto 8px; border-radius:50%; background:var(--success-green); color:white; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; }
+.result-title { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+.result-sub { font-size:12px; color:var(--text-light); }
+
+.next-step {
+  margin:14px 20px 24px; padding:14px 16px; border-radius:var(--radius-md); border:2px dashed var(--medium-gray);
+  display:flex; align-items:center; gap:12px; opacity:0; max-height:0; overflow:hidden;
+  transition:opacity .4s ease .2s, max-height .4s ease .2s, margin .4s ease .2s;
+}
+.next-step.show { opacity:1; max-height:100px; margin:14px 20px 24px; }
+.next-step .env { font-size:22px; flex-shrink:0; }
+.next-step .copy .t1 { font-size:13px; font-weight:700; color:var(--navy); }
+.next-step .copy .t2 { font-size:11px; color:var(--text-light); }
+
+.footnote { text-align:center; font-size:11px; color:#999; padding:0 20px 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <svg class="header-logo" viewBox="0 0 158.58 41.49" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rise Renovation">
+      <path fill="#ffffff" d="m63.82,40.86h-9.25l-7.18-14.48h-8.1v14.48h-8.04V.63h18.73c7.59,0,13.85,4.19,13.85,12.76,0,6.03-2.59,9.83-7.7,11.84l7.7,15.63Zm-8.27-27.3c0-3.62-2.18-5.11-5.75-5.11h-10.52v10.34h10.52c3.74,0,5.75-1.72,5.75-5.23Z"></path>
+      <path fill="#ffffff" d="m80.89,40.86h-8.05V.63h8.05v40.23Z"></path>
+      <path fill="#ffffff" d="m121.29,28.68c0,7.64-4.83,12.82-15.8,12.82-6.72,0-12.58-2.82-15.63-7.3l5.8-5.17c2.82,3.28,6.44,4.6,10.29,4.6,4.77,0,7.01-1.32,7.01-4.37,0-2.59-1.38-3.74-8.97-5.46-7.41-1.72-12.58-4.08-12.58-12.01,0-7.3,6.44-11.78,14.37-11.78,6.26,0,10.86,2.36,14.65,6.32l-5.8,5.63c-2.59-2.64-5.46-4.14-9.14-4.14-4.31,0-5.75,1.84-5.75,3.62,0,2.53,1.72,3.33,8.1,4.83,6.38,1.49,13.45,3.68,13.45,12.41Z"></path>
+      <path fill="#ffffff" d="m158.58,40.86h-28.79V.63h27.93v7.87h-19.88v6.95h11.55v7.82h-11.55v9.71h20.75v7.87Z"></path>
+      <path fill="#e53d51" d="m22.12,41.49h-8.3V8.3L22.12,0v41.49Z"></path>
+      <path fill="#e53d51" d="m11.05,41.49h-5.53v-24.9l5.53-5.53v30.43Z"></path>
+      <path fill="#e53d51" d="m2.76,41.49H0v-19.37l2.76-2.76v22.14Z"></path>
+    </svg>
+    <span class="logo-tag">Speed-to-Lead · Live Call</span>
+  </div>
+
+  <div class="call-strip">
+    <span class="label" id="stripLabel">Time since form submitted</span>
+    <span class="timer" id="timer">0:00</span>
+  </div>
+
+  <div class="status-row">
+    <div class="agent-avatar" id="agentAvatar">AI</div>
+    <div class="status-copy">
+      <div class="agent-name">Ava · Rise Renovation Voice Agent</div>
+      <div class="status-text"><span class="dot" id="statusDot"></span><span id="statusText">Waiting for new lead&hellip;</span></div>
+    </div>
+  </div>
+
+  <div class="transcript" id="transcript">
+    <div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="result-banner" id="resultBanner">
+    <div class="result-check">&#10003;</div>
+    <div class="result-title">Appointment confirmed on the call</div>
+    <div class="result-sub" id="resultSub">Answered and booked in <b>0s</b> — no hold, no callback queue.</div>
+  </div>
+
+  <div class="next-step" id="nextStep">
+    <div class="env">&#9993;&#65039;</div>
+    <div class="copy">
+      <div class="t1">Confirmation email sent</div>
+      <div class="t2">John gets the recap while he's still on the porch.</div>
+    </div>
+  </div>
+
+  <div class="footnote">Demo call · scripted for presentation, not a live line</div>
+</div>
+
+<script>
+const transcript = document.getElementById('transcript');
+const typingIndicator = document.getElementById('typingIndicator');
+const timerEl = document.getElementById('timer');
+const agentAvatar = document.getElementById('agentAvatar');
+const statusDot = document.getElementById('statusDot');
+const statusText = document.getElementById('statusText');
+const resultBanner = document.getElementById('resultBanner');
+const nextStep = document.getElementById('nextStep');
+const resultSub = document.getElementById('resultSub');
+const stripLabel = document.getElementById('stripLabel');
+
+const SCRIPT = [
+  { who:'agent',  text:"Hi, this is Ava with Rise Renovation — I see you just requested a free estimate for a bathroom remodel. Got 30 seconds?" },
+  { who:'caller', text:"Oh wow, that was fast. Yeah, sure." },
+  { who:'agent',  text:"Great! I've got you down for Friday at 10:00 AM at 1776 Larimer St in Denver. Does that still work?" },
+  { who:'caller', text:"Yep, that works." },
+  { who:'agent',  text:"Perfect — you're all set, and I'm sending a confirmation to your email right now. Anything else I can help with?" },
+  { who:'caller', text:"Nope, that's it. Thanks!" },
+];
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+let seconds = 0;
+let timerHandle = null;
+function startTimer() {
+  seconds = 0;
+  timerEl.textContent = '0:00';
+  timerEl.classList.remove('done');
+  timerHandle = setInterval(() => {
+    seconds++;
+    const m = Math.floor(seconds / 60), s = seconds % 60;
+    timerEl.textContent = m + ':' + String(s).padStart(2, '0');
+  }, 1000);
+}
+function stopTimer() { clearInterval(timerHandle); timerEl.classList.add('done'); }
+
+function addBubble(who, text) {
+  const b = document.createElement('div');
+  b.className = 'bubble ' + who;
+  b.innerHTML = '<span class="who">' + (who === 'agent' ? 'Ava · AI Agent' : 'John (Caller)') + '</span>' + text;
+  transcript.insertBefore(b, typingIndicator);
+  transcript.scrollTop = transcript.scrollHeight;
+}
+
+async function showTyping(ms) {
+  typingIndicator.classList.add('show');
+  transcript.scrollTop = transcript.scrollHeight;
+  await delay(ms);
+  typingIndicator.classList.remove('show');
+}
+
+function resetDemo() {
+  transcript.querySelectorAll('.bubble').forEach(b => b.remove());
+  typingIndicator.classList.remove('show');
+  agentAvatar.classList.remove('ringing');
+  statusDot.className = 'dot';
+  statusText.textContent = 'Waiting for new lead…';
+  resultBanner.classList.remove('show');
+  nextStep.classList.remove('show');
+  stripLabel.textContent = 'Time since form submitted';
+  timerEl.classList.remove('done');
+  clearInterval(timerHandle);
+  timerEl.textContent = '0:00';
+}
+
+async function runDemo() {
+  resetDemo();
+  await delay(1200);
+
+  // Lead just came in — start the speed-to-lead clock immediately.
+  startTimer();
+  statusText.textContent = 'New lead: bathroom remodel — Denver, CO';
+  await delay(1400);
+
+  agentAvatar.classList.add('ringing');
+  statusDot.className = 'dot live';
+  statusText.textContent = 'Dialing John Smith…';
+  await delay(1800);
+
+  agentAvatar.classList.remove('ringing');
+  statusText.textContent = 'Connected — on the call';
+
+  for (const line of SCRIPT) {
+    await showTyping(700 + Math.random() * 400);
+    addBubble(line.who, line.text);
+    await delay(550);
+  }
+
+  await delay(400);
+  stopTimer();
+  statusDot.className = 'dot confirmed';
+  statusText.textContent = 'Call complete — booked';
+  resultSub.innerHTML = 'Answered and booked in <b>' + seconds + 's</b> — no hold, no callback queue.';
+  resultBanner.classList.add('show');
+  await delay(700);
+  nextStep.classList.add('show');
+
+  await delay(4200);
+  runDemo();
+}
+
+setTimeout(runDemo, 600);
+</script>
+</body>
+</html>
