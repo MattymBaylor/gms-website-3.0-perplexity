@@ -8,6 +8,16 @@
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="/logo.svg">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}html,body{height:100%}</style>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/logo.svg">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}html,body{height:100%}</style>
 <title>The Rise Playbook</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,500;87.5,700;100,400;100,600;100,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <style>
@@ -94,8 +104,8 @@
 <div class="app">
   <nav class="side" aria-label="Chapters">
     <div class="logo"><i>■</i> RISE PLAYBOOK</div>
-    <div class="ver">v1.0 · Sept 2026 · living document</div>
-    <a class="dl" href="https://growthmindset.ai/client/rise/rise-playbook-v1.pdf" target="_blank" rel="noopener">⬇ Download PDF</a>
+    <div class="ver">v1.1 · Sept 26, 2026 · living document</div>
+    <a class="dl" href="https://growthmindset.ai/client/rise/rise-playbook-v1.1.pdf" target="_blank" rel="noopener">⬇ Download PDF</a>
     <button class="tab" data-i="0"><span class="n">◆</span><span class="t">Cover</span></button><button class="tab" data-i="1"><span class="n">≡</span><span class="t">Contents</span></button><button class="tab" data-i="2"><span class="n">1</span><span class="t">The one rule</span></button><button class="tab" data-i="3"><span class="n">2</span><span class="t">The first sixty seconds</span></button><button class="tab" data-i="4"><span class="n">3</span><span class="t">The seven-day cadence</span></button><button class="tab" data-i="5"><span class="n">4</span><span class="t">On the call</span></button><button class="tab" data-i="6"><span class="n">5</span><span class="t">Appointments, replies & credits</span></button><button class="tab" data-i="7"><span class="n">6</span><span class="t">Who does what</span></button><button class="tab" data-i="8"><span class="n">7</span><span class="t">How we know it's working</span></button>
   </nav>
   <div class="main">
@@ -103,7 +113,7 @@
 <article class="page" id="cover" data-title="Cover">
 <div class="cover-page">
   <div class="brand">Rise Renovation</div>
-  <div class="ver">Version 1.0 · September 2026<br>Living document</div>
+  <div class="ver">Version 1.1 · September 26, 2026<br>Living document</div>
   <div class="bar"></div>
   <h1>The Rise<br>Playbook</h1>
   <div class="sub"><b>Customer-First Interaction</b> · Speed to Lead · Engagement Engine · SOPs</div>
@@ -122,10 +132,10 @@
     <li>On the call <span>What to say, what to book, what to log.</span></li>
     <li>Appointments, replies and credits <span>Protecting what we booked and getting money back on bad leads.</span></li>
     <li>Who does what <span>Engine · Desk · Voice AI — every touchpoint assigned.</span></li>
-    <li>How we know it's working <span>The control system and the numbers we hold ourselves to.</span></li>
+    <li>How we know it's working <span>The control system, the numbers we hold ourselves to, and how sales are counted — gross, installed, net.</span></li>
   </ol>
   <div class="callout"><b>Applies to every purchased lead.</b> Modernize, HomeBuddy, ResultCalls, Blue Fire, Networx and whoever comes next. The vendor changes; the process does not.</div>
-  <div class="foot" hidden>The Rise Playbook · v1.0 · Source: chat jcEPaY4b, 2026-09-25 · Message wording is the September 25 starter set; the desk owns revisions.</div>
+  <div class="foot" hidden>The Rise Playbook · v1.1 · Source: chat jcEPaY4b, 2026-09-25 (v1.0) + chat be99hgGs, 2026-09-26 (v1.1: the sales numbers) · Message wording is the September 25 starter set; the desk owns revisions.</div>
 </article>
 <article class="page" id="rule" data-title="The one rule">
 <div class="kicker">1 · The one rule</div>
@@ -327,8 +337,19 @@
     <div><span class="big">6</span><small>Logged attempts (or a booked appointment) before any lead is retired</small></div>
   </div>
   <p>Any vendor that misses these for two straight weeks gets reviewed with them, then paused if it doesn't move. Volume never overrides quality.</p>
+  <h3>The sales numbers — gross, installed, net</h3>
+  <p>Every purchased lead is judged all the way through to the money, using the stages Rise already runs in Salesforce. Three numbers, three meanings — and net is the one marketing cost is measured against.</p>
+  <div class="tw"><table>
+    <tr><th style="width:18%">Number</th><th style="width:38%">What it means</th><th>Where it lives in Salesforce</th></tr>
+    <tr><td><b>Gross (signed)</b></td><td>The contract is signed at the kitchen table. Counts from the PII stage on.</td><td>Sold Amount on any won stage · report <i>Gross sales – sold $ by source</i></td></tr>
+    <tr><td><b>Installed (closed)</b></td><td>The job is installed and invoiced.</td><td>Stage = Closed Won · report <i>Net sales – installed $ by source</i></td></tr>
+    <tr><td><b>Lost after the sit</b></td><td>The project was canceled (rescission or later) or financing was declined.</td><td>Appointment Outcome = Project Canceled or Finance Decline — the Cancelled box checks itself and the Cancelled Date stamps itself · report <i>Cancels + finance declines by source</i></td></tr>
+    <tr><td><b>Net</b></td><td>Installed minus canceled. Marketing cost as a percent of net is the number the program is held to.</td><td>Lead Engine dashboard — the row under gross</td></tr>
+  </table></div>
+  <div class="callout"><b>How to keep it true — two habits, nothing to fill in.</b> Set the <b>Appointment Outcome</b> the day you know it (Accepted, Pitch Miss, No Pitch, Project Canceled, Finance Decline) and move the <b>Stage</b> the day it happens. The reports read those two fields and nothing else. Added Sept 26: the Cancelled checkbox had a typo and had never worked; it is fixed, and 2026's cancels now show.</div>
+
   <div class="callout"><b>This document evolves.</b> Wording changes when the desk improves it; steps change when the data says so. The version in the shared drive is the current one, and every change is dated. If what you're doing doesn't match this page, one of the two needs to change — say so in #leads.</div>
-  <div class="foot" hidden>The Rise Playbook · v1.0 · September 25, 2026 · Prepared by Growth Mindset AI · Source: chat jcEPaY4b</div>
+  <div class="foot" hidden>The Rise Playbook · v1.1 · September 26, 2026 · Prepared by Growth Mindset AI · Source: chat jcEPaY4b (v1.0), be99hgGs (v1.1)</div>
 </article>
     </div>
     <div class="ctl">
@@ -336,7 +357,7 @@
       <div class="prog" id="prog"></div>
       <span class="pos" id="pos"></span>
       <button class="btn" id="next">Next →</button>
-      <a class="dl sm" href="https://growthmindset.ai/client/rise/rise-playbook-v1.pdf" target="_blank" rel="noopener">⬇ PDF</a>
+      <a class="dl sm" href="https://growthmindset.ai/client/rise/rise-playbook-v1.1.pdf" target="_blank" rel="noopener">⬇ PDF</a>
     </div>
   </div>
 </div>
@@ -370,3 +391,5 @@
 
 </body>
 </html>
+
+</body></html>
