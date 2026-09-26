@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/logo.svg">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}html,body{height:100%}</style>
+<title>The Rise Playbook</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,500;87.5,700;100,400;100,600;100,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+  :root { --navy:#0f2a44; --navy2:#173b5e; --red:#c8102e; --ink:#1b2430; --muted:#5c6774; --line:#d7dde5; --paper:#ffffff; --ground:#eef1f5; --tint:#f3f6f9; --pill-live:#dff3e4; --pill-live-t:#146c2e; --pill-build:#fff1cc; --pill-build-t:#7a5200; --pill-next:#e4ecf7; --pill-next-t:#1f4a7a; --head:#0f2a44; --headt:#ffffff; --sel:#eef3f8; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --navy:#9fc2e8; --navy2:#1a2a3c; --red:#ff6b7f; --ink:#e6ebf2; --muted:#9aa6b5; --line:#2c3a4b; --paper:#121a24; --ground:#0b1119; --tint:#182230; --pill-live:#1b3a27; --pill-live-t:#8be0a4; --pill-build:#3d3110; --pill-build-t:#ffd66b; --pill-next:#1d2f45; --pill-next-t:#9fc2e8; --head:#1d3550; --headt:#e6ebf2; --sel:#1f3047; } }
+  :root[data-theme="dark"] { color-scheme: dark; --navy:#9fc2e8; --navy2:#1a2a3c; --red:#ff6b7f; --ink:#e6ebf2; --muted:#9aa6b5; --line:#2c3a4b; --paper:#121a24; --ground:#0b1119; --tint:#182230; --pill-live:#1b3a27; --pill-live-t:#8be0a4; --pill-build:#3d3110; --pill-build-t:#ffd66b; --pill-next:#1d2f45; --pill-next-t:#9fc2e8; --head:#1d3550; --headt:#e6ebf2; --sel:#1f3047; }
+  * { box-sizing:border-box; }
+  body { background: var(--ground); color: var(--ink); font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-size: 16px; line-height: 1.5; padding-block: 0; }
+  h1,h2,h3,h4 { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; margin:0; text-wrap: balance; letter-spacing:-0.01em; }
+  p { margin: 0 0 10px; max-width: 70ch; } ul,ol { margin: 4px 0 10px 20px; padding:0; } li { margin: 0 0 6px; max-width: 72ch; }
+  .app { display:grid; grid-template-columns: 220px 1fr; min-height: 100%; }
+  .side { background: var(--navy2); color:#dfe8f2; padding: 22px 14px 22px 18px; position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; overflow:auto; }
+  :root[data-theme="dark"] .side, :root:not([data-theme="light"]) .side { color: var(--ink); }
+  .side { color:#dfe8f2; } .side .logo { font-family: Archivo, sans-serif; font-weight:700; font-size: 18px; letter-spacing:.02em; color:#fff; margin-bottom: 4px; }
+  .side .logo i { color: #ff8a9a; font-style: normal; }
+  .side .ver { font-size: 12px; opacity:.7; margin-bottom: 18px; }
+  .tab { display:flex; gap: 10px; align-items:flex-start; width:100%; text-align:left; background:transparent; border:0; color: #dfe8f2; padding: 8px 8px; border-radius: 6px; cursor:pointer; font: inherit; font-size: 14px; line-height:1.25; }
+  .tab .n { font-family: Archivo, sans-serif; font-weight:700; font-size: 12px; min-width: 18px; opacity:.7; padding-top:1px; }
+  .tab:hover { background: rgba(255,255,255,.08); } .tab.on { background: rgba(255,255,255,.14); color:#fff; } .tab.on .n { color:#ff8a9a; opacity:1; }
+  .tab:focus-visible, .btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .main { padding: 24px 16px 40px; display:flex; flex-direction:column; align-items:center; gap: 14px; }
+  .book { width: 100%; max-width: 880px; }
+  .page { display:none; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 36px 40px 32px; box-shadow: 0 12px 30px rgba(15,42,68,.10); min-height: 60vh; }
+  .page.on { display:block; animation: turn .28s ease; }
+  @keyframes turn { from { opacity:0; transform: translateX(14px); } to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) { .page.on { animation:none; } }
+  .ctl { width:100%; max-width: 880px; display:flex; align-items:center; justify-content:space-between; gap: 12px; }
+  .btn { font: inherit; font-weight:600; background: var(--paper); color: var(--ink); border:1px solid var(--line); border-radius: 6px; padding: 8px 14px; cursor:pointer; }
+  .btn:hover { border-color: var(--navy); } .btn[disabled] { opacity:.4; cursor:default; }
+  .prog { flex:1; display:flex; align-items:center; gap: 6px; justify-content:center; flex-wrap:wrap; }
+  .dot { width: 22px; height: 6px; border-radius: 3px; background: var(--line); border:0; padding:0; cursor:pointer; } .dot.on { background: var(--red); } .dot.done { background: var(--navy); opacity:.55; }
+  .pos { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; min-width: 70px; text-align:right; }
+  .dl { display:flex; align-items:center; gap:8px; margin: 14px 0 6px; padding: 9px 12px; border-radius: 6px; background: #c8102e; color:#fff !important; font-weight:700; text-decoration:none; font-size: 13.5px; }
+  .dl:hover { background:#a80d26; } .dl.sm { display:none; }
+  @media (max-width: 760px) { .dl { display:none; } .dl.sm { display:inline-flex; margin:0; padding: 8px 12px; } }
+  /* content */
+  .kicker { color: var(--red); font-size: 12px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; margin-bottom: 6px; font-family: Archivo, sans-serif; }
+  h2 { font-size: 30px; color: var(--navy); margin-bottom: 8px; line-height:1.1; }
+  h3 { font-size: 18px; color: var(--navy); margin: 20px 0 8px; }
+  .lead { font-size: 18px; margin-bottom: 14px; max-width: 68ch; }
+  .rule { border:0; border-top: 2px solid var(--navy); margin: 8px 0 18px; }
+  .tw { overflow-x:auto; }
+  table { border-collapse: collapse; width:100%; margin: 8px 0 14px; font-size: 14.5px; }
+  th { background: var(--head); color: var(--headt); text-align:left; padding: 8px 10px; font-weight:700; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--tint); }
+  td i, .msg i, .callout i { color: var(--navy); font-style:normal; background: var(--sel); padding: 0 4px; border-radius: 3px; }
+  .callout { background: var(--tint); border-left: 4px solid var(--red); padding: 12px 16px; margin: 12px 0 16px; border-radius: 0 6px 6px 0; }
+  .callout b { color: var(--navy); }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 14px; }
+  .card { border:1px solid var(--line); border-radius: 6px; padding: 12px 14px; background: var(--paper); }
+  .card h4 { color: var(--navy); font-size: 15px; margin-bottom: 4px; }
+  .msg { background: var(--paper); border:1px solid var(--line); border-left: 4px solid var(--navy); border-radius: 4px; padding: 10px 14px; margin: 8px 0 12px; font-size: 15px; max-width: 72ch; }
+  .msg .lbl { font-size: 11px; letter-spacing:.12em; text-transform:uppercase; color: var(--red); font-weight:700; margin-bottom: 4px; font-family: Archivo, sans-serif; }
+  .big { font-family: Archivo, sans-serif; font-size: 34px; font-weight:700; color: var(--red); line-height:1; font-variant-numeric: tabular-nums; }
+  .stat { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 10px 0 16px; }
+  .stat div { background: var(--tint); border-radius: 6px; padding: 12px 14px; }
+  .stat small { display:block; color: var(--muted); font-size: 13px; margin-top: 6px; line-height:1.35; }
+  .toc li { margin: 8px 0; font-size: 17px; } .toc span { color: var(--muted); font-size: 14px; display:block; margin-top:2px; }
+  .pill { display:inline-block; padding: 2px 9px; border-radius: 10px; font-size: 12px; font-weight:700; white-space:nowrap; }
+  .live { background: var(--pill-live); color: var(--pill-live-t); } .build { background: var(--pill-build); color: var(--pill-build-t); } .next { background: var(--pill-next); color: var(--pill-next-t); }
+  /* cover */
+  .cover-page { background: linear-gradient(160deg, #0f2a44 0%, #163a5c 60%, #1c4a72 100%); color:#fff; border-radius: 8px; padding: 48px 44px; min-height: 60vh; display:flex; flex-direction:column; position:relative; }
+  .cover-page .brand { font-family: Archivo, sans-serif; font-size: 14px; letter-spacing:.18em; text-transform:uppercase; opacity:.85; }
+  .cover-page .ver { position:absolute; right: 44px; top: 48px; font-size: 13px; opacity:.8; text-align:right; }
+  .cover-page .bar { width: 64px; height: 6px; background: #c8102e; margin: 26px 0 26px; }
+  .cover-page h1 { font-size: clamp(44px, 8vw, 72px); line-height: 1.0; color:#fff; }
+  .cover-page .sub { font-size: 20px; margin-top: 16px; opacity:.94; } .cover-page .sub2 { font-size: 16px; margin-top: 8px; opacity:.8; }
+  .cover-page .byline { margin-top:auto; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.3); font-size: 15px; line-height:1.5; max-width: 70ch; }
+  .cover-page .byline b { color:#ffd6dc; }
+  .page#cover { padding:0; border:0; background:transparent; box-shadow:none; }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; }
+    .side { position: static; height:auto; padding: 12px 16px; display:flex; gap: 6px; overflow-x:auto; align-items:center; }
+    .side .logo, .side .ver { display:none; }
+    .tab { width:auto; white-space:nowrap; padding: 6px 10px; font-size: 13px; }
+    .tab .t { display:none; } .tab.on .t { display:inline; }
+    .page { padding: 22px 18px; } h2 { font-size: 24px; } .stat { grid-template-columns: 1fr 1fr; } .grid { grid-template-columns: 1fr; }
+    .cover-page { padding: 32px 22px; } .cover-page .ver { position: static; text-align:left; margin-bottom: 8px; }
+    .pos { display:none; }
+  }
+</style>
+
+<div class="app">
+  <nav class="side" aria-label="Chapters">
+    <div class="logo"><i>■</i> RISE PLAYBOOK</div>
+    <div class="ver">v1.0 · Sept 2026 · living document</div>
+    <a class="dl" href="https://growthmindset.ai/client/rise/rise-playbook-v1.pdf" target="_blank" rel="noopener">⬇ Download PDF</a>
+    <button class="tab" data-i="0"><span class="n">◆</span><span class="t">Cover</span></button><button class="tab" data-i="1"><span class="n">≡</span><span class="t">Contents</span></button><button class="tab" data-i="2"><span class="n">1</span><span class="t">The one rule</span></button><button class="tab" data-i="3"><span class="n">2</span><span class="t">The first sixty seconds</span></button><button class="tab" data-i="4"><span class="n">3</span><span class="t">The seven-day cadence</span></button><button class="tab" data-i="5"><span class="n">4</span><span class="t">On the call</span></button><button class="tab" data-i="6"><span class="n">5</span><span class="t">Appointments, replies & credits</span></button><button class="tab" data-i="7"><span class="n">6</span><span class="t">Who does what</span></button><button class="tab" data-i="8"><span class="n">7</span><span class="t">How we know it's working</span></button>
+  </nav>
+  <div class="main">
+    <div class="book">
+<article class="page" id="cover" data-title="Cover">
+<div class="cover-page">
+  <div class="brand">Rise Renovation</div>
+  <div class="ver">Version 1.0 · September 2026<br>Living document</div>
+  <div class="bar"></div>
+  <h1>The Rise<br>Playbook</h1>
+  <div class="sub"><b>Customer-First Interaction</b> · Speed to Lead · Engagement Engine · SOPs</div>
+  <div class="sub2">From inquiry to appointment — how we work every lead, starting now.</div>
+  <div class="byline"><b>This is an evolving process, and this is our handbook.</b> Everything in here is how Rise engages a homeowner from the second they ask for an estimate to the moment an appointment is on the calendar. It will change as we learn — this page is always the current version — but from today, this is the page everybody works from.<br><br>Prepared by Growth Mindset AI for Nick Ventura, Christina Perry and the Rise team · Sept 25, 2026</div>
+</div>
+</article>
+<article class="page" id="contents" data-title="Contents">
+<div class="kicker">Contents</div>
+  <h2>What's in the playbook</h2>
+  <hr class="rule">
+  <ol class="toc">
+    <li>The one rule <span>Be first, then be persistent — and why.</span></li>
+    <li>The first sixty seconds <span>What happens automatically, second by second, with the exact texts and email.</span></li>
+    <li>The seven-day cadence <span>Six calls, three texts, three emails. Who does which.</span></li>
+    <li>On the call <span>What to say, what to book, what to log.</span></li>
+    <li>Appointments, replies and credits <span>Protecting what we booked and getting money back on bad leads.</span></li>
+    <li>Who does what <span>Engine · Desk · Voice AI — every touchpoint assigned.</span></li>
+    <li>How we know it's working <span>The control system and the numbers we hold ourselves to.</span></li>
+  </ol>
+  <div class="callout"><b>Applies to every purchased lead.</b> Modernize, HomeBuddy, ResultCalls, Blue Fire, Networx and whoever comes next. The vendor changes; the process does not.</div>
+  <div class="foot" hidden>The Rise Playbook · v1.0 · Source: chat jcEPaY4b, 2026-09-25 · Message wording is the September 25 starter set; the desk owns revisions.</div>
+</article>
+<article class="page" id="rule" data-title="The one rule">
+<div class="kicker">1 · The one rule</div>
+  <h2>Be first, then be persistent.</h2>
+  <hr class="rule">
+  <p class="lead">A homeowner who fills out a form is talking to three or four contractors at once. The first one to reach them wins the appointment about 80% of the time. After that first minute, the winner is whoever keeps showing up — six attempts across seven days, on more than one channel — without becoming a pest.</p>
+  <div class="stat">
+    <div><span class="big">30s</span><small>Vendor-graded standard for first contact. Rise texts and emails in about 6 seconds.</small></div>
+    <div><span class="big">4×</span><small>Lift in contact rate from calling within the first minute versus the first hour.</small></div>
+    <div><span class="big">80%</span><small>Of the time, the first contractor to make contact gets the appointment.</small></div>
+    <div><span class="big">50%</span><small>Of homeowners prefer text or email to a phone call. The text opens the door; the call walks through it.</small></div>
+  </div>
+  <h3>Three habits that make the rule real</h3>
+  <ul>
+    <li><b>Dial the second it lands.</b> The #leads alert and the Salesforce list are the signal. Two calls back to back ("double tap"), then move on.</li>
+    <li><b>Never skip a day of the cadence.</b> The task list decides what gets called today, not memory.</li>
+    <li><b>Log it or it didn't happen.</b> Every attempt in Salesforce the moment it ends — that record is also how we win credits from the vendor.</li>
+  </ul>
+</article>
+<article class="page" id="sixty-seconds" data-title="The first sixty seconds">
+<div class="kicker">2 · The first sixty seconds</div>
+  <h2>What happens automatically</h2>
+  <hr class="rule">
+  <div class="tw"><table>
+    <tr><th style="width:15%">Time</th><th>What happens</th><th style="width:16%">Who / what</th></tr>
+    <tr><td><b>0:00</b></td><td>Homeowner submits a request on a vendor site.</td><td>Vendor</td></tr>
+    <tr><td>0:00–0:02</td><td>Vendor posts the lead to Rise's lead engine. It checks the ZIP is in our service area, the phone and email are valid, the consent record is present, and that it isn't a duplicate.</td><td>Engine</td></tr>
+    <tr><td>0:02–0:05</td><td>Lead is created in Salesforce and assigned to the confirmation desk. Salesforce posts it to #leads: <i>New lead · Modernize · 11:04 AM MT · name · Denver 80205 · Windows</i>.</td><td>Salesforce</td></tr>
+    <tr><td><b>0:05–0:08</b></td><td><b>Text #1 and Email #1 go to the homeowner.</b> Salesforce logs "Auto text + email sent" on the lead.</td><td>Engine</td></tr>
+    <tr><td>0:08–1:00</td><td>Desk sees the alert and <b>dials — twice, back to back.</b></td><td>Desk</td></tr>
+    <tr><td>+4 hours</td><td>No reply and no contact yet → <b>Text #2</b>, the no-reply nudge.</td><td>Engine</td></tr>
+    <tr><td>Any time</td><td>Homeowner texts back → logged on the lead in Salesforce ("Text reply: …") and posted to #leads → <b>call them.</b></td><td>Engine → Desk</td></tr>
+    <tr><td>On booking</td><td>Homeowner replies YES (or the desk books) → confirmation text.</td><td>Engine</td></tr>
+  </table></div>
+  <div class="callout"><b>Measured on the live system, Sept 25:</b> Slack alert, text, email and the Salesforce log all completed <b>6 seconds</b> after the lead was created. Vendors grade contractors on contact within 30 seconds and a text within 2 minutes of a missed call. Rise does both before a human has picked up the phone.</div>
+
+  <h3>The messages, word for word</h3>
+  <p style="color:var(--muted); font-size:9.5pt">All texts come from Rise's toll-free (866) 528-7644; the desk line (303) 827-0610 is named inside the text so the homeowner recognizes the callback. Texts send 8am–9pm Mountain only (anything later queues for 8am). Every first text carries STOP; opt-outs are honored instantly across every lead with that number. <i>[first name]</i>, <i>[product]</i>, <i>[street]</i> fill from the lead.</p>
+
+  <div class="msg"><div class="lbl">Text #1 — the instant you're in (second 5)</div>Hi <i>[first name]</i>, it's Christina at Rise Renovation — we got your request for a free <i>[windows]</i> estimate at <i>[street]</i>. I'm calling you now from (303) 827-0610. If now's not good, reply with a day and time that works. Reply STOP to opt out.</div>
+
+  <div class="msg"><div class="lbl">Email #1 — same second · from the Rise mailbox, reply-to Christina · Subject: Your windows quote request — Rise Renovation</div>
+  Hi <i>[first name]</i>,<br><br>This is Christina at Rise Renovation. We received your request for a <i>[windows]</i> estimate in <i>[city]</i>, and I'm calling you now from (303) 827-0610.<br><br>If now isn't a good time, just reply to this email or text me at (303) 827-0610 with a day and time that works and I'll get you on the calendar.<br><br>Talk soon,<br>Christina Perry · Confirmation Desk · Rise Renovation · (303) 827-0610</div>
+
+  <div class="msg"><div class="lbl">Text #2 — no reply after 4 hours</div>Still want the free <i>[windows]</i> estimate from Rise Renovation? Reply YES or a day that works (e.g. THU PM). Reply STOP to opt out.</div>
+
+  <div class="msg"><div class="lbl">Missed-call text — homeowner called back and missed us</div>Rise Renovation — sorry we missed your call about a <i>[windows]</i> estimate. Reply with a good time today and we'll call right back. Reply STOP to opt out.</div>
+
+  <div class="msg"><div class="lbl">Acknowledgement — homeowner texts a day or time</div>Thanks <i>[first name]</i> — a Rise scheduler will text you shortly with times for your <i>[windows]</i> estimate.</div>
+
+  <div class="msg"><div class="lbl">Confirmation request — once a time is set</div>Hi <i>[first name]</i>, Rise Renovation here — we have your <i>[windows]</i> estimate for <i>[Thursday at 2:00 PM]</i>. Reply YES to confirm, or 1 if an earlier time this week would be easier. Reply STOP to opt out.</div>
+
+  <div class="msg"><div class="lbl">Confirmed — after YES</div>Confirmed: <i>[windows]</i> estimate <i>[Thursday at 2:00 PM]</i>, <i>[street]</i>. A Rise scheduler will text the day before. Questions? Reply here.</div>
+
+  <div class="msg"><div class="lbl">STOP / HELP — carrier-required</div>Rise Renovation: you're opted out and won't receive more texts. Reply START to opt back in.<br>Rise Renovation appointment &amp; estimate texts. Msg frequency varies; msg &amp; data rates may apply. Reply STOP to opt out. Help: riserenovation.com.</div>
+
+  <div class="keep"><h3>How replies are read before anyone looks</h3>
+  <div class="tw"><table>
+    <tr><th style="width:34%">Homeowner says</th><th>The engine does</th></tr>
+    <tr><td>YES / OK / sounds good</td><td>Marks the appointment confirmed and sends the Confirmed text.</td></tr>
+    <tr><td>A day or time ("Thursday afternoon", "tomorrow AM")</td><td>Sends the acknowledgement; logs "proposed a time — call them" on the lead; posts to #leads.</td></tr>
+    <tr><td>"Earlier" / 1</td><td>Logs "wants an earlier time"; posts to #leads.</td></tr>
+    <tr><td>STOP</td><td>Opts the number out everywhere, sends the STOP text, logs it.</td></tr>
+    <tr><td>Anything else</td><td>Logs "needs a human — call them"; posts to #leads.</td></tr>
+  </table></div>
+  <p style="color:var(--muted); font-size:9.5pt">The desk never replies from the 866 number — call, or text from the (303) BeeTexting line.</p></div>
+</article>
+<article class="page" id="cadence" data-title="The seven-day cadence">
+<div class="kicker">3 · The seven-day cadence</div>
+  <h2>Six calls, three texts, three emails.</h2>
+  <hr class="rule">
+  <p class="lead">The person only owns the calls; the machine owns the rest. Peak answer windows are 8am–noon and after 5pm Mountain — that's where the dial blocks go.</p>
+  <div class="tw"><table>
+    <tr><th style="width:9%">Day</th><th style="width:34%">Calls (human)</th><th style="width:19%">Text (auto)</th><th style="width:19%">Email (auto)</th><th>Note</th></tr>
+    <tr><td><b>1</b></td><td><b>2</b> — first call the minute it lands (double tap); second call 3–4 hours later</td><td>#1 at second 5; no-reply nudge at +4h</td><td>#1 at second 5</td><td>A missed call is answered by the text that names the project</td></tr>
+    <tr><td><b>2</b></td><td>1 — different time of day than Day 1</td><td>1 follow-up</td><td>—</td><td>Never three touches in one hour</td></tr>
+    <tr><td><b>3</b></td><td>1 — different time again</td><td>—</td><td>1 follow-up</td><td></td></tr>
+    <tr><td><b>4–5</b></td><td>2 — spaced out; urgency is cooling</td><td>1 re-engagement</td><td>—</td><td></td></tr>
+    <tr><td><b>6–7</b></td><td>—</td><td>—</td><td>1 final re-engagement</td><td>Prepare to retire or switch channel</td></tr>
+    <tr><td><b>7+</b></td><td colspan="4">Document the stop. The lead moves to nurture — monthly touches, seasonal offers. Leads don't die; they go quiet.</td></tr>
+  </table></div>
+  <div class="grid">
+    <div class="card"><h4>Day 1 belongs to the desk</h4>Both Day-1 calls are made by whoever is on the desk the moment the lead lands. Nothing else on the desk outranks a fresh lead for those two dials.</div>
+    <div class="card"><h4>Days 2–5 come off the task list</h4>Salesforce creates the cadence calls as tasks on every lead. "My open tasks due today" is the call list. Completing the task with an outcome is the log.</div>
+  </div>
+</article>
+<article class="page" id="call" data-title="On the call">
+<div class="kicker">4 · On the call</div>
+  <h2>What to say, what to book, what to log.</h2>
+  <hr class="rule">
+  <p class="lead">Call-center best practice, in Christina's voice. She doesn't have to read it — it's the shape of a good call: lead with their request, offer two times, book, confirm, log. Every script assumes the homeowner already got the text that says "I'm calling you now."</p>
+
+  <div class="msg"><div class="lbl">Live answer — Day 1, the double tap</div>"Hi <i>[first name]</i>, it's Christina with Rise Renovation — you just asked for a free <i>[windows]</i> estimate at <i>[street]</i>, so I'm calling right away. I've got a couple of openings this week — is Thursday afternoon or Friday morning better for you?"<br><br><span style="color:var(--muted)">If they pause:</span> "It's a free, no-pressure look at the <i>[windows]</i> — about 60 to 90 minutes, and you'll have real numbers before we leave."</div>
+
+  <div class="msg"><div class="lbl">Booking — lock it down</div>"Perfect — Thursday at 2. I've got <i>[street]</i>, <i>[city]</i>. Will everyone who'd be part of the decision be home? Great. And it's <i>[4 windows / the front of the house]</i>, right? You'll get a text from me in a minute confirming Thursday at 2, and a reminder the day before. Anything you'd like the estimator to know ahead of time?"</div>
+
+  <div class="msg"><div class="lbl">Voicemail — Day 1 (short, names the request)</div>"Hi <i>[first name]</i>, Christina at Rise Renovation — calling about the <i>[windows]</i> estimate you requested for <i>[street]</i>. I just texted you too; reply with a day that works, or call me back at (303) 827-0610. Talk soon."</div>
+
+  <div class="msg"><div class="lbl">Voicemail — Day 3 (different time of day)</div>"Hi <i>[first name]</i>, Christina with Rise again. Still holding a spot this week for your free <i>[windows]</i> estimate at <i>[street]</i>. Text me a day, or call (303) 827-0610 — happy to work around your schedule."</div>
+
+  <div class="msg"><div class="lbl">Voicemail — Day 5 (last call; leave the door open)</div>"Hi <i>[first name]</i>, Christina at Rise Renovation. This is my last call for now on the <i>[windows]</i> estimate — no pressure at all. If the timing's better later this month, just text me and I'll set it up. (303) 827-0610. Take care."</div>
+
+  <h3>When they push back</h3>
+  <div class="tw"><table>
+    <tr><th style="width:26%">They say</th><th>Christina says</th></tr>
+    <tr><td>"I'm just getting quotes."</td><td>"Perfect — that's exactly what this is. It's free and you'll have Rise's number to compare against. Thursday or Friday?"</td></tr>
+    <tr><td>"I already have someone coming out."</td><td>"Great — get a second set of eyes. Most of our customers had two or three quotes; ours takes about an hour. Would after theirs work, or before?"</td></tr>
+    <tr><td>"What's it going to cost?"</td><td>"Honest answer: it depends on the windows and the house, and I'd rather give you a real number than a guess. That's what the visit is for. Thursday or Friday?"</td></tr>
+    <tr><td>"I didn't request anything."</td><td>"No problem — you'd have filled out a form on <i>[the site]</i> about <i>[windows]</i> at <i>[street]</i>. If that wasn't you, I'll take you off our list right now." (Then log it — this is a possible credit.)</td></tr>
+    <tr><td>"Not right now."</td><td>"Totally fine. When's better — a couple of weeks, or after the holidays? I'll put a note in and reach back out then." (Set the follow-up task.)</td></tr>
+    <tr><td>"Just email me something."</td><td>"I'll send it now. Fair warning, it's a range — the estimate visit is what makes it real. Want me to hold a tentative slot while you look?"</td></tr>
+  </table></div>
+
+  <div class="callout keep"><b>Inbound calls from a pay-per-call vendor — the 90-second rule.</b> Vendors like ResultCalls bill for a connected call once it runs past about 90 seconds; a shorter call is creditable. So the first minute of every inbound call is a <b>qualify-or-release</b> minute, in this order, before any selling:<br>
+  1. <b>Where</b> — "What's the address or ZIP for the project?" (in our service area?)<br>
+  2. <b>What</b> — "And this is for windows / roofing / a bath?" (a trade we sell?)<br>
+  3. <b>Who</b> — "Are you the homeowner?"<br>
+  4. <b>How much</b> — "Roughly how many windows?" (meets the minimum: 4 windows, or 2 + a sliding glass door)<br>
+  Any answer that fails → end warmly inside 90 seconds: "I appreciate the call — that's outside what we do, so I don't want to waste your time. Best of luck with it." Then log <b>Dead NO CREDIT</b> with the reason, same minute. A qualified caller gets the booking script above. Moving fast here isn't rude; it's what keeps bad calls off the invoice.</div>
+
+  <h3>Non-negotiables on every call</h3>
+  <ul>
+    <li><b>Book on the call.</b> Confirm the address, who needs to be home (all decision-makers), and the project. Windows minimum: 4 windows, or 2 windows plus a sliding glass door (one door counts as two windows).</li>
+    <li><b>Offer two times, never an open question.</b> "Thursday or Friday?" closes; "when's good?" stalls.</li>
+    <li><b>Log every attempt the moment it ends</b> — attempt number, outcome, next step. The vendor will not credit a lead we can't show we worked.</li>
+    <li><b>Set the status honestly:</b> New – Inquiry → No Contact Made → Appointment Requested → Appointment Set → Dead, or Dead NO CREDIT when the lead was bad.</li>
+    <li><b>Anything odd</b> — wrong trade, out of area, disconnected number, prior customer — note it on the lead and flag it in #leads the same day. That's the credit clock starting.</li>
+    <li><b>Test leads</b> (TEST, Jack Doe, Jenny Doe) are never called.</li>
+  </ul>
+</article>
+<article class="page" id="credits" data-title="Appointments, replies & credits">
+<div class="kicker">5 · Appointments, replies and credits</div>
+  <h2>Protect what we booked. Get paid back for what was bad.</h2>
+  <hr class="rule">
+  <h3>Appointments</h3>
+  <ul>
+    <li>Confirmation text the same day; reminder the day before and the morning of. Voice-AI confirmation calls follow in October.</li>
+    <li>A no-show is not a dead lead: re-book within 24 hours, two attempts, then hand back to the desk.</li>
+    <li>Every set appointment is reported back to the vendor weekly — Lead ID, appointment, demo, sold, net job sold. That report is how we win credits and how the vendor tunes what they send us.</li>
+  </ul>
+  <h3>Replies</h3>
+  <p>Every homeowner text lands on the lead in Salesforce as a completed task ("Text reply: …") and in #leads. Either one means the same thing: call them. Nothing to check, nothing to repost.</p>
+  <h3>Credits</h3>
+  <p><b>Form leads:</b> most vendors credit leads that are out of area, duplicates, wrong trade, or wrong/disconnected numbers — <b>if we ask inside their window (typically 10 days) with the Lead ID and a reason.</b> The desk flags it by setting <b>Dead NO CREDIT</b> with a note; Growth Mindset files the request. Leads we simply couldn't reach after six attempts are ours to keep — that is the cost of the model, and why the cadence matters.</p>
+  <p><b>Pay-per-call:</b> a call that ends inside ~90 seconds is creditable; a qualified call that runs longer is billable whether or not it books. Disqualify fast, log Dead NO CREDIT with the reason, and Growth Mindset files the credit the same week.</p>
+</article>
+<article class="page" id="who" data-title="Who does what">
+<div class="kicker">6 · Who does what</div>
+  <h2>Humans make first contact. Machines do everything that repeats.</h2>
+  <hr class="rule">
+  <p class="lead">Vendor consent on a purchased lead covers texts and human calls; it does not cover AI-placed outbound calls to a homeowner who hasn't spoken to us yet. So the first live voice is always a person. Once a homeowner has engaged, voice AI takes the transactional work.</p>
+  <div class="tw"><table>
+    <tr><th style="width:13%">When</th><th style="width:26%">Touch</th><th style="width:19%">Owner</th><th style="width:26%">How</th><th>Status</th></tr>
+    <tr><td>Day 1, sec 5</td><td>Text + email</td><td>Engine</td><td>Salesforce → engine</td><td><span class="pill live">LIVE</span></td></tr>
+    <tr><td>Day 1, min 0</td><td>Call 1 (double tap)</td><td>Desk — Christina</td><td>#leads alert + desk list view</td><td><span class="pill live">LIVE</span></td></tr>
+    <tr><td>Day 1, +3–4h</td><td>Call 2</td><td>Desk — Christina</td><td>Cadence task</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>Day 1, +4h</td><td>No-reply text</td><td>Engine</td><td>Scheduled job</td><td><span class="pill live">LIVE</span></td></tr>
+    <tr><td>Day 2–3</td><td>Calls 3–4</td><td>Christina / Chris (3–5pm block)</td><td>Cadence tasks</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>Day 2, 3, 4–5, 6–7</td><td>Follow-up texts + emails</td><td>Engine</td><td>Scheduled job</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>Day 4–5</td><td>Calls 5–6</td><td>Chris (3–5pm block)</td><td>Cadence tasks</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>Day 7+</td><td>Retire or nurture</td><td>Engine flags · desk sets status</td><td>"No contact after 6" report</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>On booking</td><td>Confirmation text</td><td>Engine</td><td>YES → Confirmed</td><td><span class="pill live">LIVE</span></td></tr>
+    <tr><td>Day before / morning of</td><td>Reminder texts</td><td>Engine</td><td>Scheduled job</td><td><span class="pill build">Sunday</span></td></tr>
+    <tr><td>Day before</td><td>Confirmation call</td><td><b>Voice AI</b></td><td>Retell → Salesforce + #leads</td><td><span class="pill next">Week of Oct 5</span></td></tr>
+    <tr><td>No-show</td><td>Re-book ×2 in 24h</td><td>Voice AI, then desk</td><td>Retell + task</td><td><span class="pill next">Week of Oct 5</span></td></tr>
+    <tr><td>After hours</td><td>Inbound callbacks</td><td>Voice AI answers, books a callback window</td><td>Retell inbound</td><td><span class="pill next">Week of Oct 5</span></td></tr>
+    <tr><td>Any reply</td><td>Classify, log, alert</td><td>Engine</td><td>Reply → Salesforce task + #leads</td><td><span class="pill live">LIVE</span></td></tr>
+  </table></div>
+  <div class="grid keep">
+    <div class="card"><h4>Voice AI takes over (in this order)</h4>1. Day-before confirmation calls · 2. Reschedules — offers two slots, books, re-confirms · 3. No-show recovery · 4. After-hours inbound · 5. Nurture stays text/email only.</div>
+    <div class="card"><h4>Voice AI never does</h4>First contact on a purchased lead, anything before the homeowner has engaged, pricing or scope conversations. Those stay human.</div>
+  </div>
+  <h3>Capacity — the honest math</h3>
+  <p>Per lead, the human work is six dial attempts (about two minutes each with logging) plus live conversations — roughly 15–20 minutes over seven days.</p>
+  <div class="tw"><table>
+    <tr><th>New leads / day</th><th>Dials / day at steady state</th><th>Human hours / day</th><th>Who</th></tr>
+    <tr><td>10 (Modernize alone, from Sept 28)</td><td>~60</td><td>~2.5 incl. conversations</td><td>Christina, with Chris on the Day 4–5 block</td></tr>
+    <tr><td>15</td><td>~90</td><td>~3.5</td><td>Christina + Chris daily — the ceiling for two part-time hands</td></tr>
+    <tr><td>20–25</td><td>120–150</td><td>One full-time seat (industry rule: 1 agent = 20 leads/day = 150 dials)</td><td><b>A dedicated Lead Desk Specialist</b></td></tr>
+  </table></div>
+  <div class="callout"><b>Staffing plan.</b> Now: Christina owns Day 1 and inbound; Chris takes a fixed 3–5pm MT block for Day 2–5 calls. <b>Trigger to add a person:</b> five straight weekdays at 15+ new leads/day, or the day volume steps up with the next vendor — post the role now so it's ready. One Lead Desk Specialist, 8–5 MT covering the 8–noon and 5–6pm answer windows, paid on appointments set and confirmed. With texts, emails and the task list already running, it is an entry-level seat, not a sales hire.</div>
+</article>
+<article class="page" id="control" data-title="How we know it's working">
+<div class="kicker">7 · How we know it's working</div>
+  <h2>The control system and the numbers.</h2>
+  <hr class="rule">
+  <h3>The control system</h3>
+  <ul>
+    <li><b>Cadence tasks, created automatically.</b> Six call tasks with due dates land on every new lead. "My open tasks due today" is the call list; completing the task with an outcome is the log.</li>
+    <li><b>The desk list view</b> ("Internet Leads – Desk") stays the Day-1 cockpit: new leads, Called Today, Desk Category, Desk Note.</li>
+    <li><b>Two automatic posts to #leads, 4:30pm MT daily:</b> cadence tasks overdue (lead, day, owner) and leads with no logged attempt in 24 hours. Non-zero two days running gets raised.</li>
+    <li><b>Weekly scorecard</b> in the Friday brief: contact rate, set rate, attempts per retired lead — per vendor. Same data feeds the vendor's disposition report, so the reporting is free.</li>
+  </ul>
+  <h3>What "good" looks like, per vendor, per month</h3>
+  <div class="stat">
+    <div><span class="big">≥60%</span><small>Contact rate — reached a human</small></div>
+    <div><span class="big">≥30%</span><small>Appointment-set rate — of contacted</small></div>
+    <div><span class="big">≥80%</span><small>Set-to-confirmed</small></div>
+    <div><span class="big">6</span><small>Logged attempts (or a booked appointment) before any lead is retired</small></div>
+  </div>
+  <p>Any vendor that misses these for two straight weeks gets reviewed with them, then paused if it doesn't move. Volume never overrides quality.</p>
+  <div class="callout"><b>This document evolves.</b> Wording changes when the desk improves it; steps change when the data says so. The version in the shared drive is the current one, and every change is dated. If what you're doing doesn't match this page, one of the two needs to change — say so in #leads.</div>
+  <div class="foot" hidden>The Rise Playbook · v1.0 · September 25, 2026 · Prepared by Growth Mindset AI · Source: chat jcEPaY4b</div>
+</article>
+    </div>
+    <div class="ctl">
+      <button class="btn" id="prev">← Previous</button>
+      <div class="prog" id="prog"></div>
+      <span class="pos" id="pos"></span>
+      <button class="btn" id="next">Next →</button>
+      <a class="dl sm" href="https://growthmindset.ai/client/rise/rise-playbook-v1.pdf" target="_blank" rel="noopener">⬇ PDF</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const pages=[...document.querySelectorAll('.page')], tabs=[...document.querySelectorAll('.tab')], prog=document.getElementById('prog');
+  const prev=document.getElementById('prev'), next=document.getElementById('next'), pos=document.getElementById('pos');
+  pages.forEach((p,i)=>{ const d=document.createElement('button'); d.className='dot'; d.title=p.dataset.title; d.addEventListener('click',()=>go(i)); prog.appendChild(d); });
+  const dots=[...prog.children]; let cur=0;
+  function go(i, fromHash){
+    cur=Math.max(0,Math.min(pages.length-1,i));
+    pages.forEach((p,k)=>p.classList.toggle('on',k===cur));
+    tabs.forEach((t,k)=>t.classList.toggle('on',k===cur));
+    dots.forEach((d,k)=>{ d.classList.toggle('on',k===cur); d.classList.toggle('done',k<cur); });
+    prev.disabled=cur===0; next.disabled=cur===pages.length-1;
+    pos.textContent=(cur+1)+' / '+pages.length;
+    if(!fromHash){ try{ history.replaceState(null,'','#'+pages[cur].id); }catch(e){} }
+    try{ localStorage.setItem('rise-playbook-page', String(cur)); }catch(e){}
+    document.querySelector('.main').scrollIntoView({block:'start'});
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>go(+t.dataset.i)));
+  prev.addEventListener('click',()=>go(cur-1)); next.addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT')return; if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1); if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1); });
+  let start=0; document.querySelector('.book').addEventListener('touchstart',e=>{start=e.touches[0].clientX;},{passive:true});
+  document.querySelector('.book').addEventListener('touchend',e=>{ const dx=e.changedTouches[0].clientX-start; if(Math.abs(dx)>60) go(cur+(dx<0?1:-1)); },{passive:true});
+  const h=(location.hash||'').slice(1); const hi=pages.findIndex(p=>p.id===h);
+  let saved=-1; try{ saved=parseInt(localStorage.getItem('rise-playbook-page')||'-1',10); }catch(e){}
+  go(hi>=0?hi:0, true);
+})();
+</script>
+
+</body>
+</html>

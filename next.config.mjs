@@ -24,6 +24,8 @@ const nextConfig = {
       { source: '/demo-appointment', destination: '/demo-appointment/index.html' },
       { source: '/demo-conversation', destination: '/demo-conversation/index.html' },
       { source: '/playbook', destination: '/playbook/index.html' },
+      // Client playbooks: reachable-but-unlisted static pages under /client/<name>
+      { source: '/client/rise', destination: '/client/rise/index.html' },
     ];
   },
   // /vault is reachable but unlisted: noindex header, no robots.txt entry
@@ -53,6 +55,13 @@ const nextConfig = {
         source: '/playbook',
         headers: [
           { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate' },
+        ],
+      },
+      {
+        source: '/client/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
           { key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate' },
         ],
       },
