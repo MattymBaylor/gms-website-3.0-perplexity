@@ -79,6 +79,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
 .rrow{margin-bottom:14px}
 .metrics{font-size:12px;color:var(--muted);margin-bottom:14px}
 .gate{text-align:center;padding:40px 22px;color:var(--muted)}
+.vtoggle{display:flex;gap:8px;margin-bottom:18px}.vtoggle button{flex:1;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 8px;font:700 14px Montserrat,sans-serif;color:var(--ink);cursor:pointer}.vtoggle button small{display:block;font-weight:500;font-size:11px;color:var(--muted)}.vtoggle button.on{border-color:var(--red);background:#fff5f6}.vtoggle button:disabled{opacity:.45;cursor:default}
 .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
 @media (max-width:560px){.grid{grid-template-columns:1fr}.hero h1{font-size:32px}#transcript{height:300px}}
 </style>
@@ -96,6 +97,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   <div class="card" id="setupView" style="display:none">
     <div class="card-h"><h2>Test call setup</h2><span class="badge" id="verBadge">Version 1</span></div>
     <div class="card-b">
+      <div class="vtoggle" id="vtoggle"><button type="button" data-v="v1" class="on">Version 1<small>voice A</small></button><button type="button" data-v="v2">Version 2<small id="v2sub">voice B</small></button></div>
       <div class="agent"><div class="photo" id="setupPhoto"></div><div><b>Ava</b><small>Appointment confirmations, Rise Renovation</small></div></div>
       <div class="grid">
         <div><label for="firstName">Homeowner first name</label><input id="firstName" value="Jordan" maxlength="30"></div>
@@ -155,13 +157,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt" };
-  var PROMPT_VERSION = "ava-v0.2-2026-10-24";
+  var PROMPT_VERSION = "ava-v0.3-2026-10-24";
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
   var WS_URL    = "wss://api.x.ai/v1/realtime?model=grok-voice-latest";
   var VOICE     = "ara";
   var BACKEND   = "grok", VERSION_LABEL = "Version 1";
+  // Version 2 = Retell (GPT-4.1) + ElevenLabs voice, Rise copy of the Crowther outbound confirmation agent.
+  // Browser web call via a Retell PUBLIC key (domain-locked to growthmindset.ai); no server, no secret.
+  var V2 = { publicKey: "public_key_23298a07ec4f7b87ef700", agentId: "agent_2ff89a3fa83bce111cbcb40e77", voice: "11labs-Cimo", sdk: "https://esm.sh/retell-client-js-sdk@3.0.3" };
+  var V1 = { backend: "grok", label: "Version 1", voice: "ara" };
+  var CUR = "v1", rcall = null, rItems = [];
+  function v2Ready(){ return V2.publicKey.indexOf("public_key_")===0 && V2.agentId.indexOf("agent_")===0; }
 
   // ── Feedback store: Supabase rise-lead-engine, anon INSERT only ───────
   var SB_URL = "https://jsanlgbhrpvfoqzldflc.supabase.co/rest/v1";
@@ -179,6 +187,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   var TESTER = TESTERS[param("t")] || "";
   if (!TESTER) { $("gateCard").style.display="block"; return; }
   $("setupView").style.display="block";
+  function selectVersion(v){
+    if (v==="v2" && !v2Ready()) v="v1";
+    CUR=v; BACKEND = v==="v2" ? "retell" : V1.backend; VERSION_LABEL = v==="v2" ? "Version 2" : V1.label; VOICE = v==="v2" ? V2.voice : V1.voice;
+    Array.prototype.forEach.call(document.querySelectorAll("#vtoggle button"),function(b){ b.classList.toggle("on", b.dataset.v===v); });
+    $("verBadge").textContent=VERSION_LABEL; $("verBadge2").textContent=VERSION_LABEL;
+    try{ localStorage.setItem("ava_ver",v); }catch(e){}
+  }
+  (function(){ var b2=document.querySelector('#vtoggle button[data-v="v2"]');
+    if (!v2Ready()){ b2.disabled=true; $("v2sub").textContent="being set up"; }
+    Array.prototype.forEach.call(document.querySelectorAll("#vtoggle button"),function(b){ b.addEventListener("click",function(){ selectVersion(b.dataset.v); }); });
+    var saved="v1"; try{ saved=localStorage.getItem("ava_ver")||"v1"; }catch(e){}
+    var q=/[?&]v=(1|2)/.exec(location.search); if (q) saved="v"+q[1];
+    selectVersion(saved); })();
 
   var setupView=$("setupView"), callView=$("callView"), fbCard=$("fbCard"), msg=$("msg");
   var transcript=$("transcript"), emptyNote=$("emptyNote"), stateLine=$("stateLine"), avatar=$("avatar"), dateSel=$("appointmentDate");
@@ -421,9 +442,10 @@ calendarBlock(),
     if (location.protocol!=="https:"){ show(msg,"err","Open this page from growthmindset.ai to start a call."); return; }
     if (!window.WebSocket||!navigator.mediaDevices){ show(msg,"warn","This browser can't run the call. Use Chrome, Edge or Safari."); return; }
     var v={ first_name:$("firstName").value.trim()||"there", service_type:$("service").value, appointment_date:dateSel.value, appointment_time:$("appointmentTime").value, customer_address:$("address").value.trim()||"the address on file" };
-    scenario=v; callId=uuid(); log=[]; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
+    scenario=v; callId=uuid(); callStarted=0; log=[]; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
     ended=false; setupView.style.display="none"; fbCard.style.display="none"; callView.style.display="block";
     transcript.innerHTML=""; transcript.appendChild(emptyNote); setState("Connecting…",""); $("timeLeft").textContent="";
+    if (CUR==="v2"){ startRetell(v); return; }
     var c=ensureCtx(); if (c&&c.state==="suspended"){ try{c.resume();}catch(e){} }
     sinks=buildSinks();
     fetch(TOKEN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({client:"rise"})})
@@ -491,19 +513,59 @@ calendarBlock(),
     ws.onerror=function(){ setState("Connection trouble",""); };
   }
 
+  /* ---------- Version 2: Retell web call ---------- */
+  function renderRetell(items){
+    rItems=(items||[]).filter(function(x){ return x && (x.role==="agent"||x.role==="user") && x.content; });
+    if (rItems.length && emptyNote && emptyNote.parentNode) emptyNote.parentNode.removeChild(emptyNote);
+    transcript.innerHTML="";
+    rItems.forEach(function(x){ var el=document.createElement("div"); el.className="bubble "+(x.role==="agent"?"agent":"you"); el.textContent=x.content; transcript.appendChild(el); });
+    transcript.scrollTop=transcript.scrollHeight;
+    if (firstAudioMs===null && tCreate && rItems.some(function(x){ return x.role==="agent"; })) firstAudioMs=Date.now()-tCreate;
+  }
+  function startRetell(v){
+    setState("Connecting…","");
+    var vars={ first_name:v.first_name, service_type:v.service_type, appointment_date:v.appointment_date, appointment_time:v.appointment_time+" Mountain time", customer_address:v.customer_address, today:dayLabel(new Date())+", "+new Date().getFullYear() };
+    import(V2.sdk).then(function(mod){
+      if (ended) return;
+      var client=new mod.RetellClient({ key: V2.publicKey });
+      tCreate=Date.now();
+      rcall=client.createWebCall({
+        agent_id: V2.agentId,
+        retell_llm_dynamic_variables: vars,
+        metadata: { tester: TESTER, test_call_id: callId, page: "rise-ava-test" },
+        transcript: true,
+        hooks: {
+          onStatus: function(st){ if (st==="live"){ setState("<b>Connected</b> — she'll speak first","listening"); startCallTimer(); tCreate=Date.now(); } },
+          onAgentStartTalking: function(){ speaking=true; setState("<b>Ava is speaking…</b>","speaking"); },
+          onAgentStopTalking: function(){ speaking=false; setState("<b>Listening…</b> just talk","listening"); },
+          onTranscript: function(items){ renderRetell(items); },
+          onEnd: function(){ if (!ended) finishCall("call ended"); },
+          onError: function(e){ log.push({who:"system",t:secs(),text:"retell error: "+String((e&&e.message)||e).slice(0,300)}); if (!ended) { show(msg,"err","Version 2 couldn't connect: "+String((e&&e.message)||e).slice(0,160)); finishCall("retell error"); } }
+        }
+      });
+    }).catch(function(e){
+      callView.style.display="none"; setupView.style.display="block";
+      show(msg,"err","Couldn't load the Version 2 voice library. Try again, or use Version 1.");
+    });
+  }
+
   function finishCall(reason){
     if (ended) return; endReason=endReason||reason||"";
-    var delay=speaking?2400:0; ended=true; clearInterval(callTimer); stopMic(); setState("Wrapping up…","");
+    var delay=(speaking&&CUR!=="v2")?2400:0; ended=true; clearInterval(callTimer); stopMic(); setState("Wrapping up…","");
     setTimeout(teardown, delay);
   }
   function teardown(){
     stopPlayback(); try{ if(ws) ws.close(); }catch(e){} ws=null;
+    if (rcall){ try{ if (rcall.status!=="ended") rcall.end(); }catch(e){} if (scenario) scenario.retell_call_id=rcall.callId||null; rcall=null;
+      rItems.forEach(function(x){ log.push({who:x.role==="agent"?"ava":"homeowner", t:typeof x.time_sec==="number"?x.time_sec:null, text:x.content}); }); rItems=[]; }
     if (sinks&&sinks.bedSrc){ try{sinks.bedSrc.stop();}catch(e){} } sinks=null; agentBubble=null;
     if (agentTurn){ log.push({who:"ava",t:secs(),text:agentTurn}); agentTurn=""; }
     saveCall();
-    callView.style.display="none"; fbCard.style.display="block"; resetFeedback();
+    callView.style.display="none";
+    if (!callStarted){ setupView.style.display="block"; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
+    fbCard.style.display="block"; resetFeedback();
     var gap=gaps.length?Math.round(gaps.reduce(function(a,b){return a+b;},0)/gaps.length):null;
-    $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—")+" · "+VERSION_LABEL;
+    $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+(CUR==="v2"?"":" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—"))+" · "+VERSION_LABEL;
     fbCard.scrollIntoView({behavior:"smooth",block:"start"});
   }
   function endCall(){ finishCall("tester hung up"); }
@@ -518,7 +580,7 @@ calendarBlock(),
     if (callLogged||!callId) return; callLogged=true;
     var gap=gaps.length?Math.round(gaps.reduce(function(a,b){return a+b;},0)/gaps.length):null;
     callSaved=sbInsert("ava_test_calls",{ id:callId, tester:TESTER, version_label:VERSION_LABEL, backend:BACKEND, voice:VOICE, prompt_version:PROMPT_VERSION,
-      scenario:scenario, transcript:log.slice(0,400), duration_s:Math.min(1200,Math.round((Date.now()-callStarted)/1000)),
+      scenario:scenario, transcript:log.slice(0,400), duration_s:callStarted?Math.min(1200,Math.round((Date.now()-callStarted)/1000)):0,
       first_audio_ms:firstAudioMs, avg_turn_gap_ms:gap, turns:log.length, end_reason:(endReason||"").slice(0,200), user_agent:navigator.userAgent.slice(0,400) })
       .catch(function(e){ show($("fbMsg"),"err","Transcript didn't save ("+e.message+"). Your feedback below will still try."); return false; });
   }
