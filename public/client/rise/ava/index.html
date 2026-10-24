@@ -277,7 +277,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
 
   function calList(){
     var out=[];
-    for (var i=1;i<=14;i++){ var d=new Date(); d.setDate(d.getDate()+i);
+    for (var i=1;i<=21;i++){ var d=new Date(); d.setDate(d.getDate()+i);
       out.push((i===1?"tomorrow = ":"")+dayLabel(d)+(d.getDay()===0?" (Sunday - closed)":"")); }
     return out.join("\n");
   }
