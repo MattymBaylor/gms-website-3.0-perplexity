@@ -181,7 +181,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt" };
-  var PROMPT_VERSION = "ava-v0.5-2026-10-24";
+  var PROMPT_VERSION = "ava-v0.6-2026-10-24";
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -275,6 +275,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
     return out.join("\n");
   }
 
+  function calList(){
+    var out=[];
+    for (var i=1;i<=14;i++){ var d=new Date(); d.setDate(d.getDate()+i);
+      out.push((i===1?"tomorrow = ":"")+dayLabel(d)+(d.getDay()===0?" (Sunday - closed)":"")); }
+    return out.join("\n");
+  }
   function show(el,kind,text){ el.className="msg show "+kind; el.textContent=text; }
   function hide(el){ el.className="msg"; el.textContent=""; }
   function setState(t,cls){ stateLine.innerHTML=t; avatar.className="avatar"+(cls?" "+cls:""); }
@@ -566,7 +572,7 @@ calendarBlock(),
   }
   function startRetell(v){
     setState("Connecting…","");
-    var vars={ first_name:v.first_name, service_type:v.service_type, appointment_date:v.appointment_date, appointment_time:v.appointment_time+" Mountain time", customer_address:v.customer_address, today:dayLabel(new Date())+", "+new Date().getFullYear() };
+    var vars={ first_name:v.first_name, service_type:v.service_type, appointment_date:v.appointment_date, appointment_time:v.appointment_time+" Mountain time", customer_address:v.customer_address, today:dayLabel(new Date())+", "+new Date().getFullYear(), calendar:calList() };
     import(V2.sdk).then(function(mod){
       if (ended) return;
       var client=new mod.RetellClient({ key: V2.publicKey });
