@@ -97,7 +97,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   <div class="card" id="setupView" style="display:none">
     <div class="card-h"><h2>Test call setup</h2><span class="badge" id="verBadge">Version 1</span></div>
     <div class="card-b">
-      <div class="vtoggle" id="vtoggle"><button type="button" data-v="v1" class="on">Version 1<small>voice A</small></button><button type="button" data-v="v2">Version 2<small id="v2sub">voice B</small></button></div>
+      <div class="vtoggle" id="vtoggle" style="display:none"><button type="button" data-v="v1" class="on">Version 1<small>voice A</small></button><button type="button" data-v="v2">Version 2<small id="v2sub">voice B</small></button></div>
       <div class="agent"><div class="photo" id="setupPhoto"></div><div><b>Ava</b><small>Appointment confirmations, Rise Renovation</small></div></div>
       <div class="grid">
         <div><label for="firstName">Homeowner first name</label><input id="firstName" value="Jordan" maxlength="30"></div>
@@ -157,7 +157,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt" };
-  var PROMPT_VERSION = "ava-v0.3-2026-10-24";
+  var PROMPT_VERSION = "ava-v0.4-2026-10-24";
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -188,10 +188,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   if (!TESTER) { $("gateCard").style.display="block"; return; }
   $("setupView").style.display="block";
   function selectVersion(v){
-    if (v==="v2" && !v2Ready()) v="v1";
+    v="v2"; // Version 1 (Grok) removed 2026-10-23 per Matt; Retell only
     CUR=v; BACKEND = v==="v2" ? "retell" : V1.backend; VERSION_LABEL = v==="v2" ? "Version 2" : V1.label; VOICE = v==="v2" ? V2.voice : V1.voice;
     Array.prototype.forEach.call(document.querySelectorAll("#vtoggle button"),function(b){ b.classList.toggle("on", b.dataset.v===v); });
-    $("verBadge").textContent=VERSION_LABEL; $("verBadge2").textContent=VERSION_LABEL;
+    $("verBadge").textContent="Ava"; $("verBadge2").textContent="Ava";
     try{ localStorage.setItem("ava_ver",v); }catch(e){}
   }
   (function(){ var b2=document.querySelector('#vtoggle button[data-v="v2"]');
@@ -565,7 +565,7 @@ calendarBlock(),
     if (!callStarted){ setupView.style.display="block"; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
     fbCard.style.display="block"; resetFeedback();
     var gap=gaps.length?Math.round(gaps.reduce(function(a,b){return a+b;},0)/gaps.length):null;
-    $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+(CUR==="v2"?"":" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—"))+" · "+VERSION_LABEL;
+    $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+(CUR==="v2"?"":" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—"));
     fbCard.scrollIntoView({behavior:"smooth",block:"start"});
   }
   function endCall(){ finishCall("tester hung up"); }
