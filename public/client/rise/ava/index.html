@@ -181,7 +181,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt" };
-  var PROMPT_VERSION = "ava-v0.4-2026-10-24";
+  var PROMPT_VERSION = "ava-v0.5-2026-10-24";
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -262,7 +262,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
     var added=0;
     for (var i=1; added<6 && i<14; i++){
       var d=new Date(); d.setDate(d.getDate()+i);
-      if (d.getDay()===0||d.getDay()===6) continue;   // Rise runs appointments weekdays in this test
+      if (d.getDay()===0) continue;   // Rise takes appointments Mon-Sat; closed Sunday
       var o=document.createElement("option"); o.value=dayLabel(d); o.textContent=(i===1?"Tomorrow — ":"")+dayLabel(d);
       dateSel.appendChild(o); added++;
     }
@@ -270,7 +270,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   function calendarBlock(){
     var t=new Date(), out=["TODAY AND THE NEXT TWO WEEKS - you do know what day it is","Today is "+dayLabel(t)+", "+t.getFullYear()+"."];
     for (var i=1;i<=14;i++){ var d=new Date(); d.setDate(d.getDate()+i);
-      out.push("  "+(i===1?"tomorrow":i+" days from today")+" = "+dayLabel(d)+((d.getDay()===0||d.getDay()===6)?" (weekend - the office is closed)":"")); }
+      out.push("  "+(i===1?"tomorrow":i+" days from today")+" = "+dayLabel(d)+(d.getDay()===0?" (Sunday - Rise is closed)":"")); }
     out.push("When they say something loose like next week or after the fifteenth, work out the actual dates yourself and say them back. Never say let me check about a date.");
     return out.join("\n");
   }
