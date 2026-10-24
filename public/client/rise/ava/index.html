@@ -32,6 +32,23 @@ h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;font-weight:40
 .hero h1 span{color:var(--red2)}
 .hero p{opacity:.75;font-size:14px;max-width:520px;margin:8px auto 0}
 .wrap{max-width:680px;margin:-44px auto 40px;padding:0 16px;position:relative}
+.wrap.withintro{max-width:1040px}
+.stage{display:block}
+.withintro .stage{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:20px;align-items:start}
+.intro{background:#000;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;position:relative;margin-bottom:18px;display:none}
+.withintro .intro{display:block}
+.intro video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
+.intro .ibar{display:flex;gap:8px;padding:10px;background:var(--navy)}
+.intro .ibar button{flex:1;border:0;border-radius:10px;padding:10px;font:700 13px Montserrat,sans-serif;cursor:pointer;background:#fff;color:var(--navy)}
+.intro .ibar button.hot{background:var(--red);color:#fff}
+.intro .ilabel{position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:10px;background:#ffd23f;color:var(--navy);border:0;cursor:pointer;font:800 15px Montserrat,sans-serif;letter-spacing:.02em;text-transform:uppercase;padding:10px 14px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.35);text-align:left}
+.intro .ilabel .num,.step{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#ffd23f;font:800 14px Montserrat,sans-serif;flex:none}
+.intro .ilabel small{display:block;font-weight:600;font-size:11px;text-transform:none;letter-spacing:0;opacity:.8}
+.btn .step{background:#fff;color:var(--red);margin-right:10px;vertical-align:middle}
+.btn.pulse{animation:pulse 1.4s ease-in-out 4}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(229,61,81,.55)}50%{box-shadow:0 0 0 12px rgba(229,61,81,0)}}
+@media (max-width:860px){.withintro .stage{grid-template-columns:1fr}.intro{max-width:260px;margin:0 auto 18px}}
+@media (prefers-reduced-motion:reduce){.btn.pulse{animation:none}}
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
 .card-h{background:var(--navy);color:#fff;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .card-h h2{font-size:24px}
@@ -91,7 +108,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   <p>Rise's appointment-confirmation agent. Test calls only, in your browser. She calls a pretend homeowner about a pretend appointment &mdash; you play the homeowner.</p>
 </div>
 
-<div class="wrap">
+<div class="wrap" id="wrap">
+<div class="stage">
+  <aside class="intro" id="introCard" aria-label="Intro video from Matt">
+    <button type="button" class="ilabel" id="introStart"><span class="num">1</span><span>Start here: watch first<small>45 seconds. Tap for sound.</small></span></button>
+    <video id="introVid" src="ava-intro.mp4" poster="ava-intro-poster.jpg" playsinline muted preload="metadata"></video>
+    <div class="ibar"><button type="button" id="introSound" class="hot">Play with sound</button><button type="button" id="introAgain">Watch again</button></div>
+  </aside>
+  <div class="main">
   <div class="card" id="gateCard" style="display:none"><div class="gate">This test link is private. Use the link you were sent.</div></div>
 
   <div class="card" id="setupView" style="display:none">
@@ -108,7 +132,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
           <select id="appointmentTime"><option>9:00 AM</option><option>11:00 AM</option><option selected>1:00 PM</option><option>3:00 PM</option></select></div>
         <div class="full"><label for="address">Address (sample)</label><input id="address" value="4821 West 32nd Avenue, Denver" maxlength="80"></div>
       </div>
-      <button class="btn" id="startBtn">Start test call</button>
+      <button class="btn" id="startBtn"><span class="step">2</span>Start test call</button>
       <div class="msg" id="msg"></div>
       <div class="tips"><b>Try to break her:</b>
         <ul>
@@ -149,6 +173,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
       <div class="msg" id="fbMsg"></div>
     </div>
   </div>
+  </div>
+</div>
   <div class="foot">Test line only &middot; no real homeowners &middot; transcripts are saved for review</div>
 </div>
 
@@ -187,6 +213,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   var TESTER = TESTERS[param("t")] || "";
   if (!TESTER) { $("gateCard").style.display="block"; return; }
   $("setupView").style.display="block";
+  // ── Intro video: plays once on first visit (muted autoplay, captions burned in), replay any time ──
+  (function intro(){
+    var wrap=$("wrap"), v=$("introVid"), snd=$("introSound"), again=$("introAgain"); if(!v) return;
+    wrap.classList.add("withintro");
+    var seen=false; try{ seen=localStorage.getItem("ava_intro_seen")==="1"; }catch(e){}
+    function markSeen(){ try{ localStorage.setItem("ava_intro_seen","1"); }catch(e){} }
+    function nudgeStart(){ var b=$("startBtn"); if(!b) return; try{ b.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){} b.classList.remove("pulse"); void b.offsetWidth; b.classList.add("pulse"); }
+    function playFromStart(withSound){ v.currentTime=0; v.muted=!withSound; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){ v.muted=true; v.play().catch(function(){}); }); snd.textContent=withSound?"Mute":"Play with sound"; snd.classList.toggle("hot",!withSound); }
+    snd.addEventListener("click",function(){ if (!v.paused && !v.muted){ v.muted=true; snd.textContent="Play with sound"; snd.classList.add("hot"); return; } if (v.paused||v.ended) playFromStart(true); else { v.muted=false; v.currentTime=0; snd.textContent="Mute"; snd.classList.remove("hot"); } });
+    again.addEventListener("click",function(){ playFromStart(true); });
+    $("introStart").addEventListener("click",function(){ playFromStart(true); });
+    v.addEventListener("click",function(){ if (v.paused) playFromStart(true); else v.pause(); });
+    v.addEventListener("ended",function(){ markSeen(); snd.textContent="Play with sound"; snd.classList.add("hot"); nudgeStart(); });
+    if (!seen){ v.muted=true; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+    window.__avaIntroPause=function(){ try{ v.pause(); }catch(e){} };
+  })();
   function selectVersion(v){
     v="v2"; // Version 1 (Grok) removed 2026-10-23 per Matt; Retell only
     CUR=v; BACKEND = v==="v2" ? "retell" : V1.backend; VERSION_LABEL = v==="v2" ? "Version 2" : V1.label; VOICE = v==="v2" ? V2.voice : V1.voice;
@@ -442,6 +484,8 @@ calendarBlock(),
     if (location.protocol!=="https:"){ show(msg,"err","Open this page from growthmindset.ai to start a call."); return; }
     if (!window.WebSocket||!navigator.mediaDevices){ show(msg,"warn","This browser can't run the call. Use Chrome, Edge or Safari."); return; }
     var v={ first_name:$("firstName").value.trim()||"there", service_type:$("service").value, appointment_date:dateSel.value, appointment_time:$("appointmentTime").value, customer_address:$("address").value.trim()||"the address on file" };
+    if (window.__avaIntroPause) window.__avaIntroPause(); try{ localStorage.setItem("ava_intro_seen","1"); }catch(e){}
+    $("introCard").style.display="none";
     scenario=v; callId=uuid(); callStarted=0; log=[]; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
     ended=false; setupView.style.display="none"; fbCard.style.display="none"; callView.style.display="block";
     transcript.innerHTML=""; transcript.appendChild(emptyNote); setState("Connecting…",""); $("timeLeft").textContent="";
@@ -562,7 +606,7 @@ calendarBlock(),
     if (agentTurn){ log.push({who:"ava",t:secs(),text:agentTurn}); agentTurn=""; }
     saveCall();
     callView.style.display="none";
-    if (!callStarted){ setupView.style.display="block"; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
+    if (!callStarted){ setupView.style.display="block"; $("introCard").style.display=""; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
     fbCard.style.display="block"; resetFeedback();
     var gap=gaps.length?Math.round(gaps.reduce(function(a,b){return a+b;},0)/gaps.length):null;
     $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+(CUR==="v2"?"":" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—"));
@@ -602,7 +646,7 @@ calendarBlock(),
       .then(function(){ btn.textContent="Saved ✓"; show($("fbMsg"),"ok","Saved. Claude reviews it and tunes Ava before your next round."); })
       .catch(function(e){ btn.disabled=false; btn.textContent="Save feedback"; show($("fbMsg"),"err","Didn't save ("+e.message+"). Try again."); });
   });
-  $("againBtn").addEventListener("click",function(){ fbCard.style.display="none"; setupView.style.display="block"; window.scrollTo({top:0,behavior:"smooth"}); });
+  $("againBtn").addEventListener("click",function(){ fbCard.style.display="none"; setupView.style.display="block"; $("introCard").style.display=""; window.scrollTo({top:0,behavior:"smooth"}); });
 
   $("startBtn").addEventListener("click",startCall);
   $("endBtn").addEventListener("click",endCall);
