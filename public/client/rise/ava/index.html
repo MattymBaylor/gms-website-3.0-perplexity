@@ -165,8 +165,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
       <div class="rrow"><label>Voice sounds human (1-5)</label><div class="rate" data-k="rating_human"></div></div>
       <div class="rrow"><label>Handled interruptions (1-5)</label><div class="rate" data-k="rating_interruptions"></div></div>
       <div class="rrow"><label>Response speed (1-5)</label><div class="rate" data-k="rating_speed"></div></div>
-      <div class="rrow"><label for="wouldUse">Want her calling Rise customers?</label>
-        <select id="wouldUse"><option value="">Pick one</option><option value="yes">Yes</option><option value="maybe">Maybe</option><option value="no">No</option></select></div>
       <div class="rrow"><label for="change">What should change?</label><textarea id="change" maxlength="4000" placeholder="Anything she said wrong, too slow, too long, sounded off&hellip;"></textarea></div>
       <button class="btn" id="fbBtn">Save feedback</button>
       <button class="btn ghost" id="againBtn">Run another call</button>
@@ -637,10 +635,10 @@ calendarBlock(),
       box.appendChild(b); })(i); }
   });
   function resetFeedback(){ ratings={}; Array.prototype.forEach.call(document.querySelectorAll(".rate button"),function(b){b.classList.remove("on");});
-    $("outcome").value=""; $("wouldUse").value=""; $("change").value=""; $("fbBtn").disabled=false; $("fbBtn").textContent="Save feedback"; }
+    $("outcome").value=""; $("change").value=""; $("fbBtn").disabled=false; $("fbBtn").textContent="Save feedback"; }
   $("fbBtn").addEventListener("click",function(){
     var btn=this; btn.disabled=true; btn.textContent="Saving…"; hide($("fbMsg"));
-    var row={ call_id:callId, tester:TESTER, outcome:$("outcome").value||null, would_use:$("wouldUse").value||null, what_to_change:$("change").value.trim().slice(0,4000)||null,
+    var row={ call_id:callId, tester:TESTER, outcome:$("outcome").value||null, what_to_change:$("change").value.trim().slice(0,4000)||null,
       rating_overall:ratings.rating_overall||null, rating_human:ratings.rating_human||null, rating_interruptions:ratings.rating_interruptions||null, rating_speed:ratings.rating_speed||null };
     (callSaved||Promise.resolve(true)).then(function(){ return sbInsert("ava_test_feedback",row); })
       .then(function(){ btn.textContent="Saved ✓"; show($("fbMsg"),"ok","Saved. Claude reviews it and tunes Ava before your next round."); })
