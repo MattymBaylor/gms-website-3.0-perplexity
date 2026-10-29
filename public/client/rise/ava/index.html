@@ -158,6 +158,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   <div class="card" id="fbCard">
     <div class="card-h"><h2>How did she do?</h2><span class="badge">Saved to Rise</span></div>
     <div class="card-b">
+      <div class="msg" id="dropNote"></div>
+      <button class="btn" id="redialBtn" style="display:none;margin-bottom:14px">Redial</button>
       <div class="metrics" id="metrics"></div>
       <div class="rrow"><label for="outcome">What happened on the call</label>
         <select id="outcome"><option value="">Pick one</option><option>confirmed</option><option>reschedule request</option><option>cancel request</option><option>do not call</option><option>out of area</option><option>wrong expectations (free/insurance)</option><option>call broke / tech issue</option><option>other</option></select></div>
@@ -181,7 +183,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt", "mattg-17e01d": "mattg", "chris-16c789": "chris", "christina-6535c4": "christina", "nick-62b673": "nick" };
-  var PROMPT_VERSION = "ava-v0.6-2026-10-24";
+  var PROMPT_VERSION = "ava-v0.6.1-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -248,6 +250,34 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   var ended=false, playHead=0, speaking=false, playing=[], agentBubble=null, sinks=null;
   var callTimer=null, callStarted=0, wrapSent=false;
   var agentTurn="", lastTurn="", idleTimer=0, idleNudges=0, endTimer=0, askedHomeowners=false, lastUserText="";
+  /* ---------- connection guard (2026-10-29): dead mic / dropped call is shown as a connection issue, not Ava ---------- */
+  var micMutedAt=0, micEvidence="", dropKind="";
+  function noteSys(text){ try{ log.push({who:"system",t:secs(),text:text}); }catch(e){} }
+  function isGoodbye(t){ return SIGNOFF_RE.test(t) || DNC_RE.test(t) || /\bbye\b|have a (?:wonderful|lovely|good|great)/i.test(t); }
+  function lastAgentText(){ for (var i=rItems.length-1;i>=0;i--){ if (rItems[i].role==="agent") return rItems[i].content||""; } return lastTurn||""; }
+  function watchMicStream(s){
+    try{ s.getAudioTracks().forEach(function(t){
+      t.addEventListener("ended",function(){ if (ended||!callStarted) return; micEvidence="mic lost"; noteSys("mic track ended"); dropKind="mic"; endReason="mic lost"; finishCall("mic lost"); });
+      t.addEventListener("mute",function(){ if (ended||!callStarted) return; micMutedAt=Date.now(); noteSys("mic muted by browser/OS");
+        setTimeout(function(){ if (micMutedAt && !ended && Date.now()-micMutedAt>=2900){ micEvidence="mic muted"; setState("<b>Your mic stopped sending audio</b> \u2014 check your headset or mic",""); } },3000); });
+      t.addEventListener("unmute",function(){ if (micMutedAt) noteSys("mic unmuted"); micMutedAt=0; });
+    }); }catch(e){}
+  }
+  (function(){ var md=navigator.mediaDevices; if (!md||!md.getUserMedia||md.__avaWrapped) return;
+    var orig=md.getUserMedia.bind(md);
+    try{ md.getUserMedia=function(c){ return orig(c).then(function(s){ if (c&&c.audio) watchMicStream(s); return s; }); }; md.__avaWrapped=true; }catch(e){}
+    try{ md.addEventListener("devicechange",function(){ if (!ended&&callStarted) noteSys("audio device changed"); }); }catch(e){}
+  })();
+  function showDropNote(){
+    var dn=$("dropNote"), rb=$("redialBtn"); if (!dn||!rb) return;
+    if (!dropKind){ dn.className="msg"; dn.textContent=""; rb.style.display="none"; return; }
+    var strong = dropKind==="mic" || !!micEvidence;
+    show(dn,"warn", strong
+      ? "Connection dropped (not Ava). Your microphone stopped sending audio, so the call cut off. Check your headset or mic, then tap Redial."
+      : "The call ended before Ava said goodbye. If you didn't hang up, that was the connection (not Ava). Tap Redial to try again.");
+    rb.style.display="inline-block";
+    if (strong) $("outcome").value="call broke / tech issue";
+  }
 
   // per-call log
   var callId=null, log=[], scenario=null, tCreate=0, firstAudioMs=null, tSpeechStop=0, gaps=[], gotAudioThisResp=false, endReason="", callLogged=false;
@@ -490,7 +520,7 @@ calendarBlock(),
     var v={ first_name:$("firstName").value.trim()||"there", service_type:$("service").value, appointment_date:dateSel.value, appointment_time:$("appointmentTime").value, customer_address:$("address").value.trim()||"the address on file" };
     if (window.__avaIntroPause) window.__avaIntroPause(); try{ localStorage.setItem("ava_intro_seen","1"); }catch(e){}
     $("introCard").style.display="none";
-    scenario=v; callId=uuid(); callStarted=0; log=[]; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
+    scenario=v; callId=uuid(); callStarted=0; log=[]; micMutedAt=0; micEvidence=""; dropKind=""; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
     ended=false; setupView.style.display="none"; fbCard.style.display="none"; callView.style.display="block";
     transcript.innerHTML=""; transcript.appendChild(emptyNote); setState("Connecting…",""); $("timeLeft").textContent="";
     if (CUR==="v2"){ startRetell(v); return; }
@@ -587,7 +617,9 @@ calendarBlock(),
           onAgentStartTalking: function(){ speaking=true; setState("<b>Ava is speaking…</b>","speaking"); },
           onAgentStopTalking: function(){ speaking=false; setState("<b>Listening…</b> just talk","listening"); },
           onTranscript: function(items){ renderRetell(items); },
-          onEnd: function(){ if (!ended) finishCall("call ended"); },
+          onEnd: function(){ if (ended) return; var la=lastAgentText();
+            if (!isGoodbye(la)){ dropKind=dropKind||"net"; if (micMutedAt) micEvidence=micEvidence||"mic muted"; endReason=micEvidence?("connection dropped ("+micEvidence+")"):"connection dropped"; noteSys("call ended before goodbye"); }
+            finishCall("call ended"); },
           onError: function(e){ log.push({who:"system",t:secs(),text:"retell error: "+String((e&&e.message)||e).slice(0,300)}); if (!ended) { show(msg,"err","Version 2 couldn't connect: "+String((e&&e.message)||e).slice(0,160)); finishCall("retell error"); } }
         }
       });
@@ -611,7 +643,7 @@ calendarBlock(),
     saveCall();
     callView.style.display="none";
     if (!callStarted){ setupView.style.display="block"; $("introCard").style.display=""; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
-    fbCard.style.display="block"; resetFeedback();
+    fbCard.style.display="block"; resetFeedback(); showDropNote();
     var gap=gaps.length?Math.round(gaps.reduce(function(a,b){return a+b;},0)/gaps.length):null;
     $("metrics").textContent="Call "+Math.round((Date.now()-callStarted)/1000)+"s · first word "+(firstAudioMs!==null?(firstAudioMs/1000).toFixed(1)+"s":"—")+(CUR==="v2"?"":" · avg reply gap "+(gap!==null?(gap/1000).toFixed(1)+"s":"—"));
     fbCard.scrollIntoView({behavior:"smooth",block:"start"});
@@ -653,6 +685,7 @@ calendarBlock(),
   $("againBtn").addEventListener("click",function(){ fbCard.style.display="none"; setupView.style.display="block"; $("introCard").style.display=""; window.scrollTo({top:0,behavior:"smooth"}); });
 
   $("startBtn").addEventListener("click",startCall);
+  $("redialBtn").addEventListener("click",function(){ $("redialBtn").style.display="none"; startCall(); });
   $("endBtn").addEventListener("click",endCall);
   window.addEventListener("beforeunload",function(){ try{ if(!ended){ endReason="page closed"; ended=true; stopMic(); saveCall(); } }catch(e){} });
 })();
