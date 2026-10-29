@@ -181,7 +181,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt", "mattg-17e01d": "mattg", "chris-16c789": "chris", "christina-6535c4": "christina", "nick-62b673": "nick" };
-  var PROMPT_VERSION = "ava-v0.6.2-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
+  var PROMPT_VERSION = "ava-v0.6.3-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -618,12 +618,12 @@ calendarBlock(),
           onEnd: function(){ if (ended) return; var la=lastAgentText();
             if (!isGoodbye(la)){ dropKind=dropKind||"net"; if (micMutedAt) micEvidence=micEvidence||"mic muted"; endReason=micEvidence?("connection dropped ("+micEvidence+")"):"connection dropped"; noteSys("call ended before goodbye"); }
             finishCall("call ended"); },
-          onError: function(e){ log.push({who:"system",t:secs(),text:"retell error: "+String((e&&e.message)||e).slice(0,300)}); if (!ended) { show(msg,"err","Version 2 couldn't connect: "+String((e&&e.message)||e).slice(0,160)); finishCall("retell error"); } }
+          onError: function(e){ log.push({who:"system",t:secs(),text:"retell error: "+String((e&&e.message)||e).slice(0,300)}); if (!ended) { var em=String((e&&e.message)||e); if (/permission|notallowed|denied/i.test(em)) { show(msg,"err","Your browser blocked the microphone. Open this link in Chrome or Safari (not inside another app), tap Allow when it asks for the mic, then start again."); finishCall("mic blocked"); } else { show(msg,"err","Couldn't connect: "+em.slice(0,160)+". Try again in a moment."); finishCall("retell error"); } } }
         }
       });
     }).catch(function(e){
       callView.style.display="none"; setupView.style.display="block";
-      show(msg,"err","Couldn't load the Version 2 voice library. Try again, or use Version 1.");
+      show(msg,"err","Couldn't load the call library. Check your connection and try again.");
     });
   }
 
