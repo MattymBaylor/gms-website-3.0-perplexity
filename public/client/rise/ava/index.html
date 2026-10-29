@@ -181,7 +181,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt", "mattg-17e01d": "mattg", "chris-16c789": "chris", "christina-6535c4": "christina", "nick-62b673": "nick" };
-  var PROMPT_VERSION = "ava-v0.6.3-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
+  var PROMPT_VERSION = "ava-v0.6.4-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -251,6 +251,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   /* ---------- connection guard (2026-10-29): dead mic / dropped call is shown as a connection issue, not Ava ---------- */
   var micMutedAt=0, micEvidence="", dropKind="";
   function noteSys(text){ try{ log.push({who:"system",t:secs(),text:text}); }catch(e){} }
+  /* ---------- call diagnostics (2026-10-29): browser console + network events saved with the call ---------- */
+  var dbg=[];
+  function dbgPush(kind,args){ try{ if (dbg.length>=60) dbg.shift(); var txt=Array.prototype.map.call(args,function(a){ try{ return (a&&a.message)?a.message:(typeof a==="object"?JSON.stringify(a):String(a)); }catch(e){ return String(a); } }).join(" ").slice(0,300); var t=null; try{ t=callStarted?Math.round((Date.now()-callStarted)/100)/10:null; }catch(e){} dbg.push({who:"system",t:t,text:kind+": "+txt}); }catch(e){} }
+  (function(){ ["warn","error"].forEach(function(k){ var o=console[k]; if(!o||o.__avaWrapped) return; var w=function(){ dbgPush("console."+k,arguments); return o.apply(console,arguments); }; w.__avaWrapped=true; console[k]=w; });
+    var ol=console.log, oi=console.info, oD=console.debug, RX=/livekit|disconnect|reconnect|ice|signal|peerconnection|websocket|room|track|leave/i;
+    [["log",ol],["info",oi],["debug",oD]].forEach(function(p){ var o=p[1]; if(!o||o.__avaWrapped) return; var w=function(){ try{ var j=Array.prototype.join.call(arguments," "); if (RX.test(j)) dbgPush("console."+p[0],arguments); }catch(e){} return o.apply(console,arguments); }; w.__avaWrapped=true; console[p[0]]=w; });
+    window.addEventListener("offline",function(){ dbgPush("net",["browser went offline"]); });
+    window.addEventListener("online",function(){ dbgPush("net",["browser back online"]); });
+    document.addEventListener("visibilitychange",function(){ dbgPush("page",["visibility "+document.visibilityState]); });
+    window.addEventListener("error",function(e){ dbgPush("window.error",[e&&e.message]); });
+    window.addEventListener("unhandledrejection",function(e){ dbgPush("unhandledrejection",[e&&e.reason]); });
+  })();
   function isGoodbye(t){ return SIGNOFF_RE.test(t) || DNC_RE.test(t) || /\bbye\b|have a (?:wonderful|lovely|good|great)/i.test(t); }
   function lastAgentText(){ for (var i=rItems.length-1;i>=0;i--){ if (rItems[i].role==="agent") return rItems[i].content||""; } return lastTurn||""; }
   function watchMicStream(s){
@@ -638,6 +650,7 @@ calendarBlock(),
       rItems.forEach(function(x){ log.push({who:x.role==="agent"?"ava":"homeowner", t:typeof x.time_sec==="number"?x.time_sec:null, text:x.content}); }); rItems=[]; }
     if (sinks&&sinks.bedSrc){ try{sinks.bedSrc.stop();}catch(e){} } sinks=null; agentBubble=null;
     if (agentTurn){ log.push({who:"ava",t:secs(),text:agentTurn}); agentTurn=""; }
+    try{ dbg.forEach(function(x){ log.push(x); }); dbg=[]; }catch(e){}
     saveCall();
     callView.style.display="none";
     if (!callStarted){ setupView.style.display="block"; $("introCard").style.display=""; if (!msg.textContent) show(msg,"err","The call didn't connect. Try again."); return; }
