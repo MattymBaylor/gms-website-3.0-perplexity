@@ -181,7 +181,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   "use strict";
   // ── Testers (Matt only until he approves the rest) ─────────────────────
   var TESTERS = { "matt-f5f0bc": "matt", "mattg-17e01d": "mattg", "chris-16c789": "chris", "christina-6535c4": "christina", "nick-62b673": "nick" };
-  var PROMPT_VERSION = "ava-v0.6.4-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
+  var PROMPT_VERSION = "ava-v0.6.5-2026-10-29"; // prompt unchanged vs v0.6; page adds dropped-call / dead-mic guard
 
   // ── Voice backend: Version 1 = Grok realtime (same broker as Crowther) ─
   var TOKEN_URL = "https://n8n.growthmindsetai.tech/webhook/gms-demo-token";
@@ -257,6 +257,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   (function(){ ["warn","error"].forEach(function(k){ var o=console[k]; if(!o||o.__avaWrapped) return; var w=function(){ dbgPush("console."+k,arguments); return o.apply(console,arguments); }; w.__avaWrapped=true; console[k]=w; });
     var ol=console.log, oi=console.info, oD=console.debug, RX=/livekit|disconnect|reconnect|ice|signal|peerconnection|websocket|room|track|leave/i;
     [["log",ol],["info",oi],["debug",oD]].forEach(function(p){ var o=p[1]; if(!o||o.__avaWrapped) return; var w=function(){ try{ var j=Array.prototype.join.call(arguments," "); if (RX.test(j)) dbgPush("console."+p[0],arguments); }catch(e){} return o.apply(console,arguments); }; w.__avaWrapped=true; console[p[0]]=w; });
+    try{ var OPC=window.RTCPeerConnection; if (OPC && !OPC.__avaWrapped){
+      var WPC=function(cfg){ var pc=new OPC(cfg); try{
+        dbgPush("rtc",["pc created, ice servers: "+((cfg&&cfg.iceServers)||[]).map(function(x){ return [].concat(x.urls).join("/").split(":")[0]; }).join(",")]);
+        pc.addEventListener("connectionstatechange",function(){ dbgPush("rtc",["connection "+pc.connectionState]); if (pc.connectionState==="connected"||pc.connectionState==="disconnected"||pc.connectionState==="failed"){ try{ pc.getStats().then(function(st){ var pair=null,loc={},rem={}; st.forEach(function(r){ if(r.type==="candidate-pair"&&(r.nominated||r.selected)&&r.state==="succeeded") pair=r; if(r.type==="local-candidate") loc[r.id]=r; if(r.type==="remote-candidate") rem[r.id]=r; }); if(pair){ var l=loc[pair.localCandidateId]||{}, m=rem[pair.remoteCandidateId]||{}; dbgPush("rtc",["path "+(l.candidateType||"?")+"/"+(l.protocol||"?")+" -> "+(m.candidateType||"?")+" rtt "+pair.currentRoundTripTime+" rx "+pair.bytesReceived+" tx "+pair.bytesSent]); } }); }catch(e){} } });
+        pc.addEventListener("iceconnectionstatechange",function(){ dbgPush("rtc",["ice "+pc.iceConnectionState]); });
+        var ocdc=pc.createDataChannel.bind(pc); pc.createDataChannel=function(){ var dc=ocdc.apply(null,arguments); try{ dc.addEventListener("close",function(){ dbgPush("rtc",["datachannel closed"]); }); dc.addEventListener("message",function(ev){ try{ var d=JSON.parse(ev.data); if (d&&d.type==="status") dbgPush("rtc",["server status "+JSON.stringify(d).slice(0,200)]); }catch(e){} }); }catch(e){} return dc; };
+      }catch(e){} return pc; };
+      WPC.prototype=OPC.prototype; WPC.__avaWrapped=true; try{ Object.keys(OPC).forEach(function(k){ WPC[k]=OPC[k]; }); WPC.generateCertificate=OPC.generateCertificate; }catch(e){}
+      window.RTCPeerConnection=WPC; } }catch(e){}
     window.addEventListener("offline",function(){ dbgPush("net",["browser went offline"]); });
     window.addEventListener("online",function(){ dbgPush("net",["browser back online"]); });
     document.addEventListener("visibilitychange",function(){ dbgPush("page",["visibility "+document.visibilityState]); });
