@@ -249,7 +249,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
   var callTimer=null, callStarted=0, wrapSent=false;
   var agentTurn="", lastTurn="", idleTimer=0, idleNudges=0, endTimer=0, askedHomeowners=false, lastUserText="";
   /* ---------- connection guard (2026-10-29): dead mic / dropped call is shown as a connection issue, not Ava ---------- */
-  var micMutedAt=0, micEvidence="", dropKind="";
+  var micMutedAt=0, micEvidence="", dropKind="", serverEnded=false;
   function noteSys(text){ try{ log.push({who:"system",t:secs(),text:text}); }catch(e){} }
   /* ---------- call diagnostics (2026-10-29): browser console + network events saved with the call ---------- */
   var dbg=[];
@@ -262,7 +262,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
         dbgPush("rtc",["pc created, ice servers: "+((cfg&&cfg.iceServers)||[]).map(function(x){ return [].concat(x.urls).join("/").split(":")[0]; }).join(",")]);
         pc.addEventListener("connectionstatechange",function(){ dbgPush("rtc",["connection "+pc.connectionState]); if (pc.connectionState==="connected"||pc.connectionState==="disconnected"||pc.connectionState==="failed"){ try{ pc.getStats().then(function(st){ var pair=null,loc={},rem={}; st.forEach(function(r){ if(r.type==="candidate-pair"&&(r.nominated||r.selected)&&r.state==="succeeded") pair=r; if(r.type==="local-candidate") loc[r.id]=r; if(r.type==="remote-candidate") rem[r.id]=r; }); if(pair){ var l=loc[pair.localCandidateId]||{}, m=rem[pair.remoteCandidateId]||{}; dbgPush("rtc",["path "+(l.candidateType||"?")+"/"+(l.protocol||"?")+" -> "+(m.candidateType||"?")+" rtt "+pair.currentRoundTripTime+" rx "+pair.bytesReceived+" tx "+pair.bytesSent]); } }); }catch(e){} } });
         pc.addEventListener("iceconnectionstatechange",function(){ dbgPush("rtc",["ice "+pc.iceConnectionState]); });
-        var ocdc=pc.createDataChannel.bind(pc); pc.createDataChannel=function(){ var dc=ocdc.apply(null,arguments); try{ dc.addEventListener("close",function(){ dbgPush("rtc",["datachannel closed"]); }); dc.addEventListener("message",function(ev){ try{ var d=JSON.parse(ev.data); if (d&&d.type==="status") dbgPush("rtc",["server status "+JSON.stringify(d).slice(0,200)]); }catch(e){} }); }catch(e){} return dc; };
+        var ocdc=pc.createDataChannel.bind(pc); pc.createDataChannel=function(){ var dc=ocdc.apply(null,arguments); try{ dc.addEventListener("close",function(){ dbgPush("rtc",["datachannel closed"]); }); dc.addEventListener("message",function(ev){ try{ var d=JSON.parse(ev.data); if (d&&d.type==="status"&&d.state==="ended") serverEnded=true; if (d&&d.type==="status") dbgPush("rtc",["server status "+JSON.stringify(d).slice(0,200)]); }catch(e){} }); }catch(e){} return dc; };
       }catch(e){} return pc; };
       WPC.prototype=OPC.prototype; WPC.__avaWrapped=true; try{ Object.keys(OPC).forEach(function(k){ WPC[k]=OPC[k]; }); WPC.generateCertificate=OPC.generateCertificate; }catch(e){}
       window.RTCPeerConnection=WPC; } }catch(e){}
@@ -272,7 +272,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);border-colo
     window.addEventListener("error",function(e){ dbgPush("window.error",[e&&e.message]); });
     window.addEventListener("unhandledrejection",function(e){ dbgPush("unhandledrejection",[e&&e.reason]); });
   })();
-  function isGoodbye(t){ return SIGNOFF_RE.test(t) || DNC_RE.test(t) || /\bbye\b|have a (?:wonderful|lovely|good|great)/i.test(t); }
+  function isGoodbye(t){ return SIGNOFF_RE.test(t) || DNC_RE.test(t) || /\bbye\b|have a (?:wonderful|lovely|good|great)|que tenga|hasta luego|adi[oó]s|buen d[ií]a|buenas (?:tardes|noches)/i.test(t); }
   function lastAgentText(){ for (var i=rItems.length-1;i>=0;i--){ if (rItems[i].role==="agent") return rItems[i].content||""; } return lastTurn||""; }
   function watchMicStream(s){
     try{ s.getAudioTracks().forEach(function(t){
@@ -539,7 +539,7 @@ calendarBlock(),
     var v={ first_name:$("firstName").value.trim()||"there", service_type:$("service").value, appointment_date:dateSel.value, appointment_time:$("appointmentTime").value, customer_address:$("address").value.trim()||"the address on file" };
     if (window.__avaIntroPause) window.__avaIntroPause(); try{ localStorage.setItem("ava_intro_seen","1"); }catch(e){}
     $("introCard").style.display="none";
-    scenario=v; callId=uuid(); callStarted=0; log=[]; micMutedAt=0; micEvidence=""; dropKind=""; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
+    scenario=v; callId=uuid(); callStarted=0; log=[]; micMutedAt=0; micEvidence=""; dropKind=""; serverEnded=false; firstAudioMs=null; gaps=[]; tSpeechStop=0; endReason=""; callLogged=false;
     ended=false; setupView.style.display="none"; fbCard.style.display="none"; callView.style.display="block";
     transcript.innerHTML=""; transcript.appendChild(emptyNote); setState("Connecting…",""); $("timeLeft").textContent="";
     if (CUR==="v2"){ startRetell(v); return; }
@@ -637,7 +637,7 @@ calendarBlock(),
           onAgentStopTalking: function(){ speaking=false; setState("<b>Listening…</b> just talk","listening"); },
           onTranscript: function(items){ renderRetell(items); },
           onEnd: function(){ if (ended) return; var la=lastAgentText();
-            if (!isGoodbye(la)){ dropKind=dropKind||"net"; if (micMutedAt) micEvidence=micEvidence||"mic muted"; endReason=micEvidence?("connection dropped ("+micEvidence+")"):"connection dropped"; noteSys("call ended before goodbye"); }
+            if (!serverEnded && !isGoodbye(la)){ dropKind=dropKind||"net"; if (micMutedAt) micEvidence=micEvidence||"mic muted"; endReason=micEvidence?("connection dropped ("+micEvidence+")"):"connection dropped"; noteSys("call ended before goodbye"); }
             finishCall("call ended"); },
           onError: function(e){ log.push({who:"system",t:secs(),text:"retell error: "+String((e&&e.message)||e).slice(0,300)}); if (!ended) { var em=String((e&&e.message)||e); if (/permission|notallowed|denied/i.test(em)) { show(msg,"err","Your browser blocked the microphone. Open this link in Chrome or Safari (not inside another app), tap Allow when it asks for the mic, then start again."); finishCall("mic blocked"); } else { show(msg,"err","Couldn't connect: "+em.slice(0,160)+". Try again in a moment."); finishCall("retell error"); } } }
         }
